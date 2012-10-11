@@ -5,6 +5,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,6 +34,10 @@ public class MainActivity extends Activity {
     	
     	@Override
     	protected void onPreExecute() {
+    		 		
+    		/*
+    		 * Switching views with ViewSwitcher
+    		
     		//Create the ViewSwitcher that hold the SplashScreen and the MainActivity 
     		viewSwitcher = new ViewSwitcher(MainActivity.this);
     		//Add the SplashScreen
@@ -44,6 +49,8 @@ public class MainActivity extends Activity {
     		progressBar.setMax(100);
     		//Set the viewSwitcher as the layout to be shown
     		setContentView(viewSwitcher);
+    		
+    		*/
     	}
     	
 		@Override
