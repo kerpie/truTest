@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>
+=======
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+  <group android:id="@+id/grupo1">
+          
+      
+           <item android:id="@+id/mnucerrar" android:title="Cerar Sesion" />
+        
+      </group>
+
+</menu>
+>>>>>>> 4b65de84e3868d39ac371545597be0324e1effee
