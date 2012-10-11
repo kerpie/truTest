@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+      android:background="@drawable/fondo_grande"
+  >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+      
+        android:orientation="vertical" >
+        
+         <TextView
+           android:layout_width="match_parent"
+           android:layout_height="80dp"
+           android:gravity="center"
+           android:padding="5dp"
+            android:textColor="#030303"
+           android:text="This product does not exist yet.Create it and turn into Discoverer!"
+             android:layout_margin="18dip"
+           android:textSize="12pt"
+           android:textStyle="bold" />
+         
+         
+         
+          <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+        
+              
+          <TextView
+        android:id="@+id/textView1"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Ean Code:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#030303"
+ 
+        android:textSize="8pt"
+        android:textStyle="bold" />
+           
+
+    <TextView
+        android:id="@+id/ean"
+        android:maxLines="1"
+     android:text="Ean Code:"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+            android:textColor="#030303"
+        
+         />
+        </LinearLayout>
+         <LinearLayout
+     
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+        
+           <TextView
+               android:id="@+id/textView4"
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:padding="5dp"
+               android:text="Product Name:"
+               android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#030303"
+              android:textSize="8pt"
+               android:textStyle="bold" />
+        
+    <EditText
+        android:id="@+id/proname"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Product Name"
+        android:maxLength="10"
+         android:inputType="text"
+        android:maxLines="1" />
+        
+         </LinearLayout>
+
+      
+         <LinearLayout
+     
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+        
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Country of manufacturing:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+         android:textColor="#030303"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+    
+ 	  <EditText
+        android:id="@+id/country"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+         android:inputType="text"
+        android:maxLines="1"
+         android:hint="Enter Country"
+        
+         />
+    
+           
+        
+         </LinearLayout>
+         
+         
+         <LinearLayout
+     
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+              <LinearLayout
+     
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+        
+  <TextView
+        android:id="@+id/textView2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Photo:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#030303"
+       android:textSize="8pt"
+        android:textStyle="bold" />
+      
+         </LinearLayout>
+ 	   <ImageButton
+ 	       android:id="@+id/fotopro"
+ 	       android:layout_width="120dp"
+ 	       android:layout_height="100dp"
+ 	       android:onClick="img_pro"
+ 	       android:src="@drawable/picon" />
+        
+         </LinearLayout>
+         
+         
+          
+         
+          
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:layout_margin="2dip" >
+           
+           
+        
+             <Button
+                   android:id="@+id/bregistrarproducto"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+       android:layout_gravity="center_vertical"
+    
+         android:padding="5dp"
+         android:layout_margin="7dip"
+        android:onClick="btn_regpro"
+        android:text="Register"
+
+        android:textStyle="bold" />
+  
+           
+        
+         </LinearLayout>
+ <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:layout_margin="2dip" >
+           
+           
+        
+         
+           
+                <Button
+                      android:id="@+id/blimpiarpro"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+       android:layout_gravity="center_vertical"
+    
+         android:padding="5dp"
+         android:layout_margin="7dip"
+        android:onClick="btn_limpiarpro"
+    
+        android:text="Clean"
+       
+        android:textStyle="bold" />
+           
+        
+         </LinearLayout>
+         
+ 
+             
+      
+    </LinearLayout>
+
+    
+
+</ScrollView>
