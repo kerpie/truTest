@@ -42,6 +42,29 @@ public class SplashActivity extends Activity {
 	        	publishProgress(CONNECTION_FAIL);
 	        	connection_status = false;
 	        }
+	        try  
+            {  
+                //Get the current thread's token  
+                synchronized (this)  
+                {  
+                    //Initialize an integer (that will act as a counter) to zero  
+                    int counter = 0;  
+                    //While the counter is smaller than four  
+                    while(counter <= 4)  
+                    {  
+                        //Wait 850 milliseconds  
+                        this.wait(850);  
+                        //Increment the counter  
+                        counter++;  
+                        //Set the current progress.  
+                        //This value is going to be passed to the onProgressUpdate() method.  
+                    }  
+                }  
+            }  
+            catch (InterruptedException e)  
+            {  
+                e.printStackTrace();  
+            }
 	        /*Check for previous sessions*/
 	        session_status = false;
 	        /* Check any other kind of data */
@@ -71,7 +94,6 @@ public class SplashActivity extends Activity {
 	        	}
 	        	else{
 	        		/* if not show Login form */
-	        		finish();
 	        		Intent showLoginForm = new Intent(getApplicationContext(), LoginActivity.class);
 	        		startActivity(showLoginForm);
 	        	}
@@ -79,6 +101,7 @@ public class SplashActivity extends Activity {
 	        else{
 	        	/* Load the crash activity announcing there is no connection and gracefully exits the application */
 	        }
+			finish();
 		}
     	
     }

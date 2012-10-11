@@ -5,7 +5,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="loading_text">Progress 0%</string>
     <string name="splashScreen_imgView_footer_contentDescription">footer</string>
     <string name="splashScreen_imgView_logo_contentDescription">logo</string>
     <string name="title_activity_login">LoginActivity</string>
