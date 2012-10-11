@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:background="@drawable/splashscreen_bg">
-	
     <ImageView 
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -12,28 +11,19 @@
         android:layout_centerVertical="true"
         android:contentDescription="@string/splashScreen_imgView_logo_contentDescription"
         android:src="@drawable/splashscreen_logo"/>
-    
-    <TextView
-        android:id="@+id/splashscreen_loadingText"
+    <ProgressBar 
+        android:id="@+id/splash_screen_progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/loading_text" 
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/splashscreen_progressBar"/>
-    
-    <ProgressBar 
-        android:id= "@+id/splashscreen_progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="40dip" />
-
+        android:layout_centerHorizontal = "true"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="50dp"/>
     <ImageView
         android:id="@+id/footer"
-        android:layout_width="match_parent"
+        android:layout_width="1800dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-21dp"
         android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"
         android:src="@drawable/splashscreen_footer" />
-
 </RelativeLayout>
