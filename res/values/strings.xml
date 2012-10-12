@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">TruStripes</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
@@ -7,6 +6,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="splashScreen_imgView_footer_contentDescription">footer</string>
     <string name="splashScreen_imgView_logo_contentDescription">logo</string>
+    <string name="mainActivity_imgView_logo_contentDescription">logo</string>
     <string name="title_activity_login">LoginActivity</string>
-
 </resources>

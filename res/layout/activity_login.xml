@@ -1,6 +1,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent" 
+    android:background="@drawable/splashscreen_bg">
+    <RelativeLayout 
+        android:id="@+id/inner_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:padding="20dp">
+		<ImageView 
+		    android:id="@+id/mainActivity_logo"
+		    android:src="@drawable/login_logo_small"
+		    android:contentDescription = "@string/mainActivity_imgView_logo_contentDescription"
+		    android:layout_width = "wrap_content"
+		    android:layout_height = "wrap_content"
+			android:layout_centerHorizontal="true"/>
+		<EditText 
+		    android:id="@+id/login_username"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dp"
+		    android:layout_below="@+id/mainActivity_logo"
+		    android:hint="Username"
+		    android:padding="10dp"
+		    android:background="#FFFF"/>
+		<EditText 
+		    android:id="@+id/login_password"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dp"
+		    android:layout_below="@+id/login_username"
+		    android:hint="Password"
+		    android:padding="10dp"
+		    />
+		<LinearLayout 
+		    android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:orientation="horizontal"
+	        android:layout_below="@+id/login_password">
+		    <Button 
+		        android:id="@+id/login_facebook_button"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:text="Facebook"
+		        android:alpha="1"/>
+		    <Button 
+		        android:id="@+id/login_twitter_button"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:text="Twitter"
+		        android:alpha="1"/>
+		</LinearLayout>
+	</RelativeLayout>
+	<ImageView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-22dp"
+        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"
+        android:src="@drawable/splashscreen_footer" />
 </RelativeLayout>
