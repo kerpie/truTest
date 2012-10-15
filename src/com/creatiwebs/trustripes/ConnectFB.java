@@ -1,23 +1,12 @@
 package com.creatiwebs.trustripes;
 
-import android.os.AsyncTask;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
-import android.widget.Button;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
@@ -25,75 +14,58 @@ import com.facebook.android.FacebookError;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.Facebook.DialogListener;
 
-public class LoginActivity extends Activity {
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-	EditText loginUsername = null;
-	EditText loginPass = null;
-	Button loginButton = null;
-	private static String APP_ID = "274388489340768"; // Facebook ID AlertaMóvil
+public class ConnectFB extends Activity {
+
+	private static String APP_ID = "274388489340768"; // Facebook id AlertaMóvil
 
 	// Instance of Facebook Class
 	private Facebook facebook = new Facebook(APP_ID);
 	private AsyncFacebookRunner mAsyncRunner;
 	String FILENAME = "AndroidSSO_data";
 	private SharedPreferences mPrefs;
-	Button btnFb = null;
+	Button btnFb;
+	TextView n, e, i;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login);
-
-		loginUsername = (EditText) findViewById(R.id.login_username);
-		loginPass = (EditText) findViewById(R.id.login_password);
-		loginButton = (Button) findViewById(R.id.login_button);
 		btnFb = (Button) findViewById(R.id.login_facebook_button);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
-
-		loginButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {				
-			}
-		});
-
+	
 		btnFb.setOnClickListener(new View.OnClickListener() {
+
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.d("Button", "button Clicked FB");
+				Log.d("Image Button", "button Clicked");
 				loginToFacebook();
+
 			}
 		});
 
-	}
-
-	public class CheckLoginData extends AsyncTask<Void, Integer, Void> {
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			// TODO Auto-generated method stub
-			super.onProgressUpdate(values);
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_login, menu);
+		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-	
-	//Login to FB
+
+	// Login to FB
+
 	public void loginToFacebook() {
+
 		mPrefs = getPreferences(MODE_PRIVATE);
 		String access_token = mPrefs.getString("access_token", null);
 		long expires = mPrefs.getLong("access_expires", 0);
@@ -113,7 +85,7 @@ public class LoginActivity extends Activity {
 					new DialogListener() {
 
 						public void onCancel() {
-							// Function to handle cancel event(Agree)
+							// Function to handle cancel event
 						}
 
 						public void onComplete(Bundle values) {
@@ -145,7 +117,7 @@ public class LoginActivity extends Activity {
 
 	}
 
-	// GET DATA USERS FROM FB
+	// GETprofile
 	public void getProfile() {
 		mAsyncRunner.request("me", new RequestListener() {
 			public void onComplete(String response, Object state) {
@@ -172,6 +144,10 @@ public class LoginActivity extends Activity {
 									"Name: " + name + "\nEmail: " + email
 											+ "\nId" + id, Toast.LENGTH_LONG)
 									.show();
+							// n.setText(name);
+							// e.setText(email);
+							// i.setText(id);
+
 						}
 
 					});
@@ -199,6 +175,7 @@ public class LoginActivity extends Activity {
 	}
 
 	// Get Data From jSon?
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		facebook.authorizeCallback(requestCode, resultCode, data);
