@@ -4,15 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import com.creatiwebs.Constants.ConstantValues;
@@ -30,14 +35,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Button;
-import android.content.SharedPreferences;
-import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
@@ -49,10 +54,12 @@ public class LoginActivity extends Activity {
 	
 	private static final String TAG = "LoginActivity";
 	private final String USER_DATA = "UserDataPreferences";
+	public final static int ERROR = 2;
 	
 	EditText loginUsername = null;
 	EditText loginPass = null;
 	Button loginButton = null;
+	TextView errorText = null;
 	
 	private static String APP_ID = "274388489340768"; // Facebook ID AlertaMóvil
 	
@@ -73,6 +80,7 @@ public class LoginActivity extends Activity {
         loginUsername = (EditText) findViewById(R.id.login_username);
         loginPass = (EditText) findViewById(R.id.login_password);
         loginButton = (Button) findViewById(R.id.login_button);
+        errorText = (TextView) findViewById(R.id.login_error_message);
         
         newSettings = getSharedPreferences(USER_DATA, MODE_PRIVATE);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +91,6 @@ public class LoginActivity extends Activity {
 		});
 		btnFb = (Button) findViewById(R.id.login_facebook_button);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
-
-		loginButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {				
-			}
-		});
 
 		btnFb.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -105,7 +108,9 @@ public class LoginActivity extends Activity {
     	StringBuilder stringBuilder = null;
     	String iduser = null;
     	String name = null;
-    	String msj = null;
+    	String statusResponse = null;
+    	String responseMessage = null;
+    	
     	
     	@Override
     	protected void onPreExecute() {
@@ -116,13 +121,18 @@ public class LoginActivity extends Activity {
     	@Override
     	protected Void doInBackground(Void... params) {    		
     		try{
-	    		HttpClient client =  new DefaultHttpClient();
-	    		HttpGet httpGet = new HttpGet(ConstantValues.getLoginUrl(username, pass));
-	    		HttpResponse httpResponse = client.execute(httpGet);
-	    		StatusLine status = httpResponse.getStatusLine();
-	    		int estado = status.getStatusCode();
+	    		HttpClient client =  new DefaultHttpClient();   		
+	            String postURL = "http://www.trustripes.com/dev/ws/ws-validatelogin.php";
+	            HttpPost post = new HttpPost(postURL); 
+	            List<NameValuePair> param = new ArrayList<NameValuePair>();
+	            param.add(new BasicNameValuePair("user",username));
+	            param.add(new BasicNameValuePair("password",pass));
+	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
+	            post.setEntity(ent);
+	            HttpResponse responsePOST = client.execute(post);    		
+	    		StatusLine status = responsePOST.getStatusLine();
 	    		if(status.getStatusCode() == HttpStatus.SC_OK){
-	    			HttpEntity entity = httpResponse.getEntity();
+	    			HttpEntity entity = responsePOST.getEntity();
 	    			InputStream inputStream = entity.getContent();
 	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	    			String line = null;
@@ -132,9 +142,16 @@ public class LoginActivity extends Activity {
 	    			}
 	    			
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-	    			iduser = jsonObject.getString("iduser");
-	    			name = jsonObject.getString("nombre"); 
-	    			msj = jsonObject.getString("msj");
+	    			statusResponse = jsonObject.getString("status");
+	    			if(Integer.parseInt(statusResponse) == 1){
+	    				iduser = jsonObject.getString("iduser");
+		    			name = jsonObject.getString("nombre");
+		    			responseMessage = jsonObject.getString("msj");
+	    			}
+	    			else{
+	    				responseMessage = jsonObject.getString("msj");
+	    				publishProgress(ERROR);
+	    			}
 	    			    			
 	    			reader.close();
 	    			inputStream.close();
@@ -145,7 +162,10 @@ public class LoginActivity extends Activity {
 	    	}catch(ClientProtocolException e){
     			e.printStackTrace();
     			Log.e(TAG,"CheckLoginData: Error ClientProtocolException");
-    		} catch (IOException e) {
+    		}catch(UnsupportedEncodingException e){
+    			e.printStackTrace();
+    			Log.e(TAG,"CheckLoginData: Error UnsupportedEncodingException");
+			}catch (IOException e) {
     			Log.e(TAG,"CheckLoginData: Error IOException");
 				e.printStackTrace();
 			}catch(Exception e){
@@ -157,7 +177,15 @@ public class LoginActivity extends Activity {
     	
     	@Override
     	protected void onProgressUpdate(Integer... values) {
-    		super.onProgressUpdate(values);
+    		switch(values[0]){
+	    		case ERROR:
+	    			errorText.setText(responseMessage);
+	    			break;
+	    		default:
+	    			errorText.setText("");
+	    			break;
+    		}
+    		
     	}
     	
     	@Override
@@ -165,7 +193,7 @@ public class LoginActivity extends Activity {
     		SharedPreferences.Editor settingsEditor = newSettings.edit();
 			settingsEditor.putString("user_id", iduser);
 			settingsEditor.putString("user_name", name);
-			settingsEditor.putString("user_status", msj);
+			settingsEditor.putString("user_status", statusResponse);
 			settingsEditor.commit();
 			showStatusMessage();
     	}
@@ -178,11 +206,14 @@ public class LoginActivity extends Activity {
     			finish();
     			Intent startWallActivity = new Intent(getApplicationContext(), WallActivity.class);
     			startActivity(startWallActivity);
+    			Log.i(TAG, "Inicio de WallActivity ok");
     			break;
     		case 0:
     			/* show error message */
+    			Log.i(TAG, "Error 0");
     			break;
     		default:
+    			Log.i(TAG, "Comportamiento por defecto");
     			break;
     	}
     } 

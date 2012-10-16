@@ -1,11 +1,14 @@
 package com.creatiwebs.trustripes;
 
+import com.creatiwebs.Constants.ConstantValues;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.Toast;
@@ -28,6 +31,9 @@ public class SplashActivity extends Activity {
     	private final int CONNECTION_SUCCESS = 200;
     	private final int CONNECTION_FAIL = 300;
     	
+    	private final int SESSION_OPEN = 400;
+    	private final int SESSION_CLOSED = 500;
+    	
 		@Override
 		protected Void doInBackground(Void... params) {
 			 /* Check Connection Status */
@@ -41,6 +47,18 @@ public class SplashActivity extends Activity {
 	        else{
 	        	publishProgress(CONNECTION_FAIL);
 	        	connection_status = false;
+	        }
+	        
+	        /* Check for open session */
+	        SharedPreferences session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+	        if (Integer.parseInt(session.getString("user_status", "0")) == 1){
+	        	/* Open Session */
+	        	session_status = true;
+	        	publishProgress(SESSION_OPEN);
+	        }
+	        else{
+	        	session_status = false;
+	        	publishProgress(SESSION_CLOSED);
 	        }
 	        try  
             {  
@@ -65,8 +83,6 @@ public class SplashActivity extends Activity {
             {  
                 e.printStackTrace();  
             }
-	        /*Check for previous sessions*/
-	        session_status = false;
 	        /* Check any other kind of data */
 	        return null;
 		}
@@ -80,6 +96,12 @@ public class SplashActivity extends Activity {
 				case CONNECTION_FAIL:
 					Toast.makeText(getApplicationContext(), "No Hay Conexion", Toast.LENGTH_SHORT).show();
 					break;
+				case SESSION_OPEN:
+					Toast.makeText(getApplicationContext(), "Sesion abierta", Toast.LENGTH_SHORT).show();
+					break;
+				case SESSION_CLOSED:
+					Toast.makeText(getApplicationContext(), "No hay Sesion", Toast.LENGTH_SHORT).show();
+					break;
 				default:
 					break;
 			}
@@ -91,6 +113,8 @@ public class SplashActivity extends Activity {
 	        	/*If there is an active session: load data*/
 	        	if(session_status){
 	        		/* load saved session */
+	        		Intent showWallActivity = new Intent(getApplicationContext(), WallActivity.class);
+	        		startActivity(showWallActivity);
 	        	}
 	        	else{
 	        		/* if not show Login form */
