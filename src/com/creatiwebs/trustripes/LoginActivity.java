@@ -13,28 +13,32 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 
 import com.creatiwebs.Constants.ConstantValues;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	
 	private static final String TAG = "LoginActivity";
+	private final String USER_DATA = "UserDataPreferences";
 	
 	EditText loginUsername = null;
 	EditText loginPass = null;
 	Button loginButton = null;
-	String resultado = null;
+	
+	SharedPreferences newSettings = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class LoginActivity extends Activity {
         loginPass = (EditText) findViewById(R.id.login_password);
         loginButton = (Button) findViewById(R.id.login_button);
         
+        newSettings = getSharedPreferences(USER_DATA, MODE_PRIVATE);
         loginButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -59,7 +64,9 @@ public class LoginActivity extends Activity {
     	String username = null;
     	String pass = null;
     	StringBuilder stringBuilder = null;
-    	String finalresult = null;
+    	String iduser = null;
+    	String name = null;
+    	String msj = null;
     	
     	@Override
     	protected void onPreExecute() {
@@ -75,22 +82,28 @@ public class LoginActivity extends Activity {
 	    		HttpResponse httpResponse = client.execute(httpGet);
 	    		StatusLine status = httpResponse.getStatusLine();
 	    		int estado = status.getStatusCode();
-	    		int nuevo_estado = estado;
-	    		if(status.getStatusCode() == HttpStatus.SC_ACCEPTED){
+	    		if(status.getStatusCode() == HttpStatus.SC_OK){
 	    			HttpEntity entity = httpResponse.getEntity();
 	    			InputStream inputStream = entity.getContent();
 	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	    			String line = null;
+	    			stringBuilder = new StringBuilder();
 	    			while((line = reader.readLine()) != null){
 	    				stringBuilder.append(line);
 	    			}
+	    			
+	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+	    			iduser = jsonObject.getString("iduser");
+	    			name = jsonObject.getString("nombre"); 
+	    			msj = jsonObject.getString("msj");
+	    			    			
 	    			reader.close();
 	    			inputStream.close();
 	    		}
 	    		else{
 	    			/* Check Other Status Code */
 	    		}
-    		}catch(ClientProtocolException e){
+	    	}catch(ClientProtocolException e){
     			e.printStackTrace();
     			Log.e(TAG,"CheckLoginData: Error ClientProtocolException");
     		} catch (IOException e) {
@@ -100,9 +113,6 @@ public class LoginActivity extends Activity {
 				Log.e(TAG, "Unknown error");
 				e.printStackTrace();
 			}
-    		
-    		finalresult = stringBuilder.toString();
-    		
     		return null;
     	}
     	
@@ -113,17 +123,34 @@ public class LoginActivity extends Activity {
     	
     	@Override
     	protected void onPostExecute(Void result) {
-    		hey(finalresult);
+    		SharedPreferences.Editor settingsEditor = newSettings.edit();
+			settingsEditor.putString("user_id", iduser);
+			settingsEditor.putString("user_name", name);
+			settingsEditor.putString("user_status", msj);
+			settingsEditor.commit();
+			showStatusMessage();
     	}
     }
+    
+    public void showStatusMessage(){
+    	int status = Integer.parseInt(newSettings.getString("user_status", "No data"));
+    	switch(status){
+    		case 1:
+    			finish();
+    			Intent startWallActivity = new Intent(getApplicationContext(), WallActivity.class);
+    			startActivity(startWallActivity);
+    			break;
+    		case 0:
+    			/* show error message */
+    			break;
+    		default:
+    			break;
+    	}
+    } 
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_login, menu);
         return true;
-    }
-    
-    public void hey(String valor){
-    	Toast.makeText(getApplicationContext(), valor, Toast.LENGTH_SHORT).show();
     }
 }
