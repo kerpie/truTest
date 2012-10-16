@@ -11,20 +11,26 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int bg_with_footer=0x7f020000;
-        public static final int close=0x7f020001;
-        public static final int facebook_icon=0x7f020002;
-        public static final int ic_action_search=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int login_button=0x7f020005;
-        public static final int login_logo_small=0x7f020006;
-        public static final int logout_button=0x7f020007;
-        public static final int splashscreen_bg=0x7f020008;
-        public static final int splashscreen_footer=0x7f020009;
-        public static final int splashscreen_logo=0x7f02000a;
+        public static final int anon=0x7f020000;
+        public static final int bg_with_footer=0x7f020001;
+        public static final int close=0x7f020002;
+        public static final int facebook_icon=0x7f020003;
+        public static final int fondopho=0x7f020004;
+        public static final int foto_redondo=0x7f020005;
+        public static final int ic_action_search=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int incon=0x7f020008;
+        public static final int login_button=0x7f020009;
+        public static final int login_logo_small=0x7f02000a;
+        public static final int logout_button=0x7f02000b;
+        public static final int splashscreen_bg=0x7f02000c;
+        public static final int splashscreen_footer=0x7f02000d;
+        public static final int splashscreen_logo=0x7f02000e;
     }
     public static final class id {
         public static final int footer=0x7f070007;
+        public static final int idperson=0x7f07000a;
+        public static final int idproduct=0x7f07000c;
         public static final int inner_container=0x7f070000;
         public static final int login_button=0x7f070004;
         public static final int login_facebook_button=0x7f070005;
@@ -33,13 +39,15 @@ public final class R {
         public static final int login_username=0x7f070002;
         public static final int logo=0x7f070008;
         public static final int mainActivity_logo=0x7f070001;
-        public static final int menu_settings=0x7f07000a;
+        public static final int menu_settings=0x7f07000d;
         public static final int splash_screen_progressBar=0x7f070009;
+        public static final int text_string=0x7f07000b;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int splash_activity=0x7f030002;
+        public static final int wall_item=0x7f030003;
     }
     public static final class menu {
         public static final int activity_login=0x7f060000;
