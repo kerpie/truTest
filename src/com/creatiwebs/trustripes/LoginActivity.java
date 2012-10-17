@@ -137,7 +137,6 @@ public class LoginActivity extends Activity {
 	    			while((line = reader.readLine()) != null){
 	    				stringBuilder.append(line);
 	    			}
-	    			
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
 	    			if(Integer.parseInt(statusResponse) == 1){

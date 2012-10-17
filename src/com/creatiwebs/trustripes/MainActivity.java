@@ -7,9 +7,12 @@ import android.app.Activity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.Window;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+	TextView profile_textView = null;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +22,7 @@ public class MainActivity extends Activity {
         CustomViewPagerAdapter pagerAdapter = new CustomViewPagerAdapter();
         ViewPager myPager = (ViewPager) findViewById(R.id.pager);
         myPager.setAdapter(pagerAdapter);
-        myPager.setCurrentItem(2);
+        myPager.setCurrentItem(0);
     }
       
     //For Options Menu
