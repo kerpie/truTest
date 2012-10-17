@@ -29,8 +29,8 @@ public final class R {
     }
     public static final class id {
         public static final int footer=0x7f070009;
-        public static final int idperson=0x7f07000c;
-        public static final int idproduct=0x7f07000e;
+        public static final int idperson=0x7f070014;
+        public static final int idproduct=0x7f070016;
         public static final int inner_container=0x7f070000;
         public static final int login_button=0x7f070004;
         public static final int login_error_message=0x7f070008;
@@ -38,18 +38,28 @@ public final class R {
         public static final int login_password=0x7f070003;
         public static final int login_twitter_button=0x7f070007;
         public static final int login_username=0x7f070002;
-        public static final int logo=0x7f07000a;
+        public static final int logo=0x7f070011;
         public static final int mainActivity_logo=0x7f070001;
-        public static final int menu_settings=0x7f07000f;
+        public static final int main_mainPart=0x7f07000a;
+        public static final int main_snackInButton=0x7f07000c;
+        public static final int main_textView=0x7f07000b;
+        public static final int menu_settings=0x7f070017;
+        public static final int pager=0x7f07000d;
+        public static final int pager_title_strip=0x7f07000e;
+        public static final int profile_editText=0x7f070010;
+        public static final int profile_textView=0x7f07000f;
         public static final int social_buttons=0x7f070005;
-        public static final int splash_screen_progressBar=0x7f07000b;
-        public static final int text_string=0x7f07000d;
+        public static final int splash_screen_progressBar=0x7f070012;
+        public static final int text_string=0x7f070015;
+        public static final int wall_textView=0x7f070013;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int splash_activity=0x7f030002;
-        public static final int wall_item=0x7f030003;
+        public static final int profile=0x7f030002;
+        public static final int splash_activity=0x7f030003;
+        public static final int wall_activity=0x7f030004;
+        public static final int wall_item=0x7f030005;
     }
     public static final class menu {
         public static final int activity_login=0x7f060000;

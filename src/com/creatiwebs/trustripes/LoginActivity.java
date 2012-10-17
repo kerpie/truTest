@@ -204,7 +204,7 @@ public class LoginActivity extends Activity {
     	switch(status){
     		case 1:
     			finish();
-    			Intent startWallActivity = new Intent(getApplicationContext(), WallActivity.class);
+    			Intent startWallActivity = new Intent(getApplicationContext(), MainActivity.class);
     			startActivity(startWallActivity);
     			Log.i(TAG, "Inicio de WallActivity ok");
     			break;

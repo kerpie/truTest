@@ -113,7 +113,7 @@ public class SplashActivity extends Activity {
 	        	/*If there is an active session: load data*/
 	        	if(session_status){
 	        		/* load saved session */
-	        		Intent showWallActivity = new Intent(getApplicationContext(), WallActivity.class);
+	        		Intent showWallActivity = new Intent(getApplicationContext(), MainActivity.class);
 	        		startActivity(showWallActivity);
 	        	}
 	        	else{

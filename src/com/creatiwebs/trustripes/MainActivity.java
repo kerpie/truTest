@@ -1,11 +1,14 @@
 package com.creatiwebs.trustripes;
 
+import com.creatiwebs.trustripes.adapters.CustomViewPagerAdapter;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.Window;
 
-public class WallActivity extends Activity {
+public class MainActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -13,6 +16,10 @@ public class WallActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         
+        CustomViewPagerAdapter pagerAdapter = new CustomViewPagerAdapter();
+        ViewPager myPager = (ViewPager) findViewById(R.id.pager);
+        myPager.setAdapter(pagerAdapter);
+        myPager.setCurrentItem(2);
     }
       
     //For Options Menu

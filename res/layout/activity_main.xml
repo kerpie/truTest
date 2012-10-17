@@ -1,14 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent" >   
+    <LinearLayout 
+        android:id="@+id/main_mainPart"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="MAIN"
-        tools:context=".MainActivity" />
-
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+	    <TextView
+	        android:id="@+id/main_textView"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="2"
+	        android:text="MAIN"
+	        android:padding="10dp"
+	        tools:context=".MainActivity" 
+	        android:layout_gravity="center_vertical"/>
+	    <Button
+	        android:id="@+id/main_snackInButton"
+	        android:layout_width = "wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text = "Snack-In" 
+	        android:layout_weight="1"
+	        android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+	<android.support.v4.view.ViewPager
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/pager"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below = "@+id/main_mainPart">
+	    <android.support.v4.view.PagerTabStrip
+	        android:id="@+id/pager_title_strip"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="top"
+	        android:background="#33b5e5"
+	        android:textColor="#fff"
+	        android:paddingTop="4dp"
+	        android:paddingBottom="4dp" />
+	</android.support.v4.view.ViewPager>
 </RelativeLayout>
