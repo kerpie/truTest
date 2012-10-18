@@ -58,7 +58,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
      public CharSequence getPageTitle(int position) {
          return Titles[position];
      }
-	 
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		LayoutInflater inflater = (LayoutInflater) container.getContext()
