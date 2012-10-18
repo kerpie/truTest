@@ -42,8 +42,6 @@ public class MainActivity extends Activity {
 		myPager.setAdapter(pagerAdapter);
 		myPager.setCurrentItem(0);
 	}
-	
-	
 
 	// For Options Menu
 	public boolean onCreateOptionsMenu(Menu menu) {
