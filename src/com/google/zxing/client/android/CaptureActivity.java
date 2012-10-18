@@ -16,11 +16,9 @@
 
 package com.google.zxing.client.android;
 
-
-
-
-
+import com.creatiwebs.trustripes.PreSnackin;
 import com.creatiwebs.trustripes.R;
+import com.creatiwebs.trustripes.Register;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
@@ -31,8 +29,6 @@ import com.google.zxing.client.android.camera.CameraManager;
 import com.google.zxing.client.android.result.ResultButtonListener;
 import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
-
-
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -78,15 +74,26 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -181,7 +188,7 @@ public final class CaptureActivity extends Activity implements
 		setContentView(R.layout.capture);
 
 		hasSurface = false;
-	
+
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
 
@@ -364,7 +371,6 @@ public final class CaptureActivity extends Activity implements
 				int itemNumber = intent.getIntExtra(
 						Intents.History.ITEM_NUMBER, -1);
 				if (itemNumber >= 0) {
-					
 
 				}
 			}
@@ -422,7 +428,6 @@ public final class CaptureActivity extends Activity implements
 		lastResult = rawResult;
 		ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(
 				this, rawResult);
-		
 
 		if (barcode == null) {
 			// This is from history -- no saved barcode
@@ -478,7 +483,7 @@ public final class CaptureActivity extends Activity implements
 			paint.setStyle(Paint.Style.STROKE);
 			Rect border = new Rect(2, 2, barcode.getWidth() - 2,
 					barcode.getHeight() - 2);
-			//canvas.drawRect(border, paint);
+			// canvas.drawRect(border, paint);
 
 			paint.setColor(getResources().getColor(R.color.result_points));
 			if (points.length == 2) {
@@ -510,23 +515,8 @@ public final class CaptureActivity extends Activity implements
 			ResultHandler resultHandler, Bitmap barcode) {
 
 		resultado = rawResult.toString();
-		Intent t = new Intent();
-		t.putExtra("codebar", resultado);
-		setResult(1, t);
-		finish();
+		new Snackin().execute();
 
-	}
-	
-	
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		Intent t = new Intent();
-		t.putExtra("OnBack", 0);
-		setResult(1, t);
-		finish();
-
-		
 	}
 
 	// Briefly show the contents of the barcode, then handle the result outside
@@ -722,4 +712,81 @@ public final class CaptureActivity extends Activity implements
 	public void drawViewfinder() {
 		viewfinderView.drawViewfinder();
 	}
+
+	//
+
+	public class Snackin extends AsyncTask<Void, Integer, Void> {
+		StringBuilder stringBuilder;
+		String statusResponse = "";
+		String idproduct = "";
+		boolean canSnack = false;
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+				HttpClient client = new DefaultHttpClient();
+				String postURL = "http://www.trustripes.com/dev/ws/ws-barcodevalidation.php";
+				HttpPost post = new HttpPost(postURL);
+				List<NameValuePair> param = new ArrayList<NameValuePair>();
+				param.add(new BasicNameValuePair("codigo", resultado));
+				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
+				post.setEntity(ent);
+				HttpResponse responsePOST = client.execute(post);
+				StatusLine status = responsePOST.getStatusLine();
+				if (status.getStatusCode() == HttpStatus.SC_OK) {
+					HttpEntity entity = responsePOST.getEntity();
+					InputStream inputStream = entity.getContent();
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(inputStream));
+					String line = null;
+					stringBuilder = new StringBuilder();
+					while ((line = reader.readLine()) != null) {
+						stringBuilder.append(line);
+					}
+					JSONObject jsonObject = new JSONObject(
+							stringBuilder.toString());
+					statusResponse = jsonObject.getString("status");
+					if (Integer.parseInt(statusResponse) == 1) {
+						idproduct = jsonObject.getString("idproduct");
+						canSnack = true;
+					} else {
+						canSnack = false;
+					}
+
+					reader.close();
+					inputStream.close();
+				} else {
+					/* Check Other Status Code */
+				}
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+				Log.e(TAG, "CheckLoginData: Error ClientProtocolException");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				Log.e(TAG, "CheckLoginData: Error UnsupportedEncodingException");
+			} catch (IOException e) {
+				Log.e(TAG, "CheckLoginData: Error IOException");
+				e.printStackTrace();
+			} catch (Exception e) {
+				Log.e(TAG, "Unknown error");
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			Intent intent;
+			// TODO Auto-generated method stub
+			if (canSnack) {
+				intent = new Intent(getApplicationContext(), PreSnackin.class);
+			} else {
+				intent = new Intent(getApplicationContext(), Register.class);
+			}
+			intent.putExtra("RESULT", resultado);
+			startActivity(intent);
+			finish();
+		}
+	}
+
 }
