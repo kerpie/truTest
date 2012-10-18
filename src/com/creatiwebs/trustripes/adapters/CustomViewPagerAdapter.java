@@ -17,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.creatiwebs.Constants.ConstantValues;
@@ -32,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class CustomViewPagerAdapter extends PagerAdapter{
@@ -40,6 +42,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	SharedPreferences session;
 	ImageView profile_image;
 	TextView profile_text, wall_text;
+	ListView wall_list;
 	
 	@Override
 	public int getCount() {
@@ -74,6 +77,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             view = inflater.inflate(resId, null);
             profile_image = (ImageView) view.findViewById(R.id.profile_image);
             profile_text = (TextView) view.findViewById(R.id.profile_textView);
+            wall_list = (ListView) view.findViewById(R.id.wall_list);
             new LoadProfileData().execute();
             break;
         }
@@ -166,7 +170,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		StringBuilder stringBuilder = null;
 		String statusResponse = null;
 		String id_string = null;
-		
+		JSONArray jsonArray = null;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -177,11 +181,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 					id_string = session.getString("user_id", "No data");
 					HttpClient client =  new DefaultHttpClient();   		
 		            String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
-//		            HttpPost post = new HttpPost(postURL); 
-//		            List<NameValuePair> param = new ArrayList<NameValuePair>();
-//		            param.add(new BasicNameValuePair("iduser",id_string));
-//		            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
-//		            post.setEntity(ent);
 		            HttpGet httpGet = new HttpGet(url);
 		            HttpResponse responseGET = client.execute(httpGet);    		
 		    		StatusLine status = responseGET.getStatusLine();
@@ -194,6 +193,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		    			while((line = reader.readLine()) != null){
 		    				stringBuilder.append(line);
 		    			}
+		    			jsonArray = new JSONArray(stringBuilder.toString());
 		    			reader.close();
 		    			inputStream.close();
 		    		}
@@ -211,7 +211,27 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		 	 
 		 @Override
 		protected void onPostExecute(Void result) {
-			wall_text.setText(stringBuilder.toString());
+			for(int i=0;i<jsonArray.length();i++){
+				try{
+					JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+					String username = jsonObject.getString("username");
+					String idProduct = jsonObject.getString("idproduct");
+					String idSnackin = jsonObject.getString("idsnackin");
+					String productName = jsonObject.getString("productname");
+					String photo = jsonObject.getString("photo");
+					
+					String tmp = " ";
+					tmp = tmp +	"username: " + username + "\n" +
+								"ProductID: " + idProduct + "\n" +
+								"SnackIn: " + idSnackin + "\n" +
+								"Product Name: " + productName + "\n" +
+								"Photo: " + photo + "\n";
+					
+					wall_text.setText(wall_text.getText() + tmp);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
 		}
 	 }
 }
