@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -40,6 +41,15 @@ public class MainActivity extends Activity {
 		ViewPager myPager = (ViewPager) findViewById(R.id.pager);
 		myPager.setAdapter(pagerAdapter);
 		myPager.setCurrentItem(0);
+	}
+	
+	
+	//CodeResult for Camera
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		String var = data.getStringExtra("codebar");
+		Toast.makeText(getApplicationContext(), var, Toast.LENGTH_SHORT).show();
 	}
 
 	// For Options Menu
