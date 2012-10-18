@@ -38,13 +38,6 @@
         android:text="@string/msg_share_explanation"
         android:paddingBottom="8dip"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:src="@drawable/share_via_barcode"
-        android:paddingBottom="8dip"/>
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

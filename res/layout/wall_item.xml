@@ -18,7 +18,8 @@
             android:id="@+id/wall_item_simple_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/idperson"
+            android:layout_below="@+id/wall_item_profile_photo"
+            android:layout_toLeftOf="@+id/wall_item_product_photo"
             android:layout_marginTop="20dp"
             android:layout_marginRight="5dp"
             android:text="Here all String"
@@ -29,11 +30,7 @@
             android:id="@+id/wall_item_product_photo"
             android:layout_width="200dp"
             android:layout_height="190dp"
-            android:layout_toRightOf="@+id/text_string"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
+            android:layout_toRightOf="@+id/wall_item_profile_photo"
             android:src="@drawable/incon" />
     </RelativeLayout>
 </LinearLayout>
