@@ -3,13 +3,8 @@ package com.creatiwebs.trustripes.adapters;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.creatiwebs.Constants.ConstantValues;
-import com.creatiwebs.trustripes.R;
-import com.creatiwebs.trustripes.R.id;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,13 +17,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.creatiwebs.Constants.ConstantValues;
+import com.creatiwebs.trustripes.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -36,19 +31,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class CustomViewPagerAdapter extends PagerAdapter{
 
 	View view;
-	TextView textMessage;
+	SharedPreferences session;
 	ImageView profile_image;
-	ListView wall_listView;
-	JSONArray wall_array;
+	TextView profile_text, wall_text;
 	
 	@Override
 	public int getCount() {
@@ -70,21 +61,20 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		LayoutInflater inflater = (LayoutInflater) container.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int resId = 0;
+        session = container.getContext().getSharedPreferences(ConstantValues.USER_DATA, 0);
         switch (position) {
         case 0:
             resId = R.layout.wall_activity;
             view = inflater.inflate(resId, null);
-            wall_listView= (ListView) view.findViewById(R.id.wall_list);
+            wall_text = (TextView) view.findViewById(R.id.wall_text);
             new LoadWallActivity().execute();
             break;
         case 1:
             resId = R.layout.profile;
             view = inflater.inflate(resId, null);
-            textMessage = (TextView) view.findViewById(R.id.profile_textView);
-            textMessage.setText("Hola Midory!");
             profile_image = (ImageView) view.findViewById(R.id.profile_image);
+            profile_text = (TextView) view.findViewById(R.id.profile_textView);
             new LoadProfileData().execute();
-            
             break;
         }
         ((ViewPager) container).addView(view, 0);
@@ -107,27 +97,28 @@ public class CustomViewPagerAdapter extends PagerAdapter{
      }
 	 
 	 public class LoadProfileData extends AsyncTask<Void, Integer, Void>{
-		 
-		StringBuilder sb = null;
-		String finalMessage = "";
-		Bitmap image = null;
-		SharedPreferences session = getSharedPreferences(ConstantValues.USER_DATA,0);  
 		
+		String id_string; 
+		StringBuilder stringBuilder;
+		String statusResponse = null;
+		String msj = null;
+		String email = null;
+		String username = null;
 		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 		}
-		
+		 
 		@Override
 		protected Void doInBackground(Void... params) {
-			try{
-				HttpClient client = new DefaultHttpClient();
-				String url = "http://www.trustripes.com/dev/ws/ws-perfil.php";
-//				HttpGet httpGet = new HttpGet(url);
-				HttpPost post = new HttpPost(url); 
+			try{	
+				id_string = session.getString("user_id", "No data");
+				HttpClient client =  new DefaultHttpClient();   		
+	            String postURL = "http://www.trustripes.com/dev/ws/ws-perfil.php";
+	            HttpPost post = new HttpPost(postURL); 
 	            List<NameValuePair> param = new ArrayList<NameValuePair>();
-	            param.add(new BasicNameValuePair("iduser",));
+	            param.add(new BasicNameValuePair("iduser",id_string));
 	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
 	            post.setEntity(ent);
 	            HttpResponse responsePOST = client.execute(post);    		
@@ -141,24 +132,17 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	    			while((line = reader.readLine()) != null){
 	    				stringBuilder.append(line);
 	    			}
+	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+	    			statusResponse = jsonObject.getString("status");
+	    			if(Integer.parseInt(statusResponse) == 1){
+	    				msj = jsonObject.getString("msj");
+		    			email = jsonObject.getString("email");
+		    			username = jsonObject.getString("username");
+	    			}
+	    			reader.close();
+	    			inputStream.close();
 	    		}
-				
-				
-				HttpResponse response = client.execute(httpGet);
-				HttpEntity entity = response.getEntity();
-				InputStream input = entity.getContent();
-				BufferedReader br = new BufferedReader(new InputStreamReader(input)); 
-				String line = null;
-				sb = new StringBuilder();
-    			while((line = br.readLine()) != null){
-    				sb.append(line);
-    			}
-    			finalMessage = sb.toString();
-    			JSONArray arrayResponse = new JSONArray(sb.toString());
-    			for(int i = 0; i<arrayResponse.length(); i++){
-    				JSONObject objeto = arrayResponse.getJSONObject(i);
-    				finalMessage = finalMessage + objeto.getString("name") + "\n";
-//    			}
+	    		
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -172,54 +156,62 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		
 		@Override
 		protected void onPostExecute(Void result) {
+			profile_text.setText(	"Usuario: "+username+"\n" +
+									"Correo: "+ email +"\n");
 		}
-		 
 	 }
 	 
 	 public class LoadWallActivity extends AsyncTask<Void, Integer, Void>{
-
-		 StringBuilder sb = null;
-		 String finalMessage = null;
+		 
+		StringBuilder stringBuilder = null;
+		String statusResponse = null;
+		String id_string = null;
+		
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 		}
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			try{
-			HttpClient client = new DefaultHttpClient();
-			String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
-			HttpGet httpGet = new HttpGet(url);
-			HttpResponse response = client.execute(httpGet);
-			HttpEntity entity = response.getEntity();
-			InputStream input = entity.getContent();
-			BufferedReader br = new BufferedReader(new InputStreamReader(input)); 
-			String line = null;
-			sb = new StringBuilder();
-			while((line = br.readLine()) != null){
-				sb.append(line);
-			}
-			finalMessage = sb.toString();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		@Override
+		 
+		 public Void doInBackground(Void... params){
+			 try{	
+					id_string = session.getString("user_id", "No data");
+					HttpClient client =  new DefaultHttpClient();   		
+		            String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
+//		            HttpPost post = new HttpPost(postURL); 
+//		            List<NameValuePair> param = new ArrayList<NameValuePair>();
+//		            param.add(new BasicNameValuePair("iduser",id_string));
+//		            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
+//		            post.setEntity(ent);
+		            HttpGet httpGet = new HttpGet(url);
+		            HttpResponse responseGET = client.execute(httpGet);    		
+		    		StatusLine status = responseGET.getStatusLine();
+		    		if(status.getStatusCode() == HttpStatus.SC_OK){
+		    			HttpEntity entity = responseGET.getEntity();
+		    			InputStream inputStream = entity.getContent();
+		    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		    			String line = null;
+		    			stringBuilder = new StringBuilder();
+		    			while((line = reader.readLine()) != null){
+		    				stringBuilder.append(line);
+		    			}
+		    			reader.close();
+		    			inputStream.close();
+		    		}
+		    		
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			 return null;
+		 }
+		 
+		 @Override
 		protected void onProgressUpdate(Integer... values) {
-
+			super.onProgressUpdate(values);
 		}
-		
-		@Override
+		 	 
+		 @Override
 		protected void onPostExecute(Void result) {
-			try{
-				wall_array = new JSONArray(finalMessage);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			wall_text.setText(stringBuilder.toString());
 		}
 	 }
 }

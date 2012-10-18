@@ -8,4 +8,5 @@
     <string name="splashScreen_imgView_logo_contentDescription">logo</string>
     <string name="mainActivity_imgView_logo_contentDescription">logo</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="profile_textView">Hola Mundo!</string>
 </resources>
