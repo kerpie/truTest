@@ -47,7 +47,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	TextView profile_text, wall_text;
 	ListView wall_list;
 	LazyAdapter adapter;
-	ViewGroup container;
+	LayoutInflater new_inflater;
 	
 	@Override
 	public int getCount() {
@@ -75,6 +75,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             view = inflater.inflate(resId, null);
             wall_text = (TextView) view.findViewById(R.id.wall_text);
             wall_list = (ListView) view.findViewById(R.id.wall_list);
+            new_inflater = inflater;
             new LoadWallActivity().execute();
             break;
         case 1:
@@ -82,7 +83,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             view = inflater.inflate(resId, null);
             profile_image = (ImageView) view.findViewById(R.id.profile_image);
             profile_text = (TextView) view.findViewById(R.id.profile_textView);
-            wall_list = (ListView) view.findViewById(R.id.wall_list);
             new LoadProfileData().execute();
             break;
         }
@@ -230,7 +230,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 				}
 			}
 			
-			adapter = new LazyAdapter(container, links);
+			adapter = new LazyAdapter(new_inflater, links);
 			wall_list.setAdapter(adapter);
 		}
 	 }

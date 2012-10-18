@@ -2,6 +2,7 @@ package lazylist;
 
 import com.creatiwebs.trustripes.R;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +13,15 @@ import android.widget.TextView;
 
 public class LazyAdapter extends BaseAdapter {
     
-    private ViewGroup container;
+    private Activity activity;
     private String[] data;
-    private static LayoutInflater inflater;
+    private static LayoutInflater inflater=null;
     public ImageLoader imageLoader; 
     
-    public LazyAdapter(ViewGroup a, String[] d) {
-        container = a;
+    public LazyAdapter(LayoutInflater a, String[] d) {
         data=d;
-        inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader=new ImageLoader(container.getContext().getApplicationContext());
+        inflater = a;
+        imageLoader=new ImageLoader(inflater.getContext());
     }
 
     public int getCount() {
