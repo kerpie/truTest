@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 				Log.d("MAIN", "Click EN EL BOTON");
 				Intent intent = new Intent(getApplicationContext(),
 						CaptureActivity.class);
-				startActivityForResult(intent, 0);
+				startActivity(intent);
 			}
 		});
 
@@ -41,15 +41,6 @@ public class MainActivity extends Activity {
 		ViewPager myPager = (ViewPager) findViewById(R.id.pager);
 		myPager.setAdapter(pagerAdapter);
 		myPager.setCurrentItem(0);
-	}
-	
-	
-	//CodeResult for Camera
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		String var = data.getStringExtra("codebar");
-		Toast.makeText(getApplicationContext(), var, Toast.LENGTH_SHORT).show();
 	}
 
 	// For Options Menu
@@ -62,5 +53,4 @@ public class MainActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
-
 }
