@@ -32,13 +32,15 @@
         android:id="@+id/register_edittext_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="PRODUCT NAME" />
+        android:hint="PRODUCT NAME"
+        android:lines="1" />
 
     <EditText
         android:id="@+id/register_edittext_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="COUNTRY OF MANUFACTURING" />
+        android:hint="COUNTRY OF MANUFACTURING"
+        android:lines="1" />
 
     <LinearLayout
         android:layout_width="match_parent"

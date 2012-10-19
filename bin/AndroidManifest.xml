@@ -165,6 +165,14 @@
             android:name=".Register"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".Snackin"
+            android:label="@string/title_activity_snackin" >
+        </activity>
+        <activity
+            android:name=".Ambassador"
+            android:label="@string/title_activity_ambassador" >
+        </activity>
     </application>
 
 </manifest>

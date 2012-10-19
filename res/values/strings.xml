@@ -130,5 +130,7 @@
     <string name="zxing_url">http://code.google.com/p/zxing</string>
     <string name="title_activity_pre_snackin">PreSnackin</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_snackin">Snackin</string>
+    <string name="title_activity_ambassador">Ambassador</string>
 
 </resources>

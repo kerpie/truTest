@@ -8,37 +8,42 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class PreSnackin extends Activity {
-	TextView te;
-	Button btn_again, btn_snack;
+public class Ambassador extends Activity {
+	Button btn_return;
+	TextView idtv, nametv, codetw;
+	Intent t;
+	String code, name;
+	int id;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_pre_snackin);
-		btn_again = (Button) findViewById(R.id.presnack_button_again);
-		btn_snack=(Button)findViewById(R.id.presnack_button_Snack);
-		btn_again.setOnClickListener(new View.OnClickListener() {
+		setContentView(R.layout.activity_ambassador);
+		btn_return = (Button) findViewById(R.id.ambassador_button_returnWall);
+		t = getIntent();
+
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		id = t.getIntExtra("Product_id", -1);
+		name = t.getStringExtra("Product_name");
+		code = t.getStringExtra("Total_snacks");
+
+		btn_return.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
 				Intent intent = new Intent(getApplicationContext(),
-						CaptureActivity.class);
+						MainActivity.class);
 				startActivity(intent);
 				finish();
 
-			}
-		});
-		btn_snack.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 
@@ -46,11 +51,7 @@ public class PreSnackin extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_pre_snackin, menu);
+		getMenuInflater().inflate(R.menu.activity_ambassador, menu);
 		return true;
 	}
-	
-	
-	
-
 }
