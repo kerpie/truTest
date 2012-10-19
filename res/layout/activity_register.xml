@@ -1,64 +1,68 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/splashscreen_bg"
-    android:gravity="center"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/register_textview_tittle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New product to register"
-        android:textColor="#000"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/register_imageview_add"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/add_photo" />
-
-    <TextView
-        android:id="@+id/register_textview_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Code"
-        android:textColor="#000"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/register_edittext_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="PRODUCT NAME"
-        android:lines="1" />
-
-    <EditText
-        android:id="@+id/register_edittext_country"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="COUNTRY OF MANUFACTURING"
-        android:lines="1" />
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/splashscreen_bg"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/register_button_again"
+        <TextView
+            android:id="@+id/register_textview_tittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Again" />
+            android:text="New product to register"
+            android:textColor="#000"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/register_button_register"
+        <ImageView
+            android:id="@+id/register_imageview_add"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/add_photo" />
+
+        <TextView
+            android:id="@+id/register_textview_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register" />
+            android:text="Code"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/register_edittext_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="PRODUCT NAME"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/register_edittext_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="COUNTRY OF MANUFACTURING"
+            android:lines="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/register_button_again"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Again" />
+
+            <Button
+                android:id="@+id/register_button_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

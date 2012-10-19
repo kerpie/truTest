@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splashscreen_bg"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/discoverer_textview_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONGRATULATIONS"
+        android:textColor="#000"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/discoverer_imageview_discoverer"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/discoverer" />
+
+    <TextView
+        android:id="@+id/discoverer_textview_msj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You are discoverer for "
+        android:textColor="#000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/discoverer_textview_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:textColor="#000"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/discoverer_button_returnWall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return Wall" />
+
+</LinearLayout>

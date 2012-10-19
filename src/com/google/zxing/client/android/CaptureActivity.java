@@ -719,7 +719,7 @@ public final class CaptureActivity extends Activity implements
 		StringBuilder stringBuilder;
 		String statusResponse = "";
 		String idproduct = "";
-		boolean canSnack = false;
+		boolean canSnack;
 
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -777,7 +777,6 @@ public final class CaptureActivity extends Activity implements
 		@Override
 		protected void onPostExecute(Void result) {
 			Intent intent;
-			// TODO Auto-generated method stub
 			if (canSnack) {
 				intent = new Intent(getApplicationContext(), PreSnackin.class);
 			} else {

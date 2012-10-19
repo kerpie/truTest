@@ -170,7 +170,7 @@
             android:label="@string/title_activity_snackin" >
         </activity>
         <activity
-            android:name=".Ambassador"
+            android:name=".Discoverer"
             android:label="@string/title_activity_ambassador" >
         </activity>
     </application>

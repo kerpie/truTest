@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Ambassador extends Activity {
+public class Discoverer extends Activity {
 	Button btn_return;
-	TextView idtv, nametv, codetw;
+	TextView  nametv;
 	Intent t;
 	String code, name;
 	int id;
@@ -21,8 +21,9 @@ public class Ambassador extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_ambassador);
-		btn_return = (Button) findViewById(R.id.ambassador_button_returnWall);
+		setContentView(R.layout.activity_discoverer);
+		nametv=(TextView)findViewById(R.id.discoverer_textview_product);
+		btn_return = (Button) findViewById(R.id.discoverer_button_returnWall);
 		t = getIntent();
 
 	}
@@ -30,10 +31,11 @@ public class Ambassador extends Activity {
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
-		super.onStart();
-		id = t.getIntExtra("Product_id", -1);
+		super.onStart();		
 		name = t.getStringExtra("Product_name");
-		code = t.getStringExtra("Total_snacks");
+		nametv.setText(name);
+		
+	
 
 		btn_return.setOnClickListener(new View.OnClickListener() {
 
@@ -51,7 +53,7 @@ public class Ambassador extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_ambassador, menu);
+		getMenuInflater().inflate(R.menu.activity_discoverer, menu);
 		return true;
 	}
 }

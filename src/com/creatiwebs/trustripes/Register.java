@@ -106,7 +106,7 @@ public class Register extends Activity {
 		StringBuilder stringBuilder;
 		String statusResponse = "";
 		String idproduct = "";
-		boolean showAmbassador = false;
+		boolean showDiscoverer = false;
 		JSONObject jsonObject;
 
 		@Override
@@ -137,10 +137,10 @@ public class Register extends Activity {
 					jsonObject = new JSONObject(stringBuilder.toString());
 					statusResponse = jsonObject.getString("status");
 					if (Integer.parseInt(statusResponse) == 1) {
-						showAmbassador = true;
+						showDiscoverer = true;
 					} else {
 						Log.d("Error Ambassador", "Error en la respuesta");
-						showAmbassador = false;
+						showDiscoverer = false;
 					}
 
 					reader.close();
@@ -168,20 +168,19 @@ public class Register extends Activity {
 		protected void onPostExecute(Void result) {
 			Intent intent = null;
 			// TODO Auto-generated method stub
-			if (showAmbassador) {
-				intent = new Intent(getApplicationContext(), Ambassador.class);
+			if (showDiscoverer) {
+				intent = new Intent(getApplicationContext(), Discoverer.class);
 				try {
 					intent.putExtra("Product_id",  jsonObject.getInt("idproducto") );
-					intent.putExtra("Product_name",  jsonObject.getInt("producto") );
-					intent.putExtra("Total_snacks",  jsonObject.getInt("total") );
+					intent.putExtra("Product_name",  jsonObject.getString("producto") );
+					intent.putExtra("Total_snacks",  jsonObject.getString("total") );
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				startActivity(intent);
 				finish();
 			} else {
-				Log.d("Error Ambassador", "Error en la respuesta");
+				Log.d("Error Discoverer", "Error en la respuesta");
 				Toast.makeText(getApplicationContext(), "No se pudo enviar", Toast.LENGTH_SHORT).show();
 			}
 
