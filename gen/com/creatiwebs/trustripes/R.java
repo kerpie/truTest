@@ -39,10 +39,17 @@ public final class R {
     }
     public static final class drawable {
         public static final int add_photo=0x7f020000;
+<<<<<<< HEAD
         public static final int ambassador=0x7f020001;
         public static final int anon=0x7f020002;
         public static final int bg_with_footer=0x7f020003;
         public static final int close=0x7f020004;
+=======
+        public static final int anon=0x7f020001;
+        public static final int bg_with_footer=0x7f020002;
+        public static final int close=0x7f020003;
+        public static final int droids=0x7f020004;
+>>>>>>> d493c8364fd9e70d995b2efbe560da1b1603632a
         public static final int facebook_icon=0x7f020005;
         public static final int fondopho=0x7f020006;
         public static final int foto_redondo=0x7f020007;
@@ -74,6 +81,7 @@ public final class R {
         public static final int decode=0x7f080001;
         public static final int decode_failed=0x7f080002;
         public static final int decode_succeeded=0x7f080003;
+<<<<<<< HEAD
         public static final int done_button=0x7f08003f;
         public static final int encode_view=0x7f08003b;
         public static final int footer=0x7f080017;
@@ -113,6 +121,46 @@ public final class R {
         public static final int profile_textView=0x7f080043;
         public static final int query_button=0x7f080045;
         public static final int query_text_view=0x7f080044;
+=======
+        public static final int done_button=0x7f08003b;
+        public static final int encode_view=0x7f080037;
+        public static final int footer=0x7f080013;
+        public static final int format_text_view=0x7f08002c;
+        public static final int format_text_view_label=0x7f08002b;
+        public static final int help_contents=0x7f080039;
+        public static final int history_detail=0x7f08003d;
+        public static final int history_title=0x7f08003c;
+        public static final int image_view=0x7f080038;
+        public static final int inner_container=0x7f08000a;
+        public static final int launch_product_query=0x7f080004;
+        public static final int login_button=0x7f08000e;
+        public static final int login_error_message=0x7f080012;
+        public static final int login_facebook_button=0x7f080010;
+        public static final int login_password=0x7f08000d;
+        public static final int login_twitter_button=0x7f080011;
+        public static final int login_username=0x7f08000c;
+        public static final int logo=0x7f08004a;
+        public static final int mainActivity_logo=0x7f08000b;
+        public static final int main_mainPart=0x7f080014;
+        public static final int main_snackInButton=0x7f080016;
+        public static final int main_textView=0x7f080015;
+        public static final int menu_settings=0x7f080051;
+        public static final int meta_text_view=0x7f080032;
+        public static final int meta_text_view_label=0x7f080031;
+        public static final int page_number_view=0x7f080043;
+        public static final int pager=0x7f080017;
+        public static final int pager_title_strip=0x7f080018;
+        public static final int presnack_button_again=0x7f08001c;
+        public static final int presnack_button_register=0x7f08001d;
+        public static final int presnack_edittext_country=0x7f08001b;
+        public static final int presnack_imageview_add=0x7f08001a;
+        public static final int presnack_textview_tittle=0x7f080019;
+        public static final int preview_view=0x7f080027;
+        public static final int profile_image=0x7f08003e;
+        public static final int profile_textView=0x7f08003f;
+        public static final int query_button=0x7f080041;
+        public static final int query_text_view=0x7f080040;
+>>>>>>> d493c8364fd9e70d995b2efbe560da1b1603632a
         public static final int quit=0x7f080005;
         public static final int register_button_again=0x7f080027;
         public static final int register_button_register=0x7f080028;
@@ -128,6 +176,7 @@ public final class R {
         public static final int return_scan_result=0x7f080007;
         public static final int search_book_contents_failed=0x7f080008;
         public static final int search_book_contents_succeeded=0x7f080009;
+<<<<<<< HEAD
         public static final int share_app_button=0x7f080049;
         public static final int share_bookmark_button=0x7f08004a;
         public static final int share_clipboard_button=0x7f08004c;
@@ -148,6 +197,27 @@ public final class R {
         public static final int wall_item_simple_text=0x7f080053;
         public static final int wall_list=0x7f080051;
         public static final int wall_text=0x7f080050;
+=======
+        public static final int share_app_button=0x7f080045;
+        public static final int share_bookmark_button=0x7f080046;
+        public static final int share_clipboard_button=0x7f080048;
+        public static final int share_contact_button=0x7f080047;
+        public static final int share_text_view=0x7f080049;
+        public static final int snippet_view=0x7f080044;
+        public static final int social_buttons=0x7f08000f;
+        public static final int splash_screen_progressBar=0x7f08004b;
+        public static final int status_view=0x7f080036;
+        public static final int time_text_view=0x7f080030;
+        public static final int time_text_view_label=0x7f08002f;
+        public static final int type_text_view=0x7f08002e;
+        public static final int type_text_view_label=0x7f08002d;
+        public static final int viewfinder_view=0x7f080028;
+        public static final int wall_item_product_photo=0x7f080050;
+        public static final int wall_item_profile_photo=0x7f08004e;
+        public static final int wall_item_simple_text=0x7f08004f;
+        public static final int wall_list=0x7f08004d;
+        public static final int wall_text=0x7f08004c;
+>>>>>>> d493c8364fd9e70d995b2efbe560da1b1603632a
     }
     public static final class layout {
         public static final int activity_ambassador=0x7f030000;

@@ -40,7 +40,6 @@ public final class ProductResultHandler extends ResultHandler {
 
   public ProductResultHandler(Activity activity, ParsedResult result, Result rawResult) {
     super(activity, result, rawResult);
-
   }
 
   @Override

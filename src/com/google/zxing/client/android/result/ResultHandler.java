@@ -133,7 +133,6 @@ public abstract class ResultHandler {
 
     // Make sure the Shopper button is hidden by default. Without this, scanning a product followed
     // by a QR Code would leave the button on screen among the QR Code actions.
-   
   }
 
   public ParsedResult getResult() {
@@ -182,6 +181,8 @@ public abstract class ResultHandler {
   }
 
   /**
+<<<<<<< HEAD
+=======
    * The Google Shopper button is special and is not handled by the abstract button methods above.
    *
    * @param listener The on click listener to install for this button.
@@ -189,6 +190,7 @@ public abstract class ResultHandler {
 
 
   /**
+>>>>>>> ff777cc5a1f90be4fcee58c76b7ce07d623df3dd
    * Create a possibly styled string for the contents of the current barcode.
    *
    * @return The text to be displayed.

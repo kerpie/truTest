@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import lazylist.LazyAdapter;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -23,6 +25,7 @@ import org.json.JSONObject;
 import com.creatiwebs.Constants.ConstantValues;
 import com.creatiwebs.trustripes.R;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -43,6 +46,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	ImageView profile_image;
 	TextView profile_text, wall_text;
 	ListView wall_list;
+	LazyAdapter adapter;
+	LayoutInflater new_inflater;
 	
 	@Override
 	public int getCount() {
@@ -69,6 +74,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             resId = R.layout.wall_activity;
             view = inflater.inflate(resId, null);
             wall_text = (TextView) view.findViewById(R.id.wall_text);
+            wall_list = (ListView) view.findViewById(R.id.wall_list);
+            new_inflater = inflater;
             new LoadWallActivity().execute();
             break;
         case 1:
@@ -76,7 +83,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             view = inflater.inflate(resId, null);
             profile_image = (ImageView) view.findViewById(R.id.profile_image);
             profile_text = (TextView) view.findViewById(R.id.profile_textView);
-            wall_list = (ListView) view.findViewById(R.id.wall_list);
             new LoadProfileData().execute();
             break;
         }
@@ -175,26 +181,26 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			super.onPreExecute();
 		}
 		 
-		 public Void doInBackground(Void... params){
+		public Void doInBackground(Void... params){
 			 try{	
-					id_string = session.getString("user_id", "No data");
-					HttpClient client =  new DefaultHttpClient();   		
-		            String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
-		            HttpGet httpGet = new HttpGet(url);
-		            HttpResponse responseGET = client.execute(httpGet);    		
-		    		StatusLine status = responseGET.getStatusLine();
-		    		if(status.getStatusCode() == HttpStatus.SC_OK){
-		    			HttpEntity entity = responseGET.getEntity();
-		    			InputStream inputStream = entity.getContent();
-		    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		    			String line = null;
-		    			stringBuilder = new StringBuilder();
-		    			while((line = reader.readLine()) != null){
-		    				stringBuilder.append(line);
-		    			}
-		    			jsonArray = new JSONArray(stringBuilder.toString());
-		    			reader.close();
-		    			inputStream.close();
+				id_string = session.getString("user_id", "No data");
+				HttpClient client =  new DefaultHttpClient();   		
+	            String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
+	            HttpGet httpGet = new HttpGet(url);
+	            HttpResponse responseGET = client.execute(httpGet);    		
+	    		StatusLine status = responseGET.getStatusLine();
+	    		if(status.getStatusCode() == HttpStatus.SC_OK){
+	    			HttpEntity entity = responseGET.getEntity();
+	    			InputStream inputStream = entity.getContent();
+	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+	    			String line = null;
+	    			stringBuilder = new StringBuilder();
+	    			while((line = reader.readLine()) != null){
+	    				stringBuilder.append(line);
+	    			}
+	    			jsonArray = new JSONArray(stringBuilder.toString());
+	    			reader.close();
+	    			inputStream.close();
 		    		}
 		    		
 				}catch(Exception e){
@@ -210,27 +216,24 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		 	 
 		 @Override
 		protected void onPostExecute(Void result) {
+			String links[] = new String[jsonArray.length()];
 			for(int i=0;i<jsonArray.length();i++){
 				try{
 					JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-					String username = jsonObject.getString("username");
 					String idProduct = jsonObject.getString("idproduct");
-					String idSnackin = jsonObject.getString("idsnackin");
-					String productName = jsonObject.getString("productname");
 					String photo = jsonObject.getString("photo");
 					
-					String tmp = " ";
-					tmp = tmp +	"username: " + username + "\n" +
-								"ProductID: " + idProduct + "\n" +
-								"SnackIn: " + idSnackin + "\n" +
-								"Product Name: " + productName + "\n" +
-								"Photo: " + photo + "\n";
-					
-					wall_text.setText(wall_text.getText() + tmp);
+					String tmp = "http://trustripes.com/dev/ws/productphoto/"+idProduct+photo;
+					links[i] = tmp;
 				}catch(Exception e){
 					e.printStackTrace();
 				}
 			}
+			
+			adapter = new LazyAdapter(new_inflater, links);
+			wall_list.setAdapter(adapter);
+			adapter.imageLoader.clearCache();
+			adapter.notifyDataSetChanged();
 		}
 	 }
 }
