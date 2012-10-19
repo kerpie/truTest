@@ -183,24 +183,24 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		 
 		public Void doInBackground(Void... params){
 			 try{	
-					id_string = session.getString("user_id", "No data");
-					HttpClient client =  new DefaultHttpClient();   		
-		            String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
-		            HttpGet httpGet = new HttpGet(url);
-		            HttpResponse responseGET = client.execute(httpGet);    		
-		    		StatusLine status = responseGET.getStatusLine();
-		    		if(status.getStatusCode() == HttpStatus.SC_OK){
-		    			HttpEntity entity = responseGET.getEntity();
-		    			InputStream inputStream = entity.getContent();
-		    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		    			String line = null;
-		    			stringBuilder = new StringBuilder();
-		    			while((line = reader.readLine()) != null){
-		    				stringBuilder.append(line);
-		    			}
-		    			jsonArray = new JSONArray(stringBuilder.toString());
-		    			reader.close();
-		    			inputStream.close();
+				id_string = session.getString("user_id", "No data");
+				HttpClient client =  new DefaultHttpClient();   		
+	            String url = "http://www.trustripes.com/dev/ws/ws-listproduct.php";
+	            HttpGet httpGet = new HttpGet(url);
+	            HttpResponse responseGET = client.execute(httpGet);    		
+	    		StatusLine status = responseGET.getStatusLine();
+	    		if(status.getStatusCode() == HttpStatus.SC_OK){
+	    			HttpEntity entity = responseGET.getEntity();
+	    			InputStream inputStream = entity.getContent();
+	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+	    			String line = null;
+	    			stringBuilder = new StringBuilder();
+	    			while((line = reader.readLine()) != null){
+	    				stringBuilder.append(line);
+	    			}
+	    			jsonArray = new JSONArray(stringBuilder.toString());
+	    			reader.close();
+	    			inputStream.close();
 		    		}
 		    		
 				}catch(Exception e){
@@ -232,6 +232,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			
 			adapter = new LazyAdapter(new_inflater, links);
 			wall_list.setAdapter(adapter);
+			adapter.imageLoader.clearCache();
+			adapter.notifyDataSetChanged();
 		}
 	 }
 }
