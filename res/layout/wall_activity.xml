@@ -7,10 +7,9 @@
         android:layout_height="match_parent"
         android:id="@+id/wall_text"
         android:layout_centerHorizontal="true"/>
-    <ListView 
+    <com.markupartist.android.widget.PullToRefreshListView 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/wall_list"
-        android:background="@drawable/splashscreen_bg">
-    </ListView>
+        android:background="@drawable/splashscreen_bg"/>
 </RelativeLayout>

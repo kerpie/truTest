@@ -66,10 +66,7 @@ public final class HelpActivity extends Activity {
   @Override
   protected void onCreate(Bundle icicle) {
     super.onCreate(icicle);
-    setContentView(R.layout.help);
-
-    webView = (WebView)findViewById(R.id.help_contents);
-    webView.setWebViewClient(new HelpClient());
+        webView.setWebViewClient(new HelpClient());
 
     // Froyo has a bug with calling onCreate() twice in a row, which causes the What's New page
     // that's auto-loaded on first run to appear blank. As a workaround we only call restoreState()
@@ -87,11 +84,6 @@ public final class HelpActivity extends Activity {
     } else {
       webView.loadUrl(BASE_URL + DEFAULT_PAGE);
     }
-
-    backButton = (Button) findViewById(R.id.back_button);
-    backButton.setOnClickListener(backListener);
-    View doneButton = findViewById(R.id.done_button);
-    doneButton.setOnClickListener(doneListener);
   }
 
   @Override

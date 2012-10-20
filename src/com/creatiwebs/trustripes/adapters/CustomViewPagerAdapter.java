@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lazylist.LazyAdapter;
+import com.markupartist.android.widget.PullToRefreshListView;
+import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -75,6 +77,13 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             view = inflater.inflate(resId, null);
             wall_text = (TextView) view.findViewById(R.id.wall_text);
             wall_list = (ListView) view.findViewById(R.id.wall_list);
+            ((PullToRefreshListView) wall_list).setOnRefreshListener(new OnRefreshListener() {
+                public void onRefresh() {
+                    // Do work to refresh the list here.
+                    new LoadWallActivity().execute();
+                }
+            });
+            
             new_inflater = inflater;
             new LoadWallActivity().execute();
             break;
@@ -234,6 +243,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			wall_list.setAdapter(adapter);
 			adapter.imageLoader.clearCache();
 			adapter.notifyDataSetChanged();
+			((PullToRefreshListView) wall_list).onRefreshComplete();
 		}
 	 }
 }

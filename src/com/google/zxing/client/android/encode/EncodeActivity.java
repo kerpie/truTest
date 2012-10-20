@@ -69,7 +69,6 @@ public final class EncodeActivity extends Activity {
     if (intent != null) {
       String action = intent.getAction();
       if (action.equals(Intents.Encode.ACTION) || action.equals(Intent.ACTION_SEND)) {
-        setContentView(R.layout.encode);
         return;
       }
     }
@@ -197,9 +196,6 @@ public final class EncodeActivity extends Activity {
         qrCodeEncoder = null;
         return;
       }
-
-      ImageView view = (ImageView) findViewById(R.id.image_view);
-      view.setImageBitmap(bitmap);
 
       TextView contents = (TextView) findViewById(R.id.contents_text_view);
       if (intent.getBooleanExtra(Intents.Encode.SHOW_CONTENTS, true)) {
