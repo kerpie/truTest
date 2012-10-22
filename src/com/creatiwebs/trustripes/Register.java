@@ -132,7 +132,7 @@ public class Register extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				
+				/* Prepare variables for remote data check */
 				HttpClient client = new DefaultHttpClient();
 				String postURL = "http://www.trustripes.com/dev/ws/ws-registerproduct.php";
 				HttpPost post = new HttpPost(postURL);
@@ -144,6 +144,8 @@ public class Register extends Activity {
 				post.setEntity(ent);
 				HttpResponse responsePOST = client.execute(post);
 				StatusLine status = responsePOST.getStatusLine();
+				/* Filter what kind of response was obtained */
+	    		/* Filtering http response 200 */
 				if (status.getStatusCode() == HttpStatus.SC_OK) {
 					HttpEntity entity = responsePOST.getEntity();
 					InputStream inputStream = entity.getContent();
@@ -154,6 +156,8 @@ public class Register extends Activity {
 					while ((line = reader.readLine()) != null) {
 						stringBuilder.append(line);
 					}
+					
+					/* Converting obtained string into JSON object */
 					jsonObject = new JSONObject(stringBuilder.toString());
 					statusResponse = jsonObject.getString("status");
 					if (Integer.parseInt(statusResponse) == 1) {

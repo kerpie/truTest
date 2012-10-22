@@ -42,7 +42,6 @@ public class PreSnackin extends Activity {
 		realSnackInButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				
 			}
 		});

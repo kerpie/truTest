@@ -212,28 +212,7 @@ final class QRCodeEncoder {
         displayContents = data;
         title = activity.getString(R.string.contents_text);
       }
-    } else if (type.equals(Contents.Type.EMAIL)) {
-      String data = ContactEncoder.trim(intent.getStringExtra(Intents.Encode.DATA));
-      if (data != null) {
-        contents = "mailto:" + data;
-        displayContents = data;
-        title = activity.getString(R.string.contents_email);
-      }
-    } else if (type.equals(Contents.Type.PHONE)) {
-      String data = ContactEncoder.trim(intent.getStringExtra(Intents.Encode.DATA));
-      if (data != null) {
-        contents = "tel:" + data;
-        displayContents = PhoneNumberUtils.formatNumber(data);
-        title = activity.getString(R.string.contents_phone);
-      }
-    } else if (type.equals(Contents.Type.SMS)) {
-      String data = ContactEncoder.trim(intent.getStringExtra(Intents.Encode.DATA));
-      if (data != null) {
-        contents = "sms:" + data;
-        displayContents = PhoneNumberUtils.formatNumber(data);
-        title = activity.getString(R.string.contents_sms);
-      }
-    } else if (type.equals(Contents.Type.CONTACT)) {
+    }  else if (type.equals(Contents.Type.CONTACT)) {
 
       Bundle bundle = intent.getBundleExtra(Intents.Encode.DATA);
       if (bundle != null) {
@@ -264,7 +243,7 @@ final class QRCodeEncoder {
         if (encoded[1].length() > 0) {
           contents = encoded[0];
           displayContents = encoded[1];
-          title = activity.getString(R.string.contents_contact);
+          title = activity.getString(R.string.contents_text);
         }
 
       }
@@ -278,7 +257,7 @@ final class QRCodeEncoder {
         if (latitude != Float.MAX_VALUE && longitude != Float.MAX_VALUE) {
           contents = "geo:" + latitude + ',' + longitude;
           displayContents = latitude + "," + longitude;
-          title = activity.getString(R.string.contents_location);
+          title = activity.getString(R.string.contents_text);
         }
       }
     }
@@ -297,7 +276,7 @@ final class QRCodeEncoder {
     if (encoded[1].length() > 0) {
       contents = encoded[0];
       displayContents = encoded[1];
-      title = activity.getString(R.string.contents_contact);
+      title = activity.getString(R.string.contents_text);
     }
   }
 

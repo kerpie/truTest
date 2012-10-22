@@ -130,7 +130,7 @@ public final class EncodeActivity extends Activity {
     File barcodesRoot = new File(bsRoot, "Barcodes");
     if (!barcodesRoot.exists() && !barcodesRoot.mkdirs()) {
       Log.w(TAG, "Couldn't make dir " + barcodesRoot);
-      showErrorMessage(R.string.msg_unmount_usb);
+     
       return;
     }
     File barcodeFile = new File(barcodesRoot, makeBarcodeFileName(contents) + ".png");
@@ -141,7 +141,7 @@ public final class EncodeActivity extends Activity {
       bitmap.compress(Bitmap.CompressFormat.PNG, 0, fos);
     } catch (FileNotFoundException fnfe) {
       Log.w(TAG, "Couldn't access file " + barcodeFile + " due to " + fnfe);
-      showErrorMessage(R.string.msg_unmount_usb);
+     
       return;
     } finally {
       if (fos != null) {
@@ -192,7 +192,7 @@ public final class EncodeActivity extends Activity {
       Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
       if (bitmap == null) {
         Log.w(TAG, "Could not encode barcode");
-        showErrorMessage(R.string.msg_encode_contents_failed);
+       
         qrCodeEncoder = null;
         return;
       }
@@ -207,7 +207,7 @@ public final class EncodeActivity extends Activity {
       }
     } catch (WriterException e) {
       Log.w(TAG, "Could not encode barcode", e);
-      showErrorMessage(R.string.msg_encode_contents_failed);
+     
       qrCodeEncoder = null;
     }
   }
