@@ -36,10 +36,6 @@ public final class ResultHandlerFactory {
       
       case PRODUCT:
         return new ProductResultHandler(activity, result, rawResult);
-      case URI:
-        return new URIResultHandler(activity, result);
-      case WIFI:
-        return new WifiResultHandler(activity, result);
       default:
         return new TextResultHandler(activity, result, rawResult);
     }

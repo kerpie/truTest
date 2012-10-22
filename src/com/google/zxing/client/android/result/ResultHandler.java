@@ -386,10 +386,7 @@ public abstract class ResultHandler {
     return NO_TYPE;
   }
 
-  final void shareByEmail(String contents) {
-    sendEmailFromUri("mailto:", null, activity.getString(R.string.msg_share_subject_line),
-        contents);
-  }
+
 
   final void sendEmail(String address, String subject, String body) {
     sendEmailFromUri("mailto:" + address, address, subject, body);
@@ -407,10 +404,7 @@ public abstract class ResultHandler {
     launchIntent(intent);
   }
 
-  final void shareBySMS(String contents) {
-    sendSMSFromUri("smsto:", activity.getString(R.string.msg_share_subject_line) + ":\n" +
-        contents);
-  }
+
 
   final void sendSMS(String phoneNumber, String body) {
     sendSMSFromUri("smsto:" + phoneNumber, body);
@@ -514,8 +508,7 @@ public abstract class ResultHandler {
     } else {
       // Otherwise offer to install it from Market.
       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-      builder.setTitle(R.string.msg_google_shopper_missing);
-      builder.setMessage(R.string.msg_install_google_shopper);
+     
       builder.setPositiveButton(R.string.button_ok, shopperMarketListener);
       builder.setNegativeButton(R.string.button_cancel, null);
       builder.show();
@@ -531,7 +524,7 @@ public abstract class ResultHandler {
       } catch (ActivityNotFoundException e) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.app_name);
-        builder.setMessage(R.string.msg_intent_failed);
+      
         builder.setPositiveButton(R.string.button_ok, null);
         builder.show();
       }

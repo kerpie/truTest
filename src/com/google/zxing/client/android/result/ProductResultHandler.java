@@ -33,9 +33,7 @@ import android.view.View;
  */
 public final class ProductResultHandler extends ResultHandler {
   private static final int[] buttons = {
-      R.string.button_product_search,
-      R.string.button_web_search,
-      R.string.button_custom_product_search
+
   };
 
   public ProductResultHandler(Activity activity, ParsedResult result, Result rawResult) {
