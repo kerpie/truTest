@@ -18,37 +18,48 @@ public class SplashActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+    	/* Hide title in app */
     	requestWindowFeature(Window.FEATURE_NO_TITLE);
+    	/* Setting view */
         setContentView(R.layout.splash_activity);
+        /* Start SplasScreen in another thread and check for previous data */
         new SplashScreen().execute();
     }
     
+    
+    /* Class to check data in background */
     public class SplashScreen extends AsyncTask<Void, Integer, Void>{
-
+    	
+    	/* Previous status to check before starting */
     	private boolean connection_status = false;
     	private boolean session_status = false;
     	
+    	/* Internal results to Toast status */
+    	/* Erase for production */
     	private final int CONNECTION_SUCCESS = 200;
     	private final int CONNECTION_FAIL = 300;
-    	
     	private final int SESSION_OPEN = 400;
     	private final int SESSION_CLOSED = 500;
     	
+    	/* Background work */
 		@Override
 		protected Void doInBackground(Void... params) {
+			
 			 /* Check Connection Status */
 	        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 	        NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 	        NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 	        if(wifi.isAvailable() || mobile.isAvailable()){
+	        	/* There is connection to transfer data */
 	        	publishProgress(CONNECTION_SUCCESS);
 	        	connection_status = true;
 	        }
 	        else{
+	        	/* There isn't connection */ 
 	        	publishProgress(CONNECTION_FAIL);
 	        	connection_status = false;
 	        }
-	        
+
 	        /* Check for open session */
 	        SharedPreferences session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
 	        if (Integer.parseInt(session.getString("user_status", "0")) == 1){
@@ -57,25 +68,27 @@ public class SplashActivity extends Activity {
 	        	publishProgress(SESSION_OPEN);
 	        }
 	        else{
+	        	/* No previous session */
 	        	session_status = false;
 	        	publishProgress(SESSION_CLOSED);
 	        }
+	        /* Dummy sleep to keep activity running */
 	        try  
             {  
-                //Get the current thread's token  
+	        	/* Get the current thread's token */  
                 synchronized (this)  
                 {  
-                    //Initialize an integer (that will act as a counter) to zero  
+                    /* Initialize an integer (that will act as a counter) to zero */  
                     int counter = 0;  
-                    //While the counter is smaller than four  
+                    /* While the counter is smaller than four */  
                     while(counter <= 4)  
                     {  
-                        //Wait 850 milliseconds  
+                        /* Wait 850 milliseconds */  
                         this.wait(850);  
-                        //Increment the counter  
+                        /* Increment the counter */  
                         counter++;  
-                        //Set the current progress.  
-                        //This value is going to be passed to the onProgressUpdate() method.  
+                        /* Set the current progress.  
+                           This value is going to be passed to the onProgressUpdate() method. */  
                     }  
                 }  
             }  
@@ -87,6 +100,8 @@ public class SplashActivity extends Activity {
 	        return null;
 		}
 		
+		/* Show Toast for Debugging */
+		/* Erase for production */
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			switch(values[0]){
@@ -129,17 +144,10 @@ public class SplashActivity extends Activity {
 		}
     	
     }
-    
+
+    /* Override back button behavior */
     @Override
     public void onBackPressed() {
-    	// TODO Auto-generated method stub
     	return;
-    }
-    
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.splash_activity, menu);
-        return true;
     }
 }

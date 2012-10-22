@@ -40,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
+
+import com.creatiwebs.Constants.ConstantValues;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
@@ -49,9 +51,11 @@ import com.facebook.android.Facebook.DialogListener;
 
 public class LoginActivity extends Activity {
 	
+	/* Variable for Internal Debug */
 	private static final String TAG = "LoginActivity";
-	private final String USER_DATA = "UserDataPreferences";
-	public final static int ERROR = 2;
+	
+	
+	public static boolean canLogin = false;
 	
 	EditText loginUsername = null;
 	EditText loginPass = null;
@@ -79,7 +83,7 @@ public class LoginActivity extends Activity {
         loginButton = (Button) findViewById(R.id.login_button);
         errorText = (TextView) findViewById(R.id.login_error_message);
         
-        newSettings = getSharedPreferences(USER_DATA, MODE_PRIVATE);
+        newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         loginButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -139,14 +143,14 @@ public class LoginActivity extends Activity {
 	    			}
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
+	    			responseMessage = jsonObject.getString("msj");
 	    			if(Integer.parseInt(statusResponse) == 1){
 	    				iduser = jsonObject.getString("iduser");
 		    			name = jsonObject.getString("nombre");
-		    			responseMessage = jsonObject.getString("msj");
+		    			canLogin = true;
 	    			}
-	    			else{
-	    				responseMessage = jsonObject.getString("msj");
-	    				publishProgress(ERROR);
+	    			else{	    				
+	    				canLogin = false;
 	    			}
 	    			    			
 	    			reader.close();
@@ -173,25 +177,22 @@ public class LoginActivity extends Activity {
     	
     	@Override
     	protected void onProgressUpdate(Integer... values) {
-    		switch(values[0]){
-	    		case ERROR:
-	    			errorText.setText(responseMessage);
-	    			break;
-	    		default:
-	    			errorText.setText("");
-	    			break;
+    		if(!canLogin){
+    			errorText.setText(responseMessage);
     		}
     		
     	}
     	
     	@Override
     	protected void onPostExecute(Void result) {
-    		SharedPreferences.Editor settingsEditor = newSettings.edit();
-			settingsEditor.putString("user_id", iduser);
-			settingsEditor.putString("user_name", name);
-			settingsEditor.putString("user_status", statusResponse);
-			settingsEditor.commit();
-			showStatusMessage();
+    		if(canLogin){
+	    		SharedPreferences.Editor settingsEditor = newSettings.edit();
+				settingsEditor.putString("user_id", iduser);
+				settingsEditor.putString("user_name", name);
+				settingsEditor.putString("user_status", statusResponse);
+				settingsEditor.commit();
+				showStatusMessage();
+    		}
     	}
     }
     
@@ -202,24 +203,16 @@ public class LoginActivity extends Activity {
     			finish();
     			Intent startWallActivity = new Intent(getApplicationContext(), MainActivity.class);
     			startActivity(startWallActivity);
-    			Log.i(TAG, "Inicio de WallActivity ok");
+    			Log.i(TAG, "Starting MainActivity");
     			break;
     		case 0:
-    			/* show error message */
-    			Log.i(TAG, "Error 0");
+    			Log.i(TAG, "Couldn't start MainActivity");
     			break;
     		default:
-    			Log.i(TAG, "Comportamiento por defecto");
+    			Log.i(TAG, "Default Message: You shouldn't be seeing this");
     			break;
     	}
-    } 
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_login, menu);
-        return true;
-    }
-    
+    }     
 
 	//Login to FB
 	public void loginToFacebook() {
