@@ -1,5 +1,8 @@
 package lazylist;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.creatiwebs.trustripes.R;
 
 import android.app.Activity;
@@ -17,15 +20,16 @@ public class LazyAdapter extends BaseAdapter {
     private String[] data;
     private static LayoutInflater inflater=null;
     public ImageLoader imageLoader; 
+    public JSONArray jsonArray = null;
     
-    public LazyAdapter(LayoutInflater a, String[] d) {
-        data=d;
+    public LazyAdapter(LayoutInflater a, JSONArray array) {
+        jsonArray = array;
         inflater = a;
         imageLoader=new ImageLoader(inflater.getContext());
     }
 
     public int getCount() {
-        return data.length;
+        return jsonArray.length();
     }
 
     public Object getItem(int position) {
@@ -40,10 +44,25 @@ public class LazyAdapter extends BaseAdapter {
         View vi=convertView;
         if(convertView==null)
             vi = inflater.inflate(R.layout.wall_item, null);
+        
         TextView text=(TextView)vi.findViewById(R.id.wall_item_simple_text);;
         ImageView image=(ImageView)vi.findViewById(R.id.wall_item_product_photo);
-        text.setText("item "+position);
-        imageLoader.DisplayImage(data[position], image);
+        
+        try{
+	        JSONObject jsonObject = (JSONObject) jsonArray.get(position);
+	        String new_name = "";
+	        if(jsonObject.getString("username").length() > 15) 
+	        	new_name = jsonObject.getString("username").substring(0,15);
+	        else
+	        	new_name = jsonObject.getString("username");
+	        text.setText(new_name + "\n"+jsonObject.getString("productname"));
+	        String idProduct = jsonObject.getString("idproduct");
+			String photo = jsonObject.getString("photo");
+			String tmp = "http://trustripes.com/dev/ws/productphoto/"+idProduct+photo;
+	        imageLoader.DisplayImage(tmp, image);
+        }catch(Exception e){
+        	
+        }
         return vi;
     }
 }

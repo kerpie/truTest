@@ -2,28 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >   
-    <LinearLayout 
+    <RelativeLayout 
         android:id="@+id/main_mainPart"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="horizontal">
+        android:padding="10dp">
 	    <TextView
 	        android:id="@+id/main_textView"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="2"
-	        android:text="MAIN"
-	        android:padding="10dp"
-	        tools:context=".MainActivity" 
-	        android:layout_gravity="center_vertical"/>
+	        android:layout_width="150dp"
+	        android:layout_height="35dp"
+	        android:background="@drawable/logo"
+	        android:padding="10dp" 
+	        android:layout_alignParentLeft="true"
+	        tools:context=".MainActivity" />
+
 	    <Button
 	        android:id="@+id/main_snackInButton"
-	        android:layout_width = "wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text = "Snack-In" 
-	        android:layout_weight="1"
-	        android:layout_gravity="center_vertical"/>
-    </LinearLayout>
+	        android:layout_width="135dp"
+	        android:layout_height="35dp"
+	        android:layout_alignParentRight="true"
+	        android:background="@drawable/snacked"
+	        android:paddingRight="5dp" />
+
+    </RelativeLayout >
 	<android.support.v4.view.ViewPager
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/pager"

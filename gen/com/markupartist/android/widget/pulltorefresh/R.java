@@ -54,12 +54,14 @@ public final class R {
         public static final int incon=0x7f02000d;
         public static final int login_button=0x7f02000e;
         public static final int login_logo_small=0x7f02000f;
-        public static final int logout_button=0x7f020010;
-        public static final int product=0x7f020011;
-        public static final int pull_to_refresh_header_background=0x7f020012;
-        public static final int splashscreen_bg=0x7f020013;
-        public static final int splashscreen_footer=0x7f020014;
-        public static final int splashscreen_logo=0x7f020015;
+        public static final int logo=0x7f020010;
+        public static final int logout_button=0x7f020011;
+        public static final int product=0x7f020012;
+        public static final int pull_to_refresh_header_background=0x7f020013;
+        public static final int snacked=0x7f020014;
+        public static final int splashscreen_bg=0x7f020015;
+        public static final int splashscreen_footer=0x7f020016;
+        public static final int splashscreen_logo=0x7f020017;
     }
     public static final class id {
         /**  Messages IDs 

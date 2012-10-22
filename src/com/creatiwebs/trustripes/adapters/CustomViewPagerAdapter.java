@@ -224,22 +224,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		}
 		 	 
 		 @Override
-		protected void onPostExecute(Void result) {
-			String links[] = new String[jsonArray.length()];
-			for(int i=0;i<jsonArray.length();i++){
-				try{
-					JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-					String idProduct = jsonObject.getString("idproduct");
-					String photo = jsonObject.getString("photo");
-					
-					String tmp = "http://trustripes.com/dev/ws/productphoto/"+idProduct+photo;
-					links[i] = tmp;
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}
-			
-			adapter = new LazyAdapter(new_inflater, links);
+		protected void onPostExecute(Void result) {			
+			adapter = new LazyAdapter(new_inflater, jsonArray);
 			wall_list.setAdapter(adapter);
 			adapter.imageLoader.clearCache();
 			adapter.notifyDataSetChanged();

@@ -27,7 +27,7 @@
             android:layout_marginRight="5dp"
             android:text="Here all String"
             android:textColor="#38245D"
-            android:textSize="18dip"
+            android:textSize="14dip"
             android:textStyle="bold" 
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
