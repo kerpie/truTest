@@ -13,28 +13,33 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class PreSnackin extends Activity {
+	
+	/* Declaration of UI widgets */
 	TextView te;
-	Button btn_again, btn_snack;
+	Button snackAgainButton, realSnackInButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_pre_snackin);
-		btn_again = (Button) findViewById(R.id.presnack_button_again);
-		btn_snack=(Button)findViewById(R.id.presnack_button_Snack);
-		btn_again.setOnClickListener(new View.OnClickListener() {
-
+		
+		/* Instantiation of UI widgets */
+		snackAgainButton = (Button) findViewById(R.id.presnack_button_again);
+		realSnackInButton=(Button)findViewById(R.id.presnack_button_Snack);
+		
+		/* Instantiation and button event association */
+		snackAgainButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Log.d("MAIN", "Click EN btn_again");
+				Log.d("MAIN", "Click EN snackAgainButton");
 				Intent intent = new Intent(getApplicationContext(),
 						CaptureActivity.class);
 				startActivity(intent);
 				finish();
-
 			}
 		});
-		btn_snack.setOnClickListener(new View.OnClickListener() {
+		
+		realSnackInButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub

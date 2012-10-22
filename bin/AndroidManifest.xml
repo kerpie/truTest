@@ -171,7 +171,7 @@
         </activity>
         <activity
             android:name=".Discoverer"
-            android:label="@string/title_activity_ambassador" >
+            android:label="@string/title_activity_Discoverer" >
         </activity>
     </application>
 

@@ -290,7 +290,7 @@ public final class R {
         public static final int splashScreen_imgView_footer_contentDescription=0x7f060008;
         public static final int splashScreen_imgView_logo_contentDescription=0x7f060009;
         public static final int title_about=0x7f06007f;
-        public static final int title_activity_ambassador=0x7f060087;
+        public static final int title_activity_Discoverer=0x7f060087;
         public static final int title_activity_login=0x7f06000b;
         public static final int title_activity_main=0x7f060006;
         public static final int title_activity_pre_snackin=0x7f060084;

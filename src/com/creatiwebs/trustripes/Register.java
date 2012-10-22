@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -41,41 +40,60 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Register extends Activity {
-	TextView textCode;
-	Button btn_again, btn_register;
+
+	/* Variable for internal debug control */
+	/* ERASE FOR PRODUCTION */
 	private static final String TAG = Register.class.getSimpleName();
-	EditText registerName;
-	String productName = "";
-	SharedPreferences session;
-	String userSession = "";
-	String code;
+	
+	/* Declaration of UI widgets */
+	private TextView textCode;
+	private Button btn_again, btn_register;
+	private EditText registerName;
+	
+	/* Declaration of variable for session control */
+	private SharedPreferences session;
+	
+	/* String values for JSON response */
+	private String productName = "";	
+	private String userSession = "";
+	private String code = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_register);
-		textCode = (TextView) findViewById(R.id.register_textview_code);
-		Intent t = getIntent();
-		textCode.setText(t.getStringExtra("RESULT"));
-		code = t.getStringExtra("RESULT");
+		
+		/* Instantiation of UI widgets */
 		registerName = (EditText) findViewById(R.id.register_edittext_name);
 		btn_again = (Button) findViewById(R.id.register_button_again);
-		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
 		btn_register = (Button) findViewById(R.id.register_button_register);
-
+		textCode = (TextView) findViewById(R.id.register_textview_code);
+		
+		/* Get previous session data */
+		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+		
+		/* Get intent extra data */
+		Intent t = getIntent();
+		code = t.getStringExtra("RESULT");
+		
+		/* Output of saved 'RESULT' data */
+		textCode.setText(t.getStringExtra("RESULT"));
 	}
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
+		
+		/* Get User Id stored in SharedPreferences */
 		userSession = session.getString("user_id", "No");
-		if (userSession == "NO") {
-			Toast.makeText(getApplicationContext(), "-_-' ", Toast.LENGTH_SHORT)
-					.show();
-		} else {
+		
+		/* just in case something happens with the data stored in SharedPreferences, unlikely to happen */
+		if (userSession == "No"){
+			Toast.makeText(getApplicationContext(), "This device will autodestroy in five seconds from now... RUN!!!", Toast.LENGTH_SHORT).show();
 		}
+		
+		/* Instantiate and associate button events */
 		btn_again.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
@@ -103,16 +121,18 @@ public class Register extends Activity {
 	}
 
 	public class Registerback extends AsyncTask<Void, Integer, Void> {
-		StringBuilder stringBuilder;
-		String statusResponse = "";
-		String idproduct = "";
-		boolean showDiscoverer = false;
-		JSONObject jsonObject;
+		
+		/* Internal variables for the thread */
+		private StringBuilder stringBuilder;
+		private String statusResponse = "";
+		private String idproduct = "";
+		private boolean showDiscoverer = false;
+		private JSONObject jsonObject;
 
 		@Override
 		protected Void doInBackground(Void... params) {
-
 			try {
+				
 				HttpClient client = new DefaultHttpClient();
 				String postURL = "http://www.trustripes.com/dev/ws/ws-registerproduct.php";
 				HttpPost post = new HttpPost(postURL);

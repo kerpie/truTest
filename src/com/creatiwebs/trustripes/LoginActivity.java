@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -54,18 +53,22 @@ public class LoginActivity extends Activity {
 	/* Variable for Internal Debug */
 	private static final String TAG = "LoginActivity";
 	
-	
+	/* Variable for Internal Control */
 	public static boolean canLogin = false;
 	
-	EditText loginUsername = null;
-	EditText loginPass = null;
-	Button loginButton = null;
-	TextView errorText = null;
+	/* Declartion of UI widgets */
+	private EditText loginUsername = null;
+	private EditText loginPass = null;
+	private Button loginButton = null;
+	private TextView errorText = null;
 	
+	/* ID for Facebook connect (Temporal data) */
 	private static String APP_ID = "274388489340768"; // Facebook ID AlertaMóvil
 	
-	SharedPreferences newSettings = null;
-	// Instance of Facebook Class
+	/* Session variable */
+	private SharedPreferences newSettings = null;
+	
+	/* Instance of Facebook Class */
 	private Facebook facebook = new Facebook(APP_ID);
 	private AsyncFacebookRunner mAsyncRunner;
 	String FILENAME = "AndroidSSO_data";
@@ -77,44 +80,47 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-               
+
+        /* Instantiate widget variables */
         loginUsername = (EditText) findViewById(R.id.login_username);
         loginPass = (EditText) findViewById(R.id.login_password);
         loginButton = (Button) findViewById(R.id.login_button);
-        errorText = (TextView) findViewById(R.id.login_error_message);
-        
+        errorText = (TextView) findViewById(R.id.login_error_message);        
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        btnFb = (Button) findViewById(R.id.login_facebook_button);
+        mAsyncRunner = new AsyncFacebookRunner(facebook);
+    }
+
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	btnFb.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d("Button", "button Clicked FB");
+				loginToFacebook();
+			}
+		});
         loginButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				new CheckLoginData().execute();
 			}
 		});
-		btnFb = (Button) findViewById(R.id.login_facebook_button);
-		mAsyncRunner = new AsyncFacebookRunner(facebook);
-
-		btnFb.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.d("Button", "button Clicked FB");
-				loginToFacebook();
-			}
-		});
     }
-
+    
     public class CheckLoginData extends AsyncTask<Void, Integer, Void>{
     	
-    	String username = null;
-    	String pass = null;
-    	StringBuilder stringBuilder = null;
-    	String iduser = null;
-    	String name = null;
-    	String statusResponse = null;
-    	String responseMessage = null;
-    	
+    	private String username = null;
+    	private String pass = null;
+    	private String iduser = null;
+    	private String name = null;
+    	private String statusResponse = null;
+    	private String responseMessage = null;
+    	private StringBuilder stringBuilder = null;
     	
     	@Override
     	protected void onPreExecute() {
+    		/* Get string values from the text boxes on UI */
     		username = loginUsername.getText().toString().trim();
     		pass = loginPass.getText().toString().trim();
     	}
@@ -122,6 +128,7 @@ public class LoginActivity extends Activity {
     	@Override
     	protected Void doInBackground(Void... params) {    		
     		try{
+    			/* Prepare variables for remote data check */
 	    		HttpClient client =  new DefaultHttpClient();   		
 	            String postURL = "http://www.trustripes.com/dev/ws/ws-validatelogin.php";
 	            HttpPost post = new HttpPost(postURL); 
@@ -132,6 +139,8 @@ public class LoginActivity extends Activity {
 	            post.setEntity(ent);
 	            HttpResponse responsePOST = client.execute(post);    		
 	    		StatusLine status = responsePOST.getStatusLine();
+	    		/* Filter what kind of response was obtained */
+	    		/* Filtering http response 200 */
 	    		if(status.getStatusCode() == HttpStatus.SC_OK){
 	    			HttpEntity entity = responsePOST.getEntity();
 	    			InputStream inputStream = entity.getContent();
@@ -141,15 +150,19 @@ public class LoginActivity extends Activity {
 	    			while((line = reader.readLine()) != null){
 	    				stringBuilder.append(line);
 	    			}
+	    			
+	    			/* Converting obtained string into JSON object */
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
 	    			responseMessage = jsonObject.getString("msj");
 	    			if(Integer.parseInt(statusResponse) == 1){
+	    				/* Success Login */
 	    				iduser = jsonObject.getString("iduser");
 		    			name = jsonObject.getString("nombre");
 		    			canLogin = true;
 	    			}
-	    			else{	    				
+	    			else{	    		
+	    				/* Can't Login */
 	    				canLogin = false;
 	    			}
 	    			    			
@@ -177,6 +190,7 @@ public class LoginActivity extends Activity {
     	
     	@Override
     	protected void onProgressUpdate(Integer... values) {
+    		/* If can't login display message sent by the server */
     		if(!canLogin){
     			errorText.setText(responseMessage);
     		}
@@ -185,6 +199,7 @@ public class LoginActivity extends Activity {
     	
     	@Override
     	protected void onPostExecute(Void result) {
+    		/* if login was successfull save data */
     		if(canLogin){
 	    		SharedPreferences.Editor settingsEditor = newSettings.edit();
 				settingsEditor.putString("user_id", iduser);
@@ -197,10 +212,12 @@ public class LoginActivity extends Activity {
     }
     
     public void showStatusMessage(){
-    	int status = Integer.parseInt(newSettings.getString("user_status", "No data"));
+    	int status = Integer.parseInt(newSettings.getString("user_status", "-1"));
     	switch(status){
     		case 1:
+    			/* Finish the current activity */
     			finish();
+    			/* Start MainActivity */ 
     			Intent startWallActivity = new Intent(getApplicationContext(), MainActivity.class);
     			startActivity(startWallActivity);
     			Log.i(TAG, "Starting MainActivity");
@@ -209,7 +226,7 @@ public class LoginActivity extends Activity {
     			Log.i(TAG, "Couldn't start MainActivity");
     			break;
     		default:
-    			Log.i(TAG, "Default Message: You shouldn't be seeing this");
+    			Log.i(TAG, "Default Message: There is no 'user_status' value: You shouldn't be seeing this");
     			break;
     	}
     }     

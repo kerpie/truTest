@@ -23,10 +23,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 import com.google.zxing.ResultPoint;
-import com.google.zxing.client.android.Intents.Scan;
 import com.google.zxing.client.android.camera.CameraManager;
 
-import com.google.zxing.client.android.result.ResultButtonListener;
+
 import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
 
@@ -36,11 +35,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -52,17 +49,12 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,16 +63,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -90,11 +77,9 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -110,12 +95,12 @@ public final class CaptureActivity extends Activity implements
 		SurfaceHolder.Callback {
 
 	private static final String TAG = CaptureActivity.class.getSimpleName();
-
-	private static final int SHARE_ID = Menu.FIRST;
-	private static final int HISTORY_ID = Menu.FIRST + 1;
-	private static final int SETTINGS_ID = Menu.FIRST + 2;
-	private static final int HELP_ID = Menu.FIRST + 3;
-	private static final int ABOUT_ID = Menu.FIRST + 4;
+//
+//	private static final int SHARE_ID = Menu.FIRST;
+//	private static final int HISTORY_ID = Menu.FIRST + 1;
+//	private static final int SETTINGS_ID = Menu.FIRST + 2;
+//	private static final int HELP_ID = Menu.FIRST + 3;
+//	private static final int ABOUT_ID = Menu.FIRST + 4;
 
 	private static final long DEFAULT_INTENT_RESULT_DURATION_MS = 1500L;
 	private static final long BULK_MODE_SCAN_DELAY_MS = 1000L;
@@ -130,11 +115,11 @@ public final class CaptureActivity extends Activity implements
 
 	public static final int HISTORY_REQUEST_CODE = 0x0000bacc;
 
-	private static final Set<ResultMetadataType> DISPLAYABLE_METADATA_TYPES = EnumSet
-			.of(ResultMetadataType.ISSUE_NUMBER,
-					ResultMetadataType.SUGGESTED_PRICE,
-					ResultMetadataType.ERROR_CORRECTION_LEVEL,
-					ResultMetadataType.POSSIBLE_COUNTRY);
+//	private static final Set<ResultMetadataType> DISPLAYABLE_METADATA_TYPES = EnumSet
+//			.of(ResultMetadataType.ISSUE_NUMBER,
+//					ResultMetadataType.SUGGESTED_PRICE,
+//					ResultMetadataType.ERROR_CORRECTION_LEVEL,
+//					ResultMetadataType.POSSIBLE_COUNTRY);
 
 	private CameraManager cameraManager;
 	private CaptureActivityHandler handler;

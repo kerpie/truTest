@@ -12,31 +12,29 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	TextView profile_textView = null;
-	private Button go_cam;
+	/* Declaration of UI widgets */
+	private Button snackIn_button;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		go_cam = (Button) findViewById(R.id.main_snackInButton);
-
-		go_cam.setOnClickListener(new View.OnClickListener() {
-
+		
+		/* Instantiation and event association */
+		snackIn_button = (Button) findViewById(R.id.main_snackInButton);
+		snackIn_button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN EL BOTON");
-				Intent intent = new Intent(getApplicationContext(),
-						CaptureActivity.class);
+				Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
 				startActivity(intent);
 			}
 		});
-
+		
+		/* Preparing the Custom Page Swipe Adapter */
 		CustomViewPagerAdapter pagerAdapter = new CustomViewPagerAdapter();
 		ViewPager myPager = (ViewPager) findViewById(R.id.pager);
 		myPager.setAdapter(pagerAdapter);
