@@ -6,7 +6,8 @@
         android:id="@+id/main_mainPart"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:padding="10dp">
+        android:padding="5dp"
+        android:background="@layout/bg_gradient">
 	    <TextView
 	        android:id="@+id/main_textView"
 	        android:layout_width="150dp"
@@ -20,8 +21,8 @@
 	        android:layout_width="135dp"
 	        android:layout_height="35dp"
 	        android:layout_alignParentRight="true"
-	        android:background="@drawable/snacked"
-	        android:paddingRight="5dp" />
+	        android:layout_centerVertical="true"
+	        android:background="@drawable/snacked" />
     </RelativeLayout >
 	<android.support.v4.view.ViewPager
 	    xmlns:android="http://schemas.android.com/apk/res/android"

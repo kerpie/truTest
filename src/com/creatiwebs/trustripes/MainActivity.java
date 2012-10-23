@@ -17,7 +17,8 @@ public class MainActivity extends Activity {
 
 	/* Declaration of UI widgets */
 	private Button snackIn_button;
-
+	ViewPager myPager;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,11 +37,17 @@ public class MainActivity extends Activity {
 		
 		/* Preparing the Custom Page Swipe Adapter */
 		CustomViewPagerAdapter pagerAdapter = new CustomViewPagerAdapter();
-		ViewPager myPager = (ViewPager) findViewById(R.id.pager);
+		myPager = (ViewPager) findViewById(R.id.pager);
 		myPager.setAdapter(pagerAdapter);
 		myPager.setCurrentItem(0);
 	}
 
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		myPager.onSaveInstanceState();
+		super.onSaveInstanceState(outState);
+	}
 	// For Options Menu
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
