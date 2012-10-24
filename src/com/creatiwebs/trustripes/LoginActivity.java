@@ -54,13 +54,14 @@ public class LoginActivity extends Activity {
 	private static final String TAG = "LoginActivity";
 	
 	/* Variable for Internal Control */
-	public static boolean canLogin = false;
+	public boolean canLogin = false;
 	
 	/* Declartion of UI widgets */
 	private EditText loginUsername = null;
 	private EditText loginPass = null;
 	private Button loginButton = null;
 	private TextView errorText = null;
+	private TextView registerText = null;
 	
 	/* ID for Facebook connect (Temporal data) */
 	private static String APP_ID = "274388489340768"; // Facebook ID AlertaMóvil
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity {
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         btnFb = (Button) findViewById(R.id.login_facebook_button);
         mAsyncRunner = new AsyncFacebookRunner(facebook);
+        registerText = (TextView) findViewById(R.id.login_createUser_textView);
     }
 
     @Override
@@ -106,6 +108,14 @@ public class LoginActivity extends Activity {
 				new CheckLoginData().execute();
 			}
 		});
+        registerText.setOnClickListener(new View.OnClickListener(){
+        	
+        	public void onClick(View v){
+        		Intent intent = new Intent(getApplicationContext(),NewUserRegistration.class);
+        		startActivity(intent);
+        		finish();
+        	}
+        });
     }
     
     public class CheckLoginData extends AsyncTask<Void, Integer, Void>{

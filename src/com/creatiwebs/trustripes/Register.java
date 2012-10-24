@@ -75,10 +75,10 @@ public class Register extends Activity {
 		
 		/* Get intent extra data */
 		Intent t = getIntent();
-		code = t.getStringExtra("RESULT");
+		code = t.getStringExtra("BARCODE");
 		
-		/* Output of saved 'RESULT' data */
-		textCode.setText(t.getStringExtra("RESULT"));
+		/* Output of saved 'BARCODE' data */
+		textCode.setText(t.getStringExtra("BARCODE"));
 	}
 
 	@Override

@@ -140,7 +140,7 @@ public final class CaptureActivity extends Activity implements
 	private InactivityTimer inactivityTimer;
 	private BeepManager beepManager;
 	ProgressDialog progressDialog;
-	String resultado = "";
+	String obtainedBarcode = "";
 
 	private final DialogInterface.OnClickListener aboutListener = new DialogInterface.OnClickListener() {
 
@@ -499,7 +499,7 @@ public final class CaptureActivity extends Activity implements
 	private void handleDecodeInternally(Result rawResult,
 			ResultHandler resultHandler, Bitmap barcode) {
 
-		resultado = rawResult.toString();
+		obtainedBarcode = rawResult.toString();
 		new Snackin().execute();
 
 	}
@@ -703,7 +703,7 @@ public final class CaptureActivity extends Activity implements
 	public class Snackin extends AsyncTask<Void, Integer, Void> {
 		StringBuilder stringBuilder;
 		String statusResponse = "";
-		String idproduct = "";
+		String productId,productName, productPhoto;
 		boolean canSnack;
 
 		@Override
@@ -713,7 +713,7 @@ public final class CaptureActivity extends Activity implements
 				String postURL = "http://www.trustripes.com/dev/ws/ws-barcodevalidation.php";
 				HttpPost post = new HttpPost(postURL);
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
-				param.add(new BasicNameValuePair("codigo", resultado));
+				param.add(new BasicNameValuePair("codigo", obtainedBarcode));
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
 				post.setEntity(ent);
 				HttpResponse responsePOST = client.execute(post);
@@ -732,7 +732,9 @@ public final class CaptureActivity extends Activity implements
 							stringBuilder.toString());
 					statusResponse = jsonObject.getString("status");
 					if (Integer.parseInt(statusResponse) == 1) {
-						idproduct = jsonObject.getString("idproduct");
+						productId = jsonObject.getString("idproduct");
+						productName = jsonObject.getString("producto");
+						productPhoto = jsonObject.getString("foto");
 						canSnack = true;
 					} else {
 						canSnack = false;
@@ -764,10 +766,13 @@ public final class CaptureActivity extends Activity implements
 			Intent intent;
 			if (canSnack) {
 				intent = new Intent(getApplicationContext(), PreSnackin.class);
+				intent.putExtra("PRODUCT_ID", productId);
+				intent.putExtra("PRODUCT_NAME",productName);
+				intent.putExtra("PRODUCT_PHOTO",productPhoto);
 			} else {
 				intent = new Intent(getApplicationContext(), Register.class);
 			}
-			intent.putExtra("RESULT", resultado);
+			intent.putExtra("BARCODE", obtainedBarcode);
 			startActivity(intent);
 			finish();
 		}
