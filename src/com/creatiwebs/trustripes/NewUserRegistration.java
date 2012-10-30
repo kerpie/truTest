@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,8 +33,12 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class NewUserRegistration extends Activity {
 
@@ -43,19 +49,30 @@ public class NewUserRegistration extends Activity {
 	private EditText pass;
 	private EditText full_name;
 	private Button send;
+	private ProgressBar progressBar;
+	private TextView errorMessage;
+	
+	private String myErrorMessage;
 	
 	private SharedPreferences newSettings = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_new_user_registration);
         username = (EditText) findViewById(R.id.username_editText);
         full_name = (EditText) findViewById(R.id.full_name_editText);
         pass = (EditText) findViewById(R.id.pass_editText);
         mail = (EditText) findViewById(R.id.mail_editText);
-        send = (Button) findViewById(R.id.button1);
+        send = (Button) findViewById(R.id.register_user_button);
+        progressBar = (ProgressBar) findViewById(R.id.loading_progress_bar);
+        errorMessage = (TextView) findViewById(R.id.error_message);
+        
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        
+        progressBar.setVisibility(View.GONE);
+        errorMessage.setVisibility(View.GONE);
     }
 
     @Override
@@ -63,13 +80,41 @@ public class NewUserRegistration extends Activity {
     	super.onStart();
     	send.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				new SendNewUser().execute(	username.getText().toString().trim(),
-											full_name.getText().toString().trim(),
-											mail.getText().toString().trim(),
-											pass.getText().toString().trim());
+				boolean canSend = checkDataBeforeSend(username.getText().toString().trim(),
+						full_name.getText().toString().trim(),
+						mail.getText().toString().trim(),
+						pass.getText().toString().trim());
+				if(canSend){
+					new SendNewUser().execute();
+				}
+				else{
+					errorMessage.setText(myErrorMessage);
+				}
 			}
 		});
     }
+    
+	private boolean checkDataBeforeSend(String username, String full_name, String mail, String pass) {
+		Pattern usernamePattern, fullNamePattern, mailPattern;
+		Matcher usernameMatch, fullNameMatch, mailMatch;
+		
+		final String USERNAME_PATTERN = "^[A-Za-z0-9_-]{5,20}$";
+		final String FULL_NAME_PATTERN = "^[A-Za-z]{0,100}$";
+		final String MAIL_PATTERN = "^[a-zA-Z0-9-_.]+@[a-zA-Z0-9]+.[a-z]{2,}$";
+		
+		usernamePattern = Pattern.compile(USERNAME_PATTERN);
+		usernameMatch = usernamePattern.matcher(username);
+		
+		fullNamePattern = Pattern.compile(FULL_NAME_PATTERN);
+		fullNameMatch = fullNamePattern.matcher(full_name);
+		
+		mailPattern = Pattern.compile(MAIL_PATTERN);
+		mailMatch = mailPattern.matcher(mail);
+		
+		
+		
+		return false;
+	}
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,7 +134,16 @@ public class NewUserRegistration extends Activity {
     	private String iduser = null;
     	private String name = null;
     	
+    	private String message = null;
+    	
     	private boolean canLogin;
+    	
+    	@Override
+    	protected void onPreExecute() {
+    		super.onPreExecute();
+    		progressBar.setVisibility(View.VISIBLE);
+    		errorMessage.setVisibility(View.GONE);
+    	}
     	
     	@Override
     	protected Void doInBackground(String... params) {
@@ -129,14 +183,15 @@ public class NewUserRegistration extends Activity {
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
 	    			if(Integer.parseInt(statusResponse) == 1){
-	    				/* Success Login */
-	    				iduser = jsonObject.getString("iduser");
-		    			name = jsonObject.getString("user");
-		    			canLogin = true;
-	    			}
-	    			else{	    		
-	    				/* Can't Login */
-	    				canLogin = false;
+		    				/* Success Login */
+		    				iduser = jsonObject.getString("iduser");
+			    			name = jsonObject.getString("user");
+			    			canLogin = true;
+	    			}	
+	    			else{
+		    				/* Can't Login */    				
+		    				message = jsonObject.getString("msj");
+		    				canLogin = false;
 	    			}
 	    			    			
 	    			reader.close();
@@ -171,6 +226,11 @@ public class NewUserRegistration extends Activity {
 				settingsEditor.commit();
 				showStatusMessage();
     		}
+    		else{
+    			progressBar.setVisibility(View.GONE);
+    			errorMessage.setText(message);
+    			errorMessage.setVisibility(View.VISIBLE);
+    		}
     	}
     }
     
@@ -178,10 +238,14 @@ public class NewUserRegistration extends Activity {
     	int status = Integer.parseInt(newSettings.getString("user_status", "-1"));
     	switch(status){
     		case 1:
-    			/* Finish the current activity */
-    			finish();
+//    			/* Finish the current activity */
+//    			finish();
+    			
     			/* Start MainActivity */ 
     			Intent startWallActivity = new Intent(getApplicationContext(), MainActivity.class);
+    			
+    			/* AÑADIR ESTA ACTIVIDAD PARA SER ELIMINADA DESDE LA OTRA */
+    			startWallActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
     			startActivity(startWallActivity);
     			Log.i(TAG, "Starting MainActivity");
     			break;

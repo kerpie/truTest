@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.FileNotFoundException;
@@ -62,6 +63,7 @@ public class LoginActivity extends Activity {
 	private Button loginButton = null;
 	private TextView errorText = null;
 	private TextView registerText = null;
+	private ProgressBar progressBar = null;
 	
 	/* ID for Facebook connect (Temporal data) */
 	private static String APP_ID = "274388489340768"; // Facebook ID AlertaMóvil
@@ -91,29 +93,32 @@ public class LoginActivity extends Activity {
         btnFb = (Button) findViewById(R.id.login_facebook_button);
         mAsyncRunner = new AsyncFacebookRunner(facebook);
         registerText = (TextView) findViewById(R.id.login_createUser_textView);
+        progressBar = (ProgressBar) findViewById(R.id.login_progressBar);
+        
+        progressBar.setVisibility(View.GONE);
+        errorText.setVisibility(View.GONE);
     }
 
     @Override
     protected void onResume() {
     	super.onResume();
+    	
     	btnFb.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Log.d("Button", "button Clicked FB");
 				loginToFacebook();
 			}
 		});
+    	
         loginButton.setOnClickListener(new View.OnClickListener() {
-			
 			public void onClick(View v) {
 				new CheckLoginData().execute();
 			}
 		});
-        registerText.setOnClickListener(new View.OnClickListener(){
-        	
+        
+        registerText.setOnClickListener(new View.OnClickListener(){	
         	public void onClick(View v){
         		Intent intent = new Intent(getApplicationContext(),NewUserRegistration.class);
         		startActivity(intent);
-        		finish();
         	}
         });
     }
@@ -133,6 +138,8 @@ public class LoginActivity extends Activity {
     		/* Get string values from the text boxes on UI */
     		username = loginUsername.getText().toString().trim();
     		pass = loginPass.getText().toString().trim();
+    		progressBar.setVisibility(View.VISIBLE);
+    		errorText.setVisibility(View.GONE);
     	}
     	
     	@Override
@@ -197,16 +204,7 @@ public class LoginActivity extends Activity {
 			}
     		return null;
     	}
-    	
-    	@Override
-    	protected void onProgressUpdate(Integer... values) {
-    		/* If can't login display message sent by the server */
-    		if(!canLogin){
-    			errorText.setText(responseMessage);
-    		}
-    		
-    	}
-    	
+    	   	
     	@Override
     	protected void onPostExecute(Void result) {
     		/* if login was successfull save data */
@@ -217,6 +215,12 @@ public class LoginActivity extends Activity {
 				settingsEditor.putString("user_status", statusResponse);
 				settingsEditor.commit();
 				showStatusMessage();
+    		}
+    		else{
+        		/* If can't login display message sent by the server */
+       			errorText.setText(responseMessage);
+       			errorText.setVisibility(View.VISIBLE);
+       			progressBar.setVisibility(View.GONE);
     		}
     	}
     }

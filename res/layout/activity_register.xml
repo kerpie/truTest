@@ -1,68 +1,101 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:background="@drawable/splashscreen_bg"
+    android:orientation="vertical" >
+    <RelativeLayout 
+        android:id="@+id/main_mainPart"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/splashscreen_bg"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/register_textview_tittle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New product to register"
-            android:textColor="#000"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/register_imageview_add"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/add_photo" />
-
-        <TextView
-            android:id="@+id/register_textview_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Code"
-            android:textColor="#000"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/register_edittext_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="PRODUCT NAME"
-            android:lines="1" />
-
-        <EditText
-            android:id="@+id/register_edittext_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="COUNTRY OF MANUFACTURING"
-            android:lines="1" />
-
+        android:background="@layout/bg_gradient">
+        <Button 
+            android:layout_height="wrap_content" 
+	        android:layout_width="wrap_content"
+            android:id="@+id/backButton"
+            android:layout_alignParentLeft="true"/>"
+	    <TextView
+	        android:id="@+id/main_textView"
+	        android:layout_width="150dp"
+	        android:layout_height="35dp"
+	        android:background="@drawable/logo"
+	        android:padding="25dp" 
+	        android:layout_toRightOf="@+id/backButton"/>
+    </RelativeLayout >
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/register_button_again"
+            android:orientation="vertical"
+            android:padding="10dp" >
+            <TextView
+                android:id="@+id/register_textview_tittle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Again" />
-
-            <Button
-                android:id="@+id/register_button_register"
+                android:layout_margin="5dp"
+                android:text="NEW PRODUCT TO REGISTER"
+                android:textColor="#000"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/register_imageview_add"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/add_photo" />
+            <TextView
+                android:id="@+id/register_textview_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register" />
+                android:text="Code"
+                android:textColor="#000"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/register_edittext_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="PRODUCT NAME"
+                android:lines="1" />
+            <EditText
+                android:id="@+id/register_edittext_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="COUNTRY OF MANUFACTURING"
+                android:lines="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+                <Button
+                    android:id="@+id/register_button_again"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Snack Again" 
+                    android:background="#FF00A287"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:textColor="#FFFFFFFF"/>
+                <Button
+                    android:id="@+id/register_button_register"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    android:background="#FFD660CC"
+                    android:layout_weight="1" 
+                    android:layout_margin="5dp"
+                    android:textColor="#FFFFFFFF"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-22dp"
+        android:contentDescription="@string/mainActivity_imgView_logo_contentDescription"
+        android:src="@drawable/splashscreen_footer" />
+</RelativeLayout>

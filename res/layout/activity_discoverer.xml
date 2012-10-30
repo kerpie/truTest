@@ -1,5 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout   
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen_bg"
@@ -16,9 +19,10 @@
 
     <ImageView
         android:id="@+id/discoverer_imageview_discoverer"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/discoverer" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ambassador" 
+        android:padding="15dp"/>
 
     <TextView
         android:id="@+id/discoverer_textview_msj"
@@ -34,12 +38,13 @@
         android:layout_height="wrap_content"
         android:text="x"
         android:textColor="#000"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+        android:padding="5dp"/>
 
     <Button
         android:id="@+id/discoverer_button_returnWall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Return Wall" />
-
 </LinearLayout>
+</ScrollView>

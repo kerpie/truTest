@@ -69,7 +69,7 @@ public class PreSnackin extends Activity {
 		/* Instantiation of UI widgets */
 		snackAgainButton = (Button) findViewById(R.id.presnack_button_again);
 		realSnackInButton=(Button)findViewById(R.id.presnack_button_Snack);
-		te = (TextView) findViewById(R.id.presnack_textview_tittle);
+		te = (TextView) findViewById(R.id.presnack_imageView_barcode);
 			
 		te.setText(obtainedCode);
 		
@@ -95,6 +95,11 @@ public class PreSnackin extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_pre_snackin, menu);
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 	
 	public class SendSnackIn extends AsyncTask<Void, Integer, Void>{
@@ -178,6 +183,7 @@ public class PreSnackin extends Activity {
 				intent.putExtra("PRODUCT_PHOTO", productPhoto);
 				intent.putExtra("AMBASSADOR_STATUS", ambassadorStatus);
 				startActivity(intent);
+				finish();
 			}
 			else{
 				Toast.makeText(getApplicationContext(), "Something wrong happened, please try again", Toast.LENGTH_SHORT ).show();

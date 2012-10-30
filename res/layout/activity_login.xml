@@ -75,15 +75,22 @@
 			        android:layout_width="0dp"
 			        android:alpha="1"/>
 			</LinearLayout>
+			<ProgressBar
+		        android:id="@+id/login_progressBar"
+		        android:layout_width="20dp"
+		        android:layout_height="20dp"
+		        android:layout_centerHorizontal="true"
+		        android:layout_margin="5dp"
+		        android:layout_below="@+id/social_buttons"/>
 			<TextView 
 			    android:id="@+id/login_error_message"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_below="@+id/social_buttons"
+			    android:layout_below="@+id/login_progressBar"
 			    android:layout_centerHorizontal="true"
 			    android:text=" "
-			    android:layout_marginTop="15dp"
-			    android:textColor="#FF0000"/>
+			    android:layout_margin="5dp"
+			    android:textColor="#FFFF0000"/>
 			<TextView 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -91,8 +98,8 @@
 			    android:id="@+id/login_createUser_textView"
 			    android:layout_centerHorizontal="true"
 			    android:layout_below="@+id/login_error_message"
-			    android:layout_marginBottom="15dp"
-			    android:textColor="#0000EE"/>
+			    android:layout_margin="5dp"
+			    android:textColor="#FF0000EE"/>
 		</RelativeLayout>
 	</ScrollView>
 	<ImageView

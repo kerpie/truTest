@@ -34,21 +34,22 @@ public class Discoverer extends Activity {
 		super.onStart();		
 		name = t.getStringExtra("Product_name");
 		nametv.setText(name);
-		
-	
 
 		btn_return.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
-				Intent intent = new Intent(getApplicationContext(),
-						MainActivity.class);
+				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 				startActivity(intent);
 				finish();
-
 			}
 		});
 
+	}
+	
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 
 	@Override

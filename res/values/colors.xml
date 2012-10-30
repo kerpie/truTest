@@ -37,4 +37,5 @@
   <color name="viewfinder_frame">#ff000000</color>
   <color name="viewfinder_laser">#ffff0000</color>
   <color name="viewfinder_mask">#60000000</color>
+  <color name="pagertabstrip">#FFD6A2EA</color>
 </resources>

@@ -42,7 +42,7 @@ public class WallItemAdapter extends ArrayAdapter<JSONObject>{
 			JSONObject jObject = items.get(position);
 			if (jObject!=null){
 				ImageView productImage = (ImageView) v.findViewById(R.id.wall_item_product_photo) ;
-				TextView userText = (TextView) v.findViewById(R.id.wall_item_simple_text);
+				TextView userText = (TextView) v.findViewById(R.id.wall_item_username_text);
 				try{
 					userText.setText(jObject.getString("username"));
 					HttpClient client = new DefaultHttpClient();

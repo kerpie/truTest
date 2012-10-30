@@ -20,7 +20,12 @@
         android:layout_height="150dp"
         android:src="@drawable/product" />
 
-
+	<TextView 
+	    android:id="@+id/presnack_imageView_barcode"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="defaultText"
+	    android:padding="10dp"/>
     <EditText
         android:id="@+id/presnack_edittext_country"
         android:layout_width="wrap_content"

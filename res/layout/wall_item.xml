@@ -1,43 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" 
-    android:padding="10dp">
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="10dp" >
-        <ImageView
-            android:id="@+id/wall_item_profile_photo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/anon" />
 
-        <TextView
-            android:id="@+id/wall_item_simple_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/wall_item_profile_photo"
-            android:layout_toLeftOf="@+id/wall_item_product_photo"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="5dp"
-            android:text="Here all String"
-            android:textColor="#38245D"
-            android:textSize="14dip"
-            android:textStyle="bold" 
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
-    <ImageView
-        android:id="@+id/wall_item_product_photo"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="2"
-        android:baselineAlignBottom="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/incon" />
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <LinearLayout 
+        android:id="@+id/upperPart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView 
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/wall_item_username_text"
+	        android:text="Hola "
+	        android:padding="7dp"
+	        android:textSize="14dp"
+	        android:textColor = "#FF0000FF"
+	        android:layout_weight="1"/>
+	    <TextView 
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/wall_item_snack_text"
+	        android:text="snacked in "
+	        android:padding="7dp"
+	        android:layout_weight="1"/>
+	    <TextView 
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/wall_item_product_text"
+	        android:text="Mundo"
+	        android:padding="7dp"
+	        android:textSize="14dp"
+	        android:textColor="#FF0000FF"
+	        android:layout_weight="1"/>
+	</LinearLayout> 
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/bottomPart"
+	    android:layout_below="@+id/upperPart">
+	    <LinearLayout
+	        android:id="@+id/leftPart"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="5dp"
+	        android:layout_alignParentLeft="true"
+	        android:orientation="vertical" 
+	        android:layout_centerVertical="true">
+	        <ImageView
+	            android:id="@+id/wall_item_profile_photo"
+	            android:layout_width="70dp"
+	            android:layout_height="70dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_gravity="center"
+	            android:padding="5dp"
+	            android:src="@drawable/anon" />
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:padding="5dp"
+	            android:text="# Likes" />
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:padding="5dp"
+	            android:text="# Comments" />
+	    </LinearLayout>
+	    <FrameLayout
+	        android:id="@+id/rigthPart"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_toRightOf="@id/leftPart">
+	        <ImageView
+	            android:id="@+id/wall_item_product_photo"
+	            android:layout_width="match_parent"
+	            android:layout_height="200dp"
+	            android:scaleType="centerCrop"
+	            android:src="@drawable/incon" />
+	        <TextView
+	            android:id="@+id/totalSnacks"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="top|right"
+	            android:padding="8dp"
+	            android:text="20"
+	            android:background="#FFFF0000"
+	            android:textColor="#FFFFFFFF"
+	            android:textSize="16dp"
+	            android:textStyle="bold" />
+	        <TextView
+	            android:id="@+id/totalSnacks"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="bottom|fill_horizontal"
+	            android:background="#AA000000"
+	            android:padding="10dp"
+	            android:text="Estrellitas"
+	            android:textColor="#FFFFFFFF" />
+	    </FrameLayout>
+	</RelativeLayout>
+</RelativeLayout>

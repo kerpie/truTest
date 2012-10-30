@@ -47,7 +47,7 @@ public class Register extends Activity {
 	
 	/* Declaration of UI widgets */
 	private TextView textCode;
-	private Button btn_again, btn_register;
+	private Button btn_again, btn_register, backButton;
 	private EditText registerName;
 	
 	/* Declaration of variable for session control */
@@ -68,6 +68,7 @@ public class Register extends Activity {
 		registerName = (EditText) findViewById(R.id.register_edittext_name);
 		btn_again = (Button) findViewById(R.id.register_button_again);
 		btn_register = (Button) findViewById(R.id.register_button_register);
+		backButton = (Button) findViewById(R.id.backButton);
 		textCode = (TextView) findViewById(R.id.register_textview_code);
 		
 		/* Get previous session data */
@@ -78,7 +79,7 @@ public class Register extends Activity {
 		code = t.getStringExtra("BARCODE");
 		
 		/* Output of saved 'BARCODE' data */
-		textCode.setText(t.getStringExtra("BARCODE"));
+		textCode.setText(code);
 	}
 
 	@Override
@@ -97,20 +98,22 @@ public class Register extends Activity {
 		btn_again.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
-				Intent intent = new Intent(getApplicationContext(),
-						CaptureActivity.class);
+				Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
 				startActivity(intent);
 				finish();
 			}
 		});
+		
 		btn_register.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_register");
-				productName = registerName.getText().toString();
+				productName = registerName.getText().toString().trim();
 				new Registerback().execute();
 			}
 		});
+		
+		backButton.setBackgroundResource(android.R.drawable.arrow_up_float);
 
 	}
 
@@ -149,8 +152,7 @@ public class Register extends Activity {
 				if (status.getStatusCode() == HttpStatus.SC_OK) {
 					HttpEntity entity = responsePOST.getEntity();
 					InputStream inputStream = entity.getContent();
-					BufferedReader reader = new BufferedReader(
-							new InputStreamReader(inputStream));
+					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 					String line = null;
 					stringBuilder = new StringBuilder();
 					while ((line = reader.readLine()) != null) {
@@ -191,7 +193,6 @@ public class Register extends Activity {
 
 		protected void onPostExecute(Void result) {
 			Intent intent = null;
-			// TODO Auto-generated method stub
 			if (showDiscoverer) {
 				intent = new Intent(getApplicationContext(), Discoverer.class);
 				try {
@@ -205,11 +206,13 @@ public class Register extends Activity {
 				finish();
 			} else {
 				Log.d("Error Discoverer", "Error en la respuesta");
-				Toast.makeText(getApplicationContext(), "No se pudo enviar", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "No se pudo registrar", Toast.LENGTH_SHORT).show();
 			}
-
 		}
-
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 }
