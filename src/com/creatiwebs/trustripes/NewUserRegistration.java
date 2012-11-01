@@ -24,33 +24,45 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import com.creatiwebs.Constants.ConstantValues;
+import com.creatiwebs.Events.checkFulName;
+import com.creatiwebs.Events.checkMail;
+import com.creatiwebs.Events.checkPass;
+import com.creatiwebs.Events.checkUsername;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NewUserRegistration extends Activity {
+public class NewUserRegistration extends Activity{
 
 	private final static String TAG = "NewUserRegistration AsyncTask";
 	
 	private EditText username;
 	private EditText mail;
 	private EditText pass;
+	private EditText visiblePass;
 	private EditText full_name;
 	private Button send;
 	private ProgressBar progressBar;
 	private TextView errorMessage;
+	private CheckBox passCheck;
 	
 	private String myErrorMessage;
 	
@@ -65,56 +77,50 @@ public class NewUserRegistration extends Activity {
         full_name = (EditText) findViewById(R.id.full_name_editText);
         pass = (EditText) findViewById(R.id.pass_editText);
         mail = (EditText) findViewById(R.id.mail_editText);
+        visiblePass = (EditText) findViewById(R.id.visible_pass_editText);
         send = (Button) findViewById(R.id.register_user_button);
         progressBar = (ProgressBar) findViewById(R.id.loading_progress_bar);
         errorMessage = (TextView) findViewById(R.id.error_message);
-        
+        passCheck = (CheckBox) findViewById(R.id.pass_check);
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         
         progressBar.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
+        
+        username.setOnKeyListener(new checkUsername(getResources()));
+        mail.setOnKeyListener(new checkMail(getResources()));
+        full_name.setOnKeyListener(new checkFulName());
+        pass.setOnKeyListener(new checkPass());
+                
+        passCheck.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        	
+        	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        		 if(passCheck.isChecked()){
+        	    		visiblePass.setText(pass.getText().toString());
+        	    		visiblePass.setVisibility(View.VISIBLE);
+        	    		pass.setVisibility(View.GONE);
+    	    	}
+    	    	else{
+    	    		pass.setText(visiblePass.getText().toString());
+    	    		pass.setVisibility(View.VISIBLE);
+    	    		visiblePass.setVisibility(View.GONE);
+    	    	}
+    		}
+        });
     }
 
     @Override
     protected void onStart() {
     	super.onStart();
+    	  	
     	send.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				boolean canSend = checkDataBeforeSend(username.getText().toString().trim(),
-						full_name.getText().toString().trim(),
-						mail.getText().toString().trim(),
-						pass.getText().toString().trim());
-				if(canSend){
-					new SendNewUser().execute();
-				}
-				else{
-					errorMessage.setText(myErrorMessage);
-				}
+				new SendNewUser().execute();
 			}
 		});
+    	
+    	
     }
-    
-	private boolean checkDataBeforeSend(String username, String full_name, String mail, String pass) {
-		Pattern usernamePattern, fullNamePattern, mailPattern;
-		Matcher usernameMatch, fullNameMatch, mailMatch;
-		
-		final String USERNAME_PATTERN = "^[A-Za-z0-9_-]{5,20}$";
-		final String FULL_NAME_PATTERN = "^[A-Za-z]{0,100}$";
-		final String MAIL_PATTERN = "^[a-zA-Z0-9-_.]+@[a-zA-Z0-9]+.[a-z]{2,}$";
-		
-		usernamePattern = Pattern.compile(USERNAME_PATTERN);
-		usernameMatch = usernamePattern.matcher(username);
-		
-		fullNamePattern = Pattern.compile(FULL_NAME_PATTERN);
-		fullNameMatch = fullNamePattern.matcher(full_name);
-		
-		mailPattern = Pattern.compile(MAIL_PATTERN);
-		mailMatch = mailPattern.matcher(mail);
-		
-		
-		
-		return false;
-	}
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -256,5 +262,8 @@ public class NewUserRegistration extends Activity {
     			Log.i(TAG, "Default Message: There is no 'user_status' value: You shouldn't be seeing this");
     			break;
     	}
-    } 
+    }
+
+
+    
 }

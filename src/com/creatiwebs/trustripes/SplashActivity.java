@@ -106,16 +106,16 @@ public class SplashActivity extends Activity {
 		protected void onProgressUpdate(Integer... values) {
 			switch(values[0]){
 				case CONNECTION_SUCCESS: 
-					Toast.makeText(getApplicationContext(), "Hay Conexion", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getApplicationContext(), "Hay Conexion", Toast.LENGTH_SHORT).show();
 					break;
 				case CONNECTION_FAIL:
-					Toast.makeText(getApplicationContext(), "No Hay Conexion", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getApplicationContext(), "No Hay Conexion", Toast.LENGTH_SHORT).show();
 					break;
 				case SESSION_OPEN:
-					Toast.makeText(getApplicationContext(), "Sesion abierta", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getApplicationContext(), "Sesion abierta", Toast.LENGTH_SHORT).show();
 					break;
 				case SESSION_CLOSED:
-					Toast.makeText(getApplicationContext(), "No hay Sesion", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getApplicationContext(), "No hay Sesion", Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;

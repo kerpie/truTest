@@ -90,7 +90,7 @@ public class LoginActivity extends Activity {
         loginButton = (Button) findViewById(R.id.login_button);
         errorText = (TextView) findViewById(R.id.login_error_message);        
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
-        btnFb = (Button) findViewById(R.id.login_facebook_button);
+//        btnFb = (Button) findViewById(R.id.login_facebook_button);
         mAsyncRunner = new AsyncFacebookRunner(facebook);
         registerText = (TextView) findViewById(R.id.login_createUser_textView);
         progressBar = (ProgressBar) findViewById(R.id.login_progressBar);
@@ -103,11 +103,11 @@ public class LoginActivity extends Activity {
     protected void onResume() {
     	super.onResume();
     	
-    	btnFb.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				loginToFacebook();
-			}
-		});
+//    	btnFb.setOnClickListener(new View.OnClickListener() {
+//			public void onClick(View v) {
+//				loginToFacebook();
+//			}
+//		});
     	
         loginButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {

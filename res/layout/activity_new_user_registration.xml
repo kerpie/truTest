@@ -17,7 +17,8 @@
 	            android:layout_height="wrap_content"
 	            android:src="@drawable/login_logo_small"
 	            android:layout_centerHorizontal="true"
-	            android:id="@+id/logo"/>
+	            android:id="@+id/logo"
+	            />
 	        <EditText 
 	            android:id="@+id/username_editText"
 	            android:layout_width="match_parent"
@@ -28,42 +29,62 @@
 	            android:hint="Username"
 	            android:padding="10dp"
 	            android:lines="1" 
-	            android:background="#FFFF"/>
+	            android:background="#3FFF"/>
            	<EditText
-	            android:id="@+id/full_name_editText"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" 
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="10dp"
-	            android:layout_below="@+id/username_editText"
-	            android:hint="Full Name"
-	            android:padding="10dp"
-	            android:lines="1" 
-	            android:background="#FFFF"
-	            android:inputType="textPersonName"/>
-           	<EditText
-	            android:id="@+id/pass_editText"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" 
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="10dp"
-	            android:layout_below="@+id/full_name_editText"
-	            android:hint="Password"
-	            android:padding="10dp"
-	            android:lines="1" 
-	            android:background="#FFFF"
-	            android:inputType="textPassword"/>
+           	    android:id="@+id/full_name_editText"
+           	    android:layout_width="match_parent"
+           	    android:layout_height="wrap_content"
+           	    android:layout_centerHorizontal="true"
+           	    android:layout_marginTop="10dp"
+           	    android:layout_below="@+id/username_editText"
+           	    android:hint="Full Name"
+           	    android:inputType="textPersonName"
+           	    android:lines="1"
+           	    android:padding="10dp" 
+           	    android:background="#3FFF"/>
+           	<LinearLayout 
+           	    android:layout_marginTop="10dp"
+           	    android:layout_below="@+id/full_name_editText"
+           	    android:layout_width="match_parent"
+		        android:layout_height="wrap_content" 
+		        android:layout_centerHorizontal="true"
+		        android:id="@+id/pass_linear_layout">
+	           	<EditText
+		            android:id="@+id/pass_editText"
+		            android:layout_height="wrap_content"
+		            android:layout_width="0dp"
+		            android:layout_weight="2"
+		            android:hint="Password"
+		            android:padding="10dp"
+		            android:lines="1" 
+		            android:inputType="textPassword"
+		            android:background="#3FFF"/>
+	           	<EditText
+		            android:id="@+id/visible_pass_editText"
+		            android:layout_height="wrap_content"
+		            android:layout_width="0dp"
+		            android:layout_weight="2"
+		            android:hint="Password"
+		            android:padding="10dp"
+		            android:lines="1"
+		            android:visibility="gone" 
+		            android:background="#3FFF"/>
+	           	<CheckBox
+	           	    android:id="@+id/pass_check"
+	           	    android:layout_width="wrap_content"
+	           	    android:layout_height="wrap_content" />
+           	</LinearLayout>
            	<EditText
 	            android:id="@+id/mail_editText"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content" 
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="10dp"
-	            android:layout_below="@+id/pass_editText"
+	            android:layout_below="@+id/pass_linear_layout"
 	            android:hint="Mail"
 	            android:padding="10dp"
 	            android:lines="1" 
-	            android:background="#FFFF"
+	            android:background="#3FFF"
 	            android:inputType="textEmailAddress"/>
 			<Button
 		        android:id="@+id/register_user_button"
