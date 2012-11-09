@@ -17,11 +17,11 @@
 package com.google.zxing.client.android.result;
 
 
-import com.creatiwebs.trustripes.R;
 import com.google.zxing.Result;
 
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ProductParsedResult;
+import com.trustripes.principal.R;
 
 import android.app.Activity;
 import android.view.View;

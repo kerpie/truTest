@@ -28,11 +28,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import com.creatiwebs.trustripes.R;
-
-
-
-
+import com.facebook.android.R;
 
 /**
  * Manages beeps and vibrations for {@link CaptureActivity}.

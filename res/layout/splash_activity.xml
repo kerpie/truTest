@@ -20,6 +20,15 @@
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/splash_screen_progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="v.1.01"
+        android:textColor="#555"/>
 
     <ImageView 
         android:id="@+id/splash_screen_footer"

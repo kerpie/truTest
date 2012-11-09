@@ -17,7 +17,7 @@
 package com.google.zxing.client.android;
 
 
-import com.creatiwebs.trustripes.R;
+import com.trustripes.principal.R;
 
 import android.app.Activity;
 import android.content.Intent;

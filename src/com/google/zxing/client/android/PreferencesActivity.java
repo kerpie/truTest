@@ -26,9 +26,7 @@ import android.preference.PreferenceScreen;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.creatiwebs.trustripes.R;
-
-
+import com.trustripes.principal.R;
 
 /**
  * The main settings activity.

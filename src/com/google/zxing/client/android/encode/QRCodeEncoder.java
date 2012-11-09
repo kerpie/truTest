@@ -19,7 +19,6 @@ package com.google.zxing.client.android.encode;
 import android.provider.ContactsContract;
 
 
-import com.creatiwebs.trustripes.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -33,6 +32,7 @@ import com.google.zxing.client.result.ParsedResult;
 
 import com.google.zxing.client.result.ResultParser;
 import com.google.zxing.common.BitMatrix;
+import com.trustripes.principal.R;
 
 import android.app.Activity;
 import android.content.Intent;

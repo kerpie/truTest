@@ -16,13 +16,13 @@
 
 package com.google.zxing.client.android;
 
-import com.creatiwebs.trustripes.R;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
+import com.trustripes.principal.R;
 
 import android.os.Bundle;
 import android.os.Handler;

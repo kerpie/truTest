@@ -17,9 +17,9 @@
 package com.google.zxing.client.android;
 
 
-import com.creatiwebs.trustripes.R;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.camera.CameraManager;
+import com.trustripes.principal.R;
 
 import android.content.Context;
 import android.content.res.Resources;

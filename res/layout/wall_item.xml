@@ -16,7 +16,7 @@
 	        android:text="Hola "
 	        android:padding="7dp"
 	        android:textSize="14dp"
-	        android:textColor = "#FF0000FF"
+	        android:textColor = "#FF000000"
 	        android:layout_weight="1"/>
 	    <TextView 
 	        android:layout_width="0dp"
@@ -24,7 +24,8 @@
 	        android:id="@+id/wall_item_snack_text"
 	        android:text="snacked in "
 	        android:padding="7dp"
-	        android:layout_weight="1"/>
+	        android:layout_weight="1"
+	        android:visibility="gone"/>
 	    <TextView 
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
@@ -33,7 +34,8 @@
 	        android:padding="7dp"
 	        android:textSize="14dp"
 	        android:textColor="#FF0000FF"
-	        android:layout_weight="1"/>
+	        android:layout_weight="1"
+	        android:visibility="gone"/>
 	</LinearLayout> 
 	<RelativeLayout
 	    android:layout_width="match_parent"
@@ -46,59 +48,69 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginRight="5dp"
 	        android:layout_alignParentLeft="true"
-	        android:orientation="vertical" 
-	        android:layout_centerVertical="true">
+	        android:orientation="vertical" >
 	        <ImageView
 	            android:id="@+id/wall_item_profile_photo"
 	            android:layout_width="70dp"
 	            android:layout_height="70dp"
-	            android:layout_alignParentLeft="true"
-	            android:layout_gravity="center"
 	            android:padding="5dp"
-	            android:src="@drawable/anon" />
+	            android:src="@drawable/anon" 
+	            android:layout_marginTop="0dp"
+	            android:layout_gravity="center_horizontal"/>
 	        <TextView
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:padding="5dp"
-	            android:text="# Likes" />
+	            android:text="# Likes"
+	            android:visibility="gone"/>
 	        <TextView
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:padding="5dp"
-	            android:text="# Comments" />
+	            android:text="# Comments"
+	            android:visibility="gone"/>
 	    </LinearLayout>
-	    <FrameLayout
+	    <LinearLayout
 	        android:id="@+id/rigthPart"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_width="wrap_content"
+	        android:layout_height="200dp"
 	        android:layout_alignParentRight="true"
-	        android:layout_toRightOf="@id/leftPart">
-	        <ImageView
-	            android:id="@+id/wall_item_product_photo"
-	            android:layout_width="match_parent"
-	            android:layout_height="200dp"
-	            android:scaleType="centerCrop"
-	            android:src="@drawable/incon" />
-	        <TextView
-	            android:id="@+id/totalSnacks"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="top|right"
-	            android:padding="8dp"
-	            android:text="20"
-	            android:background="#FFFF0000"
-	            android:textColor="#FFFFFFFF"
-	            android:textSize="16dp"
-	            android:textStyle="bold" />
-	        <TextView
-	            android:id="@+id/totalSnacks"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="bottom|fill_horizontal"
-	            android:background="#AA000000"
-	            android:padding="10dp"
-	            android:text="Estrellitas"
-	            android:textColor="#FFFFFFFF" />
-	    </FrameLayout>
+	        android:layout_toRightOf="@id/leftPart"
+	        android:background="@drawable/photo_background"
+	        android:paddingBottom="11dp"
+	        android:paddingLeft="17dp"
+	        android:paddingRight="11dp"
+	        android:paddingTop="6dp" >
+		    <FrameLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content">
+		        <ImageView
+		            android:id="@+id/wall_item_product_photo"
+		            android:layout_width="match_parent"
+		            android:layout_height="200dp"
+		            android:scaleType="centerCrop"/>
+		        <TextView
+		            android:id="@+id/totalSnacks"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="top|right"
+		            android:padding="8dp"
+		            android:text="20"
+		            android:background="#FFFF0000"
+		            android:textColor="#FFFFFFFF"
+		            android:textSize="16dp"
+		            android:textStyle="bold" />
+		        <TextView
+		            android:id="@+id/totalSnacks"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="bottom|fill_horizontal"
+		            android:background="#AA000000"
+		            android:padding="10dp"
+		            android:text="Estrellitas"
+		            android:textColor="#FFFFFFFF"
+		            android:visibility="gone" />
+		    </FrameLayout>
+	    </LinearLayout>
 	</RelativeLayout>
 </RelativeLayout>

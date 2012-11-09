@@ -16,9 +16,7 @@
 
 package com.google.zxing.client.android;
 
-import com.creatiwebs.trustripes.PreSnackin;
-import com.creatiwebs.trustripes.R;
-import com.creatiwebs.trustripes.Register;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
@@ -28,6 +26,9 @@ import com.google.zxing.client.android.camera.CameraManager;
 
 import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
+import com.trustripes.principal.PreSnackin;
+import com.facebook.android.R;
+import com.trustripes.principal.Register;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -91,8 +92,7 @@ import org.json.JSONObject;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends Activity implements
-		SurfaceHolder.Callback {
+public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 //
@@ -146,7 +146,7 @@ public final class CaptureActivity extends Activity implements
 
 		public void onClick(DialogInterface dialogInterface, int i) {
 			Intent intent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse(getString(R.string.zxing_url)));
+					Uri.parse(getString(com.facebook.android.R.string.zxing_url)));
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 			startActivity(intent);
 		}
@@ -307,6 +307,18 @@ public final class CaptureActivity extends Activity implements
 		return false;
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		EasyTracker.getInstance().activityStop(this);
+	}
+	
 	@Override
 	protected void onPause() {
 		if (handler != null) {
@@ -496,12 +508,17 @@ public final class CaptureActivity extends Activity implements
 	}
 
 	// This method capture the codeBar and send to MainActivity "Teto"
-	private void handleDecodeInternally(Result rawResult,
-			ResultHandler resultHandler, Bitmap barcode) {
-
-		obtainedBarcode = rawResult.toString();
-		new Snackin().execute();
-
+	private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
+		try{
+			Long newValue = Long.parseLong(rawResult.toString());
+			obtainedBarcode = newValue.toString();
+			new Snackin().execute();
+		}catch(NumberFormatException e){
+			Toast.makeText(getApplicationContext(), "Upss! that's not a barcode", Toast.LENGTH_SHORT).show();
+			finish();
+			Intent i = new Intent(getApplicationContext(), CaptureActivity.class);
+			startActivity(i);
+		}
 	}
 
 	// Briefly show the contents of the barcode, then handle the result outside

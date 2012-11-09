@@ -19,10 +19,10 @@ package com.google.zxing.client.android.encode;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.creatiwebs.trustripes.R;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.android.FinishListener;
 import com.google.zxing.client.android.Intents;
+import com.trustripes.principal.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

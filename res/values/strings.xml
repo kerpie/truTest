@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">TruStripes</string>
+    <string name="app_name">truStripes</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
@@ -57,4 +57,7 @@
     <string name="new_user_username_check">Username must be 5 characters minimun</string>
     <string name="new_user_username_check_symbol">Username only contain numbers, letters and _</string>
     <string name="new_user_mail_check_symbol">Invalid mail</string>
+    <string name="no_number_in_name">Only letters in your name</string>
+    <string name="password_too_short">Password is too short</string>
+    <string name="fill_fields_to_login">All fields are mandatory</string>
 </resources>

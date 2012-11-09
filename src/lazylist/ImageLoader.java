@@ -13,10 +13,18 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
 import android.widget.ImageView;
 
 public class ImageLoader {
@@ -25,26 +33,49 @@ public class ImageLoader {
     FileCache fileCache;
     private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     ExecutorService executorService; 
+    Context context;
+    boolean isProfile;
     
     public ImageLoader(Context context){
-        fileCache=new FileCache(context);
+    	this.context = context;
+    	fileCache=new FileCache(context);
         executorService=Executors.newFixedThreadPool(5);
     }
     
+    /* Default image */
     final int stub_id = 5465416;
-    public void DisplayImage(String url, ImageView imageView)
-    {
+    
+    public void DisplayImage(String url, ImageView imageView, boolean profile){
+    	isProfile = profile;
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
-        if(bitmap!=null)
+        if(bitmap!=null){
+        	if(isProfile)
+        		bitmap = makeItCircular(bitmap);
             imageView.setImageBitmap(bitmap);
+        }
         else
         {
             queuePhoto(url, imageView);
             imageView.setImageResource(stub_id);
         }
     }
-        
+    
+    public Bitmap makeItCircular(Bitmap bitmap){
+    	Bitmap source = bitmap;
+        Bitmap result = Bitmap.createBitmap(source.getWidth(),source.getHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        RectF rect = new RectF(0,0,source.getWidth(), source.getHeight()); 
+        float radius = 500.0f;
+        paint.setColor(Color.BLUE);
+        canvas.drawRoundRect(rect, radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(source, 0, 0, paint);
+        paint.setXfermode(null);
+        return result;
+    }
+    
     private void queuePhoto(String url, ImageView imageView)
     {
         PhotoToLoad p=new PhotoToLoad(url, imageView);
@@ -73,6 +104,9 @@ public class ImageLoader {
             Utils.CopyStream(is, os);
             os.close();
             bitmap = decodeFile(f);
+            if(isProfile){
+            	bitmap = makeItCircular(bitmap);
+            }
             return bitmap;
         } catch (Throwable ex){
            ex.printStackTrace();

@@ -1,50 +1,96 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout   
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashscreen_bg"
-    android:gravity="center"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/discoverer_textview_tittle"
-        android:layout_width="wrap_content"
+    android:background="@drawable/splashscreen_bg" >
+    <RelativeLayout 
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CONGRATULATIONS"
-        android:textColor="#000"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/discoverer_imageview_discoverer"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ambassador" 
-        android:padding="15dp"/>
-
-    <TextView
-        android:id="@+id/discoverer_textview_msj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You are discoverer for "
-        android:textColor="#000"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/discoverer_textview_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="x"
-        android:textColor="#000"
-        android:textStyle="bold" 
-        android:padding="5dp"/>
-
-    <Button
-        android:id="@+id/discoverer_button_returnWall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Return Wall" />
-</LinearLayout>
-</ScrollView>
+        android:id="@+id/pseudo_actionBar"
+        android:background="@layout/bg_gradient"
+        android:padding="5dp">
+        <Button 
+     		android:id="@+id/backButton"
+	      	android:layout_alignParentLeft="true"
+	      	android:background="@drawable/back_arrow"
+	      	android:layout_centerVertical="true"
+	      	android:layout_width="35dp"
+	      	android:layout_height="35dp"/>
+		<TextView
+			android:id="@+id/main_textView"
+			android:layout_width="130dp"
+			android:layout_height="30dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/backButton"
+			android:background="@drawable/logo"
+			android:padding="25dp" />
+    </RelativeLayout>
+	<ScrollView 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/pseudo_actionBar">
+		<RelativeLayout   
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center">
+		    <TextView
+		        android:id="@+id/discoverer_textview_tittle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginBottom="5dp"
+		        android:text="CONGRATULATIONS"
+		        android:textColor="#000"
+		        android:textStyle="bold" />
+		    <ImageView
+		        android:id="@+id/discoverer_imageview_discoverer"
+		        android:layout_width="200dp"
+		        android:layout_height="200dp"
+		        android:layout_centerHorizontal="true"
+		        android:layout_below="@+id/discoverer_textview_tittle"
+		        android:src="@drawable/ambassador" 
+		        android:padding="15dp"/>
+		    <TextView
+		        android:id="@+id/discoverer_textview_msj"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginTop="5dp"
+		        android:layout_below="@+id/discoverer_imageview_discoverer"
+		        android:text="You are discoverer for "
+		        android:textColor="#000"
+		        android:textStyle="bold" />
+		    <TextView
+		        android:id="@+id/discoverer_textview_product"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/discoverer_textview_msj"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginTop="5dp"
+		        android:layout_marginBottom="5dp"
+		        android:text="x"
+		        android:textColor="#000"
+		        android:textStyle="bold" 
+		        android:padding="5dp"/>
+		    <Button
+		        android:id="@+id/discoverer_button_returnWall"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginTop="20dp"
+		        android:layout_marginBottom="0dp"
+		        android:layout_below="@+id/discoverer_textview_product"
+		        android:text="Return Wall" 
+		        android:background="#FF47b862"
+		        android:padding="10dp"
+		        android:textColor="#FFFF"/>
+		</RelativeLayout>
+	</ScrollView>
+	<ImageView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_marginBottom="-22dp"
+	    android:contentDescription="@string/mainActivity_imgView_logo_contentDescription"
+	    android:src="@drawable/splashscreen_footer" />
+</RelativeLayout>

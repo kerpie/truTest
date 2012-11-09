@@ -93,7 +93,10 @@
 		        android:layout_below="@+id/mail_editText"
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="14dp"
-		        android:text="Register new user" />
+		        android:text="Register new user" 
+		        android:background="#FF47b862"
+		        android:textColor="#FFFF"
+		        android:padding="5dp"/>
 			<ProgressBar 
 			    android:id="@+id/loading_progress_bar"
 			    android:layout_width="20dp"
