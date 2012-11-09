@@ -1,6 +1,5 @@
 package com.trustripes.adapters;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -193,16 +191,14 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		    				URL myFileUrl =null; 
 		    				try {
 		    					myFileUrl= new URL(ConstantValues.URL+photoURL);
-		    				} catch (MalformedURLException e) {
-		    					e.printStackTrace();
-		    				}
-		    				try {
 		    					HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
 		    					conn.setDoInput(true);
 		    					conn.connect();
 		    					InputStream is = conn.getInputStream();
 		    					bitmap = BitmapFactory.decodeStream(is);
-		    				} catch (IOException e) {
+		    				} catch (MalformedURLException e) {
+		    					e.printStackTrace();
+		    				}catch (IOException e) {
 		    					e.printStackTrace();
 		    				}
 		    			}

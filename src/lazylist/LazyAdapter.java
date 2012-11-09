@@ -52,7 +52,7 @@ public class LazyAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.wall_item, null);
         
         TextView username = (TextView)vi.findViewById(R.id.wall_item_username_text);
-        TextView product = (TextView) vi.findViewById(R.id.wall_item_product_text);
+        //TextView product = (TextView) vi.findViewById(R.id.wall_item_product_text);
         ImageView image=(ImageView)vi.findViewById(R.id.wall_item_product_photo);
         TextView snack_count = (TextView) vi.findViewById(R.id.totalSnacks);
         ImageView profilePhoto = (ImageView) vi.findViewById(R.id.wall_item_profile_photo);

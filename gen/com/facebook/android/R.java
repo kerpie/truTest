@@ -130,8 +130,8 @@ public final class R {
         public static final int pass_check=0x7f0a0026;
         public static final int pass_editText=0x7f0a0024;
         public static final int pass_linear_layout=0x7f0a0023;
-        public static final int presnack_button_Snack=0x7f0a0030;
-        public static final int presnack_button_again=0x7f0a002f;
+        public static final int presnack_button_Snack=0x7f0a002f;
+        public static final int presnack_button_again=0x7f0a0030;
         public static final int presnack_edittext_country=0x7f0a002e;
         public static final int presnack_imageview_add=0x7f0a002d;
         public static final int presnack_textview_tittle=0x7f0a002c;

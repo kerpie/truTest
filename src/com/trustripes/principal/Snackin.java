@@ -16,7 +16,7 @@ public class Snackin extends Activity {
 
 	TextView snackText;
 	Intent t;
-	String status;
+	String status, statusString;
 	ImageView img;
 	Button backButton;
 	
@@ -49,15 +49,15 @@ public class Snackin extends Activity {
     	
     	switch(Integer.parseInt(status)){
     		case 0:
-    			status = "No se ha convertido en Embajador";
+    			statusString = "No se ha convertido en Embajador";
     			img.setVisibility(View.GONE);
     			break;
     		case 1:
-    			status = "Te has convertido en Embajadador";
+    			statusString = "Te has convertido en Embajadador";
     			img.setVisibility(View.VISIBLE);
     			break;
     		case 2:
-    			status = "Sigues siendo embajador";
+    			statusString = "Sigues siendo embajador";
     			img.setVisibility(View.VISIBLE);
     			break;
         }

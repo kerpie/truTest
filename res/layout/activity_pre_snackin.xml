@@ -57,33 +57,34 @@
 		        android:background="#FFFF"
 		        android:padding="10dp"
 		        android:hint="Share it with your friends" 
-		        android:layout_below="@+id/presnack_imageview_add"/>
+		        android:layout_below="@+id/presnack_imageview_add"
+		        android:visibility="gone"/>
 			<LinearLayout
-		        android:layout_width="wrap_content"
+		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_centerHorizontal="true"
 		        android:gravity="center"
-		        android:orientation="horizontal" 
+		        android:orientation="vertical" 
 		        android:layout_below="@+id/presnack_edittext_country"
 		        android:padding="15dp">
-		        <Button
-		            android:id="@+id/presnack_button_again"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:background="#FF47b862"
-	                android:layout_margin="5dp"
-	                android:padding="5dp"
-	                android:textColor="#FFFFFFFF"
-		            android:text="Again" />
-		        <Button
+				<Button
 		            android:id="@+id/presnack_button_Snack"
-		            android:layout_width="wrap_content"
+		            android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
 		            android:background="#FF47b862"
 	                android:layout_margin="5dp"
 	                android:padding="5dp"
 	                android:textColor="#FFFFFFFF"
 		            android:text="Snack-In" />
+		        <Button
+		            android:id="@+id/presnack_button_again"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:background="#FF47b862"
+	                android:layout_margin="5dp"
+	                android:padding="5dp"
+	                android:textColor="#FFFFFFFF"
+		            android:text="Again" />
 		    </LinearLayout>
 		</RelativeLayout>
     </ScrollView>

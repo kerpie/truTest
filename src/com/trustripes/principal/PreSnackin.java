@@ -103,6 +103,7 @@ public class PreSnackin extends Activity {
 		realSnackInButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				new SendSnackIn().execute();
+				realSnackInButton.setClickable(false);
 			}
 		});
 	}
@@ -136,11 +137,7 @@ public class PreSnackin extends Activity {
 			if(productPhoto.length() >= 10){
 				URL myFileUrl =null; 
 				try {
-					myFileUrl= new URL(ConstantValues.URL+"/productphoto/"+ productId +"/thumbnails/"+productPhoto);
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				}
-				try {
+					myFileUrl= new URL(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto);
 					HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
 					conn.setDoInput(true);
 					conn.connect();
