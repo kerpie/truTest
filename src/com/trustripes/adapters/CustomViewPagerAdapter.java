@@ -237,7 +237,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			if(bitmap != null )
 				profile_image.setImageBitmap( bitmap );
 			else
-				profile_image.setImageResource(R.drawable.anon);
+				profile_image.setImageResource(R.drawable.default_avatar);
 		}
 	 }
 	 

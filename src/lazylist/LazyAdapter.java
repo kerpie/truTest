@@ -97,7 +97,7 @@ public class LazyAdapter extends BaseAdapter {
 	        
 	        String idProduct = jsonObject.getString("idproduct");
 			String photo = jsonObject.getString("photo");
-			String tmp = ConstantValues.URL+"/ws/productphoto/"+idProduct+"/"+photo;
+			String tmp = ConstantValues.URL+"/ws/productphoto/"+idProduct+"/thumbnails/"+photo;
 	        imageLoader.DisplayImage(tmp, image, false);
         }catch(Exception e){
         }

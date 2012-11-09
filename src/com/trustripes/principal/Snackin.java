@@ -63,9 +63,7 @@ public class Snackin extends Activity {
         }
     	
     	snackText.setText(	"Barcode: "+ t.getStringExtra("BARCODE")+"\n" +
-							"Product Name: "+ t.getStringExtra("PRODUCT_NAME")+"\n" + 
-							"Product Photo: "+ t.getStringExtra("PRODUCT_PHOTO")+"\n" +
-							"Estado del Embajador: "+ status +"\n");
+							"Product Name: "+ t.getStringExtra("PRODUCT_NAME")+"\n");
     }
     
     @Override

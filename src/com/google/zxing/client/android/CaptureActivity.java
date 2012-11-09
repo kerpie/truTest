@@ -26,6 +26,7 @@ import com.google.zxing.client.android.camera.CameraManager;
 
 import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
+import com.trustripes.Constants.ConstantValues;
 import com.trustripes.principal.PreSnackin;
 import com.facebook.android.R;
 import com.trustripes.principal.Register;
@@ -727,7 +728,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		protected Void doInBackground(Void... params) {
 			try {
 				HttpClient client = new DefaultHttpClient();
-				String postURL = "http://www.trustripes.com/dev/ws/ws-barcodevalidation.php";
+				String postURL = ConstantValues.URL+"/ws/ws-barcodevalidation.php";
 				HttpPost post = new HttpPost(postURL);
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
 				param.add(new BasicNameValuePair("codigo", obtainedBarcode));
@@ -745,8 +746,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 					while ((line = reader.readLine()) != null) {
 						stringBuilder.append(line);
 					}
-					JSONObject jsonObject = new JSONObject(
-							stringBuilder.toString());
+					JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 					statusResponse = jsonObject.getString("status");
 					if (Integer.parseInt(statusResponse) == 1) {
 						productId = jsonObject.getString("idproduct");

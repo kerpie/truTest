@@ -46,7 +46,8 @@
 	        android:layout_height="wrap_content"
 	        android:id = "@+id/snackin_text"
 	        android:layout_below="@+id/ambassador_imageView"
-	        android:layout_centerHorizontal="true"/>
+	        android:layout_centerHorizontal="true"
+	        android:gravity="center"/>
 		 </RelativeLayout>
 	</ScrollView>
 </RelativeLayout>

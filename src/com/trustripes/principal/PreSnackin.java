@@ -157,7 +157,7 @@ public class PreSnackin extends Activity {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			image.setImageBitmap(bitmap);
-			Toast.makeText(getApplicationContext(), "Done Loading!", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Done Loading!", Toast.LENGTH_SHORT).show();
 		}
 	}
 	

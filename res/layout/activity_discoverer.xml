@@ -48,7 +48,7 @@
 		        android:layout_height="200dp"
 		        android:layout_centerHorizontal="true"
 		        android:layout_below="@+id/discoverer_textview_tittle"
-		        android:src="@drawable/ambassador" 
+		        android:src="@drawable/discoverer" 
 		        android:padding="15dp"/>
 		    <TextView
 		        android:id="@+id/discoverer_textview_msj"
