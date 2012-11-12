@@ -286,7 +286,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			 if(jsonArray != null){
 				 adapter = new LazyAdapter(new_inflater, jsonArray);
 				 wall_list.setAdapter(adapter);
-				 adapter.imageLoader.clearCache();
 				 adapter.notifyDataSetChanged();
 				 ((PullToRefreshListView) wall_list).onRefreshComplete();
 			 }
