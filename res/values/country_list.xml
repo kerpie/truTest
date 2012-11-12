@@ -2,6 +2,7 @@
 <resources>
     <string name="country_prompt">Country of Manufacturing</string>
     <string-array name="country_arrays">
+        <item>Pick the country of manufacturing</item>
       	<item>Aaland Islands</item>
 		<item>Afghanistan</item>
 		<item>Albania</item>

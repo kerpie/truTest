@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class Discoverer extends Activity {
 	Button btn_return;
 	Button backButton;
-	TextView  nametv;
+	TextView nametv;
 	Intent t;
 	String code, name;
 	int id;

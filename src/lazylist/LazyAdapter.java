@@ -84,14 +84,15 @@ public class LazyAdapter extends BaseAdapter {
 	          profilePhoto.setImageBitmap(result);  
 	        } 
 	        
-	        snack_count.setText(jsonObject.getString("totalSnackin"));
+	        //snack_count.setText(jsonObject.getString("totalSnackin"));
+	        snack_count.setText("1");
 	        
 	        String new_name = "";
 	        if(jsonObject.getString("username").length() > 15) 
 	        	new_name = jsonObject.getString("username").substring(0,15);
 	        else
 	        	new_name = jsonObject.getString("username");
-	        username.setText(new_name + "  snacked in  " + jsonObject.getString("productname"));
+	        username.setText(new_name + " snacked in " + jsonObject.getString("productname"));
 	        
 	        //product.setText(jsonObject.getString("productname"));
 	        

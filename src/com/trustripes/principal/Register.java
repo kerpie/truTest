@@ -110,8 +110,8 @@ public class Register extends Activity {
 		populateCountries();
 		
 		ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.country_arrays, android.R.layout.simple_spinner_dropdown_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -185,6 +185,7 @@ public class Register extends Activity {
 	}
 	
 	private void populateCountries() {
+		myCountryMap.put("Pick the country of manufacturing", "");
 		myCountryMap.put("Aaland Islands","AX");
 		myCountryMap.put("Afghanistan","AF");
 		myCountryMap.put("Albania","AL");

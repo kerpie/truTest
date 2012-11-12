@@ -223,7 +223,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			super.onProgressUpdate(values);
 			switch(values[0]){
 				case 100:
-					profile_text.setText(	"Usuario: "+username+"\n" + "Correo: "+ email +"\n");
+					profile_text.setText(	"User: "+username+"\n" + "Mail: "+ email +"\n");
 					break;
 			}
 		}

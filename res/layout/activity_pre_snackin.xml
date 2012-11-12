@@ -84,7 +84,7 @@
 	                android:layout_margin="5dp"
 	                android:padding="5dp"
 	                android:textColor="#FFFFFFFF"
-		            android:text="Again" />
+		            android:text="Try again" />
 		    </LinearLayout>
 		</RelativeLayout>
     </ScrollView>

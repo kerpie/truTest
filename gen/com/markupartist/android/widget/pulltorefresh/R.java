@@ -145,8 +145,8 @@ public final class R {
         public static final int pull_to_refresh_text=0x7f0a0053;
         public static final int pull_to_refresh_updated_at=0x7f0a0054;
         public static final int quit=0x7f0a0005;
-        public static final int register_button_again=0x7f0a0037;
-        public static final int register_button_register=0x7f0a0038;
+        public static final int register_button_again=0x7f0a0038;
+        public static final int register_button_register=0x7f0a0037;
         public static final int register_edittext_name=0x7f0a0035;
         public static final int register_imageview_add=0x7f0a0033;
         public static final int register_product_scrollView=0x7f0a0031;

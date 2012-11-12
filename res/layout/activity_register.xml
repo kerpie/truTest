@@ -76,7 +76,7 @@
 	            android:layout_marginRight="8dp"
 	            android:gravity="center"
 	            android:background="#FFFF"
-	            android:hint="PRODUCT NAME"
+	            android:hint="Product name"
 	            android:lines="1" 
 	        	android:padding="10dp" />
 	        <Spinner 
@@ -99,28 +99,26 @@
 	            android:layout_height="match_parent"
 	            android:layout_below="@+id/register_spinner_country"
 	            android:layout_centerHorizontal="true"
-	            android:orientation="horizontal"
+	            android:orientation="vertical"
 	            android:padding="10dp" 
 	            android:layout_marginTop="10dp"
 	            android:layout_marginRight="10dp"
 	            android:layout_marginLeft="10dp"
 	            android:layout_marginBottom="20dp">
 	            <Button
-	                android:id="@+id/register_button_again"
-	                android:layout_width="0dp"
-	                android:layout_height="wrap_content"
-	                android:text="Snack Again" 
-	                android:background="#FF47b862"
-	                android:layout_weight="1"
-	                android:layout_margin="5dp"
-	                android:textColor="#FFFFFFFF"/>
-	            <Button
 	                android:id="@+id/register_button_register"
-	                android:layout_width="0dp"
+	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
 	                android:text="Create"
 	                android:background="#FF47b862"
-	                android:layout_weight="1" 
+	                android:layout_margin="5dp"
+	                android:textColor="#FFFFFFFF"/>
+	            <Button
+	                android:id="@+id/register_button_again"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Snack again" 
+	                android:background="#FF47b862"
 	                android:layout_margin="5dp"
 	                android:textColor="#FFFFFFFF"/>
 	        </LinearLayout>

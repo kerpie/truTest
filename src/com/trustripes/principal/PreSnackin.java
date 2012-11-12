@@ -171,7 +171,7 @@ public class PreSnackin extends Activity {
 			try{
     			/* Prepare variables for remote data check */
 	    		HttpClient client =  new DefaultHttpClient();   		
-	            String postURL = "http://www.trustripes.com/dev/ws/ws-registersnackin.php";
+	            String postURL = ConstantValues.URL + "/ws/ws-registersnackin.php";
 	            HttpPost post = new HttpPost(postURL); 
 	            List<NameValuePair> param = new ArrayList<NameValuePair>();
 	            param.add(new BasicNameValuePair("codeupean",obtainedCode));

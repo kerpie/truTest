@@ -172,7 +172,7 @@ public class NewUserRegistration extends Activity{
     			
     			/* Prepare variables for remote data check */
 	    		HttpClient client =  new DefaultHttpClient();   		
-	            String postURL = "http://www.trustripes.com/dev/ws/ws-userregister.php";
+	            String postURL = ConstantValues.URL + "/ws/ws-userregister.php";
 	            HttpPost post = new HttpPost(postURL); 
 	            List<NameValuePair> param = new ArrayList<NameValuePair>();
 	            param.add(new BasicNameValuePair("email",mailToSend));
