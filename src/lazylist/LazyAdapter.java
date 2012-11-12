@@ -84,6 +84,7 @@ public class LazyAdapter extends BaseAdapter {
 	          profilePhoto.setImageBitmap(result);  
 	        } 
 	        
+	        /* Uncomment when json gives real data */
 	        //snack_count.setText(jsonObject.getString("totalSnackin"));
 	        snack_count.setText("1");
 	        
