@@ -557,7 +557,7 @@ public class Register extends Activity {
 
 	private File getTempFile(){
 		  //it will return /sdcard/image.tmp
-		  final File path = new File( Environment.getExternalStorageDirectory(), getApplicationContext().getPackageName() );
+		  final File path = new File( Environment.getExternalStorageDirectory(),"TruStripes");
 		  if(!path.exists())
 		    path.mkdir();
 		  return new File(path, "image.tmp");
