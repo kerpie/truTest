@@ -464,26 +464,29 @@ public class Register extends Activity {
 							bitmap = null;
 						}
 					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(), "Internal error",
-								Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), "Internal error",Toast.LENGTH_LONG).show();
 						Log.e(e.getClass().getName(), e.getMessage(), e);
 					}
 				}
 				break;
 			case CAMERA_RESULT:
-				final File file = getTempFile();
-				try {
-					Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
-					finalImagePath = file.getAbsolutePath();
-					bitmap = captureBmp;
-					photo.setImageBitmap(bitmap);
-					// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+				if (resultCode == Activity.RESULT_OK) {
+					final File file = getTempFile();
+					try {
+						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
+						finalImagePath = file.getAbsolutePath();
+						bitmap = captureBmp;
+						photo.setImageBitmap(bitmap);
+						Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getHeight()), Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getWidth()), Toast.LENGTH_SHORT).show();
+						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-				      break;
+				break;
 		
 				
 //				
@@ -551,7 +554,8 @@ public class Register extends Activity {
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
 		o2.inSampleSize = scale;
 		bitmap = BitmapFactory.decodeFile(filePath, o2);
-
+		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getHeight()), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getWidth()), Toast.LENGTH_SHORT).show();
 		photo.setImageBitmap(bitmap);
 	}
 
@@ -641,7 +645,7 @@ public class Register extends Activity {
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 100, bos);
+				bitmap.compress(CompressFormat.JPEG, 80, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("productname", new StringBody(productName));
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "myImage.jpg"));
