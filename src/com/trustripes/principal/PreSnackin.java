@@ -1,6 +1,9 @@
 package com.trustripes.principal;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,6 +33,7 @@ import com.trustripes.Constants.ConstantValues;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,6 +60,7 @@ public class PreSnackin extends Activity {
 	Bitmap bitmap; 
 	
 	String obtainedCode, productId, userId, productName, productPhoto;
+	String finalImagePath;
 	boolean canSnack;
 	
 	SharedPreferences session;
@@ -79,7 +84,15 @@ public class PreSnackin extends Activity {
 		productName = getIntent().getStringExtra("PRODUCT_NAME");
 		productPhoto = getIntent().getStringExtra("PRODUCT_PHOTO");
 		
-		new LoadPhoto().execute();
+		if(savedInstanceState != null){
+			String path = savedInstanceState.getString("ImagePath");
+			if(!path.isEmpty()){
+				decodeFile(path);
+			}
+		}
+		else{
+			new LoadPhoto().execute();
+		}
 		
 		userId = session.getString("user_id", "No user");
 		
@@ -94,7 +107,6 @@ public class PreSnackin extends Activity {
 		});
 		
 		backButton.setOnClickListener(new View.OnClickListener() {
-			
 			public void onClick(View v) {
 				finish();
 			}
@@ -106,6 +118,36 @@ public class PreSnackin extends Activity {
 				realSnackInButton.setClickable(false);
 			}
 		});
+	}
+	
+	public void decodeFile(String filePath) {
+		// Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, o);
+
+		finalImagePath = filePath;
+		// The new size we want to scale to
+		final int REQUIRED_SIZE = 1024;
+
+		// Find the correct scale value. It should be the power of 2.
+		int width_tmp = o.outWidth, height_tmp = o.outHeight;
+		int scale = 1;
+		while (true) {
+			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
+				break;
+			width_tmp /= 2;
+			height_tmp /= 2;
+			scale *= 2;
+		}
+
+		// Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getHeight()), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getWidth()), Toast.LENGTH_SHORT).show();
+		image.setImageBitmap(bitmap);
 	}
 	
 	@Override
@@ -124,6 +166,12 @@ public class PreSnackin extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_pre_snackin, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("ImagePath", finalImagePath);
 	}
 	
 	@Override
@@ -153,8 +201,25 @@ public class PreSnackin extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			finalImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/image_preview.png";
+			File directory = new File(finalImagePath);
+			FileOutputStream outStream;
+		    try {
+
+		        outStream = new FileOutputStream(directory);
+		        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream); 
+		        /* 100 to keep full quality of the image */
+
+		        outStream.flush();
+		        outStream.close();
+		    } catch (FileNotFoundException e) {
+		        e.printStackTrace();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+
 			image.setImageBitmap(bitmap);
-			//Toast.makeText(getApplicationContext(), "Done Loading!", Toast.LENGTH_SHORT).show();
+			
 		}
 	}
 	
@@ -188,7 +253,6 @@ public class PreSnackin extends Activity {
 	    			InputStream inputStream = entity.getContent();
 	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	    			String line = null;
-	    			
 	    			stringBuilder = new StringBuilder();
 	    			while((line = reader.readLine()) != null){
 	    				stringBuilder.append(line);

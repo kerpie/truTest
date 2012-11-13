@@ -70,6 +70,7 @@ public class LazyAdapter extends BaseAdapter {
 	        	imageLoader.DisplayImage(url, profilePhoto, true);
 	        }
 	        else{
+	        	
 	          Bitmap source = BitmapFactory.decodeResource(inflater.getContext().getResources(), R.drawable.default_avatar);
 	          Bitmap result = Bitmap.createBitmap(source.getWidth(),source.getHeight(), Config.ARGB_8888);
 	          Canvas canvas = new Canvas(result);

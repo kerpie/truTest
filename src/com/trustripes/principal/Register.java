@@ -105,6 +105,17 @@ public class Register extends Activity {
 		
 		spinner = (Spinner) findViewById(R.id.register_spinner_country);
 		
+		if(savedInstanceState != null){
+			String savedPath = savedInstanceState.getString("ImagePath");
+			if(!(savedPath.isEmpty())){
+				Toast.makeText(Register.this, savedPath, Toast.LENGTH_SHORT).show();
+				decodeFile(savedPath);
+			}
+			else{
+				Toast.makeText(Register.this, "Vacio", Toast.LENGTH_SHORT).show();
+			}
+		}
+		
 		myCountryMap = new HashMap<String, String>();
 		
 		populateCountries();
@@ -487,9 +498,6 @@ public class Register extends Activity {
 					}
 				}
 				break;
-		
-				
-//				
 //		    	  if (resultCode == RESULT_OK){
 //	    		  final File file = getTempFile();
 //	    		  Bitmap captureBmp=null;
@@ -536,6 +544,7 @@ public class Register extends Activity {
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, o);
 
+		finalImagePath = filePath;
 		// The new size we want to scale to
 		final int REQUIRED_SIZE = 1024;
 
