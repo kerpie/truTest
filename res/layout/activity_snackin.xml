@@ -1,53 +1,133 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:background="@drawable/splashscreen_bg">
-    <RelativeLayout 
+    android:layout_height="match_parent"
+    android:background="@drawable/splashscreen_bg" >
+
+    <RelativeLayout
+        android:id="@+id/pseudo_actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pseudo_actionBar"
         android:background="@layout/bg_gradient"
-        android:padding="5dp">
-        <Button 
-     		android:id="@+id/backButton"
-	      	android:layout_alignParentLeft="true"
-	      	android:background="@drawable/back_arrow"
-	      	android:layout_centerVertical="true"
-	      	android:layout_width="35dp"
-	      	android:layout_height="35dp"/>
-		<TextView
-			android:id="@+id/main_textView"
-			android:layout_width="130dp"
-			android:layout_height="30dp"
-			android:layout_centerVertical="true"
-			android:layout_toRightOf="@+id/backButton"
-			android:background="@drawable/logo"
-			android:padding="25dp" />
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/main_textView"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/backButton"
+            android:background="@drawable/logo"
+            android:padding="25dp" />
     </RelativeLayout>
-    <ScrollView 
+
+    <ScrollView
         android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_below="@+id/pseudo_actionBar"
-	    android:layout_centerHorizontal="true">
-	    <RelativeLayout 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center">
-	    <ImageView 
-	        android:id="@+id/ambassador_imageView"
-	        android:layout_width="200dp"
-	        android:layout_height="200dp"
-	        android:src="@drawable/ambassador"
-	        android:layout_centerHorizontal="true"
-	        android:padding="20dp"/>
-		 <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id = "@+id/snackin_text"
-	        android:layout_below="@+id/ambassador_imageView"
-	        android:layout_centerHorizontal="true"
-	        android:gravity="center"/>
-		 </RelativeLayout>
-	</ScrollView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pseudo_actionBar"
+        android:layout_centerHorizontal="true" >
+
+        <RelativeLayout
+            android:id="@+id/father_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+            <RelativeLayout
+                android:id="@+id/ambassador_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:id="@+id/tittle_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/ambassador_imageView"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="@string/title_ambassador" />
+                <ImageView
+                    android:id="@+id/ambassador_imageView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="20dp"
+                    android:src="@drawable/ambassador" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/snackin_content"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" 
+                android:layout_below="@+id/ambassador_content"
+                android:background="@drawable/photo_background_cut"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_centerHorizontal="true"
+                android:padding="6dp">
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                        <ImageView
+                            android:id="@+id/wall_item_product_photo"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop" />
+                        <TextView
+                            android:id="@+id/totalSnacks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:background="#FFFF0000"
+                            android:padding="8dp"
+                            android:text="20"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/totalSnacks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|fill_horizontal"
+                            android:background="#AA000000"
+                            android:padding="10dp"
+                            android:text="Estrellitas"
+                            android:textColor="#FFFFFFFF" />
+                        <ImageView
+                            android:id="@+id/wall_item_profile_photo"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom|right"                           
+                            android:src="@drawable/anon" />
+                    </FrameLayout>                                 
+            </RelativeLayout>
+            
+            <TextView
+                 android:id="@+id/snackin_text"
+                 android:gravity="center_horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_below="@+id/snackin_content"
+                 android:layout_marginTop="10dp"/>
+
+             <Button
+                 android:id="@+id/button_return_wall"
+                 android:layout_width="200dp"
+                 android:layout_height="50dp"
+                 android:layout_below="@+id/snackin_text"
+                 android:text="Return to the wall"
+                 android:layout_centerHorizontal="true"
+                 android:layout_marginTop="10dp" />
+          
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>
