@@ -60,4 +60,5 @@
     <string name="no_number_in_name">Only letters in your name</string>
     <string name="password_too_short">Password is too short</string>
     <string name="fill_fields_to_login">All fields are mandatory</string>
+    <string name="title_ambassador">¡ You became the Ambassador !</string>
 </resources>

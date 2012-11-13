@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Snackin extends Activity {
@@ -19,6 +20,7 @@ public class Snackin extends Activity {
 	String status, statusString;
 	ImageView img;
 	Button backButton;
+	RelativeLayout relativeConteiner;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class Snackin extends Activity {
         
         backButton = (Button) findViewById(R.id.backButton);
         img = (ImageView) findViewById(R.id.ambassador_imageView);
+        
+        relativeConteiner = (RelativeLayout)findViewById(R.id.ambassador_content);
         
         backButton.setOnClickListener( new View.OnClickListener() {
 			
@@ -50,15 +54,15 @@ public class Snackin extends Activity {
     	switch(Integer.parseInt(status)){
     		case 0:
     			statusString = "No se ha convertido en Embajador";
-    			img.setVisibility(View.GONE);
+    			relativeConteiner.setVisibility(View.GONE);
     			break;
     		case 1:
     			statusString = "Te has convertido en Embajadador";
-    			img.setVisibility(View.VISIBLE);
+    			relativeConteiner.setVisibility(View.VISIBLE);
     			break;
     		case 2:
     			statusString = "Sigues siendo embajador";
-    			img.setVisibility(View.VISIBLE);
+    			relativeConteiner.setVisibility(View.VISIBLE);
     			break;
         }
     	
