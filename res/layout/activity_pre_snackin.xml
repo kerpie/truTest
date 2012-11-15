@@ -1,4 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen_bg">
@@ -71,8 +73,8 @@
 		            android:id="@+id/presnack_button_Snack"
 		            android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
-		            android:background="#FF47b862"
 	                android:layout_margin="5dp"
+	                android:background="@drawable/midorys"
 	                android:padding="5dp"
 	                android:textColor="#FFFFFFFF"
 		            android:text="Snack-In" />

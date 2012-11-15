@@ -14,6 +14,8 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.trustripes.principal.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -41,10 +43,7 @@ public class ImageLoader {
     	fileCache=new FileCache(context);
         executorService=Executors.newFixedThreadPool(5);
     }
-    
-    /* Default image */
-    final int stub_id = 5465416;
-    
+        
     public void DisplayImage(String url, ImageView imageView, boolean profile){
     	isProfile = profile;
         imageViews.put(imageView, url);
@@ -57,7 +56,7 @@ public class ImageLoader {
         else
         {
             queuePhoto(url, imageView);
-            imageView.setImageResource(stub_id);
+            imageView.setImageResource(R.drawable.default_avatar);
         }
     }
     
@@ -194,7 +193,7 @@ public class ImageLoader {
             if(bitmap!=null)
                 photoToLoad.imageView.setImageBitmap(bitmap);
             else
-                photoToLoad.imageView.setImageResource(stub_id);
+                photoToLoad.imageView.setImageResource(R.drawable.default_avatar);
         }
     }
 

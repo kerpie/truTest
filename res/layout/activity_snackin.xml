@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen_bg" >
-
     <RelativeLayout
         android:id="@+id/pseudo_actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@layout/bg_gradient"
         android:padding="5dp" >
-
         <Button
             android:id="@+id/backButton"
             android:layout_width="35dp"
@@ -18,7 +16,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@drawable/back_arrow" />
-
         <TextView
             android:id="@+id/main_textView"
             android:layout_width="130dp"
@@ -28,7 +25,6 @@
             android:background="@drawable/logo"
             android:padding="25dp" />
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +57,8 @@
                     android:layout_height="200dp"
                     android:layout_centerHorizontal="true"
                     android:padding="20dp"
-                    android:src="@drawable/ambassador" />
+                    android:src="@drawable/ambassador" 
+                    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/snackin_content"
@@ -74,42 +71,43 @@
                 android:layout_centerHorizontal="true"
                 android:padding="6dp">
                 <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <ImageView
+						android:id="@+id/wall_item_product_photo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <ImageView
-                            android:id="@+id/wall_item_product_photo"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="centerCrop" />
-                        <TextView
-                            android:id="@+id/totalSnacks"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="top|right"
-                            android:background="#FFFF0000"
-                            android:padding="8dp"
-                            android:text="20"
-                            android:textColor="#FFFFFFFF"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/totalSnacks"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|fill_horizontal"
-                            android:background="#AA000000"
-                            android:padding="10dp"
-                            android:text="Estrellitas"
-                            android:textColor="#FFFFFFFF" />
-                        <ImageView
-                            android:id="@+id/wall_item_profile_photo"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="bottom|right"                           
-                            android:src="@drawable/anon" />
-                    </FrameLayout>                                 
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop" 
+                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
+                    <TextView
+                        android:id="@+id/totalSnacks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="#FFFF0000"
+                        android:padding="8dp"
+                        android:text="20"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/snascks_stars"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|fill_horizontal"
+                        android:background="#AA000000"
+                        android:padding="10dp"
+                        android:text="Estrellitas"
+                        android:textColor="#FFFFFFFF" />
+                    <ImageView
+                        android:id="@+id/wall_item_profile_photo"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="bottom|right"                           
+                        android:src="@drawable/anon" 
+                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
+            	</FrameLayout>                                 
             </RelativeLayout>
-            
             <TextView
                  android:id="@+id/snackin_text"
                  android:gravity="center_horizontal"
@@ -117,7 +115,6 @@
                  android:layout_height="match_parent"
                  android:layout_below="@+id/snackin_content"
                  android:layout_marginTop="10dp"/>
-
              <Button
                  android:id="@+id/button_return_wall"
                  android:layout_width="200dp"
@@ -125,9 +122,7 @@
                  android:layout_below="@+id/snackin_text"
                  android:text="Return to the wall"
                  android:layout_centerHorizontal="true"
-                 android:layout_marginTop="10dp" />
-          
+                 android:layout_marginTop="10dp" />          
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>

@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +31,7 @@ import com.google.zxing.client.android.CaptureActivity;
 import com.trustripes.Constants.ConstantValues;
 
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class PreSnackin extends Activity {
@@ -62,6 +61,8 @@ public class PreSnackin extends Activity {
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
 	boolean canSnack;
+	
+	LoadPhoto loadPhoto;
 	
 	SharedPreferences session;
 	
@@ -84,6 +85,8 @@ public class PreSnackin extends Activity {
 		productName = getIntent().getStringExtra("PRODUCT_NAME");
 		productPhoto = getIntent().getStringExtra("PRODUCT_PHOTO");
 		
+		loadPhoto = new LoadPhoto();
+		
 		if(savedInstanceState != null){
 			String path = savedInstanceState.getString("ImagePath");
 			if(!path.isEmpty()){
@@ -91,7 +94,7 @@ public class PreSnackin extends Activity {
 			}
 		}
 		else{
-			new LoadPhoto().execute();
+			loadPhoto.execute();
 		}
 		
 		userId = session.getString("user_id", "No user");
@@ -145,8 +148,6 @@ public class PreSnackin extends Activity {
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
 		o2.inSampleSize = scale;
 		bitmap = BitmapFactory.decodeFile(filePath, o2);
-		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getHeight()), Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getWidth()), Toast.LENGTH_SHORT).show();
 		image.setImageBitmap(bitmap);
 	}
 	
@@ -177,6 +178,14 @@ public class PreSnackin extends Activity {
 	@Override
 	public void onBackPressed() {
 		finish();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Status status = loadPhoto.getStatus();
+		Toast.makeText(getApplicationContext(), status.toString(), Toast.LENGTH_LONG).show();
 	}
 	
 	public class LoadPhoto extends AsyncTask<Void, Integer, Void>{

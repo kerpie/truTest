@@ -654,7 +654,7 @@ public class Register extends Activity {
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 80, bos);
+				bitmap.compress(CompressFormat.JPEG, 70, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("productname", new StringBody(productName));
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "myImage.jpg"));
