@@ -498,29 +498,6 @@ public class Register extends Activity {
 					}
 				}
 				break;
-//		    	  if (resultCode == RESULT_OK){
-//	    		  final File file = getTempFile();
-//	    		  Bitmap captureBmp=null;
-//	    		  Bitmap capturado=null;
-//	    		  try {
-//	    			pathc=String.valueOf(Uri.fromFile(file));			    			  
-//	    			captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
-//	    			String sub=String.valueOf(pathc).substring(6);
-//	    			resisarcamara(captureBmp,sub);//esto me tiene que devolver una ruta
-//  	          		capturado=getResizedBitmap(captureBmp,110,110);
-//			        imgp.setImageBitmap(capturado);
-//			        imgp.setEnabled(false);
-//			        estafoto="si";
-//			        pathc="";
-//			        /*File file3 = new File(sub);
-//						boolean deleted = file3.delete();
-//			            */
-//	    	        } catch (IOException e) {
-//	    	          e.printStackTrace();
-//	    	        } 
-//		    	  }	
-//		    	  break;
-			default:
 		}
 	}
 	

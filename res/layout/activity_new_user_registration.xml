@@ -17,8 +17,7 @@
 	            android:layout_height="wrap_content"
 	            android:src="@drawable/login_logo_small"
 	            android:layout_centerHorizontal="true"
-	            android:id="@+id/logo"
-	            />
+	            android:id="@+id/logo" />
 	        <EditText 
 	            android:id="@+id/username_editText"
 	            android:layout_width="match_parent"
@@ -86,11 +85,20 @@
 	            android:lines="1" 
 	            android:background="#3FFF"
 	            android:inputType="textEmailAddress"/>
+			<ImageView
+	            android:id="@+id/register_user_photo"
+	            android:layout_width="100dp"
+	            android:layout_height="100dp"
+	            android:layout_below="@+id/mail_editText"
+	            android:layout_centerHorizontal="true"
+	            android:src="@drawable/default_avatar" 
+	            android:layout_margin="5dp"
+	            android:padding="10dp"/>
 			<Button
 		        android:id="@+id/register_user_button"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/mail_editText"
+		        android:layout_below="@+id/register_user_photo"
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="14dp"
 		        android:text="Register new user" 

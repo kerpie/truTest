@@ -1,6 +1,9 @@
 package com.trustripes.principal;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,8 +20,13 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONObject;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -28,13 +36,23 @@ import com.trustripes.Events.checkMail;
 import com.trustripes.Events.checkPass;
 import com.trustripes.Events.checkUsername;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -42,6 +60,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,10 +74,16 @@ public class NewUserRegistration extends Activity{
 	private EditText pass;
 	private EditText visiblePass;
 	private EditText full_name;
+	private ImageView newProfilePhoto;
 	private Button send;
 	private ProgressBar progressBar;
 	private TextView errorMessage;
 	private CheckBox passCheck;
+	
+	private final int CAMERA_RESULT = 200;
+	private final int GALLERY_RESULT = 300;
+	
+	private Bitmap bitmap;
 	
 	private SharedPreferences newSettings = null;
 	
@@ -76,6 +101,8 @@ public class NewUserRegistration extends Activity{
         progressBar = (ProgressBar) findViewById(R.id.loading_progress_bar);
         errorMessage = (TextView) findViewById(R.id.error_message);
         passCheck = (CheckBox) findViewById(R.id.pass_check);
+        newProfilePhoto = (ImageView) findViewById(R.id.register_user_photo);
+        
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         
         progressBar.setVisibility(View.GONE);
@@ -86,6 +113,8 @@ public class NewUserRegistration extends Activity{
         full_name.addTextChangedListener(new checkFullName(full_name, errorMessage));
         pass.addTextChangedListener(new checkPass(pass, errorMessage));
         visiblePass.addTextChangedListener(new checkPass(visiblePass, errorMessage));
+        
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_avatar);
                 
         passCheck.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
         	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -101,9 +130,137 @@ public class NewUserRegistration extends Activity{
     	    	}
     		}
         });
+        
+        newProfilePhoto.setClickable(true);
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Pick image from");
+		
+		LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
+		View new_layout = inflater.inflate(R.layout.pick_photo, null);
+		builder.setView(new_layout);
+		final AlertDialog choosePictureDialog = builder.create();
+		
+		Button cameraButton = (Button) new_layout.findViewById(R.id.launch_camera_button);
+		Button galleryButton = (Button) new_layout.findViewById(R.id.choose_from_gallery_button);
+		
+		cameraButton.setOnClickListener(new View.OnClickListener() {			
+			public void onClick(View v) {
+				Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempFile()));
+				startActivityForResult(cameraIntent, CAMERA_RESULT);
+				choosePictureDialog.dismiss();	
+			}
+		});
+	
+		galleryButton.setOnClickListener(new View.OnClickListener() {			
+			public void onClick(View v) {
+				Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(galleryIntent, GALLERY_RESULT);
+				choosePictureDialog.dismiss();
+			}
+		});
+        
+        newProfilePhoto.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				choosePictureDialog.show();
+			}
+		});
                
     }
 
+    private File getTempFile(){
+		  //it will return /sdcard/image.tmp
+		  final File path = new File( Environment.getExternalStorageDirectory(),"TruStripes");
+		  if(!path.exists())
+		    path.mkdir();
+		  return new File(path, "newProfileImage_.tmp");
+	}
+    
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case GALLERY_RESULT:
+				if (resultCode == Activity.RESULT_OK) {
+					Uri selectedImageUri = data.getData();
+					String filePath = null;
+					try {
+						// OI FILE Manager
+						String filemanagerstring = selectedImageUri.getPath();
+	
+						// MEDIA GALLERY
+						String selectedImagePath = getPath(selectedImageUri);
+	
+						if (selectedImagePath != null) {
+							filePath = selectedImagePath;
+						} else if (filemanagerstring != null) {
+							filePath = filemanagerstring;
+						} else {
+							Toast.makeText(getApplicationContext(), "Unknown path",Toast.LENGTH_LONG).show();
+							Log.e("Bitmap", "Unknown path");
+						}
+	
+						if (filePath != null) {
+							decodeFile(filePath);
+						} else {
+							bitmap = null;
+						}
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(), "Internal error",Toast.LENGTH_LONG).show();
+						Log.e(e.getClass().getName(), e.getMessage(), e);
+					}
+				}
+				break;
+			case CAMERA_RESULT:
+				if (resultCode == Activity.RESULT_OK) {
+					final File file = getTempFile();
+					try {
+						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
+						bitmap = captureBmp;
+						newProfilePhoto.setImageBitmap(bitmap);
+						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				break;
+		}
+	}
+    
+	public String getPath(Uri uri) {
+		String[] projection = { MediaStore.Images.Media.DATA };
+		Cursor cursor = managedQuery(uri, projection, null, null, null);
+		if (cursor != null) {
+			// HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+			// THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			return cursor.getString(column_index);
+		} else
+			return null;
+	}
+	
+    
+    public void decodeFile(String filePath) {
+		// Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, o);
+
+		// The new size we want to scale to
+		final int REQUIRED_SIZE = 1024;
+
+		int scale = 1;
+
+		// Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		newProfilePhoto.setImageBitmap(bitmap);
+	}
+    
     @Override
     protected void onStart() {
     	super.onStart();   	
@@ -170,31 +327,38 @@ public class NewUserRegistration extends Activity{
     			mailToSend = params[2];
     			passToSend = params[3];
     			
-    			/* Prepare variables for remote data check */
-	    		HttpClient client =  new DefaultHttpClient();   		
-	            String postURL = ConstantValues.URL + "/ws/ws-userregister.php";
-	            HttpPost post = new HttpPost(postURL); 
-	            List<NameValuePair> param = new ArrayList<NameValuePair>();
-	            param.add(new BasicNameValuePair("email",mailToSend));
-	            param.add(new BasicNameValuePair("username",usernameToSend));
-	            param.add(new BasicNameValuePair("displayname",fullNameToSend));
-	            param.add(new BasicNameValuePair("password",passToSend));
-	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
-	            post.setEntity(ent);
-	            HttpResponse responsePOST = client.execute(post);    		
-	    		StatusLine status = responsePOST.getStatusLine();
-	    		/* Filter what kind of response was obtained */
+    			
+    			
+    			
+    			HttpClient client = new DefaultHttpClient();
+				HttpContext localContext = new BasicHttpContext();
+				String postURL = ConstantValues.URL + "/ws/ws-userregister.php";
+				HttpPost post = new HttpPost(postURL);
+				
+				MultipartEntity entity = new MultipartEntity();
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				bitmap.compress(CompressFormat.JPEG, 50, bos);
+				byte[] data = bos.toByteArray();
+				entity.addPart("uploadedfile", new ByteArrayBody(data, "newProfileImage.jpg"));
+				entity.addPart("email", new StringBody(mailToSend));
+				entity.addPart("username", new StringBody(usernameToSend));
+				entity.addPart("displayname", new StringBody(fullNameToSend));
+				entity.addPart("password", new StringBody(passToSend));
+				post.setEntity(entity);
+				HttpResponse responsePOST = client.execute(post, localContext);
+				StatusLine status = responsePOST.getStatusLine();
+				/* Filter what kind of response was obtained */
 	    		/* Filtering http response 200 */
-	    		if(status.getStatusCode() == HttpStatus.SC_OK){
-	    			HttpEntity entity = responsePOST.getEntity();
-	    			InputStream inputStream = entity.getContent();
-	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-	    			String line = null;
-	    			stringBuilder = new StringBuilder();
-	    			while((line = reader.readLine()) != null){
-	    				stringBuilder.append(line);
-	    			}
-	    			
+				if (status.getStatusCode() == HttpStatus.SC_OK) {
+					HttpEntity new_entity = responsePOST.getEntity();
+					InputStream inputStream = new_entity.getContent();
+					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+					String line = null;
+					stringBuilder = new StringBuilder();
+					while ((line = reader.readLine()) != null) {
+						stringBuilder.append(line);
+					}
+
 	    			/* Converting obtained string into JSON object */
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
@@ -273,7 +437,5 @@ public class NewUserRegistration extends Activity{
     			break;
     	}
     }
-
-
     
 }
