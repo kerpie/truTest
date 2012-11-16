@@ -94,7 +94,7 @@
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="14dp"
 		        android:text="Register new user" 
-		        android:background="#FF47b862"
+		        android:background="@drawable/midorys"
 		        android:textColor="#FFFF"
 		        android:padding="5dp"/>
 			<ProgressBar 

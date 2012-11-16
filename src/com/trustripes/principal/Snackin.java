@@ -3,8 +3,11 @@ package com.trustripes.principal;
 import com.google.analytics.tracking.android.EasyTracker;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -15,12 +18,15 @@ import android.widget.TextView;
 
 public class Snackin extends Activity {
 
-	TextView snackText;
+	TextView snackText,productName;
 	Intent t;
-	String status, statusString;
-	ImageView img;
+	String status, statusString, imagePath;
+	String profileImagePath;
+	ImageView img, productImage, profilePhoto;
 	Button backButton;
+	Button returnWall;
 	RelativeLayout relativeContainer;
+	Bitmap bitmap;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,21 +35,56 @@ public class Snackin extends Activity {
         setContentView(R.layout.activity_snackin);
         
         snackText = (TextView) findViewById(R.id.snackin_text);
+        productName = (TextView) findViewById(R.id.snackin_product_name);
         t = getIntent();
         status = t.getStringExtra("AMBASSADOR_STATUS");
-        
+        imagePath = t.getStringExtra("productPath");
         backButton = (Button) findViewById(R.id.backButton);
+        returnWall = (Button) findViewById(R.id.button_return_wall);
         img = (ImageView) findViewById(R.id.ambassador_imageView);
+        productImage = (ImageView) findViewById(R.id.product_photo);
         
+        profilePhoto = (ImageView) findViewById(R.id.wall_item_profile_photo);
         relativeContainer = (RelativeLayout)findViewById(R.id.ambassador_content);
         
         backButton.setOnClickListener( new View.OnClickListener() {
-			
 			public void onClick(View v) {
 				finish();
 			}
 		});
+        
+        profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
+        
+        decodeFile(profileImagePath, true);
+        returnWall.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View v) {
+	                    finish();               
+	            }
+	    });	
     }
+       
+    public void decodeFile(String filePath, boolean isProfile) {
+		// Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, o);
+
+		// The new size we want to scale to
+		final int REQUIRED_SIZE = 1024;
+
+		// Find the correct scale value. It should be the power of 2.
+		int width_tmp = o.outWidth, height_tmp = o.outHeight;
+		int scale = 1;
+
+		// Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		if(isProfile)
+			profilePhoto.setImageBitmap(bitmap);
+		else
+			productImage.setImageBitmap(bitmap);
+	}
     
     @Override
     public void onStart(){
@@ -66,8 +107,9 @@ public class Snackin extends Activity {
     			break;
         }
     	
-    	snackText.setText(	"Barcode: "+ t.getStringExtra("BARCODE")+"\n" +
-							"Product Name: "+ t.getStringExtra("PRODUCT_NAME")+"\n");
+    	decodeFile(imagePath, false);
+    	productName.setText(t.getStringExtra("PRODUCT_NAME"));
+    	snackText.setText("Barcode: "+t.getStringExtra("BARCODE"));
     }
     
     @Override

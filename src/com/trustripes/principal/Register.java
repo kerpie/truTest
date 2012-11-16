@@ -549,15 +549,15 @@ public class Register extends Activity {
 		final int REQUIRED_SIZE = 1024;
 
 		// Find the correct scale value. It should be the power of 2.
-		int width_tmp = o.outWidth, height_tmp = o.outHeight;
+//		int width_tmp = o.outWidth, height_tmp = o.outHeight;
 		int scale = 1;
-		while (true) {
-			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
-				break;
-			width_tmp /= 2;
-			height_tmp /= 2;
-			scale *= 2;
-		}
+//		while (true) {
+//			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
+//				break;
+//			width_tmp /= 2;
+//			height_tmp /= 2;
+//			scale *= 2;
+//		}
 
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
@@ -654,12 +654,17 @@ public class Register extends Activity {
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 70, bos);
+				bitmap.compress(CompressFormat.JPEG, 50, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("productname", new StringBody(productName));
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "myImage.jpg"));
 				entity.addPart("iduserdiscoverer", new StringBody(userSession));
 				entity.addPart("codeupean", new StringBody(code));
+				if(bitmap.getHeight()>bitmap.getWidth()){
+					entity.addPart("conversion", new StringBody("1"));
+				}else{
+					entity.addPart("conversion", new StringBody("0"));
+				}
 				entity.addPart("codepais", new StringBody(countryCode));
 				post.setEntity(entity);
 				HttpResponse responsePOST = client.execute(post, localContext);
@@ -725,7 +730,6 @@ public class Register extends Activity {
 			} else {
 				if (dialog.isShowing())
 					dialog.dismiss();
-				Log.d("Error Discoverer", "Error en la respuesta");
 				Toast.makeText(getApplicationContext(), "We did something wrong... please try again! =)", Toast.LENGTH_SHORT).show();
 			}
 		}

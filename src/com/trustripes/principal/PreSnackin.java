@@ -60,7 +60,9 @@ public class PreSnackin extends Activity {
 	
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
+	String profileImagePath;
 	boolean canSnack;
+	boolean loadedImage;
 	
 	LoadPhoto loadPhoto;
 	
@@ -88,9 +90,14 @@ public class PreSnackin extends Activity {
 		loadPhoto = new LoadPhoto();
 		
 		if(savedInstanceState != null){
-			String path = savedInstanceState.getString("ImagePath");
-			if(!path.isEmpty()){
-				decodeFile(path);
+			boolean imageWasLoaded = savedInstanceState.getBoolean("loadingStatus");
+			if(imageWasLoaded){
+				String path = savedInstanceState.getString("ImagePath");
+				if(!path.isEmpty()){
+					decodeFile(path);
+				}
+			}else{
+				loadPhoto.execute();
 			}
 		}
 		else{
@@ -102,7 +109,7 @@ public class PreSnackin extends Activity {
 		/* Instantiation and button event association */
 		snackAgainButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Log.d("MAIN", "Click EN snackAgainButton");
+				Log.d("MAIN", "Click en snackAgainButton");
 				Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
 				startActivity(intent);
 				finish();
@@ -136,13 +143,13 @@ public class PreSnackin extends Activity {
 		// Find the correct scale value. It should be the power of 2.
 		int width_tmp = o.outWidth, height_tmp = o.outHeight;
 		int scale = 1;
-		while (true) {
-			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
-				break;
-			width_tmp /= 2;
-			height_tmp /= 2;
-			scale *= 2;
-		}
+//		while (true) {
+//			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
+//				break;
+//			width_tmp /= 2;
+//			height_tmp /= 2;
+//			scale *= 2;
+//		}
 
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
@@ -173,19 +180,24 @@ public class PreSnackin extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString("ImagePath", finalImagePath);
+		Toast.makeText(getApplicationContext(),  loadPhoto.getStatus().toString(), Toast.LENGTH_LONG).show();
+		if(loadPhoto.getStatus() == Status.FINISHED || loadPhoto.getStatus() == Status.PENDING){
+			loadedImage = true;
+		}
+		else{
+			loadPhoto.cancel(false);
+			if(loadPhoto.isCancelled()){
+				loadedImage = false;
+			}
+		}
+		
+		outState.putBoolean("loadingStatus", loadedImage);
+		Toast.makeText(getApplicationContext(), "loadedImage: "+loadedImage, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
 	public void onBackPressed() {
 		finish();
-	}
-	
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		Status status = loadPhoto.getStatus();
-		Toast.makeText(getApplicationContext(), status.toString(), Toast.LENGTH_LONG).show();
 	}
 	
 	public class LoadPhoto extends AsyncTask<Void, Integer, Void>{
@@ -228,9 +240,9 @@ public class PreSnackin extends Activity {
 		    }
 
 			image.setImageBitmap(bitmap);
-			
 		}
 	}
+	
 	
 	public class SendSnackIn extends AsyncTask<Void, Integer, Void>{
 		
@@ -311,6 +323,7 @@ public class PreSnackin extends Activity {
 				intent.putExtra("PRODUCT_NAME", productName);
 				intent.putExtra("PRODUCT_PHOTO", productPhoto);
 				intent.putExtra("AMBASSADOR_STATUS", ambassadorStatus);
+				intent.putExtra("productPath", finalImagePath);
 				startActivity(intent);
 				finish();
 			}

@@ -81,7 +81,7 @@
 		        android:layout_marginBottom="0dp"
 		        android:layout_below="@+id/discoverer_textview_product"
 		        android:text="Return to wall" 
-		        android:background="#FF47b862"
+		        android:background="@drawable/midorys"
 		        android:padding="10dp"
 		        android:textColor="#FFFF"/>
 		</RelativeLayout>

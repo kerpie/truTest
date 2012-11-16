@@ -1,6 +1,9 @@
 package com.trustripes.adapters;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,6 +40,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -60,6 +64,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	LayoutInflater new_inflater;
 	Button logOutButton;
 	Context context;
+	
+	String profileImagePath;
 	
 	Activity parentActivity;
 	
@@ -234,6 +240,23 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 				profile_image.setImageBitmap( bitmap );
 			else
 				profile_image.setImageResource(R.drawable.default_avatar);
+			       
+	       profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
+	       File directory = new File(profileImagePath);
+	       FileOutputStream outStream;
+		   try {
+
+		       outStream = new FileOutputStream(directory);
+		       bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+		       /* 100 to keep full quality of the image */
+
+		       outStream.flush();
+		       outStream.close();
+		   } catch (FileNotFoundException e) {
+		       e.printStackTrace();
+		   } catch (IOException e) {
+		       e.printStackTrace();
+		   }
 		}
 	 }
 	 

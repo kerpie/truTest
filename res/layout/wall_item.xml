@@ -82,12 +82,14 @@
 	        android:paddingTop="6dp" >
 		    <FrameLayout
 		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content">
+		        android:layout_height="match_parent">
 		        <ImageView
 		            android:id="@+id/wall_item_product_photo"
 		            android:layout_width="match_parent"
-		            android:layout_height="200dp"
-		            android:scaleType="centerCrop"/>
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+          			android:scaleType="centerCrop"
+                    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />
 		        <TextView
 		            android:id="@+id/totalSnacks"
 		            android:layout_width="wrap_content"

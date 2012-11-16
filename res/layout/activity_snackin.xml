@@ -29,20 +29,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/pseudo_actionBar"
-        android:layout_centerHorizontal="true" >
-
+        android:layout_centerInParent="true">
         <RelativeLayout
             android:id="@+id/father_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" >
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
             <RelativeLayout
                 android:id="@+id/ambassador_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone"
-                >
+                android:layout_centerHorizontal="true">
                 <TextView
                     android:id="@+id/tittle_text"
                     android:layout_width="wrap_content"
@@ -50,21 +48,35 @@
                     android:layout_alignTop="@+id/ambassador_imageView"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:text="@string/title_ambassador" />
+                    android:text="@string/title_ambassador"
+                    android:textStyle="bold" />
                 <ImageView
                     android:id="@+id/ambassador_imageView"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_centerHorizontal="true"
-                    android:padding="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:src="@drawable/ambassador" 
                     android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
             </RelativeLayout>
+            <TextView
+                 android:id="@+id/snackin_product_name"
+                 android:layout_below="@+id/ambassador_content"
+                 android:gravity="center_horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginTop="3dp"
+                 android:layout_marginBottom="10dp"
+                 android:textAllCaps="true"
+                 android:textStyle="bold"/>
             <RelativeLayout
                 android:id="@+id/snackin_content"
                 android:layout_width="match_parent"
                 android:layout_height="200dp" 
-                android:layout_below="@+id/ambassador_content"
+                android:layout_below="@+id/snackin_product_name"
                 android:background="@drawable/photo_background_cut"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -74,11 +86,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <ImageView
-						android:id="@+id/wall_item_product_photo"
+						android:id="@+id/product_photo"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:scaleType="centerCrop" 
-                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
+                        android:adjustViewBounds="true"
+		            	android:scaleType="centerCrop"
+                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />
                     <TextView
                         android:id="@+id/totalSnacks"
                         android:layout_width="wrap_content"
@@ -89,7 +102,8 @@
                         android:text="20"
                         android:textColor="#FFFFFFFF"
                         android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" 
+                        android:visibility="gone"/>
                     <TextView
                         android:id="@+id/snascks_stars"
                         android:layout_width="match_parent"
@@ -98,13 +112,15 @@
                         android:background="#AA000000"
                         android:padding="10dp"
                         android:text="Estrellitas"
-                        android:textColor="#FFFFFFFF" />
+                        android:textColor="#FFFFFFFF"
+                        android:visibility="gone" />
                     <ImageView
                         android:id="@+id/wall_item_profile_photo"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="bottom|right"                           
                         android:src="@drawable/anon" 
+      					android:scaleType="centerCrop"                  
                         android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
             	</FrameLayout>                                 
             </RelativeLayout>
@@ -120,9 +136,11 @@
                  android:layout_width="200dp"
                  android:layout_height="50dp"
                  android:layout_below="@+id/snackin_text"
+                 android:textColor="#FFFF"
                  android:text="Return to the wall"
                  android:layout_centerHorizontal="true"
-                 android:layout_marginTop="10dp" />          
+                 android:layout_marginTop="10dp" 
+                 android:background="@drawable/midorys"/>          
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

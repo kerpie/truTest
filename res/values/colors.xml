@@ -39,7 +39,5 @@
   <color name="viewfinder_mask">#60000000</color>
   <color name="pagertabstrip">#FFD6A2EA</color>
   
-  <color name="presionado">#FFFF0000</color>
-  <color name="enfocado">#FF00FF00</color>
-  <color name="normal">#FF0000FF</color>
+  <color name="normal">#FF47b862</color>
 </resources>
