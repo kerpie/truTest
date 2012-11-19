@@ -239,6 +239,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			if(bitmap != null )
 				profile_image.setImageBitmap( bitmap );
 			else
+				//prueba cambio por otro avatar
 				profile_image.setImageResource(R.drawable.default_avatar);
 			       
 	       profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
