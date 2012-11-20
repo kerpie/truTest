@@ -232,6 +232,7 @@ public class LoginActivity extends Activity {
 				settingsEditor.putString("user_id", iduser);
 				settingsEditor.putString("user_name", name);
 				settingsEditor.putString("user_status", statusResponse);
+				settingsEditor.putBoolean("show_snack_help", true);
 				settingsEditor.commit();
 				showStatusMessage();
     		}
