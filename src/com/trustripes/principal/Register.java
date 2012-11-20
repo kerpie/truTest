@@ -105,6 +105,12 @@ public class Register extends Activity {
 		
 		spinner = (Spinner) findViewById(R.id.register_spinner_country);
 		
+		String savedProductName = getIntent().getStringExtra("PRODUCT_NAME");
+		
+		if(!(savedProductName.equals("null"))){
+			registerName.setText(savedProductName);
+		}
+		
 		if(savedInstanceState != null){
 			String savedPath = savedInstanceState.getString("ImagePath");
 			if(!(savedPath.isEmpty())){

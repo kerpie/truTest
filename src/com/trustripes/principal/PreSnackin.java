@@ -180,7 +180,6 @@ public class PreSnackin extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString("ImagePath", finalImagePath);
-		Toast.makeText(getApplicationContext(),  loadPhoto.getStatus().toString(), Toast.LENGTH_LONG).show();
 		if(loadPhoto.getStatus() == Status.FINISHED || loadPhoto.getStatus() == Status.PENDING){
 			loadedImage = true;
 		}
@@ -192,7 +191,6 @@ public class PreSnackin extends Activity {
 		}
 		
 		outState.putBoolean("loadingStatus", loadedImage);
-		Toast.makeText(getApplicationContext(), "loadedImage: "+loadedImage, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override

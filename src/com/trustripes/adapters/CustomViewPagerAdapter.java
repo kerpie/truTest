@@ -17,6 +17,7 @@ import lazylist.LazyAdapter;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
+import com.trustripes.Events.EndlessScrollListener;
 import com.trustripes.principal.R;
 
 import org.apache.http.HttpEntity;
@@ -47,6 +48,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -64,14 +69,23 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	LayoutInflater new_inflater;
 	Button logOutButton;
 	Context context;
+	JSONArray jsonArray = null;
 	
 	String profileImagePath;
 	
 	Activity parentActivity;
 	
+	boolean firstTime = true;
+	
+	private int visibleThreshold = 1;
+	private int previousTotal = 0;
+    private boolean loading = true;
+	
 	public CustomViewPagerAdapter(Activity a){
 		parentActivity = a;
 	}
+	
+	public CustomViewPagerAdapter(){}
 	
 	@Override
 	public int getCount() {
@@ -99,15 +113,27 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             view = inflater.inflate(resId, null);
             wall_text = (TextView) view.findViewById(R.id.wall_text);
             wall_list = (ListView) view.findViewById(R.id.wall_list);
+
+            wall_list.setOnScrollListener(new EndlessScroll());
+            
             ((PullToRefreshListView) wall_list).setOnRefreshListener(new OnRefreshListener() {
                 public void onRefresh() {
                     // Do work to refresh the list here.
-                    new LoadWallActivity().execute();
+                    new LoadWallActivity().execute(true);
                 }
             });
             
+            wall_list.setOnItemClickListener(new OnItemClickListener() {
+            	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            		new LoadWallActivity().execute(false);
+            	}
+			});
+            
+            
+            adapter = new LazyAdapter();
             new_inflater = inflater;
-            new LoadWallActivity().execute();
+            
+            new LoadWallActivity().execute(false);
             break;
         case 1:
             resId = R.layout.profile;
@@ -239,6 +265,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			if(bitmap != null )
 				profile_image.setImageBitmap( bitmap );
 			else
+				//prueba cambio por otro avatar
 				profile_image.setImageResource(R.drawable.default_avatar);
 			       
 	       profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
@@ -260,27 +287,50 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		}
 	 }
 	 
-	 public class LoadWallActivity extends AsyncTask<Void, Integer, Void>{
+	 public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void>{
 		 
 		StringBuilder stringBuilder = null;
 		String statusResponse = null;
 		String id_string = null;
-		JSONArray jsonArray = null;
+		JSONArray tmpJsonArray = null;
+		boolean isRefresh = false;
+		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 		}
 		 
-		public Void doInBackground(Void... params){
+		public Void doInBackground(Boolean... params){
 			 try{	
 				id_string = session.getString("user_id", "No data");
+				
+				isRefresh = params[0];
+				if(isRefresh){
+					firstTime = true;
+				}
+				
 				HttpClient client =  new DefaultHttpClient();   		
 	            String url = ConstantValues.URL+"/ws/ws-listproduct.php";
-	            HttpGet httpGet = new HttpGet(url);
-	            HttpResponse responseGET = client.execute(httpGet);    		
-	    		StatusLine status = responseGET.getStatusLine();
+	            
+	            /* Prepare variables for remote data check */
+	    		HttpPost post = new HttpPost(url); 
+	            List<NameValuePair> param = new ArrayList<NameValuePair>();
+	            if((jsonArray == null) || isRefresh){
+	            	param.add(new BasicNameValuePair("total","0"));
+	            	previousTotal = 0;
+	            }
+	            else{
+	            	param.add(new BasicNameValuePair("total",String.valueOf(jsonArray.length())));
+	            }
+	            
+	            
+	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
+	            post.setEntity(ent);
+	            HttpResponse responsePOST = client.execute(post);    		
+	    		StatusLine status = responsePOST.getStatusLine();
+	            
 	    		if(status.getStatusCode() == HttpStatus.SC_OK){
-	    			HttpEntity entity = responseGET.getEntity();
+	    			HttpEntity entity = responsePOST.getEntity();
 	    			InputStream inputStream = entity.getContent();
 	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	    			String line = null;
@@ -288,7 +338,16 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	    			while((line = reader.readLine()) != null){
 	    				stringBuilder.append(line);
 	    			}
-	    			jsonArray = new JSONArray(stringBuilder.toString());
+    				if(firstTime)
+	    				jsonArray = new JSONArray(stringBuilder.toString());
+	    			else{
+	    				tmpJsonArray = new JSONArray(stringBuilder.toString());
+	    				
+	    				/* agregar nuevo json al antiguo*/
+	    				for(int k=0;k<tmpJsonArray.length();k++){
+	    					jsonArray.put(tmpJsonArray.get(k));
+	    				}
+	    			}
 	    			reader.close();
 	    			inputStream.close();
 		    		}
@@ -307,14 +366,42 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		 @Override
 		protected void onPostExecute(Void result) {			
 			 if(jsonArray != null){
-				 adapter = new LazyAdapter(new_inflater, jsonArray);
-				 wall_list.setAdapter(adapter);
-				 adapter.notifyDataSetChanged();
-				 ((PullToRefreshListView) wall_list).onRefreshComplete();
+				 if(firstTime){
+					 firstTime = false;
+					 adapter.instantiateValues(new_inflater, jsonArray);
+					 wall_list.setAdapter(adapter);
+					 if(isRefresh){
+						 ((PullToRefreshListView) wall_list).onRefreshComplete();
+					 }
+				 }
+				 else{
+					 adapter.notifyDataSetChanged();
+				 }
 			 }
 			 else{
 				 Toast.makeText(context, "UPS!", Toast.LENGTH_SHORT).show();
 			 }
+			 
 		}
 	 }
+	 
+	 public class EndlessScroll implements OnScrollListener{
+		    
+	     public void onScrollStateChanged(AbsListView view, int scrollState) {			
+	     }
+			
+	     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+	    	 if (loading) {
+		            if (totalItemCount > previousTotal) {
+		                loading = false;
+		                previousTotal = totalItemCount;
+		            }
+		        }
+		        if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+		        	new LoadWallActivity().execute(false);
+		            loading = true;
+		        }
+				
+			}
+		}
 }

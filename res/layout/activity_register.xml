@@ -78,7 +78,8 @@
 	            android:background="#FFFF"
 	            android:hint="Product name"
 	            android:lines="1" 
-	        	android:padding="10dp" />
+	        	android:padding="10dp" 
+	        	android:textSize="15dp"/>
 	        <Spinner 
 	            android:id="@+id/register_spinner_country"
 	            android:layout_width="match_parent"
