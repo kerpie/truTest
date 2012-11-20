@@ -509,8 +509,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	// This method capture the codeBar and send to MainActivity "Teto"
 	private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
 		try{
-			Long newValue = Long.parseLong(rawResult.toString());
-			obtainedBarcode = newValue.toString();
+			obtainedBarcode = rawResult.toString();
+			
 			new Snackin().execute();
 		}catch(NumberFormatException e){
 			Toast.makeText(getApplicationContext(), "Upss! that's not a barcode", Toast.LENGTH_SHORT).show();
@@ -748,12 +748,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 					statusResponse = jsonObject.getString("status");
 					if (Integer.parseInt(statusResponse) == 1) {
 						productId = jsonObject.getString("idproduct");
-						productName = jsonObject.getString("producto");
 						productPhoto = jsonObject.getString("foto");
 						canSnack = true;
 					} else {
 						canSnack = false;
 					}
+					productName = jsonObject.getString("producto");
 
 					reader.close();
 					inputStream.close();
@@ -782,11 +782,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			if (canSnack) {
 				intent = new Intent(getApplicationContext(), PreSnackin.class);
 				intent.putExtra("PRODUCT_ID", productId);
-				intent.putExtra("PRODUCT_NAME",productName);
 				intent.putExtra("PRODUCT_PHOTO",productPhoto);
 			} else {
 				intent = new Intent(getApplicationContext(), Register.class);
 			}
+			intent.putExtra("PRODUCT_NAME",productName);
 			intent.putExtra("BARCODE", obtainedBarcode);
 			startActivity(intent);
 			finish();

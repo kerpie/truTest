@@ -28,6 +28,18 @@ public class LazyAdapter extends BaseAdapter {
     public ImageLoader imageLoader; 
     public JSONArray jsonArray = null;
     
+    public LazyAdapter(){
+    	jsonArray = null;
+    	inflater = null;
+    	imageLoader = null;
+    }
+    
+    public void instantiateValues(LayoutInflater a, JSONArray array){
+    	jsonArray = array;
+        inflater = a;
+        imageLoader=new ImageLoader(inflater.getContext());
+    }
+    
     public LazyAdapter(LayoutInflater a, JSONArray array) {
         jsonArray = array;
         inflater = a;
@@ -70,19 +82,18 @@ public class LazyAdapter extends BaseAdapter {
 	        	imageLoader.DisplayImage(url, profilePhoto, true);
 	        }
 	        else{
-	        	
-	          Bitmap source = BitmapFactory.decodeResource(inflater.getContext().getResources(), R.drawable.default_avatar);
-	          Bitmap result = Bitmap.createBitmap(source.getWidth(),source.getHeight(), Config.ARGB_8888);
-	          Canvas canvas = new Canvas(result);
-	          Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-	          RectF rect = new RectF(0,0,source.getWidth(), source.getHeight()); 
-	          float radius = 500.0f;
-	          paint.setColor(Color.BLUE);
-	          canvas.drawRoundRect(rect, radius, radius, paint);
-	          paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-	          canvas.drawBitmap(source, 0, 0, paint);
-	          paint.setXfermode(null);
-	          profilePhoto.setImageBitmap(result);  
+	        	Bitmap source = BitmapFactory.decodeResource(inflater.getContext().getResources(), R.drawable.default_avatar);
+	        	Bitmap result = Bitmap.createBitmap(source.getWidth(),source.getHeight(), Config.ARGB_8888);
+	        	Canvas canvas = new Canvas(result);
+	        	Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	        	RectF rect = new RectF(0,0,source.getWidth(), source.getHeight()); 
+	        	float radius = 500.0f;
+	        	paint.setColor(Color.BLUE);
+	        	canvas.drawRoundRect(rect, radius, radius, paint);
+	        	paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	        	canvas.drawBitmap(source, 0, 0, paint);
+	        	paint.setXfermode(null);
+	        	profilePhoto.setImageBitmap(result);  
 	        } 
 	        
 	        /* Uncomment when json gives real data */
