@@ -444,7 +444,6 @@ public class NewUserRegistration extends Activity{
     	}
     }
     
-    
     public void ChooseGender(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -453,7 +452,7 @@ public class NewUserRegistration extends Activity{
         switch(view.getId()) {
             case R.id.avatar_male:
                 if (checked)
-            //    	newProfilePhoto.setImageResource(male);
+            //    		(male);
                 break;
             case R.id.avatar_female:
                 if (checked)
