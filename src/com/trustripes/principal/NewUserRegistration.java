@@ -62,6 +62,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,8 @@ public class NewUserRegistration extends Activity{
 	private ProgressBar progressBar;
 	private TextView errorMessage;
 	private CheckBox passCheck;
+	private RadioButton gender;
+	private ImageView male,female;
 	
 	private final int CAMERA_RESULT = 200;
 	private final int GALLERY_RESULT = 300;
@@ -102,6 +105,9 @@ public class NewUserRegistration extends Activity{
         errorMessage = (TextView) findViewById(R.id.error_message);
         passCheck = (CheckBox) findViewById(R.id.pass_check);
         newProfilePhoto = (ImageView) findViewById(R.id.register_user_photo);
+        
+        male = (ImageView)findViewById(R.id.avatar_male);
+        female = (ImageView)findViewById(R.id.avatar_female);
         
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         
@@ -436,6 +442,24 @@ public class NewUserRegistration extends Activity{
     			Log.i(TAG, "Default Message: There is no 'user_status' value: You shouldn't be seeing this");
     			break;
     	}
+    }
+    
+    
+    public void ChooseGender(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.avatar_male:
+                if (checked)
+            //    	newProfilePhoto.setImageResource(male);
+                break;
+            case R.id.avatar_female:
+                if (checked)
+                    // Ninjas rule
+                break;
+        }
     }
     
 }

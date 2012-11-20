@@ -187,7 +187,7 @@ public class ImageLoader {
             if(bitmap!=null)
                 photoToLoad.imageView.setImageBitmap(bitmap);
             else
-                photoToLoad.imageView.setImageResource(R.drawable.default_avatar);
+                photoToLoad.imageView.setImageResource(R.drawable.loading);
         }
     }
 
