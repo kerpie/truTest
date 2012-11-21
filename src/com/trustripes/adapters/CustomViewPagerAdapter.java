@@ -18,6 +18,7 @@ import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
 import com.trustripes.Events.EndlessScrollListener;
+import com.trustripes.principal.NewUserRegistration;
 import com.trustripes.principal.R;
 
 import org.apache.http.HttpEntity;
@@ -37,9 +38,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -48,6 +51,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
@@ -63,11 +67,11 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	View view;
 	SharedPreferences session;
 	ImageView profile_image;
-	TextView profile_text, wall_text;
+	TextView profile_text, wall_text, feedback_text;
 	ListView wall_list;
 	LazyAdapter adapter;
 	LayoutInflater new_inflater;
-	Button logOutButton;
+	Button logOutButton, editProfileButton;
 	Context context;
 	JSONArray jsonArray = null;
 	
@@ -141,8 +145,9 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             profile_image = (ImageView) view.findViewById(R.id.profile_image);
             profile_text = (TextView) view.findViewById(R.id.profile_textView);
             logOutButton = (Button) view.findViewById(R.id.logout_button);
+            editProfileButton = (Button) view.findViewById(R.id.edit_profile_button);
+            
             logOutButton.setOnClickListener(new View.OnClickListener() {
-				
 				public void onClick(View v) {
 					SharedPreferences.Editor settingsEditor = session.edit();
 					settingsEditor.putString("user_status", "0");
@@ -150,6 +155,25 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 					parentActivity.finish();
 				}
 			});
+            
+            editProfileButton.setOnClickListener(new View.OnClickListener() {				
+				public void onClick(View v) {
+					Intent i = new Intent(context, NewUserRegistration.class);
+					i.putExtra("isEdit", true);
+					context.startActivity(i);
+				}
+			});
+            
+            feedback_text = (TextView) view.findViewById(R.id.feedback);
+            feedback_text.setOnClickListener( new View.OnClickListener()
+            {
+    		public void onClick(View v)
+    		{
+    			Uri uri = Uri.parse("http://www.surveygizmo.com/s3/1094333/Feedback-truStripes");
+    			context.startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
+    		}
+            });
+            
             new LoadProfileData().execute();
             break;
         }
@@ -181,6 +205,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		String msj = null;
 		String email = null;
 		String username = null;
+		String display = null;
 		String photoURL = null;
 		Bitmap bitmap;
 		
@@ -217,6 +242,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	    				msj = jsonObject.getString("msj");
 		    			email = jsonObject.getString("email");
 		    			username = jsonObject.getString("username");
+		    			display = jsonObject.getString("display");
 		    			publishProgress(100);
 		    			photoURL = jsonObject.getString("photo");
 		    			if(photoURL.length() >= 10){
@@ -262,6 +288,12 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		
 		@Override
 		protected void onPostExecute(Void result) {
+			
+			SharedPreferences.Editor settingsEditor = session.edit();
+			settingsEditor.putString("user_email", email);
+			settingsEditor.putString("user_full_name", display);
+			settingsEditor.commit();
+			
 			if(bitmap != null )
 				profile_image.setImageBitmap( bitmap );
 			else

@@ -53,7 +53,7 @@
     <string name="title_activity_register">Register</string>
     <string name="title_activity_snackin">Snackin</string>
     <string name="title_activity_Discoverer">Discoverer</string>
-    <string name="title_activity_new_user_registration">NewUserRegistration</string>  
+    <string name="title_activity_new_user_registration">NewUserRegistration</string>
     <string name="new_user_username_check">Username must be 5 characters minimun</string>
     <string name="new_user_username_check_symbol">Username only contain numbers, letters and _</string>
     <string name="new_user_mail_check_symbol">Invalid mail</string>
@@ -61,4 +61,5 @@
     <string name="password_too_short">Password is too short</string>
     <string name="fill_fields_to_login">All fields are mandatory</string>
     <string name="title_ambassador">¡ You became the Ambassador !</string>
+    <string name="title_activity_feedback">Feedback</string>
 </resources>

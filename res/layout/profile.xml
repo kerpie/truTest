@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen_bg">
     <ScrollView 
+        android:id="@+id/profile_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:padding="10dp">
 	        <RelativeLayout
 			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content" >
+			    android:layout_height="wrap_content" 
+			    android:paddingBottom="50dp">
 	            <ImageView
 	                android:layout_width="200dp"
 	                android:layout_height="200dp"
@@ -29,17 +31,38 @@
 			        android:layout_marginBottom="10dp" />
 				 <Button
 				     android:id="@+id/logout_button"
-				     android:layout_width="wrap_content"
+				     android:layout_width="match_parent"
 				     android:layout_height="wrap_content"
 				     android:padding="10dp"
 				     android:background="@drawable/midorys"
 				     android:textColor="#FFFF"
 				     android:layout_below="@+id/profile_textView"
 				     android:layout_centerHorizontal="true"
-				     android:text="Log Out"
-				     />
+				     android:text="Log Out" />
+				 <Button
+				     android:id="@+id/edit_profile_button"
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content"
+				     android:layout_marginTop="5dp"
+				     android:padding="10dp"
+				     android:background="@drawable/midorys"
+				     android:textColor="#FFFF"
+				     android:layout_below="@+id/logout_button"
+				     android:layout_centerHorizontal="true"
+				     android:text="Edit Profile Data" />
+			 	<TextView 
+					android:id="@+id/feedback"
+					android:layout_below="@+id/edit_profile_button"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_centerHorizontal="true"
+				    android:layout_marginTop="40dp"
+				    android:text="Send feedback"
+				    android:textColor="#F00F"
+				    android:clickable="true" />	
 		</RelativeLayout>
 	</ScrollView>	<ImageView
+	    android:id="@+id/footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
