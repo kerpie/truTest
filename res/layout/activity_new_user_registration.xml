@@ -85,27 +85,23 @@
 	            android:lines="1" 
 	            android:background="#3FFF"
 	            android:inputType="textEmailAddress"/>
-           	
            	<RadioGroup
 			    android:id="@+id/gender"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_below="@+id/mail_editText"
-			    >
-
+			    android:orientation="horizontal"
+			    android:layout_centerHorizontal="true">
 			    <RadioButton
 			        android:id="@+id/avatar_male"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"			        
-			        android:text="Femenino"
-			        android:onClick="ChooseGender" />
-							
+			        android:text="Male"/>
 			    <RadioButton
 			        android:id="@+id/avatar_female"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:text="Masculino"
-			        android:onClick="ChooseGender" />
+			        android:text="Female"/>
 			</RadioGroup>
 			<ImageView
 	            android:id="@+id/register_user_photo"
@@ -114,8 +110,8 @@
 	            android:layout_height="100dp"	           
 	            android:layout_centerHorizontal="true"
 	            android:src="@drawable/default_avatar" 
-	            android:layout_margin="5dp"
-	            android:padding="10dp"/>
+	            android:layout_margin="3dp"
+	            android:padding="5dp"/>
 			<Button
 		        android:id="@+id/register_user_button"
 		        android:layout_width="wrap_content"

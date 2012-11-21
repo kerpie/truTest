@@ -1,22 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trustripes.principal"
-    android:versionCode="5"
-    android:versionName="1.04" >
+    android:versionCode="6"
+    android:versionName="1.05" >
 
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-<<<<<<< HEAD
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-=======
-		<uses-feature android:name="android.hardware.camera" />
-		<uses-feature android:name="android.hardware.camera.autofocus" />
->>>>>>> 93cbdb495e652aaf6a86eab8282200ab346b23ca
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />

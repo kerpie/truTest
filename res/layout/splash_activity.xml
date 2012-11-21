@@ -27,7 +27,7 @@
         android:layout_below="@+id/splash_screen_progressBar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:text="v.1.04"
+        android:text="v.1.05"
         android:textColor="#555"/>
 
     <ImageView 
