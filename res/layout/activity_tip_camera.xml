@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splashscreen_bg" >
+    
+   
+  
+	    <TextView 
+	        android:id="@+id/help_title"
+	        android:text="How to scan a barcode:"
+	        android:layout_centerHorizontal="true"
+	        android:textColor="#000"
+	        android:textStyle="bold"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    <TextView 
+	        android:id="@+id/help_content_one"
+	        android:layout_below="@+id/help_title"
+	        android:textColor="#000"
+	        android:textStyle="bold"
+	        android:text="1. Hold your smartphone this way."
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"/>
+	    <TextView 
+	        android:id="@+id/help_content_two"
+	        android:layout_below="@+id/help_content_one"
+	        android:textColor="#000"
+	        android:textStyle="bold"
+	        android:text="2. Look for the barcode on the product and put it in front of the camera."
+	        android:layout_centerHorizontal="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    <TextView 
+	        android:id="@+id/help_content_three"
+	        android:layout_below="@+id/help_content_two"
+	        android:textColor="#000"
+	        android:textStyle="bold"
+	        android:text="3. Move the product forward and backward until it fits into the box."
+	        android:layout_centerHorizontal="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    <TextView 
+	        android:id="@+id/help_content_four"
+	        android:layout_below="@+id/help_content_three"
+	        android:textColor="#000"
+	        android:textStyle="bold"
+	        android:text="The red line must cross all the barcode stripes."
+	        android:layout_centerHorizontal="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    <ImageView
+	        android:id="@+id/imageTip"
+	        android:layout_below="@+id/help_content_four"
+	        android:layout_width="200dp"
+	        android:layout_height="150dp"
+	        android:src="@drawable/pre_scan_image_view"
+	       android:layout_centerHorizontal="true"
+	       android:layout_marginTop="10dp" />
+	    
+     <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't show again"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+		android:textColor="#000"/>
+    
+    <Button
+        android:id="@+id/i_go_it"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Next"
+        android:background="@drawable/midorys"
+        android:textColor="#fff"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="7dp"
+        />
+    
+    <ImageView
+        android:id="@+id/imageTip"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/help_tip_content"
+        android:layout_above="@+id/i_go_it"
+        android:src="@drawable/press_next" />
+
+
+    
+
+</RelativeLayout>

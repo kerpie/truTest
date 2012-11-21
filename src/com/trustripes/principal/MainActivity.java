@@ -35,8 +35,15 @@ public class MainActivity extends Activity {
 		snackIn_button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN EL BOTON");
-				Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
-				startActivity(intent);
+				SharedPreferences session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+				if(session.getBoolean("show_snack_help", true)){
+					Intent intent = new Intent(getApplicationContext(), Tip_camera.class);
+					startActivity(intent);
+				}
+				else{
+					Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+					startActivity(intent);
+				}
 			}
 		});
 		

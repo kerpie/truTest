@@ -62,4 +62,5 @@
     <string name="fill_fields_to_login">All fields are mandatory</string>
     <string name="title_ambassador">¡ You became the Ambassador !</string>
     <string name="title_activity_feedback">Feedback</string>
+    <string name="title_activity_tip_camera">Tip_camera</string>
 </resources>

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trustripes.principal"
-    android:versionCode="5"
-    android:versionName="1.04" >
+    android:versionCode="6"
+    android:versionName="1.05" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -119,6 +119,11 @@
         <activity
             android:name=".NewUserRegistration"
             android:label="@string/title_activity_new_user_registration" >
+        </activity>
+        <activity
+            android:name=".Tip_camera"
+            android:label="@string/title_activity_tip_camera"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

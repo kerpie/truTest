@@ -62,6 +62,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,11 +82,13 @@ public class NewUserRegistration extends Activity{
 	private ProgressBar progressBar;
 	private TextView errorMessage;
 	private CheckBox passCheck;
+	private RadioGroup gender;
 	
 	private final int CAMERA_RESULT = 200;
 	private final int GALLERY_RESULT = 300;
 	
 	private Bitmap bitmap;
+	private Bitmap maleProfile, femaleProfile;
 	
 	private SharedPreferences newSettings = null;
 	
@@ -102,6 +107,9 @@ public class NewUserRegistration extends Activity{
         errorMessage = (TextView) findViewById(R.id.error_message);
         passCheck = (CheckBox) findViewById(R.id.pass_check);
         newProfilePhoto = (ImageView) findViewById(R.id.register_user_photo);
+        
+        maleProfile = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_masculino);
+        femaleProfile = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_femenino);
         
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         
@@ -130,6 +138,24 @@ public class NewUserRegistration extends Activity{
     	    	}
     		}
         });
+        
+        gender = (RadioGroup) findViewById(R.id.gender);
+        
+        gender.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch(checkedId){
+					case R.id.avatar_male:
+						newProfilePhoto.setImageBitmap(maleProfile);
+						bitmap = maleProfile;
+						break;
+					case R.id.avatar_female:
+						newProfilePhoto.setImageBitmap(femaleProfile);
+						bitmap = femaleProfile;
+						break;
+				}
+			}
+		});
         
         newProfilePhoto.setClickable(true);
         
@@ -337,7 +363,7 @@ public class NewUserRegistration extends Activity{
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 50, bos);
+				bitmap.compress(CompressFormat.PNG, 50, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "newProfileImage.jpg"));
 				entity.addPart("email", new StringBody(mailToSend));
@@ -437,5 +463,4 @@ public class NewUserRegistration extends Activity{
     			break;
     	}
     }
-    
 }
