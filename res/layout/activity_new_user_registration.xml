@@ -112,11 +112,23 @@
 	            android:src="@drawable/default_avatar" 
 	            android:layout_margin="3dp"
 	            android:padding="5dp"/>
+			<EditText
+	            android:id="@+id/original_pass_editText"
+	            android:layout_height="wrap_content"
+	            android:layout_width="match_parent"
+	            android:layout_below="@+id/register_user_photo"
+	            android:hint="Actual Password"
+	            android:padding="10dp"
+	            android:lines="1" 
+	            android:inputType="textPassword"
+	            android:background="#3FFF"
+	            />
+			
 			<Button
 		        android:id="@+id/register_user_button"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/register_user_photo"
+		        android:layout_below="@+id/original_pass_editText"
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="14dp"
 		        android:text="Register new user" 

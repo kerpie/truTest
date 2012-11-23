@@ -1,11 +1,13 @@
 package com.trustripes.principal;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.trustripes.Constants.ConstantValues;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
@@ -27,6 +29,10 @@ public class Snackin extends Activity {
 	Button returnWall;
 	RelativeLayout relativeContainer;
 	Bitmap bitmap;
+	
+	private SharedPreferences developmentSession = null;
+	String id;
+	int realId;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,10 @@ public class Snackin extends Activity {
 	                    finish();               
 	            }
 	    });	
+        
+        developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
     }
        
     public void decodeFile(String filePath, boolean isProfile) {

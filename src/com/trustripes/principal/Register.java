@@ -89,6 +89,10 @@ public class Register extends Activity {
 
 	HashMap<String, String> myCountryMap;
 	
+	private SharedPreferences developmentSession = null;
+	String id;
+	int realId;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -118,7 +122,7 @@ public class Register extends Activity {
 				decodeFile(savedPath);
 			}
 			else{
-				Toast.makeText(Register.this, "Vacio", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(Register.this, "Vacio", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
@@ -199,6 +203,10 @@ public class Register extends Activity {
 				choosePictureDialog.show();
 			}
 		});
+		
+		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
 	}
 	
 	private void populateCountries() {
@@ -563,7 +571,10 @@ public class Register extends Activity {
 	protected void onStart() {
 		super.onStart();
 		
-		EasyTracker.getInstance().activityStart(this);
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
 		
 		/* Get User Id stored in SharedPreferences */
 		userSession = session.getString("user_id", "No");
@@ -608,7 +619,11 @@ public class Register extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EasyTracker.getInstance().activityStop(this);
+
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
 	}
 	
 	@Override

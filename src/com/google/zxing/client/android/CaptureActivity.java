@@ -141,6 +141,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private BeepManager beepManager;
 	ProgressDialog progressDialog;
 	String obtainedBarcode = "";
+	
+	private SharedPreferences developmentSession = null;
+	String myId;
+	int realId;
 
 	private final DialogInterface.OnClickListener aboutListener = new DialogInterface.OnClickListener() {
 
@@ -179,6 +183,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
+		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        myId= developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(myId);
 		// showHelpOnFirstLaunch();
 	}
 
@@ -310,13 +317,21 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	@Override
 	protected void onStart() {
 		super.onStart();
-		EasyTracker.getInstance().activityStart(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EasyTracker.getInstance().activityStop(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
 	}
 	
 	@Override

@@ -14,13 +14,26 @@ import android.view.Window;
 
 public class SplashActivity extends Activity {
 	
+	/* Variable for Internal Debug */
+	private static final String TAG = "SplashActivity";
+	
+	private SharedPreferences developmentSession = null;
+	String id;
+	int realId;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+    	
     	/* Hide title in app */
     	requestWindowFeature(Window.FEATURE_NO_TITLE);
+    	
     	/* Setting view */
         setContentView(R.layout.splash_activity);
+        
+        developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
         /* Start SplasScreen in another thread and check for previous data */
         new SplashScreen().execute();
     }
@@ -28,13 +41,21 @@ public class SplashActivity extends Activity {
     @Override
     protected void onStart() {
     	super.onStart();    	
-    	EasyTracker.getInstance().activityStart(this);
+    	
+    	/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
     }
     
     @Override
     protected void onStop() {
     	super.onStop();
-    	EasyTracker.getInstance().activityStop(this);
+    	
+    	/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
     }
     
     /* Class to check data in background */

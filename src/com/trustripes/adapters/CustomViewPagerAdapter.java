@@ -85,6 +85,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	private int previousTotal = 0;
     private boolean loading = true;
 	
+    public static String tmp = "Hola Midory!";
+    
 	public CustomViewPagerAdapter(Activity a){
 		parentActivity = a;
 	}
@@ -147,6 +149,10 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             logOutButton = (Button) view.findViewById(R.id.logout_button);
             editProfileButton = (Button) view.findViewById(R.id.edit_profile_button);
             
+            
+            
+            Toast.makeText(context, tmp, Toast.LENGTH_SHORT).show();
+            
             logOutButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					SharedPreferences.Editor settingsEditor = session.edit();
@@ -174,7 +180,9 @@ public class CustomViewPagerAdapter extends PagerAdapter{
     		}
             });
             
+            
             new LoadProfileData().execute();
+            
             break;
         }
         ((ViewPager) container).addView(view, 0);
@@ -219,7 +227,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			try{	
 				id_string = session.getString("user_id", "No data");
 				HttpClient client =  new DefaultHttpClient();   		
-	            String postURL = "http://www.trustripes.com/dev/ws/ws-perfil.php";
+	            String postURL = ConstantValues.URL+"/ws/ws-perfil.php";
 	            HttpPost post = new HttpPost(postURL); 
 	            List<NameValuePair> param = new ArrayList<NameValuePair>();
 	            param.add(new BasicNameValuePair("iduser",id_string));
@@ -294,29 +302,27 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			settingsEditor.putString("user_full_name", display);
 			settingsEditor.commit();
 			
-			if(bitmap != null )
+			if(bitmap != null ){
 				profile_image.setImageBitmap( bitmap );
+				try{
+				profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
+			       File directory = new File(profileImagePath);
+			       FileOutputStream outStream;
+			       outStream = new FileOutputStream(directory);
+			       bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+			       /* 100 to keep full quality of the image */
+			       outStream.flush();
+			       outStream.close();
+				} catch (FileNotFoundException e) {
+				       e.printStackTrace();
+				   } catch (IOException e) {
+				       e.printStackTrace();
+				   }
+			}
 			else
 				//prueba cambio por otro avatar
 				profile_image.setImageResource(R.drawable.default_avatar);
-			       
-	       profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
-	       File directory = new File(profileImagePath);
-	       FileOutputStream outStream;
-		   try {
-
-		       outStream = new FileOutputStream(directory);
-		       bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-		       /* 100 to keep full quality of the image */
-
-		       outStream.flush();
-		       outStream.close();
-		   } catch (FileNotFoundException e) {
-		       e.printStackTrace();
-		   } catch (IOException e) {
-		       e.printStackTrace();
-		   }
-		}
+			}
 	 }
 	 
 	 public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void>{

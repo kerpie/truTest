@@ -88,7 +88,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@+id/help_tip_content"
         android:layout_above="@+id/i_go_it"
         android:src="@drawable/press_next" />
 

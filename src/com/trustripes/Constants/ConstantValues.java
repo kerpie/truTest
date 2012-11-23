@@ -10,5 +10,14 @@ public class ConstantValues {
 	/* For Session Status */
 	public static final String USER_DATA = "UserDataPreferences";
 	
-	/* Error Value for Login */
+	public static final int[] developmentIds = {1,2,28,42};
+	
+	public static boolean isInDevelopmentTeam(int key){
+		for(int i=0;i<4;i++){
+			if(key == developmentIds[i]){
+				return true;
+			}
+		}
+		return false;
+	}
 }

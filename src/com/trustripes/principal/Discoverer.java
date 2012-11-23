@@ -2,10 +2,12 @@ package com.trustripes.principal;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.zxing.client.android.CaptureActivity;
+import com.trustripes.Constants.ConstantValues;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +23,10 @@ public class Discoverer extends Activity {
 	String code, name;
 	int id;
 
+	private SharedPreferences developmentSession = null;
+	String myId;
+	int realId;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,13 +36,20 @@ public class Discoverer extends Activity {
 		btn_return = (Button) findViewById(R.id.discoverer_button_returnWall);
 		t = getIntent();
 		backButton = (Button) findViewById(R.id.backButton);
+		
+		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        myId= developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(myId);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		
-		EasyTracker.getInstance().activityStart(this);
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
 		
 		name = t.getStringExtra("Product_name");
 		nametv.setText(name);
@@ -62,7 +75,11 @@ public class Discoverer extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EasyTracker.getInstance().activityStop(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
 	}
 	
 	@Override

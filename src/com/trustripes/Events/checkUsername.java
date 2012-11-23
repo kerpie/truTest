@@ -49,7 +49,7 @@ public class checkUsername implements TextWatcher{
 				username.setBackgroundResource(R.drawable.text_background_red);
 				message.setVisibility(View.VISIBLE);
 				message.setText(R.string.new_user_username_check_symbol);
-				returnValue = true;
+				returnValue = false;
 			}
 		}
 		else{

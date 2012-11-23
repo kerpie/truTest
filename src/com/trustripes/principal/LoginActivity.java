@@ -58,13 +58,14 @@ public class LoginActivity extends Activity {
 	/* Variable for Internal Control */
 	public boolean canLogin = false;
 	
-	/* Declartion of UI widgets */
+	/* Declaration of UI widgets */
 	private EditText loginUsername = null;
 	private EditText loginPass = null;
 	private Button loginButton = null;
 	private TextView errorText = null;
 	private TextView registerText = null;
 	private ProgressBar progressBar = null;
+	private Button btnFb = null;
 	
 	/* ID for Facebook connect (Temporal data) */
 	private static String APP_ID = "274388489340768"; // Facebook ID AlertaMóvil
@@ -76,8 +77,13 @@ public class LoginActivity extends Activity {
 	private Facebook facebook = new Facebook(APP_ID);
 	private AsyncFacebookRunner mAsyncRunner;
 	String FILENAME = "AndroidSSO_data";
+	
+	/* FB session (or it looks like so) */
 	private SharedPreferences mPrefs;
-	Button btnFb = null;
+	
+	private SharedPreferences developmentSession = null;
+	String id;
+	int realId;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,25 +97,41 @@ public class LoginActivity extends Activity {
         loginButton = (Button) findViewById(R.id.login_button);
         errorText = (TextView) findViewById(R.id.login_error_message);        
         newSettings = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
-//        btnFb = (Button) findViewById(R.id.login_facebook_button);
-        mAsyncRunner = new AsyncFacebookRunner(facebook);
         registerText = (TextView) findViewById(R.id.login_createUser_textView);
         progressBar = (ProgressBar) findViewById(R.id.login_progressBar);
+        //btnFb = (Button) findViewById(R.id.login_facebook_button);
         
+        /* AsyncTask to connect with FB */
+        mAsyncRunner = new AsyncFacebookRunner(facebook);
+        
+        /* Removing visibility of temporal widgets */
+        /* These will be shown according to the status received by the server */
         progressBar.setVisibility(View.GONE);
         errorText.setVisibility(View.GONE);
+        
+        developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
     }
 
     @Override
     protected void onStart() {
     	super.onStart();
-    	EasyTracker.getInstance().activityStart(this);
+    	
+    	/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
     }
     
     @Override
     protected void onStop() {
     	super.onStop();
-    	EasyTracker.getInstance().activityStop(this);
+    	
+    	/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
     }
     
     @Override
@@ -124,11 +146,16 @@ public class LoginActivity extends Activity {
     	
         loginButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				/* Check if there is data in the EditText */
 				if(loginUsername.getText().toString().length() <= 3 || loginPass.getText().toString().length() <= 3){
+					/* If text inserted in the textviews are lower than 3 */
+					/* By definition the username can't be smaller than 5 characters */
 					errorText.setVisibility(View.VISIBLE);
 					errorText.setText(R.string.fill_fields_to_login);
 				}else{
+					/* Start AsyncTask */
 					new CheckLoginData().execute();
+					/* Hide the TextView for errors */
 					errorText.setVisibility(View.GONE);
 				}
 			}
@@ -136,20 +163,27 @@ public class LoginActivity extends Activity {
         
         registerText.setOnClickListener(new View.OnClickListener(){	
         	public void onClick(View v){
+        		/* Start an intent to register a new user */
         		Intent intent = new Intent(getApplicationContext(),NewUserRegistration.class);
         		startActivity(intent);
         	}
         });
     }
     
+    /* Asynctask to check the login fields with the server */
     public class CheckLoginData extends AsyncTask<Void, Integer, Void>{
     	
+    	/* Variables to send to the server */
     	private String username = null;
     	private String pass = null;
+    	
+    	/* Variables to receive the data sent by the server */
     	private String iduser = null;
     	private String name = null;
     	private String statusResponse = null;
     	private String responseMessage = null;
+    	
+    	/* Temporal variable to store de json response */
     	private StringBuilder stringBuilder = null;
     	
     	@Override
@@ -157,7 +191,11 @@ public class LoginActivity extends Activity {
     		/* Get string values from the text boxes on UI */
     		username = loginUsername.getText().toString().trim();
     		pass = loginPass.getText().toString().trim();
+    		
+    		/* Show the progressBar */
     		progressBar.setVisibility(View.VISIBLE);
+    		
+    		/* Hide the textview for errors */
     		errorText.setVisibility(View.GONE);
     	}
     	
@@ -166,20 +204,21 @@ public class LoginActivity extends Activity {
     		try{
     			/* Prepare variables for remote data check */
 	    		HttpClient client =  new DefaultHttpClient();   		
-	            String postURL = ConstantValues.URL+"/ws/ws-validatelogin.php";
-	            HttpPost post = new HttpPost(postURL); 
-	            List<NameValuePair> param = new ArrayList<NameValuePair>();
+	    		String postURL = ConstantValues.URL+"/ws/ws-validatelogin.php";
+	    		HttpPost post = new HttpPost(postURL); 
+	    		List<NameValuePair> param = new ArrayList<NameValuePair>();
 	            param.add(new BasicNameValuePair("user",username));
 	            param.add(new BasicNameValuePair("password",pass));
 	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
 	            post.setEntity(ent);
-	            HttpResponse responsePOST = client.execute(post);    		
+	            HttpResponse responsePOST = client.execute(post);
 	    		StatusLine status = responsePOST.getStatusLine();
+	    		
 	    		/* Filter what kind of response was obtained */
 	    		/* Filtering http response 200 */
 	    		if(status.getStatusCode() == HttpStatus.SC_OK){
 	    			HttpEntity entity = responsePOST.getEntity();
-	    			InputStream inputStream = entity.getContent();
+	    			InputStream inputStream = entity.getContent();	    			
 	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	    			String line = null;
 	    			stringBuilder = new StringBuilder();
@@ -189,8 +228,14 @@ public class LoginActivity extends Activity {
 	    			
 	    			/* Converting obtained string into JSON object */
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+	    			
+	    			/* Obtaining the data we need*/
 	    			statusResponse = jsonObject.getString("status");
+	    			
+	    			/* Message sent by the server */
 	    			responseMessage = jsonObject.getString("msj");
+	    			
+	    			/* Response from the server if the user can login */
 	    			if(Integer.parseInt(statusResponse) == 1){
 	    				/* Success Login */
 	    				iduser = jsonObject.getString("iduser");
@@ -207,6 +252,8 @@ public class LoginActivity extends Activity {
 	    		}
 	    		else{
 	    			/* Check Other Status Code */
+	    			/* response 404 for example */
+	    			canLogin = false;
 	    		}
 	    	}catch(ClientProtocolException e){
     			e.printStackTrace();
@@ -226,6 +273,7 @@ public class LoginActivity extends Activity {
     	   	
     	@Override
     	protected void onPostExecute(Void result) {
+    		Toast.makeText(getApplicationContext(), iduser, Toast.LENGTH_SHORT).show();
     		/* if login was successfull save data */
     		if(canLogin){
 	    		SharedPreferences.Editor settingsEditor = newSettings.edit();
@@ -371,7 +419,7 @@ public class LoginActivity extends Activity {
 
 	}
 
-	// Get Data From jSon?
+	// Get Data From json?
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		facebook.authorizeCallback(requestCode, resultCode, data);

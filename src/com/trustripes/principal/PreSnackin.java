@@ -68,6 +68,10 @@ public class PreSnackin extends Activity {
 	
 	SharedPreferences session;
 	
+	private SharedPreferences developmentSession = null;
+	String id;
+	int realId;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,6 +132,10 @@ public class PreSnackin extends Activity {
 				realSnackInButton.setClickable(false);
 			}
 		});
+		
+		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
 	}
 	
 	public void decodeFile(String filePath) {
@@ -137,19 +145,8 @@ public class PreSnackin extends Activity {
 		BitmapFactory.decodeFile(filePath, o);
 
 		finalImagePath = filePath;
-		// The new size we want to scale to
-		final int REQUIRED_SIZE = 1024;
 
-		// Find the correct scale value. It should be the power of 2.
-		int width_tmp = o.outWidth, height_tmp = o.outHeight;
 		int scale = 1;
-//		while (true) {
-//			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
-//				break;
-//			width_tmp /= 2;
-//			height_tmp /= 2;
-//			scale *= 2;
-//		}
 
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
@@ -161,13 +158,21 @@ public class PreSnackin extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		EasyTracker.getInstance().activityStart(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EasyTracker.getInstance().activityStop(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
 	}
 	
 	@Override
@@ -226,7 +231,7 @@ public class PreSnackin extends Activity {
 		    try {
 
 		        outStream = new FileOutputStream(directory);
-		        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream); 
+		        bitmap.compress(Bitmap.CompressFormat.PNG, 50, outStream); 
 		        /* 100 to keep full quality of the image */
 
 		        outStream.flush();

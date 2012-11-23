@@ -24,18 +24,25 @@ public class MainActivity extends Activity {
 	ViewPager myPager;
 	SharedPreferences session;
 	
+	private SharedPreferences developmentSession = null;
+	String id;
+	int realId;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		
-		/* Instantiation and event association */
+		/* Rescue the session variable */
+		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+		
+		/* Instantiation and event association for the snackin button */
 		snackIn_button = (Button) findViewById(R.id.main_snackInButton);
 		snackIn_button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN EL BOTON");
-				SharedPreferences session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+				/* If the help is activated then show the help for how to snack */
 				if(session.getBoolean("show_snack_help", true)){
 					Intent intent = new Intent(getApplicationContext(), Tip_camera.class);
 					startActivity(intent);
@@ -46,30 +53,41 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-		
-		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
-		
+				
 		/* Preparing the Custom Page Swipe Adapter */
 		CustomViewPagerAdapter pagerAdapter = new CustomViewPagerAdapter(this);
 		myPager = (ViewPager) findViewById(R.id.pager);
 		myPager.setAdapter(pagerAdapter);
 		myPager.setCurrentItem(0);
+		
+
+		 developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+		 id = developmentSession.getString("user_id", "-1");
+		 realId = Integer.parseInt(id);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		EasyTracker.getInstance().activityStart(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EasyTracker.getInstance().activityStop(this);
+		
+		/* Implementation of Google Analytics for Android */
+    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
 	}
 	
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(Bundle outState){
 		myPager.onSaveInstanceState();
 		super.onSaveInstanceState(outState);
 	}
@@ -91,6 +109,8 @@ public class MainActivity extends Activity {
 	}
 
 	private void logOut() {
+		/* Get the session variable */
+		/* Edit the status variable then finish the activity */
 		SharedPreferences.Editor settingsEditor = session.edit();
 		settingsEditor.putString("user_status", "0");
 		settingsEditor.commit();
