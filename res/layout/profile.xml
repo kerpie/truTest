@@ -12,19 +12,30 @@
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content" 
 			    android:paddingBottom="50dp">
-	            <ImageView
-	                android:layout_width="200dp"
-	                android:layout_height="200dp"
-	                android:id="@+id/profile_image"
-	                android:maxWidth="200dp"
-	                android:maxHeight="200dp"
-	                android:layout_centerHorizontal="true"
-	                android:layout_marginTop="20dp"/>
+			    <FrameLayout 
+			        android:id="@+id/profile_image_box"
+			        android:layout_width="200dp"
+			        android:layout_height="200dp"
+			        android:maxWidth="200dp"
+					android:maxHeight="200dp"
+			        android:layout_centerHorizontal="true"
+			        android:layout_marginTop="20dp">
+		            <ImageView
+		                android:id="@+id/profile_image"
+		                android:layout_width="200dp"
+		                android:layout_height="200dp"/>
+		            <ProgressBar 
+		                android:id="@+id/profile_image_loader"
+		                android:layout_width="50dp"
+		                android:layout_height="50dp"
+		                android:visibility="gone"
+		                android:layout_gravity="center"/>
+	            </FrameLayout>
 				 <TextView 
 			        android:id="@+id/profile_textView"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:layout_below="@+id/profile_image"
+			        android:layout_below="@+id/profile_image_box"
 			        android:layout_centerHorizontal="true"
 			        android:textColor="#000"
 			        android:padding="10dp"
@@ -38,7 +49,7 @@
 				     android:textColor="#FFFF"
 				     android:layout_below="@+id/profile_textView"
 				     android:layout_centerHorizontal="true"
-				     android:text="Log Out" />
+				     android:text="Log out" />
 				 <Button
 				     android:id="@+id/edit_profile_button"
 				     android:layout_width="match_parent"
@@ -49,7 +60,7 @@
 				     android:textColor="#FFFF"
 				     android:layout_below="@+id/logout_button"
 				     android:layout_centerHorizontal="true"
-				     android:text="Edit Profile Data" />
+				     android:text="Edit profile" />
 			 	<TextView 
 					android:id="@+id/feedback"
 					android:layout_below="@+id/edit_profile_button"

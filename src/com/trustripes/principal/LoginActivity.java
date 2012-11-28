@@ -20,6 +20,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.os.Environment;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -180,6 +181,11 @@ public class LoginActivity extends Activity {
     	/* Variables to receive the data sent by the server */
     	private String iduser = null;
     	private String name = null;
+    	
+    	private String full_name = null;
+    	private String mail = null;
+    	private String photoUrl = null;
+    	
     	private String statusResponse = null;
     	private String responseMessage = null;
     	
@@ -239,7 +245,12 @@ public class LoginActivity extends Activity {
 	    			if(Integer.parseInt(statusResponse) == 1){
 	    				/* Success Login */
 	    				iduser = jsonObject.getString("iduser");
-		    			name = jsonObject.getString("nombre");
+		    			name = jsonObject.getString("username");
+		    			
+		    			full_name = jsonObject.getString("display");
+		    			mail = jsonObject.getString("email");
+		    			photoUrl = jsonObject.getString("photo");
+		    			
 		    			canLogin = true;
 	    			}
 	    			else{	    		
@@ -273,13 +284,21 @@ public class LoginActivity extends Activity {
     	   	
     	@Override
     	protected void onPostExecute(Void result) {
-    		Toast.makeText(getApplicationContext(), iduser, Toast.LENGTH_SHORT).show();
+
     		/* if login was successfull save data */
     		if(canLogin){
 	    		SharedPreferences.Editor settingsEditor = newSettings.edit();
-				settingsEditor.putString("user_id", iduser);
+	    		settingsEditor.putString("user_status", statusResponse);
+	    		
+	    		settingsEditor.putString("user_id", iduser);
 				settingsEditor.putString("user_name", name);
-				settingsEditor.putString("user_status", statusResponse);
+				settingsEditor.putString("user_full_name", full_name);
+				settingsEditor.putString("user_mail", mail);
+				
+				int id = Integer.parseInt(iduser);
+				settingsEditor.putString("user_external_image_path", Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(id)+".png");
+				settingsEditor.putString("user_photo_url", photoUrl);
+				
 				settingsEditor.putBoolean("show_snack_help", true);
 				settingsEditor.commit();
 				showStatusMessage();

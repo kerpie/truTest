@@ -77,6 +77,7 @@ public class NewUserRegistration extends Activity{
 	private CheckBox passCheck;
 	private ProgressBar progressBar;
 	private TextView errorMessage;
+	private TextView passwordAdvice;
 	
 	/* Only visible when registering a new user */
 	private RadioGroup gender;
@@ -124,11 +125,12 @@ public class NewUserRegistration extends Activity{
         username = (EditText) findViewById(R.id.username_editText);
         full_name = (EditText) findViewById(R.id.full_name_editText);
         pass = (EditText) findViewById(R.id.pass_editText);
-        mail = (EditText) findViewById(R.id.mail_editText);
         visiblePass = (EditText) findViewById(R.id.visible_pass_editText);
+        mail = (EditText) findViewById(R.id.mail_editText);
         send = (Button) findViewById(R.id.register_user_button);
         progressBar = (ProgressBar) findViewById(R.id.loading_progress_bar);
         errorMessage = (TextView) findViewById(R.id.error_message);
+        passwordAdvice = (TextView) findViewById(R.id.new_password_advice);
         passCheck = (CheckBox) findViewById(R.id.pass_check);
         newProfilePhoto = (ImageView) findViewById(R.id.register_user_photo);
         originalPass = (EditText) findViewById(R.id.original_pass_editText);
@@ -140,6 +142,7 @@ public class NewUserRegistration extends Activity{
         mail.setBackgroundResource(R.drawable.text_background_purple);
         pass.setBackgroundResource(R.drawable.text_background_purple);
         visiblePass.setBackgroundResource(R.drawable.text_background_purple);   
+        passwordAdvice.setVisibility(View.GONE);
         
         /* Loading image resource for the variables */
         maleProfile = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_masculino);
@@ -159,12 +162,15 @@ public class NewUserRegistration extends Activity{
         full_name.addTextChangedListener(new checkFullName(full_name, errorMessage));
         pass.addTextChangedListener(new checkPass(pass, errorMessage));
 
+        /* Loading the default avatar from the image resource */
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_avatar);
+        
         /* If updating information fill the fields with known data */
         if(isEdit){
-        	pass.setHint("New Password");
+        	pass.setHint("New password");
         	username.setText(session.getString("user_name", ""));
         	full_name.setText(session.getString("user_full_name","Hola"));
-        	mail.setText(session.getString("user_email", ""));
+        	mail.setText(session.getString("user_mail", ""));
         	lastId = session.getString("user_id", "");
         	        	
         	/* Show the field to insert the curret password */
@@ -172,18 +178,24 @@ public class NewUserRegistration extends Activity{
         	
         	/* Hide the gender select option */
         	gender.setVisibility(View.GONE);
+        	
+        	passwordAdvice.setVisibility(View.VISIBLE);
+        	String tmpPath = session.getString("user_external_image_path", "");
+        	File tmpFile = new File(tmpPath);
+        	if(tmpFile.exists())
+        		decodeFile(tmpPath);
+        	else
+        		newProfilePhoto.setImageBitmap(bitmap);
+        	
+        	send.setText("Update information");
         }else{
         	/* If registering a new user hide the field because there is no current password */
         	originalPass.setVisibility(View.GONE);
         }
-       
         
         /* Only visible if updating information */
         visiblePass.addTextChangedListener(new checkPass(visiblePass, errorMessage));
-        
-        /* Loading the default avatar from the image resource */
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_avatar);
-              
+                      
         /* Listener to show the password entered in the field */
         passCheck.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
         	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -342,8 +354,7 @@ public class NewUserRegistration extends Activity{
 		if (cursor != null) {
 			// HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
 			// THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
-			int column_index = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 			cursor.moveToFirst();
 			return cursor.getString(column_index);
 		} else
@@ -351,14 +362,15 @@ public class NewUserRegistration extends Activity{
 	}
 	
     public void decodeFile(String filePath) {
-		// Decode image size
+    	// Decode image size
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, o);
 
-		// The new size we want to scale to
-		final int REQUIRED_SIZE = 1024;
 
+
+		// Find the correct scale value. It should be the power of 2.
+		// int width_tmp = o.outWidth, height_tmp = o.outHeight;
 		int scale = 1;
 
 		// Decode with inSampleSize
@@ -385,7 +397,7 @@ public class NewUserRegistration extends Activity{
 				if(isEdit){
 					if(!passCheck.isChecked()){
 						if(originalPass.getText().toString().length() >= 2 ){
-							if(checkUsername.returnValue == true && checkMail.returnValue == true && checkFullName.returnValue == true && checkPass.returnValue == true){
+							if(checkUsername.returnValue == true && checkMail.returnValue == true && checkFullName.returnValue == true && (checkPass.returnValue == true || pass.getText().length() == 0)){
 								/* If the fields are filled with new validated data */
 								new SendUpdateUser().execute(username.getText().toString(), full_name.getText().toString(),mail.getText().toString(),pass.getText().toString(), originalPass.getText().toString());
 							}
@@ -593,7 +605,7 @@ public class NewUserRegistration extends Activity{
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.PNG, 50, bos);
+				bitmap.compress(CompressFormat.JPEG, 30, bos);
 				
 				byte[] data = bos.toByteArray();
 				
@@ -601,7 +613,11 @@ public class NewUserRegistration extends Activity{
 				entity.addPart("email", new StringBody(mailToSend));
 				entity.addPart("username", new StringBody(usernameToSend));
 				entity.addPart("displayname", new StringBody(fullNameToSend));
-				entity.addPart("nuevaClave", new StringBody(passToSend));
+				if(passToSend.length() <= 5)
+					entity.addPart("nuevaClave", new StringBody(originalPassToSend));
+				else
+					entity.addPart("nuevaClave", new StringBody(passToSend));
+				
 				entity.addPart("password", new StringBody(originalPassToSend));
 
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "newProfileImage.jpg"));

@@ -36,14 +36,24 @@
            	    android:layout_centerHorizontal="true"
            	    android:layout_marginTop="10dp"
            	    android:layout_below="@+id/username_editText"
-           	    android:hint="Full Name"
+           	    android:hint="Full name"
            	    android:inputType="textPersonName"
            	    android:lines="1"
            	    android:padding="10dp" 
            	    android:background="#3FFF"/>
+           	<TextView 
+           	    android:id="@+id/new_password_advice"
+           	    android:layout_width="wrap_content"
+           	    android:layout_height="wrap_content"
+           	    android:layout_centerHorizontal="true"
+           	    android:layout_below="@+id/full_name_editText"
+           	    android:text="Leave new password empty to keep the current one"
+           	    android:textColor="#FF00"
+           	    android:padding="5dp"
+           	    android:gravity="center"/>
            	<LinearLayout 
            	    android:layout_marginTop="10dp"
-           	    android:layout_below="@+id/full_name_editText"
+           	    android:layout_below="@+id/new_password_advice"
            	    android:layout_width="match_parent"
 		        android:layout_height="wrap_content" 
 		        android:layout_centerHorizontal="true"
@@ -126,7 +136,7 @@
 			
 			<Button
 		        android:id="@+id/register_user_button"
-		        android:layout_width="wrap_content"
+		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_below="@+id/original_pass_editText"
 		        android:layout_centerHorizontal="true"

@@ -59,6 +59,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +75,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	Button logOutButton, editProfileButton;
 	Context context;
 	JSONArray jsonArray = null;
+	ProgressBar loadingImage = null;
 	
 	String profileImagePath;
 	
@@ -84,15 +86,11 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	private int visibleThreshold = 1;
 	private int previousTotal = 0;
     private boolean loading = true;
-	
-    public static String tmp = "Hola Midory!";
-    
+	    
 	public CustomViewPagerAdapter(Activity a){
 		parentActivity = a;
 	}
-	
-	public CustomViewPagerAdapter(){}
-	
+		
 	@Override
 	public int getCount() {
 		//Number of views to switch
@@ -103,10 +101,11 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             "Wall Activity",
             "Profile"};
 
-	 @Override
-     public CharSequence getPageTitle(int position) {
+	@Override
+    public CharSequence getPageTitle(int position) {
          return Titles[position];
      }
+	
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -148,10 +147,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             profile_text = (TextView) view.findViewById(R.id.profile_textView);
             logOutButton = (Button) view.findViewById(R.id.logout_button);
             editProfileButton = (Button) view.findViewById(R.id.edit_profile_button);
-            
-            
-            
-            Toast.makeText(context, tmp, Toast.LENGTH_SHORT).show();
+            loadingImage = (ProgressBar) view.findViewById(R.id.profile_image_loader);
             
             logOutButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
@@ -171,22 +167,45 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 			});
             
             feedback_text = (TextView) view.findViewById(R.id.feedback);
-            feedback_text.setOnClickListener( new View.OnClickListener()
-            {
-    		public void onClick(View v)
-    		{
-    			Uri uri = Uri.parse("http://www.surveygizmo.com/s3/1094333/Feedback-truStripes");
-    			context.startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
-    		}
+            feedback_text.setOnClickListener( new View.OnClickListener(){
+            	public void onClick(View v){
+            		Uri uri = Uri.parse("http://www.surveygizmo.com/s3/1094333/Feedback-truStripes");
+            		context.startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
+            	}
             });
             
+            profile_text.setText("Username: " + session.getString("user_name", "No saved value")+"\n"+
+					"Mail: "+session.getString("user_mail", "No saved value"));
             
-            new LoadProfileData().execute();
+            String userIdString = session.getString("user_id", "");
+            int id = Integer.parseInt(userIdString);
+            					
+            String imagePath = session.getString("user_external_image_path", "");
+            File imageFile = new File(imagePath);
+            
+            if(imageFile.exists())
+            	decodeFile(imagePath);
+            else
+            	new LoadProfileData().execute();
             
             break;
         }
         ((ViewPager) container).addView(view, 0);
         return view;
+	}
+	
+	public void decodeFile(String filePath) {
+		Bitmap bitmap;
+		// Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, o);
+		int scale = 1;
+		// Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		profile_image.setImageBitmap(bitmap);
 	}
 	
 	@Override
@@ -199,133 +218,84 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		return arg0 == ((View) arg1);
 	}
 
-	 @Override
-     public Parcelable saveState() {
+	@Override
+    public Parcelable saveState() {
          return null;
      }
 	 
-	 public class LoadProfileData extends AsyncTask<Void, Integer, Void>{
+	public class LoadProfileData extends AsyncTask<Void, Integer, Void>{
+		
+		int id;
 		
 		String id_string; 
-		StringBuilder stringBuilder;
-		StringBuilder stringBuilderGet;
 		String statusResponse = null;
-		String msj = null;
-		String email = null;
-		String username = null;
-		String display = null;
 		String photoURL = null;
 		Bitmap bitmap;
 		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			id_string = session.getString("user_id", "-1");
+			loadingImage.setVisibility(View.VISIBLE);
 		}
 		 
 		@Override
 		protected Void doInBackground(Void... params) {
 			try{	
-				id_string = session.getString("user_id", "No data");
-				HttpClient client =  new DefaultHttpClient();   		
-	            String postURL = ConstantValues.URL+"/ws/ws-perfil.php";
-	            HttpPost post = new HttpPost(postURL); 
-	            List<NameValuePair> param = new ArrayList<NameValuePair>();
-	            param.add(new BasicNameValuePair("iduser",id_string));
-	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
-	            post.setEntity(ent);
-	            HttpResponse responsePOST = client.execute(post);    		
-	    		StatusLine status = responsePOST.getStatusLine();
-	    		if(status.getStatusCode() == HttpStatus.SC_OK){
-	    			HttpEntity entity = responsePOST.getEntity();
-	    			InputStream inputStream = entity.getContent();
-	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-	    			String line = null;
-	    			stringBuilder = new StringBuilder();
-	    			while((line = reader.readLine()) != null){
-	    				stringBuilder.append(line);
-	    			}
-	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-	    			statusResponse = jsonObject.getString("status");
-	    			if(Integer.parseInt(statusResponse) == 1){
-	    				msj = jsonObject.getString("msj");
-		    			email = jsonObject.getString("email");
-		    			username = jsonObject.getString("username");
-		    			display = jsonObject.getString("display");
-		    			publishProgress(100);
-		    			photoURL = jsonObject.getString("photo");
-		    			if(photoURL.length() >= 10){
-		    				URL myFileUrl =null; 
-		    				try {
-		    					myFileUrl= new URL(ConstantValues.URL+photoURL);
-		    					HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
-		    					conn.setDoInput(true);
-		    					conn.connect();
-		    					InputStream is = conn.getInputStream();
-		    					bitmap = BitmapFactory.decodeStream(is);
-		    				} catch (MalformedURLException e) {
-		    					e.printStackTrace();
-		    				}catch (IOException e) {
-		    					e.printStackTrace();
-		    				}
-		    			}
-		    			else{
-		    				
-		    			}
-		    			
-	    			}
-	    			
-	    			reader.close();
-	    			inputStream.close();
-	    		}
-	    		
+				photoURL = session.getString("user_photo_url", "");
+				if(photoURL.length() >= 10){
+    				URL myFileUrl =null; 
+    				try {
+    					myFileUrl= new URL(ConstantValues.URL+photoURL);
+    					HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
+    					conn.setDoInput(true);
+    					conn.connect();
+    					InputStream is = conn.getInputStream();
+    					bitmap = BitmapFactory.decodeStream(is);
+    				} catch (MalformedURLException e) {
+    					e.printStackTrace();
+    				}catch (IOException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    			else{
+    				
+    			}
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 			return null;
 		}
-		
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			super.onProgressUpdate(values);
-			switch(values[0]){
-				case 100:
-					profile_text.setText(	"User: "+username+"\n" + "Mail: "+ email +"\n");
-					break;
-			}
-		}
-		
+			
 		@Override
 		protected void onPostExecute(Void result) {
-			
-			SharedPreferences.Editor settingsEditor = session.edit();
-			settingsEditor.putString("user_email", email);
-			settingsEditor.putString("user_full_name", display);
-			settingsEditor.commit();
-			
+			id = Integer.valueOf(id_string);
 			if(bitmap != null ){
+				loadingImage.setVisibility(View.GONE);
 				profile_image.setImageBitmap( bitmap );
 				try{
-				profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
-			       File directory = new File(profileImagePath);
-			       FileOutputStream outStream;
-			       outStream = new FileOutputStream(directory);
-			       bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-			       /* 100 to keep full quality of the image */
-			       outStream.flush();
-			       outStream.close();
+					profileImagePath = session.getString("user_external_image_path", "");
+					File directory = new File(profileImagePath);
+					FileOutputStream outStream;
+					outStream = new FileOutputStream(directory);
+					bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+					/* 100 to keep full quality of the image */
+					outStream.flush();
+					outStream.close();
 				} catch (FileNotFoundException e) {
-				       e.printStackTrace();
-				   } catch (IOException e) {
-				       e.printStackTrace();
-				   }
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else
 				//prueba cambio por otro avatar
 				profile_image.setImageResource(R.drawable.default_avatar);
-			}
+		}
 	 }
 	 
-	 public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void>{
+	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void>{
 		 
 		StringBuilder stringBuilder = null;
 		String statusResponse = null;
@@ -423,7 +393,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		}
 	 }
 	 
-	 public class EndlessScroll implements OnScrollListener{
+	public class EndlessScroll implements OnScrollListener{
 		    
 	     public void onScrollStateChanged(AbsListView view, int scrollState) {			
 	     }

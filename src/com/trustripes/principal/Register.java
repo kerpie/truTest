@@ -521,8 +521,7 @@ public class Register extends Activity {
 		if (cursor != null) {
 			// HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
 			// THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
-			int column_index = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 			cursor.moveToFirst();
 			return cursor.getString(column_index);
 		} else
@@ -536,26 +535,15 @@ public class Register extends Activity {
 		BitmapFactory.decodeFile(filePath, o);
 
 		finalImagePath = filePath;
-		// The new size we want to scale to
-		final int REQUIRED_SIZE = 1024;
 
 		// Find the correct scale value. It should be the power of 2.
 //		int width_tmp = o.outWidth, height_tmp = o.outHeight;
 		int scale = 1;
-//		while (true) {
-//			if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE)
-//				break;
-//			width_tmp /= 2;
-//			height_tmp /= 2;
-//			scale *= 2;
-//		}
 
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
 		o2.inSampleSize = scale;
 		bitmap = BitmapFactory.decodeFile(filePath, o2);
-		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getHeight()), Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getWidth()), Toast.LENGTH_SHORT).show();
 		photo.setImageBitmap(bitmap);
 	}
 
@@ -652,7 +640,7 @@ public class Register extends Activity {
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 50, bos);
+				bitmap.compress(CompressFormat.JPEG, 30, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("productname", new StringBody(productName));
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "myImage.jpg"));

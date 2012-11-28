@@ -5,7 +5,12 @@ public class ConstantValues {
 	
 	/* Root URL for connection */
 	public static final String URL = "http://www.trustripes.com/dev";
+
+	/* Quality Assurance */
 	//public static final String URL = "http://qas.trustripes.com";
+	
+	/* Production */
+	//public static final String URL = "http://www.trustripes.com";
 	
 	/* For Session Status */
 	public static final String USER_DATA = "UserDataPreferences";
@@ -20,4 +25,19 @@ public class ConstantValues {
 		}
 		return false;
 	}
+	
+	public static final String codeName(int i){	
+		int previous;
+		int next;
+		
+		previous = i - 11;
+		next = i + 11;
+		
+		if(i <= 10)
+			previous = previous * -1;
+				
+		return Integer.toHexString(previous) + Integer.toHexString(i)+Integer.toHexString(next);
+	}
+	
+	
 }
