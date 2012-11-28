@@ -113,20 +113,30 @@
 			        android:layout_height="wrap_content"
 			        android:text="Female"/>
 			</RadioGroup>
-			<ImageView
-	            android:id="@+id/register_user_photo"
+			<FrameLayout 
+			    android:id="@+id/new_user_avatar_frame_layout" 
+	            android:layout_width="130dp"
+	            android:layout_height="130dp"
 	            android:layout_below="@+id/gender"
-	            android:layout_width="100dp"
-	            android:layout_height="100dp"	           
 	            android:layout_centerHorizontal="true"
-	            android:src="@drawable/default_avatar" 
-	            android:layout_margin="3dp"
-	            android:padding="5dp"/>
+	            android:layout_margin="3dp">
+			    <ImageView
+		            android:id="@+id/register_user_photo"
+		            android:layout_width="130dp"
+		            android:layout_height="130dp"	           
+		            android:src="@drawable/default_avatar" 
+		            android:padding="5dp"/>
+			    <ImageView 
+	                android:layout_width="40dp"
+	                android:layout_height="40dp"
+	                android:layout_gravity="bottom|right"
+	                android:src="@drawable/purple_plus_icon"/>
+			</FrameLayout>
 			<EditText
 	            android:id="@+id/original_pass_editText"
 	            android:layout_height="wrap_content"
 	            android:layout_width="match_parent"
-	            android:layout_below="@+id/register_user_photo"
+	            android:layout_below="@+id/new_user_avatar_frame_layout"
 	            android:hint="Actual Password"
 	            android:padding="10dp"
 	            android:lines="1" 
