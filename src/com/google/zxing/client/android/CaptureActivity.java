@@ -523,11 +523,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
 	// This method capture the codeBar and send to MainActivity "Teto"
 	private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
-		try{
+		if(rawResult.toString().length() == 13){
 			obtainedBarcode = rawResult.toString();
-			
 			new Snackin().execute();
-		}catch(NumberFormatException e){
+		}
+		else{
 			Toast.makeText(getApplicationContext(), "Upss! that's not a barcode", Toast.LENGTH_SHORT).show();
 			finish();
 			Intent i = new Intent(getApplicationContext(), CaptureActivity.class);

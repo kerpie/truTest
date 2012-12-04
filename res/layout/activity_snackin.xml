@@ -104,24 +104,22 @@
                         android:textSize="16dp"
                         android:textStyle="bold" 
                         android:visibility="gone"/>
-                    <TextView
-                        android:id="@+id/snascks_stars"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|fill_horizontal"
-                        android:background="#AA000000"
-                        android:padding="10dp"
-                        android:text="Estrellitas"
-                        android:textColor="#FFFFFFFF"
-                        android:visibility="gone" />
-                    <ImageView
-                        android:id="@+id/wall_item_profile_photo"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="bottom|right"                           
-                        android:src="@drawable/anon" 
-      					android:scaleType="centerCrop"                  
-                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
+                    <RatingBar
+				        android:id="@+id/ratingBar"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_gravity="bottom|fill_horizontal"
+				        android:progressDrawable="@drawable/rating_bar_mini"       
+				        android:stepSize="1.5"                     
+				        android:layout_marginBottom="-25dp" />
+    				<ImageView
+        				android:id="@+id/wall_item_profile_photo"
+        				android:layout_width="80dp"
+        				android:layout_height="80dp"
+        				android:layout_gravity="bottom|right"                           
+        				android:src="@drawable/anon" 
+        				android:scaleType="centerCrop"                  
+        				android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
             	</FrameLayout>                                 
             </RelativeLayout>
             <TextView

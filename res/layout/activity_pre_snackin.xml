@@ -65,14 +65,36 @@
 		        android:hint="Share it with your friends" 
 		        android:layout_below="@+id/presnack_imageview_add"
 		        android:visibility="gone"/>
-			<LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_centerHorizontal="true"
-		        android:gravity="center"
-		        android:orientation="vertical" 
-		        android:layout_below="@+id/presnack_edittext_country"
-		        android:padding="15dp">
+			<RatingBar
+				android:id="@+id/ratingBar"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+          		android:layout_below="@+id/presnack_imageview_add"
+          		android:layout_centerHorizontal="true"
+          		android:stepSize="1"
+          		android:progressDrawable="@drawable/rating_bar"/>
+			<EditText
+				android:id="@+id/presnack_edittext_comment"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_centerHorizontal="true"
+				android:layout_below="@+id/ratingBar"
+				android:background="#FFFF"
+				android:padding="5dp"
+				android:hint="Comments" 
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:lines="1"
+				android:gravity="top"
+				/>
+      		<LinearLayout
+        		android:layout_width="match_parent"
+        		android:layout_height="wrap_content"
+        		android:layout_centerHorizontal="true"
+        		android:gravity="center"
+        		android:orientation="vertical" 
+        		android:layout_below="@+id/presnack_edittext_comment"
+        		android:padding="15dp">
 				<Button
 		            android:id="@+id/presnack_button_Snack"
 		            android:layout_width="match_parent"

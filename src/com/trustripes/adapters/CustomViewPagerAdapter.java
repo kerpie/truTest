@@ -68,7 +68,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	View view;
 	SharedPreferences session;
 	ImageView profile_image;
-	TextView profile_text, wall_text, feedback_text;
+	TextView profile_text, feedback_text;
 	ListView wall_list;
 	LazyAdapter adapter;
 	LayoutInflater new_inflater;
@@ -116,7 +116,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
         case 0:
             resId = R.layout.wall_activity;
             view = inflater.inflate(resId, null);
-            wall_text = (TextView) view.findViewById(R.id.wall_text);
             wall_list = (ListView) view.findViewById(R.id.wall_list);
 
             wall_list.setOnScrollListener(new EndlessScroll());
@@ -290,6 +289,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 				}
 			}
 			else
+				
 				//prueba cambio por otro avatar
 				profile_image.setImageResource(R.drawable.default_avatar);
 		}

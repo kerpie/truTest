@@ -44,7 +44,9 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 public class PreSnackin extends Activity {
@@ -55,13 +57,19 @@ public class PreSnackin extends Activity {
 	/* Declaration of UI widgets */
 	Button snackAgainButton, realSnackInButton, backButton;
 	ImageView image;
+	RatingBar ratingBar;
+	EditText commentBox;
 	
 	Bitmap bitmap; 
 	
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
 	String profileImagePath;
-	boolean canSnack;
+	
+	boolean snackStatus;
+	boolean commentStatus;
+	boolean ratingStatus;
+	
 	boolean loadedImage;
 	
 	LoadPhoto loadPhoto;
@@ -83,6 +91,8 @@ public class PreSnackin extends Activity {
 		realSnackInButton=(Button)findViewById(R.id.presnack_button_Snack);
 		backButton = (Button)findViewById(R.id.backButton);
 		image = (ImageView) findViewById(R.id.presnack_imageview_add);
+		ratingBar = (RatingBar) findViewById(R.id.ratingBar);		
+		commentBox = (EditText)findViewById(R.id.presnack_edittext_comment);
 		
 		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
 		
@@ -98,7 +108,7 @@ public class PreSnackin extends Activity {
 			if(imageWasLoaded){
 				String path = savedInstanceState.getString("ImagePath");
 				if(!path.isEmpty()){
-					decodeFile(path);
+					decodeFile(path, 200, 200);
 				}
 			}else{
 				loadPhoto.execute();
@@ -138,20 +148,27 @@ public class PreSnackin extends Activity {
         realId = Integer.parseInt(id);
 	}
 	
-	public void decodeFile(String filePath) {
+	public void decodeFile(String filePath, int requiredHeight, int requiredWidth) {
 		// Decode image size
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(filePath, o);
-
+		BitmapFactory.decodeFile(filePath,o);
+		int scale = 0;
+		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
+			if(o.outWidth > o.outHeight){
+				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
+			}else{
+				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
+			}
+		}
+		
+		o = new BitmapFactory.Options();
+		o.inSampleSize = scale;
+		o.inJustDecodeBounds = false;
+		bitmap = BitmapFactory.decodeFile(filePath, o);
+		
 		finalImagePath = filePath;
-
-		int scale = 1;
-
-		// Decode with inSampleSize
-		BitmapFactory.Options o2 = new BitmapFactory.Options();
-		o2.inSampleSize = scale;
-		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		
 		image.setImageBitmap(bitmap);
 	}
 	
@@ -225,13 +242,13 @@ public class PreSnackin extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			finalImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/image_preview.png";
+			finalImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/image_preview.jpg";
 			File directory = new File(finalImagePath);
 			FileOutputStream outStream;
 		    try {
 
 		        outStream = new FileOutputStream(directory);
-		        bitmap.compress(Bitmap.CompressFormat.PNG, 50, outStream); 
+		        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, outStream); 
 		        /* 100 to keep full quality of the image */
 
 		        outStream.flush();
@@ -242,7 +259,7 @@ public class PreSnackin extends Activity {
 		        e.printStackTrace();
 		    }
 
-			image.setImageBitmap(bitmap);
+			decodeFile(finalImagePath, 100, 100);
 		}
 	}
 	
@@ -286,14 +303,15 @@ public class PreSnackin extends Activity {
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
 	    			if(Integer.parseInt(statusResponse) == 1){
-	    				/* Success Login */
+	    				/* Snack register ok */
 	    				snackCount = jsonObject.getString("total");
 	    				ambassadorStatus = jsonObject.getString("foco");
-		    			canSnack = true;
+	    				
+		    			snackStatus = true;
 	    			}
 	    			else{	    		
-	    				/* Can't Login */
-	    				canSnack = false;
+	    				/* Snack register failed */
+	    				snackStatus = false;
 	    			}
 	    			    			
 	    			reader.close();
@@ -320,7 +338,7 @@ public class PreSnackin extends Activity {
 		
 		@Override
 		protected void onPostExecute(Void result) {
-			if(canSnack){
+			if(snackStatus){
 				Intent intent = new Intent(getApplicationContext(), Snackin.class);
 				intent.putExtra("BARCODE", obtainedCode);
 				intent.putExtra("PRODUCT_NAME", productName);
