@@ -86,7 +86,8 @@ public class Register extends Activity {
 	private String finalImagePath = "";
 	private Bitmap bitmap = null;
 	private String countryCode;
-
+	private boolean uploading;
+	
 	HashMap<String, String> myCountryMap;
 	
 	private SharedPreferences developmentSession = null;
@@ -118,7 +119,6 @@ public class Register extends Activity {
 		if(savedInstanceState != null){
 			String savedPath = savedInstanceState.getString("ImagePath");
 			if(!(savedPath.isEmpty())){
-				Toast.makeText(Register.this, savedPath, Toast.LENGTH_SHORT).show();
 				decodeFile(savedPath);
 			}
 			else{
@@ -502,8 +502,6 @@ public class Register extends Activity {
 						finalImagePath = file.getAbsolutePath();
 						bitmap = captureBmp;
 						photo.setImageBitmap(bitmap);
-						Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getHeight()), Toast.LENGTH_SHORT).show();
-						Toast.makeText(getApplicationContext(), String.valueOf(bitmap.getWidth()), Toast.LENGTH_SHORT).show();
 						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
@@ -630,6 +628,13 @@ public class Register extends Activity {
 		private JSONObject jsonObject;
 
 		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			uploading = true;
+		}
+		
+		@Override
 		protected Void doInBackground(Void... params) {
 			try {
 				/* Prepare variables for remote data check */
@@ -718,6 +723,7 @@ public class Register extends Activity {
 					dialog.dismiss();
 				Toast.makeText(getApplicationContext(), "We did something wrong... please try again! =)", Toast.LENGTH_SHORT).show();
 			}
+			uploading = false;
 		}
 	}
 	

@@ -47,6 +47,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 
 public class PreSnackin extends Activity {
@@ -65,10 +66,12 @@ public class PreSnackin extends Activity {
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
 	String profileImagePath;
+	String ratingValue;
 	
 	boolean snackStatus;
 	boolean commentStatus;
 	boolean ratingStatus;
+	boolean ratingBarValueChanged;
 	
 	boolean loadedImage;
 	
@@ -100,6 +103,16 @@ public class PreSnackin extends Activity {
 		productId = getIntent().getStringExtra("PRODUCT_ID");
 		productName = getIntent().getStringExtra("PRODUCT_NAME");
 		productPhoto = getIntent().getStringExtra("PRODUCT_PHOTO");
+		
+		ratingBar.setRating(0);
+		ratingValue = "0";
+		ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+			
+			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+				ratingBarValueChanged = true;
+				ratingValue = String.valueOf(rating);
+			}
+		});
 		
 		loadPhoto = new LoadPhoto();
 		
@@ -271,6 +284,9 @@ public class PreSnackin extends Activity {
     	private String snackCount = null;
     	private String ambassadorStatus = null;
     	private StringBuilder stringBuilder = null;
+    	private String snackinId = null;
+    	
+    	private String averagePoints;
 		
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -306,8 +322,8 @@ public class PreSnackin extends Activity {
 	    				/* Snack register ok */
 	    				snackCount = jsonObject.getString("total");
 	    				ambassadorStatus = jsonObject.getString("foco");
-	    				
-		    			snackStatus = true;
+	    				snackinId = jsonObject.getString("idsnackin");
+	    				snackStatus = true;
 	    			}
 	    			else{	    		
 	    				/* Snack register failed */
@@ -320,6 +336,88 @@ public class PreSnackin extends Activity {
 	    		else{
 	    			/* Check Other Status Code */
 	    		}
+	    		
+	    		/* Preparing to send rating value */  		
+	            postURL = ConstantValues.URL + "/ws/ws-registerrating.php";
+	            post = new HttpPost(postURL); 
+	            param = new ArrayList<NameValuePair>();
+	            param.add(new BasicNameValuePair("idsnackin",snackinId));
+	            param.add(new BasicNameValuePair("idproduct",productId));
+            	param.add(new BasicNameValuePair("rating",ratingValue));
+	            ent = new UrlEncodedFormEntity(param);
+	            post.setEntity(ent);
+	            responsePOST = client.execute(post);    		
+	    		status = responsePOST.getStatusLine();
+	    		/* Filter what kind of response was obtained */
+	    		/* Filtering http response 200 */
+	    		if(status.getStatusCode() == HttpStatus.SC_OK){
+	    			HttpEntity entity = responsePOST.getEntity();
+	    			InputStream inputStream = entity.getContent();
+	    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+	    			String line = null;
+	    			stringBuilder = new StringBuilder();
+	    			while((line = reader.readLine()) != null){
+	    				stringBuilder.append(line);
+	    			}
+	    			
+	    			/* Converting obtained string into JSON object */
+	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+	    			statusResponse = jsonObject.getString("status");
+	    			averagePoints = jsonObject.getString("promedio");
+	    			if(Integer.parseInt(statusResponse) == 1){
+	    				/* Rating value register ok */
+	    				ratingStatus= true;
+	    			}
+	    			else{	    		
+	    				/* Rating value register failed */
+	    				ratingStatus = false;
+	    			}
+	    		}
+			
+	    		String comment = commentBox.getText().toString();
+	    		
+	    		if(!comment.isEmpty()){
+	    			/* Preparing to send comment */  		
+		            postURL = ConstantValues.URL + "/ws/ws-registercomment.php";
+		            post = new HttpPost(postURL); 
+		            param = new ArrayList<NameValuePair>();
+		            param.add(new BasicNameValuePair("idsnackin",snackinId));
+		            param.add(new BasicNameValuePair("idproduct",productId));
+		            param.add(new BasicNameValuePair("comment",comment));
+		            ent = new UrlEncodedFormEntity(param);
+		            post.setEntity(ent);
+		            responsePOST = client.execute(post);    		
+		    		status = responsePOST.getStatusLine();
+		    		/* Filter what kind of response was obtained */
+		    		/* Filtering http response 200 */
+		    		if(status.getStatusCode() == HttpStatus.SC_OK){
+		    			HttpEntity entity = responsePOST.getEntity();
+		    			InputStream inputStream = entity.getContent();
+		    			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		    			String line = null;
+		    			stringBuilder = new StringBuilder();
+		    			while((line = reader.readLine()) != null){
+		    				stringBuilder.append(line);
+		    			}
+		    			
+		    			/* Converting obtained string into JSON object */
+		    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+		    			statusResponse = jsonObject.getString("status");
+		    			if(Integer.parseInt(statusResponse) == 1){
+		    				/* Comment register ok */
+		    				commentStatus= true;
+		    			}
+		    			else{	    		
+		    				/* Comment register failed */
+		    				commentStatus = false;
+		    			}
+		    		}
+	    		}
+	    		else{
+	    			publishProgress(1415);
+	    		}
+	    		
+	    		
 	    	}catch(ClientProtocolException e){
     			e.printStackTrace();
     			Log.e(TAG,"CheckLoginData: Error ClientProtocolException");
@@ -337,6 +435,21 @@ public class PreSnackin extends Activity {
 		}
 		
 		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+			switch(values[0]){
+				case 1414:
+					Toast.makeText(getApplicationContext(), "ratingStatus: "+ ratingStatus , Toast.LENGTH_SHORT).show();
+					break;
+				case 1415:
+					Toast.makeText(getApplicationContext(), "commentStatus: "+ commentStatus , Toast.LENGTH_SHORT).show();
+					break;
+				default:
+					break;
+			}
+		}
+		
+		@Override
 		protected void onPostExecute(Void result) {
 			if(snackStatus){
 				Intent intent = new Intent(getApplicationContext(), Snackin.class);
@@ -345,6 +458,7 @@ public class PreSnackin extends Activity {
 				intent.putExtra("PRODUCT_PHOTO", productPhoto);
 				intent.putExtra("AMBASSADOR_STATUS", ambassadorStatus);
 				intent.putExtra("productPath", finalImagePath);
+				intent.putExtra("RATING", averagePoints);
 				startActivity(intent);
 				finish();
 			}

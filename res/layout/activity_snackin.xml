@@ -105,7 +105,7 @@
                         android:textStyle="bold" 
                         android:visibility="gone"/>
                     <RatingBar
-				        android:id="@+id/ratingBar"
+				        android:id="@+id/ratingBar_snackin_activity"
 				        android:layout_width="wrap_content"
 				        android:layout_height="wrap_content"
 				        android:layout_gravity="bottom|fill_horizontal"

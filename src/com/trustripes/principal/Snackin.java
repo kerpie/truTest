@@ -15,24 +15,31 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Snackin extends Activity {
 
 	TextView snackText,productName;
-	Intent t;
-	String status, statusString, imagePath;
-	String profileImagePath;
 	ImageView img, productImage, profilePhoto;
 	Button backButton;
 	Button returnWall;
 	RelativeLayout relativeContainer;
+	RatingBar ratingBar;
+	
+	Intent t;
+	String status, statusString, imagePath;
+	String profileImagePath;
+	
 	Bitmap bitmap;
 	
 	private SharedPreferences developmentSession = null;
 	String id;
 	int realId;
+	
+	String ratingValue;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,7 @@ public class Snackin extends Activity {
         returnWall = (Button) findViewById(R.id.button_return_wall);
         img = (ImageView) findViewById(R.id.ambassador_imageView);
         productImage = (ImageView) findViewById(R.id.product_photo);
-        
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar_snackin_activity);
         profilePhoto = (ImageView) findViewById(R.id.wall_item_profile_photo);
         relativeContainer = (RelativeLayout)findViewById(R.id.ambassador_content);
         
@@ -66,11 +73,20 @@ public class Snackin extends Activity {
 	            public void onClick(View v) {
 	                    finish();               
 	            }
-	    });	
+	    });
+        
+        ratingValue = t.getStringExtra("RATING");
+
+        ratingBar.setEnabled(false);
+
+        ratingBar.setRating(Float.parseFloat(ratingValue));
+        
+        Toast.makeText(getApplicationContext(), ratingValue, Toast.LENGTH_SHORT).show();
         
         developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         id = developmentSession.getString("user_id", "-1");
         realId = Integer.parseInt(id);
+        
     }
        
     public void decodeFile(String filePath, boolean isProfile) {

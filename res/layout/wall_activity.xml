@@ -12,15 +12,17 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_below="@+id/wall_list"
-        >
+        android:gravity="center"
+        android:layout_margin="7dp"
+        android:layout_alignParentBottom="true">
         <ProgressBar 
-            android:layout_width="0dp"
+            android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_weight="1"/>
+            android:layout_margin="5dp"/>
         <TextView 
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_weight="3"
-            android:text="Loading more snackins"/>
+            android:text="Loading snackins"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 </RelativeLayout>
