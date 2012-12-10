@@ -71,13 +71,13 @@
 	    <LinearLayout
 	        android:id="@+id/rigthPart"
 	        android:layout_width="wrap_content"
-	        android:layout_height="200dp"
+	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_toRightOf="@id/leftPart"
 	        android:background="@drawable/photo_background"
-	        android:paddingBottom="11dp"
-	        android:paddingLeft="17dp"
-	        android:paddingRight="11dp"
+	        android:paddingBottom="5dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="5dp"
 	        android:paddingTop="6dp" >
 		    <FrameLayout
 		        android:layout_width="match_parent"
@@ -85,7 +85,7 @@
 		        <ImageView
 		            android:id="@+id/wall_item_product_photo"
 		            android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
           			android:scaleType="centerCrop"
                     android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />

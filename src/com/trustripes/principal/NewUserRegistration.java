@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -101,6 +102,10 @@ public class NewUserRegistration extends Activity{
 	/* Different than null only if the user is updating his own data */
 	private String lastId = null;
 	
+	/* Path names */
+	private String destination;
+	private String source;
+	
 	/* Session variable */
 	private SharedPreferences session = null;
 	
@@ -172,7 +177,7 @@ public class NewUserRegistration extends Activity{
         	full_name.setText(session.getString("user_full_name","Hola"));
         	mail.setText(session.getString("user_mail", ""));
         	lastId = session.getString("user_id", "");
-        	        	
+        	        	        	
         	/* Show the field to insert the curret password */
         	originalPass.setVisibility(View.VISIBLE);
         	
@@ -181,6 +186,9 @@ public class NewUserRegistration extends Activity{
         	
         	passwordAdvice.setVisibility(View.VISIBLE);
         	String tmpPath = session.getString("user_external_image_path", "");
+        	
+        	destination = tmpPath;
+        	
         	File tmpFile = new File(tmpPath);
         	if(tmpFile.exists())
         		decodeFile(tmpPath);
@@ -213,7 +221,6 @@ public class NewUserRegistration extends Activity{
         });
         
         /* Listener to show a default image according to the selection */
-        /* No third option for now... sorry Antonio =P */
         gender.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch(checkedId){
@@ -312,6 +319,7 @@ public class NewUserRegistration extends Activity{
 	
 						if (selectedImagePath != null) {
 							filePath = selectedImagePath;
+							source = filePath;
 						} else if (filemanagerstring != null) {
 							filePath = filemanagerstring;
 						} else {
@@ -333,6 +341,7 @@ public class NewUserRegistration extends Activity{
 			case CAMERA_RESULT:
 				if (resultCode == Activity.RESULT_OK) {
 					final File file = getTempFile();
+					source = file.getAbsolutePath();
 					try {
 						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
 						bitmap = captureBmp;
@@ -367,11 +376,9 @@ public class NewUserRegistration extends Activity{
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, o);
 
-
-
 		// Find the correct scale value. It should be the power of 2.
 		// int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		int scale = 1;
+		int scale = 2;
 
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
@@ -458,6 +465,9 @@ public class NewUserRegistration extends Activity{
     	
     	private String iduser = null;
     	private String name = null;
+    	private String photoUrl = null;
+    	private String full_name = null;
+    	private String mail = null;
     	
     	private String message = null;
     	
@@ -484,7 +494,7 @@ public class NewUserRegistration extends Activity{
 				HttpPost post = new HttpPost(postURL);
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.PNG, 50, bos);
+				bitmap.compress(CompressFormat.JPEG, 30, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "newProfileImage.jpg"));
 				entity.addPart("email", new StringBody(mailToSend));
@@ -513,6 +523,11 @@ public class NewUserRegistration extends Activity{
 		    				/* Success Login */
 		    				iduser = jsonObject.getString("iduser");
 			    			name = jsonObject.getString("user");
+			    			
+			    			full_name = jsonObject.getString("display");
+			    			mail = jsonObject.getString("email");
+			    			photoUrl = jsonObject.getString("photo");
+			    			
 			    			canLogin = true;
 	    			}	
 	    			else{
@@ -547,12 +562,21 @@ public class NewUserRegistration extends Activity{
     	protected void onPostExecute(Void result) {
     		if(canLogin){
 	    		SharedPreferences.Editor settingsEditor = session.edit();
-				settingsEditor.putString("user_id", iduser);
-				settingsEditor.putString("user_name", name);
+							
 				settingsEditor.putString("user_status", statusResponse);
+	    		settingsEditor.putString("user_id", iduser);
+				settingsEditor.putString("user_name", name);
+				settingsEditor.putString("user_full_name", full_name);
+				settingsEditor.putString("user_mail", mail);
+				
+				int id = Integer.parseInt(iduser);
+				settingsEditor.putString("user_external_image_path", Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(id)+".png");
+				settingsEditor.putString("user_photo_url", photoUrl);
+				
+				settingsEditor.putBoolean("show_snack_help", true);
 				settingsEditor.commit();
 				showStatusMessage();
-    		}
+			}
     		else{
     			progressBar.setVisibility(View.GONE);
     			errorMessage.setText(message);
@@ -596,8 +620,6 @@ public class NewUserRegistration extends Activity{
     			passToSend = params[3];
     			originalPassToSend = params[4];
     			
-    			
-    			
     			HttpClient client = new DefaultHttpClient();
 				HttpContext localContext = new BasicHttpContext();
 				String postURL = ConstantValues.URL + "/ws/ws-useredit.php";
@@ -605,6 +627,7 @@ public class NewUserRegistration extends Activity{
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				
 				bitmap.compress(CompressFormat.JPEG, 30, bos);
 				
 				byte[] data = bos.toByteArray();
@@ -613,7 +636,7 @@ public class NewUserRegistration extends Activity{
 				entity.addPart("email", new StringBody(mailToSend));
 				entity.addPart("username", new StringBody(usernameToSend));
 				entity.addPart("displayname", new StringBody(fullNameToSend));
-				if(passToSend.length() <= 5)
+				if(passToSend.length() == 0)
 					entity.addPart("nuevaClave", new StringBody(originalPassToSend));
 				else
 					entity.addPart("nuevaClave", new StringBody(passToSend));
@@ -636,7 +659,7 @@ public class NewUserRegistration extends Activity{
 					while ((line = reader.readLine()) != null) {
 						stringBuilder.append(line);
 					}
-
+					
 	    			/* Converting obtained string into JSON object */
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
@@ -682,6 +705,11 @@ public class NewUserRegistration extends Activity{
 				settingsEditor.putString("user_mail", mailToSend);
 				settingsEditor.putString("user_full_name", fullNameToSend);
 				settingsEditor.commit();
+				try {
+					FileUtils.copyFile(new File(source), new File(destination));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				showStatusMessage();
 				Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     		}

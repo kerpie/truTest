@@ -67,12 +67,13 @@
 		        android:visibility="gone"/>
 			<RatingBar
 				android:id="@+id/ratingBar"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="250dp"
+				android:layout_height="50dp"
           		android:layout_below="@+id/presnack_imageview_add"
           		android:layout_centerHorizontal="true"
           		android:stepSize="1"
-          		android:progressDrawable="@drawable/rating_bar"/>
+          		android:progressDrawable="@drawable/rating_bar"
+          		android:layout_marginBottom="5dp"/>
 			<EditText
 				android:id="@+id/presnack_edittext_comment"
 				android:layout_width="match_parent"
@@ -80,13 +81,12 @@
 				android:layout_centerHorizontal="true"
 				android:layout_below="@+id/ratingBar"
 				android:background="#FFFF"
-				android:padding="5dp"
+				android:padding="10dp"
 				android:hint="Comments" 
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"
 				android:lines="1"
-				android:gravity="top"
-				/>
+				android:gravity="top" />
       		<LinearLayout
         		android:layout_width="match_parent"
         		android:layout_height="wrap_content"

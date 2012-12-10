@@ -48,6 +48,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PreSnackin extends Activity {
@@ -60,6 +61,7 @@ public class PreSnackin extends Activity {
 	ImageView image;
 	RatingBar ratingBar;
 	EditText commentBox;
+	TextView titleName;
 	
 	Bitmap bitmap; 
 	
@@ -96,6 +98,7 @@ public class PreSnackin extends Activity {
 		image = (ImageView) findViewById(R.id.presnack_imageview_add);
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);		
 		commentBox = (EditText)findViewById(R.id.presnack_edittext_comment);
+		titleName = (TextView) findViewById(R.id.presnack_textview_tittle);
 		
 		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
 		
@@ -103,6 +106,8 @@ public class PreSnackin extends Activity {
 		productId = getIntent().getStringExtra("PRODUCT_ID");
 		productName = getIntent().getStringExtra("PRODUCT_NAME");
 		productPhoto = getIntent().getStringExtra("PRODUCT_PHOTO");
+		
+		titleName.setText(productName);
 		
 		ratingBar.setRating(0);
 		ratingValue = "0";
@@ -151,8 +156,13 @@ public class PreSnackin extends Activity {
 		
 		realSnackInButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				new SendSnackIn().execute();
-				realSnackInButton.setClickable(false);
+				if(ConstantValues.getConnectionStatus(getApplicationContext())){
+					new SendSnackIn().execute();
+					realSnackInButton.setClickable(false);
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		

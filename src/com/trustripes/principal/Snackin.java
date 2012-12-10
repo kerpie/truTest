@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Snackin extends Activity {
 
@@ -76,12 +75,8 @@ public class Snackin extends Activity {
 	    });
         
         ratingValue = t.getStringExtra("RATING");
-
         ratingBar.setEnabled(false);
-
         ratingBar.setRating(Float.parseFloat(ratingValue));
-        
-        Toast.makeText(getApplicationContext(), ratingValue, Toast.LENGTH_SHORT).show();
         
         developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         id = developmentSession.getString("user_id", "-1");
@@ -129,7 +124,7 @@ public class Snackin extends Activity {
     			break;
     		case 2:
     			statusString = "Sigues siendo embajador";
-    			relativeContainer.setVisibility(View.VISIBLE);
+    			relativeContainer.setVisibility(View.GONE);
     			break;
         }
     	

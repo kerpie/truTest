@@ -77,6 +77,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	JSONArray jsonArray = null;
 	ProgressBar loadingImage = null;
 	
+	LoadWallActivity loadWallActivity;
+	
 	String profileImagePath;
 	
 	Activity parentActivity;
@@ -114,6 +116,8 @@ public class CustomViewPagerAdapter extends PagerAdapter{
         session = container.getContext().getSharedPreferences(ConstantValues.USER_DATA, 0);
         switch (position) {
         case 0:
+        	loadWallActivity = new LoadWallActivity();
+        	
             resId = R.layout.wall_activity;
             view = inflater.inflate(resId, null);
             wall_list = (ListView) view.findViewById(R.id.wall_list);
@@ -122,14 +126,33 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             
             ((PullToRefreshListView) wall_list).setOnRefreshListener(new OnRefreshListener() {
                 public void onRefresh() {
-                    // Do work to refresh the list here.
-                    new LoadWallActivity().execute(true);
+                	if(ConstantValues.getConnectionStatus(context)){
+                        // Do work to refresh the list here.
+                		if(loadWallActivity.getStatus() == AsyncTask.Status.RUNNING){
+                			Toast.makeText(context, "It's already refreshing...", Toast.LENGTH_SHORT).show();
+                		}
+                		else{
+                			if(loadWallActivity.getStatus() == AsyncTask.Status.FINISHED){
+                				loadWallActivity = new LoadWallActivity();
+                			}
+                			loadWallActivity.execute(true);
+                		}
+                	}
+                	else{
+    					Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+            		}
                 }
             });
             
             wall_list.setOnItemClickListener(new OnItemClickListener() {
             	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            		new LoadWallActivity().execute(false);
+            		if(ConstantValues.getConnectionStatus(context)){
+                        // Do work to refresh the list here.
+                        new LoadWallActivity().execute(false);
+                	}
+            		else{
+    					Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+            		}
             	}
 			});
             
@@ -137,7 +160,12 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             adapter = new LazyAdapter();
             new_inflater = inflater;
             
-            new LoadWallActivity().execute(false);
+            if(ConstantValues.getConnectionStatus(context)){
+            	new LoadWallActivity().execute(false);
+            }
+            else{
+				Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+    		}
             break;
         case 1:
             resId = R.layout.profile;
@@ -156,7 +184,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 					parentActivity.finish();
 				}
 			});
-            
+                        
             editProfileButton.setOnClickListener(new View.OnClickListener() {				
 				public void onClick(View v) {
 					Intent i = new Intent(context, NewUserRegistration.class);
@@ -175,18 +203,19 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             
             profile_text.setText("Username: " + session.getString("user_name", "No saved value")+"\n"+
 					"Mail: "+session.getString("user_mail", "No saved value"));
-            
-            String userIdString = session.getString("user_id", "");
-            int id = Integer.parseInt(userIdString);
-            					
+            				
             String imagePath = session.getString("user_external_image_path", "");
             File imageFile = new File(imagePath);
             
             if(imageFile.exists())
             	decodeFile(imagePath);
             else
-            	new LoadProfileData().execute();
-            
+            	if(ConstantValues.getConnectionStatus(context)){
+            		new LoadProfileData().execute();
+            	}   
+            	else{
+					Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+				}
             break;
         }
         ((ViewPager) container).addView(view, 0);
@@ -271,14 +300,13 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		protected void onPostExecute(Void result) {
 			id = Integer.valueOf(id_string);
 			if(bitmap != null ){
-				loadingImage.setVisibility(View.GONE);
 				profile_image.setImageBitmap( bitmap );
 				try{
 					profileImagePath = session.getString("user_external_image_path", "");
 					File directory = new File(profileImagePath);
 					FileOutputStream outStream;
 					outStream = new FileOutputStream(directory);
-					bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
 					/* 100 to keep full quality of the image */
 					outStream.flush();
 					outStream.close();
@@ -289,9 +317,9 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 				}
 			}
 			else
-				
 				//prueba cambio por otro avatar
 				profile_image.setImageResource(R.drawable.default_avatar);
+			loadingImage.setVisibility(View.GONE);
 		}
 	 }
 	 

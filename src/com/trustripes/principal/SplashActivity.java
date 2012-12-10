@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Window;
+import android.widget.Toast;
 
 public class SplashActivity extends Activity {
 	
@@ -169,7 +170,7 @@ public class SplashActivity extends Activity {
 	        	}
 	        }
 	        else{
-	        	/* Load the crash activity announcing there is no connection and gracefully exits the application */
+	        	Toast.makeText(getApplicationContext(), "Please check your connection and try again", Toast.LENGTH_SHORT).show();
 	        }
 			finish();
 		}  	

@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.AsyncTask.Status;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.app.Activity;
@@ -86,9 +87,10 @@ public class Register extends Activity {
 	private String finalImagePath = "";
 	private Bitmap bitmap = null;
 	private String countryCode;
-	private boolean uploading;
+	private boolean uploading = false;
 	
 	HashMap<String, String> myCountryMap;
+	Registerback registerBack;
 	
 	private SharedPreferences developmentSession = null;
 	String id;
@@ -99,6 +101,12 @@ public class Register extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_register);
+		
+		/* Get previous session data */
+		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+		
+		/* Get User Id stored in SharedPreferences */
+		userSession = session.getString("user_id", "No");
 		
 		/* Instantiation of UI widgets */
 		registerName = (EditText) findViewById(R.id.register_edittext_name);
@@ -116,6 +124,8 @@ public class Register extends Activity {
 			registerName.setText(savedProductName);
 		}
 		
+		registerBack = new Registerback();
+		
 		if(savedInstanceState != null){
 			String savedPath = savedInstanceState.getString("ImagePath");
 			if(!(savedPath.isEmpty())){
@@ -124,6 +134,10 @@ public class Register extends Activity {
 			else{
 				//Toast.makeText(Register.this, "Vacio", Toast.LENGTH_SHORT).show();
 			}
+			
+			code = savedInstanceState.getString("Barcode");
+			productName = savedInstanceState.getString("ProductName");
+			uploading = savedInstanceState.getBoolean("UploadingStatus");
 		}
 		
 		myCountryMap = new HashMap<String, String>();
@@ -144,30 +158,13 @@ public class Register extends Activity {
 			}
 		});
 		
-		/* Get previous session data */
-		session = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
-		
 		/* Get intent extra data */
 		Intent t = getIntent();
 		code = t.getStringExtra("BARCODE");
 		
 		/* Output of saved 'BARCODE' data */
 		textCode.setText("Barcode: "+code);
-		
-		if(savedInstanceState != null){
-			String finalImagePath = savedInstanceState.getString("ImagePath");
-			try {
-				File tmpFile = new File(finalImagePath);
-				bitmap = Media.getBitmap(getContentResolver(), Uri.fromFile(tmpFile));
-				photo.setImageBitmap(bitmap);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			//Toast.makeText(this, finalImagePath, Toast.LENGTH_SHORT).show();
-		}
-		
+				
 		photo.setClickable(true);
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -455,8 +452,18 @@ public class Register extends Activity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
+		if(registerBack.getStatus() == Status.RUNNING){
+			registerBack.cancel(true);
+			uploading = true;
+		}
+		else{
+			uploading = false;
+		}
 		outState.putString("ImagePath", finalImagePath);
+		outState.putString("Barcode", code);
+		outState.putString("ProductName", productName);
+		outState.putBoolean("UploadingStatus", uploading);
+		super.onSaveInstanceState(outState);
 	}
 	
 	@Override
@@ -562,14 +569,6 @@ public class Register extends Activity {
     		EasyTracker.getInstance().activityStart(this);
     	}
 		
-		/* Get User Id stored in SharedPreferences */
-		userSession = session.getString("user_id", "No");
-		
-		/* just in case something happens with the data stored in SharedPreferences, unlikely to happen */
-		if (userSession == "No"){
-			Toast.makeText(getApplicationContext(), "This device will autodestroy in five seconds from now... RUN!!!", Toast.LENGTH_SHORT).show();
-		}
-		
 		/* Instantiate and associate button events */
 		btn_again.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -584,13 +583,23 @@ public class Register extends Activity {
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_register");
 				productName = registerName.getText().toString().trim();
+				String alertMessage = "";
 				if(bitmap == null || countryCode.isEmpty() || productName.isEmpty()){
-					Toast.makeText(getApplicationContext(), "All Fields are mandatory", Toast.LENGTH_SHORT).show();
+					if(bitmap == null)
+						alertMessage = "Photo is required \n";
+					if(productName.isEmpty())
+						alertMessage = alertMessage + "Product name is required \n";
+					if(countryCode.isEmpty())
+						alertMessage = alertMessage + "Select the country of manufacturing";
+					Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
 				}
 				else{
-						dialog = ProgressDialog.show(Register.this, "Uploading","Please wait...", true);
-						new Registerback().execute();
-
+					if(ConstantValues.getConnectionStatus(getApplicationContext())){
+						registerBack.execute();
+					}
+					else{
+						Toast.makeText(getApplicationContext(), "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		});
@@ -600,6 +609,10 @@ public class Register extends Activity {
 				finish();
 			}
 		});
+		
+		if(uploading){
+			registerBack.execute();
+		}
 	}
 
 	@Override
@@ -623,15 +636,14 @@ public class Register extends Activity {
 		/* Internal variables for the thread */
 		private StringBuilder stringBuilder;
 		private String statusResponse = "";
-		private String idproduct = "";
+		private String message = "";
 		private boolean showDiscoverer = false;
 		private JSONObject jsonObject;
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
-			uploading = true;
+			dialog = ProgressDialog.show(Register.this, "Uploading","Please wait...", true);
 		}
 		
 		@Override
@@ -658,34 +670,35 @@ public class Register extends Activity {
 				}
 				entity.addPart("codepais", new StringBody(countryCode));
 				post.setEntity(entity);
-				HttpResponse responsePOST = client.execute(post, localContext);
-				StatusLine status = responsePOST.getStatusLine();
-				/* Filter what kind of response was obtained */
-	    		/* Filtering http response 200 */
-				if (status.getStatusCode() == HttpStatus.SC_OK) {
-					HttpEntity new_entity = responsePOST.getEntity();
-					InputStream inputStream = new_entity.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-					String line = null;
-					stringBuilder = new StringBuilder();
-					while ((line = reader.readLine()) != null) {
-						stringBuilder.append(line);
-					}
-					
-					/* Converting obtained string into JSON object */
-					jsonObject = new JSONObject(stringBuilder.toString());
-					statusResponse = jsonObject.getString("status");
-					if (Integer.parseInt(statusResponse) == 1) {
-						showDiscoverer = true;
+				if(!isCancelled()){
+					HttpResponse responsePOST = client.execute(post, localContext);
+					StatusLine status = responsePOST.getStatusLine();
+					/* Filter what kind of response was obtained */
+		    		/* Filtering http response 200 */
+					if (status.getStatusCode() == HttpStatus.SC_OK) {
+						HttpEntity new_entity = responsePOST.getEntity();
+						InputStream inputStream = new_entity.getContent();
+						BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+						String line = null;
+						stringBuilder = new StringBuilder();
+						while ((line = reader.readLine()) != null) {
+							stringBuilder.append(line);
+						}
+						
+						/* Converting obtained string into JSON object */
+						jsonObject = new JSONObject(stringBuilder.toString());
+						statusResponse = jsonObject.getString("status");
+						if (Integer.parseInt(statusResponse) == 1) {
+							showDiscoverer = true;
+						} else {
+							showDiscoverer = false;
+							message = jsonObject.getString("msj");
+						}
+						reader.close();
+						inputStream.close();
 					} else {
-						Log.d("Error Ambassador", "Error en la respuesta");
-						showDiscoverer = false;
+						/* Check Other Status Code */
 					}
-
-					reader.close();
-					inputStream.close();
-				} else {
-					/* Check Other Status Code */
 				}
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
@@ -707,7 +720,6 @@ public class Register extends Activity {
 		protected void onPostExecute(Void result) {
 			Intent intent = null;
 			if (showDiscoverer) {
-				
 				intent = new Intent(getApplicationContext(), Discoverer.class);
 				try {
 					intent.putExtra("Product_id",  jsonObject.getInt("idproducto") );
@@ -717,13 +729,12 @@ public class Register extends Activity {
 					e.printStackTrace();
 				}
 				startActivity(intent);
-				finish();
 			} else {
 				if (dialog.isShowing())
 					dialog.dismiss();
-				Toast.makeText(getApplicationContext(), "We did something wrong... please try again! =)", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 			}
-			uploading = false;
+			finish();
 		}
 	}
 	

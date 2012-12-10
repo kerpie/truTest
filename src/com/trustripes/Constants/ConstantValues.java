@@ -1,5 +1,10 @@
 package com.trustripes.Constants;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 public class ConstantValues {
 	/* Everything here are variables available for every class in the app */
 	
@@ -39,5 +44,19 @@ public class ConstantValues {
 		return Integer.toHexString(previous) + Integer.toHexString(i)+Integer.toHexString(next);
 	}
 	
+	public static final boolean getConnectionStatus(Context context){
+		 /* Check Connection Status */
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if(wifi.isAvailable() || mobile.isAvailable()){
+        	/* There is connection to transfer data */
+        	return true;
+        }
+        else{
+        	/* There isn't connection */ 
+        	return false;
+        }	
+	}
 	
 }

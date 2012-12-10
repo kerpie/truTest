@@ -147,17 +147,22 @@ public class LoginActivity extends Activity {
     	
         loginButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				/* Check if there is data in the EditText */
-				if(loginUsername.getText().toString().length() <= 3 || loginPass.getText().toString().length() <= 3){
-					/* If text inserted in the textviews are lower than 3 */
-					/* By definition the username can't be smaller than 5 characters */
-					errorText.setVisibility(View.VISIBLE);
-					errorText.setText(R.string.fill_fields_to_login);
-				}else{
-					/* Start AsyncTask */
-					new CheckLoginData().execute();
-					/* Hide the TextView for errors */
-					errorText.setVisibility(View.GONE);
+				if(ConstantValues.getConnectionStatus(getApplicationContext())){
+					/* Check if there is data in the EditText */
+					if(loginUsername.getText().toString().length() <= 3 || loginPass.getText().toString().length() <= 3){
+						/* If text inserted in the textviews are lower than 3 */
+						/* By definition the username can't be smaller than 5 characters */
+						errorText.setVisibility(View.VISIBLE);
+						errorText.setText(R.string.fill_fields_to_login);
+					}else{
+						/* Start AsyncTask */
+						new CheckLoginData().execute();
+						/* Hide the TextView for errors */
+						errorText.setVisibility(View.GONE);
+					}
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -296,7 +301,7 @@ public class LoginActivity extends Activity {
 				settingsEditor.putString("user_mail", mail);
 				
 				int id = Integer.parseInt(iduser);
-				settingsEditor.putString("user_external_image_path", Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(id)+".png");
+				settingsEditor.putString("user_external_image_path", Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(id)+".jpg");
 				settingsEditor.putString("user_photo_url", photoUrl);
 				
 				settingsEditor.putBoolean("show_snack_help", true);

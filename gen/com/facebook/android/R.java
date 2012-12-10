@@ -91,18 +91,20 @@ public final class R {
         public static final int rating_bar=0x7f020026;
         public static final int rating_bar_mini=0x7f020027;
         public static final int red_star_empty=0x7f020028;
-        public static final int red_star_empty_mini=0x7f020029;
-        public static final int red_star_full=0x7f02002a;
-        public static final int red_star_full_mini=0x7f02002b;
-        public static final int red_star_half=0x7f02002c;
-        public static final int red_star_half_mini=0x7f02002d;
-        public static final int snacked=0x7f02002e;
-        public static final int splashscreen_bg=0x7f02002f;
-        public static final int splashscreen_footer=0x7f020030;
-        public static final int splashscreen_logo=0x7f020031;
-        public static final int text_background_green=0x7f020032;
-        public static final int text_background_purple=0x7f020033;
-        public static final int text_background_red=0x7f020034;
+        public static final int red_star_empty_=0x7f020029;
+        public static final int red_star_empty_mini=0x7f02002a;
+        public static final int red_star_full=0x7f02002b;
+        public static final int red_star_full_=0x7f02002c;
+        public static final int red_star_full_mini=0x7f02002d;
+        public static final int red_star_half=0x7f02002e;
+        public static final int red_star_half_mini=0x7f02002f;
+        public static final int snacked=0x7f020030;
+        public static final int splashscreen_bg=0x7f020031;
+        public static final int splashscreen_footer=0x7f020032;
+        public static final int splashscreen_logo=0x7f020033;
+        public static final int text_background_green=0x7f020034;
+        public static final int text_background_purple=0x7f020035;
+        public static final int text_background_red=0x7f020036;
     }
     public static final class id {
         public static final int ambassador_content=0x7f0a0044;
