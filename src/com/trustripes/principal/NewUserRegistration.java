@@ -399,7 +399,7 @@ public class NewUserRegistration extends Activity{
     	/* Filter if send to register a new user or to update a current one */
     	send.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+							
 				/* If it is updating the current user's information */
 				if(isEdit){
 					if(!passCheck.isChecked()){
@@ -452,7 +452,6 @@ public class NewUserRegistration extends Activity{
     	}
     }
 
-    
     /* AsynTask to register a new user */
     public class SendNewUser extends AsyncTask<String, Integer, Void>{
     	private String usernameToSend;
@@ -728,6 +727,7 @@ public class NewUserRegistration extends Activity{
     			if(isEdit){
     				/* Finish the current activity */
     				/* MainActivity was already in the botton of the stack */
+    				setResult(200);
     				finish();
     			}else{
     				/* Start MainActivity */ 

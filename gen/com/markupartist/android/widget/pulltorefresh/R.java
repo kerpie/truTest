@@ -267,8 +267,9 @@ public final class R {
         public static final int activity_pre_snackin=0x7f0c0005;
         public static final int activity_register=0x7f0c0006;
         public static final int activity_snackin=0x7f0c0007;
-        public static final int activity_tip_camera=0x7f0c0008;
-        public static final int splash_activity=0x7f0c0009;
+        public static final int activity_test=0x7f0c0008;
+        public static final int activity_tip_camera=0x7f0c0009;
+        public static final int splash_activity=0x7f0c000a;
     }
     public static final class raw {
         public static final int beep=0x7f050000;
@@ -343,6 +344,7 @@ public final class R {
         public static final int title_activity_register=0x7f060039;
         public static final int title_activity_snackin=0x7f06003a;
         public static final int title_activity_splash=0x7f06000a;
+        public static final int title_activity_test=0x7f060046;
         public static final int title_activity_tip_camera=0x7f060045;
         public static final int title_ambassador=0x7f060043;
         public static final int zxing_url=0x7f060037;

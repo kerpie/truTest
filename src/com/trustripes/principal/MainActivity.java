@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -64,6 +65,8 @@ public class MainActivity extends Activity {
 		 developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
 		 id = developmentSession.getString("user_id", "-1");
 		 realId = Integer.parseInt(id);
+		 
+		 
 	}
 
 	@Override
@@ -121,4 +124,19 @@ public class MainActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(resultCode){
+			case 200:
+				CustomViewPagerAdapter pagerAdapter = new CustomViewPagerAdapter(this);
+				myPager = (ViewPager) findViewById(R.id.pager);
+				myPager.setAdapter(pagerAdapter);
+				myPager.setCurrentItem(1);
+				break;
+		}
+	}
+	
 }

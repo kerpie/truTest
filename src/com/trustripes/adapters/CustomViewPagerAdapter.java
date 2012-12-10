@@ -17,7 +17,6 @@ import lazylist.LazyAdapter;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
-import com.trustripes.Events.EndlessScrollListener;
 import com.trustripes.principal.NewUserRegistration;
 import com.trustripes.principal.R;
 
@@ -28,13 +27,10 @@ import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONObject;
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,14 +40,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
@@ -187,11 +181,16 @@ public class CustomViewPagerAdapter extends PagerAdapter{
                         
             editProfileButton.setOnClickListener(new View.OnClickListener() {				
 				public void onClick(View v) {
-					Intent i = new Intent(context, NewUserRegistration.class);
-					i.putExtra("isEdit", true);
-					context.startActivity(i);
+//					Intent i = new Intent(context, NewUserRegistration.class);
+//					i.putExtra("isEdit", true);
+//					context.startActivity(i);
+					
+		            Intent testIntent = new Intent(context, NewUserRegistration.class);
+		            testIntent.putExtra("isEdit", true);
+		            ((Activity)view.getContext()).startActivityForResult(testIntent,100);
 				}
 			});
+         
             
             feedback_text = (TextView) view.findViewById(R.id.feedback);
             feedback_text.setOnClickListener( new View.OnClickListener(){
