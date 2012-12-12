@@ -84,7 +84,7 @@ public class Register extends Activity {
 	private String productName = "";	
 	private String userSession = "";
 	private String code = "";
-	private String finalImagePath = "";
+	private String lastfinalImagePath= "", finalImagePath = "";
 	private Bitmap bitmap = null;
 	private String countryCode;
 	private boolean uploading = false;
@@ -506,15 +506,18 @@ public class Register extends Activity {
 					final File file = getTempFile();
 					try {
 						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
-						finalImagePath = file.getAbsolutePath();
 						bitmap = captureBmp;
-						photo.setImageBitmap(bitmap);
+						finalImagePath = file.getAbsolutePath();	
+						decodeFile(finalImagePath);
+						lastfinalImagePath = finalImagePath;
+						//photo.setImageBitmap(bitmap);
 						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					
 				}
 				break;
 		}
@@ -539,11 +542,9 @@ public class Register extends Activity {
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, o);
 
-		finalImagePath = filePath;
-
 		// Find the correct scale value. It should be the power of 2.
 //		int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		int scale = 1;
+		int scale = 4;
 
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
@@ -591,7 +592,7 @@ public class Register extends Activity {
 						alertMessage = alertMessage + "Product name is required \n";
 					if(countryCode.isEmpty())
 						alertMessage = alertMessage + "Select the country of manufacturing";
-					Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), alertMessage, Toast.LENGTH_SHORT).show();
 				}
 				else{
 					if(ConstantValues.getConnectionStatus(getApplicationContext())){
@@ -725,6 +726,7 @@ public class Register extends Activity {
 					intent.putExtra("Product_id",  jsonObject.getInt("idproducto") );
 					intent.putExtra("Product_name",  jsonObject.getString("producto") );
 					intent.putExtra("Total_snacks",  jsonObject.getString("total") );
+					intent.putExtra("Product_image_path", finalImagePath);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

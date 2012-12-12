@@ -8,20 +8,29 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Discoverer extends Activity {
+	
 	Button btn_return;
 	Button backButton;
 	TextView nametv;
+	ImageView product;
+	ImageView profile;
 	Intent t;
 	String code, name;
+	String path;
+	String profile_path;
 	int id;
+	Bitmap bitmap;
 
 	private SharedPreferences developmentSession = null;
 	String myId;
@@ -32,14 +41,22 @@ public class Discoverer extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_discoverer);
-		nametv=(TextView)findViewById(R.id.discoverer_textview_product);
+		nametv=(TextView)findViewById(R.id.discoverer_textview_msj);
 		btn_return = (Button) findViewById(R.id.discoverer_button_returnWall);
+		product = (ImageView) findViewById(R.id.discoverer_product_photo);
+		profile = (ImageView) findViewById(R.id.discoverer_wall_item_profile_photo);
 		t = getIntent();
+		path = t.getStringExtra("Product_image_path");
 		backButton = (Button) findViewById(R.id.backButton);
 		
 		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         myId= developmentSession.getString("user_id", "-1");
         realId = Integer.parseInt(myId);
+        
+        profile_path = developmentSession.getString("user_external_image_path", "");
+        
+        decodeFile(profile_path, true);
+        decodeFile(path, false);
 	}
 
 	@Override
@@ -52,7 +69,7 @@ public class Discoverer extends Activity {
     	}
 		
 		name = t.getStringExtra("Product_name");
-		nametv.setText(name);
+		nametv.setText(nametv.getText() + name);
 
 		btn_return.setOnClickListener(new View.OnClickListener() {
 
@@ -81,6 +98,29 @@ public class Discoverer extends Activity {
     		EasyTracker.getInstance().activityStop(this);
     	}
 	}
+	
+	public void decodeFile(String filePath, boolean isProfile) {
+		//Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, o);
+		
+		//The new size we want to scale to
+		final int REQUIRED_SIZE = 1024;
+		
+		// Find the correct scale value. It should be the power of 2.
+		int width_tmp = o.outWidth, height_tmp = o.outHeight;
+		int scale = 1;
+		
+		// Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		if(isProfile)
+			profile.setImageBitmap(bitmap);
+		else
+			product.setImageBitmap(bitmap);
+}
 	
 	@Override
 	public void onBackPressed() {

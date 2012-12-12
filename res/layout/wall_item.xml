@@ -85,7 +85,7 @@
 		        <ImageView
 		            android:id="@+id/wall_item_product_photo"
 		            android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:adjustViewBounds="true"
           			android:scaleType="centerCrop"
                     android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />

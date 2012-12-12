@@ -358,7 +358,6 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 	            	param.add(new BasicNameValuePair("total",String.valueOf(jsonArray.length())));
 	            }
 	            
-	            
 	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
 	            post.setEntity(ent);
 	            HttpResponse responsePOST = client.execute(post);    		
