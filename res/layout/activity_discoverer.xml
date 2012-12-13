@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/splashscreen_bg" >
+    android:layout_height="match_parent">
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,51 +26,67 @@
 	<ScrollView 
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_below="@+id/pseudo_actionBar">
+	    android:layout_below="@+id/pseudo_actionBar"
+	    android:background="@drawable/fe2morado">
 		<RelativeLayout   
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:paddingBottom="20dp">
-		    <TextView
-		        android:id="@+id/discoverer_textview_tittle"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		    <ImageView
+		        android:id="@+id/discoverer_imageview_tittle"
+		        android:layout_width="230dp"
+		        android:layout_height="40dp"
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="10dp"
-		        android:layout_marginBottom="5dp"
-		        android:text="CONGRATULATIONS"
+		        android:layout_marginBottom="0dp"
 		        android:textColor="#000"
+		        android:src="@drawable/congratulationsf2"
 		        android:textStyle="bold" />
-		    <ImageView
-		        android:id="@+id/discoverer_imageview_discoverer"
-		        android:layout_width="200dp"
-		        android:layout_height="200dp"
-		        android:layout_centerHorizontal="true"
-		        android:layout_below="@+id/discoverer_textview_tittle"
-		        android:src="@drawable/discoverer" 
-		        android:padding="15dp"/>
-		    <TextView
+		     <TextView
 		        android:id="@+id/discoverer_textview_msj"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="5dp"
-		        android:layout_below="@+id/discoverer_imageview_discoverer"
-		        android:text="You are the discoverer of this product: "
-		        android:textColor="#000"
-		        android:textStyle="bold" />
-		    <TextView
-		        android:id="@+id/discoverer_textview_product"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/discoverer_textview_msj"
-		        android:layout_centerHorizontal="true"
-		        android:layout_marginTop="5dp"
-		        android:layout_marginBottom="5dp"
-		        android:text="x"
-		        android:textColor="#000"
+		        android:layout_below="@+id/discoverer_imageview_tittle"
+		        android:text="You are the discoverer for "
+		        android:gravity="center"
+		        android:textSize="15dp"
+		        android:textColor="#FFF"
 		        android:textStyle="bold" 
-		        android:padding="5dp"/>
+		        android:shadowColor="#000"
+		        android:shadowDx="1"
+		        android:shadowDy="2"/>
+		    <ImageView
+		        android:id="@+id/discoverer_imageview_discoverer"
+		        android:layout_width="200dp"
+		        android:layout_height="200dp"
+		        android:layout_centerHorizontal="true"
+		        android:layout_below="@+id/discoverer_textview_msj"
+		        android:src="@drawable/discoverer" 
+		        android:padding="15dp"/>
+		    <FrameLayout
+		        android:id="@+id/discoverer_framelayout"
+				android:layout_width="match_parent"
+				android:layout_height="200dp" 
+				android:layout_below="@+id/discoverer_imageview_discoverer"
+				android:background="@drawable/photo_background_cut"
+				android:padding="9dp">
+				<ImageView
+					android:id="@+id/discoverer_product_photo"
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:adjustViewBounds="true"
+					android:scaleType="centerCrop"
+					android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />
+   				<ImageView
+       				android:id="@+id/discoverer_wall_item_profile_photo"
+       				android:layout_width="80dp"
+       				android:layout_height="80dp"
+       				android:layout_gravity="bottom|right"                           
+       				android:scaleType="centerCrop"                  
+       				android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
+           	</FrameLayout>    
 		    <Button
 		        android:id="@+id/discoverer_button_returnWall"
 		        android:layout_width="wrap_content"
@@ -79,7 +94,7 @@
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="20dp"
 		        android:layout_marginBottom="0dp"
-		        android:layout_below="@+id/discoverer_textview_product"
+		        android:layout_below="@+id/discoverer_framelayout"
 		        android:text="Return to wall" 
 		        android:background="@drawable/midorys"
 		        android:padding="10dp"

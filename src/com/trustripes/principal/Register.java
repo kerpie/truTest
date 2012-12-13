@@ -593,7 +593,7 @@ public class Register extends Activity {
 						alertMessage = alertMessage + "Product name is required \n";
 					if(countryCode.isEmpty())
 						alertMessage = alertMessage + "Select the country of manufacturing";
-					Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), alertMessage, Toast.LENGTH_SHORT).show();
 				}
 				else{
 					if(ConstantValues.getConnectionStatus(getApplicationContext())){
@@ -727,6 +727,7 @@ public class Register extends Activity {
 					intent.putExtra("Product_id",  jsonObject.getInt("idproducto") );
 					intent.putExtra("Product_name",  jsonObject.getString("producto") );
 					intent.putExtra("Total_snacks",  jsonObject.getString("total") );
+					intent.putExtra("Product_image_path", finalImagePath);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

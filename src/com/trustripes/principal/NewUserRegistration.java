@@ -174,8 +174,13 @@ public class NewUserRegistration extends Activity{
         if(isEdit){
         	pass.setHint("New password");
         	username.setText(session.getString("user_name", ""));
+        	username.setEnabled(false);
+        	
         	full_name.setText(session.getString("user_full_name","Hola"));
+        	
         	mail.setText(session.getString("user_mail", ""));
+        	mail.setEnabled(false);
+        	
         	lastId = session.getString("user_id", "");
         	        	        	
         	/* Show the field to insert the curret password */
@@ -399,7 +404,7 @@ public class NewUserRegistration extends Activity{
     	/* Filter if send to register a new user or to update a current one */
     	send.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+							
 				/* If it is updating the current user's information */
 				if(isEdit){
 					if(!passCheck.isChecked()){
@@ -452,7 +457,6 @@ public class NewUserRegistration extends Activity{
     	}
     }
 
-    
     /* AsynTask to register a new user */
     public class SendNewUser extends AsyncTask<String, Integer, Void>{
     	private String usernameToSend;
@@ -595,10 +599,7 @@ public class NewUserRegistration extends Activity{
     	
     	private StringBuilder stringBuilder;
     	private String statusResponse;
-    	
-    	private String iduser = null;
-    	private String name = null;
-    	
+    	   	
     	private String message = null;
     	
     	private boolean updated;
@@ -628,13 +629,13 @@ public class NewUserRegistration extends Activity{
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
 				
-				bitmap.compress(CompressFormat.JPEG, 30, bos);
+				bitmap.compress(CompressFormat.JPEG, 50, bos);
 				
 				byte[] data = bos.toByteArray();
 				
 				entity.addPart("id", new StringBody(lastId));
-				entity.addPart("email", new StringBody(mailToSend));
-				entity.addPart("username", new StringBody(usernameToSend));
+				//entity.addPart("email", new StringBody(mailToSend));
+				//entity.addPart("username", new StringBody(usernameToSend));
 				entity.addPart("displayname", new StringBody(fullNameToSend));
 				if(passToSend.length() == 0)
 					entity.addPart("nuevaClave", new StringBody(originalPassToSend));
@@ -700,8 +701,8 @@ public class NewUserRegistration extends Activity{
     		if(updated){
 	    		SharedPreferences.Editor settingsEditor = session.edit();
 	    		settingsEditor.putString("user_status", statusResponse);
-				settingsEditor.putString("user_id", iduser);
-				settingsEditor.putString("user_name", name);
+				settingsEditor.putString("user_id", lastId);
+				//settingsEditor.putString("user_name", username.getText().toString());
 				settingsEditor.putString("user_mail", mailToSend);
 				settingsEditor.putString("user_full_name", fullNameToSend);
 				settingsEditor.commit();
@@ -728,6 +729,7 @@ public class NewUserRegistration extends Activity{
     			if(isEdit){
     				/* Finish the current activity */
     				/* MainActivity was already in the botton of the stack */
+    				setResult(200);
     				finish();
     			}else{
     				/* Start MainActivity */ 

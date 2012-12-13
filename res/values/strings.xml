@@ -63,4 +63,6 @@
     <string name="title_ambassador">¡ You became the Ambassador !</string>
     <string name="title_activity_feedback">Feedback</string>
     <string name="title_activity_tip_camera">Tip_camera</string>
+    <string name="title_activity_test">TestActivity</string>
+
 </resources>

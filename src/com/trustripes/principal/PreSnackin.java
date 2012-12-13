@@ -424,10 +424,6 @@ public class PreSnackin extends Activity {
 		    			}
 		    		}
 	    		}
-	    		else{
-	    			publishProgress(1415);
-	    		}
-	    		
 	    		
 	    	}catch(ClientProtocolException e){
     			e.printStackTrace();
@@ -445,20 +441,6 @@ public class PreSnackin extends Activity {
     		return null;
 		}
 		
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			super.onProgressUpdate(values);
-			switch(values[0]){
-				case 1414:
-					Toast.makeText(getApplicationContext(), "ratingStatus: "+ ratingStatus , Toast.LENGTH_SHORT).show();
-					break;
-				case 1415:
-					Toast.makeText(getApplicationContext(), "commentStatus: "+ commentStatus , Toast.LENGTH_SHORT).show();
-					break;
-				default:
-					break;
-			}
-		}
 		
 		@Override
 		protected void onPostExecute(Void result) {
