@@ -509,15 +509,13 @@ public class Register extends Activity {
 						bitmap = captureBmp;
 						finalImagePath = file.getAbsolutePath();	
 						decodeFile(finalImagePath);
-						lastfinalImagePath = finalImagePath;
-						//photo.setImageBitmap(bitmap);
+						lastfinalImagePath = finalImagePath;					
 						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
-					}
-					
+					}					
 				}
 				break;
 		}
@@ -551,6 +549,9 @@ public class Register extends Activity {
 		o2.inSampleSize = scale;
 		bitmap = BitmapFactory.decodeFile(filePath, o2);
 		photo.setImageBitmap(bitmap);
+		//TESTING RECYCLE
+		//bitmap.recycle();
+		//bitmap = null;
 	}
 
 	private File getTempFile(){

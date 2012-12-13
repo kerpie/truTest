@@ -188,11 +188,12 @@ public class PreSnackin extends Activity {
 		o = new BitmapFactory.Options();
 		o.inSampleSize = scale;
 		o.inJustDecodeBounds = false;
-		bitmap = BitmapFactory.decodeFile(filePath, o);
-		
-		finalImagePath = filePath;
-		
+		bitmap = BitmapFactory.decodeFile(filePath, o);		
+		finalImagePath = filePath;		
 		image.setImageBitmap(bitmap);
+		//TESTING RECYCLE
+		//bitmap.recycle();
+		//bitmap = null;		
 	}
 	
 	@Override
