@@ -107,6 +107,7 @@ public final class R {
         public static final int text_background_green=0x7f020036;
         public static final int text_background_purple=0x7f020037;
         public static final int text_background_red=0x7f020038;
+        public static final int textoambassador=0x7f020039;
     }
     public static final class id {
         public static final int ambassador_content=0x7f0a0046;
@@ -187,7 +188,7 @@ public final class R {
         public static final int presnack_imageview_add=0x7f0a0036;
         public static final int presnack_textview_tittle=0x7f0a0035;
         public static final int preview_view=0x7f0a0059;
-        public static final int product_photo=0x7f0a004b;
+        public static final int product_photo=0x7f0a004a;
         public static final int profile_image=0x7f0a006d;
         public static final int profile_image_box=0x7f0a006c;
         public static final int profile_image_loader=0x7f0a006e;
@@ -220,8 +221,8 @@ public final class R {
         public static final int rigthPart=0x7f0a0080;
         public static final int search_book_contents_failed=0x7f0a0008;
         public static final int search_book_contents_succeeded=0x7f0a0009;
-        public static final int snackin_content=0x7f0a004a;
-        public static final int snackin_product_name=0x7f0a0049;
+        public static final int snackin_content=0x7f0a0049;
+        public static final int snackin_product_name=0x7f0a004b;
         public static final int snackin_text=0x7f0a004f;
         public static final int splash_screen_footer=0x7f0a0034;
         public static final int splash_screen_progressBar=0x7f0a0078;

@@ -15,7 +15,7 @@ public class LruCache<K, V> {
     private int evictionCount;
     private int hitCount;
     private int missCount;
-
+    
     /**
      * @param maxSize for caches that do not override {@link #sizeOf}, this is
      *     the maximum number of entries in the cache. For all other caches,
