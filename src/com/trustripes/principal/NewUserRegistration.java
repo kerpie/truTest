@@ -362,7 +362,7 @@ public class NewUserRegistration extends Activity{
 					try {
 						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
 						bitmap = captureBmp;
-						newProfilePhoto.setImageBitmap(bitmap);
+						newProfilePhoto.setImageBitmap(bitmap);							
 						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
