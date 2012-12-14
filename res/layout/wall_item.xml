@@ -74,11 +74,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_toRightOf="@id/leftPart"
-	        android:background="@drawable/photo_background"
-	        android:paddingBottom="5dp"
-	        android:paddingLeft="15dp"
-	        android:paddingRight="5dp"
-	        android:paddingTop="6dp" >
+	        android:background="@drawable/photo_background">
 		    <FrameLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent">
@@ -88,7 +84,8 @@
                     android:layout_height="150dp"
                     android:adjustViewBounds="true"
           			android:scaleType="centerCrop"
-                    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />
+                    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" 
+                    />
 		        <TextView
 		            android:id="@+id/totalSnacks"
 		            android:layout_width="wrap_content"

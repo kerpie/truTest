@@ -34,6 +34,7 @@ import com.trustripes.Events.checkUsername;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -99,6 +100,9 @@ public class NewUserRegistration extends Activity{
 	/* True if the user is editting his own data  */
 	private boolean isEdit;
 	
+	/* True if the AsyncTask to update information is running */
+	private boolean uploading = false;
+	
 	/* Different than null only if the user is updating his own data */
 	private String lastId = null;
 	
@@ -112,6 +116,10 @@ public class NewUserRegistration extends Activity{
 	private SharedPreferences developmentSession = null;
 	String id;
 	int realId;
+	
+	/* AsyncTasks */
+	private SendNewUser createUser;
+	private SendUpdateUser updateUser;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -201,10 +209,14 @@ public class NewUserRegistration extends Activity{
         		newProfilePhoto.setImageBitmap(bitmap);
         	
         	send.setText("Update information");
-        }else{
+        }
+        else{
         	/* If registering a new user hide the field because there is no current password */
         	originalPass.setVisibility(View.GONE);
         }
+        
+        createUser = new SendNewUser();
+        updateUser = new SendUpdateUser();
         
         /* Only visible if updating information */
         visiblePass.addTextChangedListener(new checkPass(visiblePass, errorMessage));
@@ -393,6 +405,21 @@ public class NewUserRegistration extends Activity{
 	}
     
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    	// TODO Auto-generated method stub
+    	super.onSaveInstanceState(outState);
+    	if(createUser.getStatus() == Status.RUNNING || updateUser.getStatus() == Status.RUNNING ){
+    		uploading = true;
+    	}
+    	else{
+    		uploading = false;
+    	}
+    	outState.putBoolean("isUploading", uploading);
+    	outState.putString("user_name", username.getText().toString());
+    	//outState.putString("full_name",);
+    }
+    
+    @Override
     protected void onStart() {
     	super.onStart();   	
     	
@@ -411,7 +438,7 @@ public class NewUserRegistration extends Activity{
 						if(originalPass.getText().toString().length() >= 2 ){
 							if(checkUsername.returnValue == true && checkMail.returnValue == true && checkFullName.returnValue == true && (checkPass.returnValue == true || pass.getText().length() == 0)){
 								/* If the fields are filled with new validated data */
-								new SendUpdateUser().execute(username.getText().toString(), full_name.getText().toString(),mail.getText().toString(),pass.getText().toString(), originalPass.getText().toString());
+								updateUser.execute(username.getText().toString(), full_name.getText().toString(),mail.getText().toString(),pass.getText().toString(), originalPass.getText().toString());
 							}
 							else
 								/* Show an error message to indicate the fields are not with validated data */
@@ -432,7 +459,7 @@ public class NewUserRegistration extends Activity{
 					if(!passCheck.isChecked()){
 						if(checkUsername.returnValue == true && checkMail.returnValue == true && checkFullName.returnValue == true && checkPass.returnValue == true ){
 							/* Start the AsyncTask to register a new user */
-							new SendNewUser().execute(username.getText().toString(), full_name.getText().toString(),mail.getText().toString(),pass.getText().toString());
+							createUser.execute(username.getText().toString(), full_name.getText().toString(),mail.getText().toString(),pass.getText().toString());
 						}
 						else{
 							Toast.makeText(getApplicationContext(), "All fields are required to Register", Toast.LENGTH_SHORT).show();
@@ -482,6 +509,7 @@ public class NewUserRegistration extends Activity{
     		super.onPreExecute();
     		progressBar.setVisibility(View.VISIBLE);
     		errorMessage.setVisibility(View.GONE);
+    		uploading = true; 
     	}
     	
     	@Override
@@ -586,6 +614,7 @@ public class NewUserRegistration extends Activity{
     			errorMessage.setText(message);
     			errorMessage.setVisibility(View.VISIBLE);
     		}
+    		uploading = false;
     	}
     }
     
