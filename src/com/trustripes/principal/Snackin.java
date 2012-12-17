@@ -110,9 +110,9 @@ public class Snackin extends Activity {
     @Override
     public void onStart(){
     	super.onStart();
-    	
-    	EasyTracker.getInstance().activityStart(this);
-    	
+    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
     	switch(Integer.parseInt(status)){
     		case 0:
     			statusString = "No se ha convertido en Embajador";
@@ -136,7 +136,9 @@ public class Snackin extends Activity {
     @Override
     protected void onStop() {
     	super.onStop();
-    	EasyTracker.getInstance().activityStop(this);
+    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
     }
 
     @Override

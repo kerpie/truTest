@@ -63,7 +63,8 @@ public class PreSnackin extends Activity {
 	EditText commentBox;
 	TextView titleName;
 	
-	Bitmap bitmap; 
+	Bitmap bitmap = null; 
+	Bitmap bitmapToUpload = null;
 	
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
@@ -201,7 +202,7 @@ public class PreSnackin extends Activity {
 		super.onStart();
 		
 		/* Implementation of Google Analytics for Android */
-    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStart(this);
     	}
 	}
@@ -211,7 +212,7 @@ public class PreSnackin extends Activity {
 		super.onStop();
 		
 		/* Implementation of Google Analytics for Android */
-    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStop(this);
     	}
 	}
