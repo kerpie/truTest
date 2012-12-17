@@ -63,7 +63,7 @@ public class PreSnackin extends Activity {
 	EditText commentBox;
 	TextView titleName;
 	
-	Bitmap bitmap; 
+	Bitmap bitmap=null; 
 	
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;

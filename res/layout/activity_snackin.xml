@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Background_snackin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen_bg" >
@@ -34,28 +35,28 @@
             android:id="@+id/father_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:paddingBottom="20dp">
             <RelativeLayout
                 android:id="@+id/ambassador_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@+id/father_content">
                 <ImageView
                     android:id="@+id/tittle_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/textoambassador"
-                  
+                    android:src="@drawable/textoambassador"                  
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                     />
+                    android:padding="10dp"  />
                 
                 <ImageView
                     android:id="@+id/ambassador_imageView"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
+                    android:layout_marginTop="-40dp"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="20dp"
                     android:paddingBottom="5dp"
@@ -79,21 +80,30 @@
                 android:padding="6dp">
                 <FrameLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content" 
+                    >
+                    <RelativeLayout 
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
-                    <ImageView
-						android:id="@+id/product_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:adjustViewBounds="true"
-		            	android:scaleType="centerCrop"
-                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />
+
                       <TextView
                        android:id="@+id/snackin_product_name"
                        android:layout_width="match_parent"
-                       android:layout_height="match_parent"
+                       android:layout_height="wrap_content"
                        android:textStyle="bold"                       
-                       android:gravity="center_horizontal"   
+                       android:gravity="center_horizontal" 
+                       android:layout_alignTop="@+id/snackin_content"
+                       android:text="Snacked in a "                                                               
                         />
+                    <ImageView
+						android:id="@+id/product_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:adjustViewBounds="true"
+		            	android:scaleType="centerCrop"
+                        android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" 
+                        android:layout_below="@+id/snackin_product_name"/>
+                    
                     <TextView
                         android:id="@+id/totalSnacks"
                         android:layout_width="wrap_content"
@@ -110,19 +120,25 @@
 				        android:id="@+id/ratingBar_snackin_activity"
 				        android:layout_width="wrap_content"
 				        android:layout_height="wrap_content"
-				        android:layout_gravity="bottom|fill_horizontal"
+				        android:layout_alignParentBottom="true"
+				        android:layout_alignParentLeft="true"
 				        android:progressDrawable="@drawable/rating_bar_mini"       
-				        android:stepSize="1.5"                     
-				        android:layout_marginBottom="-25dp" />
-    				<ImageView
-        				android:id="@+id/wall_item_profile_photo"
-        				android:layout_width="80dp"
-        				android:layout_height="80dp"
-        				android:layout_gravity="bottom|right"                           
-        				android:src="@drawable/anon" 
-        				android:scaleType="centerCrop"                  
-        				android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"/>
-            	</FrameLayout>                                 
+				        android:stepSize="1"   
+				        android:layout_below="@+id/product_photo"                  />
+					</RelativeLayout>
+					
+                       <ImageView
+    				    android:id="@+id/wall_item_profile_photo"
+    				    android:layout_width="80dp"
+    				    android:layout_height="80dp"
+						android:layout_gravity="bottom|right"
+    				    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"
+    				    android:scaleType="centerCrop"
+    				    android:src="@drawable/anon" />
+					
+            	</FrameLayout> 
+            	         
+             
             </RelativeLayout>
             <TextView
                  android:id="@+id/snackin_text"
@@ -147,6 +163,7 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
+	    android:layout_marginTop="10dp"
 	    android:layout_marginBottom="-22dp"
 	    android:contentDescription="@string/mainActivity_imgView_logo_contentDescription"
 	    android:src="@drawable/splashscreen_footer" />

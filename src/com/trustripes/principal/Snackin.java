@@ -25,8 +25,8 @@ public class Snackin extends Activity {
 	ImageView img, productImage, profilePhoto;
 	Button backButton;
 	Button returnWall;
-	RelativeLayout relativeContainer;
-	RatingBar ratingBar;
+	RelativeLayout relativeContainer , background;
+	RatingBar ratingBar = null;
 	
 	Intent t;
 	String status, statusString, imagePath;
@@ -38,11 +38,16 @@ public class Snackin extends Activity {
 	String id;
 	int realId;
 	
-	String ratingValue;
+	String ratingValue = null ;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
+        
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_snackin);
         
@@ -58,6 +63,7 @@ public class Snackin extends Activity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar_snackin_activity);
         profilePhoto = (ImageView) findViewById(R.id.wall_item_profile_photo);
         relativeContainer = (RelativeLayout)findViewById(R.id.ambassador_content);
+        background = (RelativeLayout)findViewById(R.id.Background_snackin);
         
         backButton.setOnClickListener( new View.OnClickListener() {
 			public void onClick(View v) {
@@ -65,7 +71,7 @@ public class Snackin extends Activity {
 			}
 		});
         
-        profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/profileImage.png";
+        profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(realId)+".jpg";
         
         decodeFile(profileImagePath, true);
         returnWall.setOnClickListener(new View.OnClickListener() {
@@ -77,10 +83,7 @@ public class Snackin extends Activity {
         ratingValue = t.getStringExtra("RATING");
         ratingBar.setEnabled(false);
         ratingBar.setRating(Float.parseFloat(ratingValue));
-        
-        developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
-        id = developmentSession.getString("user_id", "-1");
-        realId = Integer.parseInt(id);
+        //ratingBar.setRating(3);
         
     }
        
@@ -90,11 +93,6 @@ public class Snackin extends Activity {
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, o);
 
-		// The new size we want to scale to
-		final int REQUIRED_SIZE = 1024;
-
-		// Find the correct scale value. It should be the power of 2.
-		int width_tmp = o.outWidth, height_tmp = o.outHeight;
 		int scale = 1;
 
 		// Decode with inSampleSize
@@ -121,6 +119,7 @@ public class Snackin extends Activity {
     		case 1:
     			statusString = "Te has convertido en Embajadador";
     			relativeContainer.setVisibility(View.VISIBLE);
+    			background.setBackgroundResource(R.drawable.backambassador);
     			break;
     		case 2:
     			statusString = "Sigues siendo embajador";
@@ -129,7 +128,7 @@ public class Snackin extends Activity {
         }
     	
     	decodeFile(imagePath, false);
-    	productName.setText(t.getStringExtra("PRODUCT_NAME"));
+    	productName.setText("Snacked in a "+t.getStringExtra("PRODUCT_NAME"));
     	snackText.setText("Barcode: "+t.getStringExtra("BARCODE"));
     }
     
