@@ -165,7 +165,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             resId = R.layout.profile;
             view = inflater.inflate(resId, null);
             profile_image = (ImageView) view.findViewById(R.id.profile_image);
-            profile_text = (TextView) view.findViewById(R.id.profile_textView);
+           profile_text = (TextView) view.findViewById(R.id.user_name);
             logOutButton = (Button) view.findViewById(R.id.logout_button);
             editProfileButton = (Button) view.findViewById(R.id.edit_profile_button);
             loadingImage = (ProgressBar) view.findViewById(R.id.profile_image_loader);
@@ -200,8 +200,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
             	}
             });
             
-            profile_text.setText("Username: " + session.getString("user_name", "No saved value")+"\n"+
-					"Mail: "+session.getString("user_mail", "No saved value"));
+            profile_text.setText(session.getString("user_name", "No saved value"));
             				
             String imagePath = session.getString("user_external_image_path", "");
             File imageFile = new File(imagePath);
@@ -232,7 +231,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
 		o2.inSampleSize = scale;
 		bitmap = BitmapFactory.decodeFile(filePath, o2);
-		profile_image.setImageBitmap(bitmap);
+		profile_image.setImageBitmap(ConstantValues.makeItCircular(bitmap));
 	}
 	
 	@Override
@@ -299,7 +298,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
 		protected void onPostExecute(Void result) {
 			id = Integer.valueOf(id_string);
 			if(bitmap != null ){
-				profile_image.setImageBitmap( bitmap );
+				profile_image.setImageBitmap( ConstantValues.makeItCircular(bitmap));
 				try{
 					profileImagePath = session.getString("user_external_image_path", "");
 					File directory = new File(profileImagePath);
