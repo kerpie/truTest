@@ -32,60 +32,64 @@
 	    android:layout_below="@+id/pseudo_actionBar">
 		<RelativeLayout 
 		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content">
-		    <TextView
-		        android:id="@+id/presnack_textview_tittle"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_centerHorizontal="true"
-		        android:text="Snack-In!"
-		        android:textColor="#000"
-		        android:textStyle="bold" 
-		        android:padding="5dp"/>
-			<ImageView
-		        android:id="@+id/presnack_imageview_add"
-		        
-		        android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:adjustViewBounds="true"
-      			android:scaleType="centerCrop"
-                android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"
-
-		        android:layout_centerHorizontal="true"
-		        android:src="@drawable/camera_icon" 
-		        android:layout_below="@+id/presnack_textview_tittle" 
-		        android:padding="5dp"/>
-			<EditText
-		        android:id="@+id/presnack_edittext_country"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_centerHorizontal="true"
-		        android:background="#FFFF"
-		        android:padding="10dp"
-		        android:hint="Share it with your friends" 
-		        android:layout_below="@+id/presnack_imageview_add"
-		        android:visibility="gone"/>
-			<RatingBar
-				android:id="@+id/ratingBar"
-				android:layout_width="250dp"
-				android:layout_height="50dp"
-          		android:layout_below="@+id/presnack_imageview_add"
-          		android:layout_centerHorizontal="true"
-          		android:stepSize="1"
-          		android:progressDrawable="@drawable/rating_bar"
-          		android:layout_marginBottom="5dp"/>
+		    android:layout_height="wrap_content"
+		    android:padding="10dp">
+			<LinearLayout 
+			    android:id="@+id/new_inner_pre_snack_container"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_centerHorizontal="true"
+			    android:background="@drawable/pre_snack_bg"
+			    android:orientation="vertical"
+			    android:layout_marginLeft="20dp"
+			        android:layout_marginRight="20dp">
+	   		    <TextView
+			        android:id="@+id/presnack_textview_tittle"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text=" Snack-In!"
+			        android:textColor="#000"
+			        android:textStyle="bold" 
+			        android:padding="5dp"/>
+	   		    <FrameLayout 
+	   		        android:layout_width="match_parent"
+	                android:layout_height="match_parent">
+	   		        <ImageView
+				        android:id="@+id/presnack_imageview_add"
+				        android:layout_width="match_parent"
+		                android:layout_height="match_parent"
+		      			android:adjustViewBounds="true"
+		      			android:scaleType="centerCrop"
+		                android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"
+				        android:layout_gravity="center"
+				        android:src="@drawable/camera_icon" 
+				        android:padding="5dp"/>
+	   		        <ImageView
+	   		            android:layout_width="50dp"
+	   		            android:layout_height="50dp"
+	   		            android:layout_marginRight="5dp"
+	   		            android:layout_gravity="bottom|right"
+	   		            android:src="@drawable/icon_fotos" />
+	   		    </FrameLayout>
+				<RatingBar
+				    android:id="@+id/ratingBar"
+				    android:layout_width="150dp"
+				    android:layout_height="30dp"
+				    android:progressDrawable="@drawable/rating_bar_mini"
+				    android:layout_gravity="center"
+				    android:stepSize="1"/>
+			</LinearLayout>
 			<EditText
 				android:id="@+id/presnack_edittext_comment"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_centerHorizontal="true"
-				android:layout_below="@+id/ratingBar"
-				android:background="#FFFF"
+				android:layout_below="@+id/new_inner_pre_snack_container"
+				android:background="@drawable/pre_snack_bg"
 				android:padding="10dp"
 				android:hint="Comments" 
-				android:layout_marginLeft="10dp"
-				android:layout_marginRight="10dp"
-				android:lines="1"
+				android:layout_marginLeft="20dp"
+				android:layout_marginRight="20dp"				
 				android:gravity="top" />
       		<LinearLayout
         		android:layout_width="match_parent"

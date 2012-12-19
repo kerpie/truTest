@@ -217,6 +217,7 @@ public class LoginActivity extends Activity {
 	    		HttpClient client =  new DefaultHttpClient();   		
 	    		String postURL = ConstantValues.URL+"/ws/ws-validatelogin.php";
 	    		HttpPost post = new HttpPost(postURL); 
+	    		
 	    		List<NameValuePair> param = new ArrayList<NameValuePair>();
 	            param.add(new BasicNameValuePair("user",username));
 	            param.add(new BasicNameValuePair("password",pass));
