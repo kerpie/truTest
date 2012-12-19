@@ -409,6 +409,12 @@ public class NewUserRegistration extends Activity{
     	// TODO Auto-generated method stub
     	super.onSaveInstanceState(outState);
     	if(createUser.getStatus() == Status.RUNNING || updateUser.getStatus() == Status.RUNNING ){
+    		if(createUser.getStatus() == Status.RUNNING){
+    			
+    		}
+    		else{
+    			
+    		}
     		uploading = true;
     	}
     	else{
@@ -424,7 +430,7 @@ public class NewUserRegistration extends Activity{
     	super.onStart();   	
     	
     	/* Implementation of Google Analytics for Android */
-    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStart(this);
     	}
     	
@@ -479,7 +485,7 @@ public class NewUserRegistration extends Activity{
     	super.onStop();
     	
     	/* Implementation of Google Analytics for Android */
-    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStop(this);
     	}
     }

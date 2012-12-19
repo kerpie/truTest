@@ -319,7 +319,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		super.onStart();
 		
 		/* Implementation of Google Analytics for Android */
-    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStart(this);
     	}
 	}
@@ -329,7 +329,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		super.onStop();
 		
 		/* Implementation of Google Analytics for Android */
-    	if(!ConstantValues.isInDevelopmentTeam(realId)){
+		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStop(this);
     	}
 	}

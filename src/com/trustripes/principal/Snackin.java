@@ -38,7 +38,7 @@ public class Snackin extends Activity {
 	String id;
 	int realId;
 	
-	String ratingValue = null ;
+	String ratingValue = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,6 @@ public class Snackin extends Activity {
         ratingValue = t.getStringExtra("RATING");
         ratingBar.setEnabled(false);
         ratingBar.setRating(Float.parseFloat(ratingValue));
-        //ratingBar.setRating(3);
         
     }
        
@@ -108,9 +107,9 @@ public class Snackin extends Activity {
     @Override
     public void onStart(){
     	super.onStart();
-    	
-    	EasyTracker.getInstance().activityStart(this);
-    	
+    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
     	switch(Integer.parseInt(status)){
     		case 0:
     			statusString = "No se ha convertido en Embajador";
@@ -135,7 +134,9 @@ public class Snackin extends Activity {
     @Override
     protected void onStop() {
     	super.onStop();
-    	EasyTracker.getInstance().activityStop(this);
+    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStop(this);
+    	}
     }
 
     @Override
