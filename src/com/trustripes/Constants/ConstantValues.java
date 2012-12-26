@@ -1,5 +1,8 @@
 package com.trustripes.Constants;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +15,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
 
 public class ConstantValues {
 	/* Everything here are variables available for every class in the app */
@@ -28,7 +32,7 @@ public class ConstantValues {
 	/* For Session Status */
 	public static final String USER_DATA = "UserDataPreferences";
 	
-	public static final int[] developmentIds = {1,2,3,5,6,7,8,28,42,46,73,75,76,78,83,84,88,89,90};
+	public static final int[] developmentIds = {1,2,3,5,6,7,8,28,42,46,73,75,76,78,79,80,83,84,88,89,90};
 	
 	public static boolean isInDevelopmentTeam(int key){
 		for(int i=0;i<4;i++){
@@ -81,5 +85,7 @@ public class ConstantValues {
         paint.setXfermode(null);
         return result;
     }
+    
+
 	
 }

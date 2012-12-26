@@ -44,7 +44,11 @@ public class ImageLoader {
         executorService=Executors.newFixedThreadPool(5);
     }
         
-    public void DisplayImage(String url, ImageView imageView, boolean profile){
+    public ImageLoader() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void DisplayImage(String url, ImageView imageView, boolean profile){
     	isProfile = profile;
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
@@ -115,7 +119,8 @@ public class ImageLoader {
            return null;
         }
     }
-
+  
+    
     //decodes image and scales it to reduce memory consumption
     private Bitmap decodeFile(File f){
         try {

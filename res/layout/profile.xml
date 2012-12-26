@@ -17,7 +17,7 @@
             <RelativeLayout
                 android:id="@+id/pseudo_actionBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_alignTop="@+id/Principal"
                 android:background="@layout/bg_gradiente_green"
                 android:padding="2dp" >
@@ -36,23 +36,25 @@
             <LinearLayout
                 android:id="@+id/ContentOne"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_below="@+id/pseudo_actionBar"
-                android:layout_centerHorizontal="true" >
-
+                android:layout_centerHorizontal="true"
+                 >
+
                 <FrameLayout
                     android:id="@+id/profile_image_box"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_weight="1"
-                    android:padding="10dp" >
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
 
                     <ImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center_horizontal"
-                        android:adjustViewBounds="true" />
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:padding="3dp"
+                         />
 
                     <ProgressBar
                         android:id="@+id/profile_image_loader"
@@ -65,39 +67,43 @@
                 <RelativeLayout
                     android:id="@+id/ContentBadged"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_toRightOf="@+id/profile_image_box"
-                    android:layout_weight="1" >
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                     >
 
                     <RelativeLayout
                         android:id="@+id/Content_images"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginTop="15dp" >
+                        
+                         >
 
                         <FrameLayout
                             android:id="@+id/father_ambassador"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" >
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                             >
 
                             <ImageView
                                 android:id="@+id/pic_ambassador"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/pic_ambassadorm" />
 
                             <TextView
-                                android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:id="@+id/totalAmbassador"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
-                                android:layout_marginTop="16dp"
+                                android:layout_marginTop="14dp"
                                 android:background="@drawable/rectangulo"
-                                android:gravity="center"
-                                android:text="20"
+                                android:gravity="center"                               
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -107,24 +113,24 @@
                             android:id="@+id/father_discoverer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/father_ambassador" >
+                            android:layout_toRightOf="@+id/father_ambassador" 
+                            android:padding="5dp">
 
                             <ImageView
                                 android:id="@+id/pic_discovererm"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/pic_discovererm" />
 
-                           <TextView
-                                android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                            <TextView
+                                android:id="@+id/totalDiscoverer"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
-                                android:layout_marginTop="16dp"
+                                android:layout_marginTop="14dp"
                                 android:background="@drawable/rectangulo"
                                 android:gravity="center"
-                                android:text="20"
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -134,24 +140,24 @@
                             android:id="@+id/father_snack"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/father_ambassador" >
+                            android:layout_below="@+id/father_ambassador" 
+                            android:padding="5dp">
 
                             <ImageView
                                 android:id="@+id/pic_smackm"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/pic_smackm" />
 
-                           <TextView
-                                android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                            <TextView
+                                android:id="@+id/totalSnackImage"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
-                                android:layout_marginTop="13dp"
+                                android:layout_marginTop="12dp"
                                 android:background="@drawable/rectangulo"
-                                android:gravity="center"
-                                android:text="20"
+                                android:gravity="center"                    
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -162,24 +168,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/father_discoverer"
-                            android:layout_toRightOf="@+id/father_snack" >
+                            android:layout_toRightOf="@+id/father_snack" 
+                            android:padding="5dp">
 
                             <ImageView
                                 android:id="@+id/pic_badgesm"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/pic_badgesm" />
 
-                          <TextView
-                                android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                            <TextView
+                                android:id="@+id/totalBadged"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
-                                android:layout_marginTop="13dp"
+                                android:layout_marginTop="12dp"
                                 android:background="@drawable/rectangulo"
-                                android:gravity="center"
-                                android:text="20"
+                                android:gravity="center"                               
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -188,13 +194,104 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ContentTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ContentOne"
                 android:layout_centerHorizontal="true" >
-            </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/spinner_snacks"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/btn_dropdown"
+                    android:drawSelectorOnTop="true"
+                    android:prompt="@string/ru_prompt" />
+
+                <RelativeLayout
+                    android:id="@+id/snacks_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spinner_snacks"
+                    android:layout_centerHorizontal="true" >
+
+                    <LinearLayout
+                        android:id="@+id/snacks_Uno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp" >
+
+                        <ImageView
+                            android:id="@+id/snackOne"
+                            android:layout_width="0dp"
+                            android:layout_height="80dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/photo_background_cut"
+                            android:padding="2dp"
+                            android:src="@drawable/product" />
+
+                        <ImageView
+                            android:id="@+id/snack_Two"
+                            android:layout_width="0dp"
+                            android:layout_height="80dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/photo_background_cut"
+                            android:padding="2dp"
+                            android:src="@drawable/anon" />
+
+                        <ImageView
+                            android:id="@+id/snackThree"
+                            android:layout_width="0dp"
+                            android:layout_height="80dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/photo_background_cut"
+                            android:padding="2dp"
+                            android:src="@drawable/product" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/snacks_Two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/snacks_Uno"
+                        android:orientation="horizontal"
+                        android:padding="5dp" >
+
+                        <ImageView
+                            android:id="@+id/snackFour"
+                            android:layout_width="0dp"
+                            android:layout_height="80dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/photo_background_cut"
+                            android:padding="2dp"
+                            android:src="@drawable/anon" />
+
+                        <ImageView
+                            android:id="@+id/snackFive"
+                            android:layout_width="0dp"
+                            android:layout_height="80dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/photo_background_cut"
+                            android:padding="2dp"
+                            android:src="@drawable/product" />
+
+                        <ImageView
+                            android:id="@+id/snackSix"
+                            android:layout_width="0dp"
+                            android:layout_height="80dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/photo_background_cut"
+                            android:padding="2dp"
+                            android:src="@drawable/anon" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -231,7 +328,7 @@
                     android:layout_below="@+id/edit_profile_button"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="50dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:clickable="true"
                     android:text="Send feedback"
                     android:textColor="#F00F" />

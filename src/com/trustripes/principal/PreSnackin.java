@@ -430,8 +430,7 @@ public class PreSnackin extends Activity {
     	private String snackCount = null;
     	private String ambassadorStatus = null;
     	private StringBuilder stringBuilder = null;
-    	private String snackinId = null;
-    	
+    	private String snackinId = null;    	
     	private String averagePoints = "0";
 		
     	@Override
