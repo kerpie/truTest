@@ -29,8 +29,8 @@ public class Snackin extends Activity {
 	RatingBar ratingBar = null;
 	
 	Intent t;
-	String status, statusString, imagePath;
-	String profileImagePath;
+	String status, statusString, imagePath, productId;
+	String profileImagePath, stringProductName;
 	
 	Bitmap bitmap;
 	
@@ -55,7 +55,9 @@ public class Snackin extends Activity {
         productName = (TextView) findViewById(R.id.snackin_product_name);
         t = getIntent();
         status = t.getStringExtra("AMBASSADOR_STATUS");
+        productId = t.getStringExtra("PRODUCT_ID");
         imagePath = t.getStringExtra("productPath");
+        stringProductName = t.getStringExtra("PRODUCT_NAME");
         backButton = (Button) findViewById(R.id.backButton);
         returnWall = (Button) findViewById(R.id.button_return_wall);
         img = (ImageView) findViewById(R.id.ambassador_imageView);
@@ -74,16 +76,23 @@ public class Snackin extends Activity {
         profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(realId)+".jpg";
         
         decodeFile(profileImagePath, true);
-        returnWall.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View v) {
-	                    finish();               
-	            }
-	    });
         
         ratingValue = t.getStringExtra("RATING");
         ratingBar.setEnabled(false);
         ratingBar.setRating(Float.parseFloat(ratingValue));
         
+        returnWall.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View v) {
+//	            	Intent intent = new Intent(Snackin.this, PostSnackin.class);
+//	            	intent.putExtra("PRODUCT_PATH", imagePath);
+//	            	intent.putExtra("PRODUCT_ID", productId);
+//	            	intent.putExtra("PRODUCT_NAME", stringProductName);
+//	            	intent.putExtra("PRODUCT_RANKING", ratingValue);
+//	            	startActivity(intent);
+	            	finish();               
+	            }
+	    });
+                
     }
        
     public void decodeFile(String filePath, boolean isProfile) {

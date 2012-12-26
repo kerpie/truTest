@@ -90,8 +90,8 @@
 
                             <TextView
                                 android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="16dp"
@@ -117,8 +117,8 @@
 
                            <TextView
                                 android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="16dp"
@@ -144,8 +144,8 @@
 
                            <TextView
                                 android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="13dp"
@@ -172,8 +172,8 @@
 
                           <TextView
                                 android:id="@+id/totalSnacks"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="13dp"

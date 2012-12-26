@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trustripes.principal"
-    android:versionCode="10"
-    android:versionName="1.09" >
+    android:versionCode="11"
+    android:versionName="1.10" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -124,6 +124,19 @@
             android:name=".Tip_camera"
             android:label="@string/title_activity_tip_camera"
             android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".Guide"
+            android:label="@string/title_activity_guide" >
+        </activity>
+        <activity
+            android:name=".PostSnackin"
+            android:label="@string/title_activity_post_snackin" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

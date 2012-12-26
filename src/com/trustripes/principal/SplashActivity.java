@@ -164,8 +164,8 @@ public class SplashActivity extends Activity {
 	        		startActivity(showWallActivity);
 	        	}
 	        	else{
-	        		/* if not show Login form */
-	        		Intent showLoginForm = new Intent(getApplicationContext(), LoginActivity.class);
+	        		/* if not show tutorial */
+	        		Intent showLoginForm = new Intent(getApplicationContext(), Guide.class);
 	        		startActivity(showLoginForm);
 	        	}
 	        }

@@ -64,5 +64,7 @@
     <string name="title_activity_feedback">Feedback</string>
     <string name="title_activity_tip_camera">Tip_camera</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_guide">GuidePartOne</string>
+    <string name="title_activity_post_snackin">PostSnackin</string>
 
 </resources>

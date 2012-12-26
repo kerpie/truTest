@@ -75,14 +75,12 @@ public class Discoverer extends Activity {
 
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
-				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(intent);
-				finish();
+//				-
+            	finish();
 			}
 		});
 
 		backButton.setOnClickListener(new View.OnClickListener() {
-			
 			public void onClick(View v) {
 				finish();
 			}
@@ -110,7 +108,11 @@ public class Discoverer extends Activity {
 		
 		// Find the correct scale value. It should be the power of 2.
 		int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		int scale = 1;
+		int scale;
+		if(isProfile)
+			scale = 1;
+		else
+			scale = 4; 
 		
 		// Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
