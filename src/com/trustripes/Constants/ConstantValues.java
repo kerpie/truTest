@@ -32,7 +32,11 @@ public class ConstantValues {
 	/* For Session Status */
 	public static final String USER_DATA = "UserDataPreferences";
 	
+<<<<<<< HEAD
 	public static final int[] developmentIds = {1,2,3,5,6,7,8,28,42,46,73,75,76,78,79,80,83,84,88,89,90};
+=======
+	public static final int[] developmentIds = {1,2,3,5,6,7,8,28,42,46,73,75,76,78,79,80,83,84,85,88,89,90};
+>>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
 	
 	public static boolean isInDevelopmentTeam(int key){
 		for(int i=0;i<4;i++){

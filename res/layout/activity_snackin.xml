@@ -153,7 +153,7 @@
                  android:layout_height="50dp"
                  android:layout_below="@+id/snackin_text"
                  android:textColor="#FFFF"
-                 android:text="Return to the wall"
+                 android:text="continue"
                  android:layout_centerHorizontal="true"
                  android:layout_marginTop="10dp" 
                  android:background="@drawable/midorys"/>          

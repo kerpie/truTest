@@ -597,7 +597,6 @@ public class PreSnackin extends Activity {
 		    			while((line = reader.readLine()) != null){
 		    				stringBuilder.append(line);
 		    			}
-		    			
 		    			/* Converting obtained string into JSON object */
 		    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 		    			statusResponse = jsonObject.getString("status");
@@ -635,6 +634,7 @@ public class PreSnackin extends Activity {
 				Intent intent = new Intent(getApplicationContext(), Snackin.class);
 				intent.putExtra("BARCODE", obtainedCode);
 				intent.putExtra("PRODUCT_NAME", productName);
+				intent.putExtra("PRODUCT_ID",productId);
 				intent.putExtra("PRODUCT_PHOTO", productPhoto);
 				intent.putExtra("AMBASSADOR_STATUS", ambassadorStatus);
 				intent.putExtra("productPath", finalImagePath);

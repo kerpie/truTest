@@ -96,7 +96,11 @@
                                 android:src="@drawable/pic_ambassadorm" />
 
                             <TextView
+<<<<<<< HEAD
                                 android:id="@+id/totalAmbassador"
+=======
+                                android:id="@+id/totalSnacks"
+>>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -122,8 +126,13 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_discovererm" />
 
+<<<<<<< HEAD
                             <TextView
                                 android:id="@+id/totalDiscoverer"
+=======
+                           <TextView
+                                android:id="@+id/totalSnacks"
+>>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -149,8 +158,13 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_smackm" />
 
+<<<<<<< HEAD
                             <TextView
                                 android:id="@+id/totalSnackImage"
+=======
+                           <TextView
+                                android:id="@+id/totalSnacks"
+>>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -177,8 +191,13 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_badgesm" />
 
+<<<<<<< HEAD
                             <TextView
                                 android:id="@+id/totalBadged"
+=======
+                          <TextView
+                                android:id="@+id/totalSnacks"
+>>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"

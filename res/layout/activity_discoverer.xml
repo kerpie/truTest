@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +72,8 @@
 				android:layout_height="200dp" 
 				android:layout_below="@+id/discoverer_imageview_discoverer"
 				android:background="@drawable/photo_background_cut"
-				android:padding="9dp">
+				android:padding="9dp"
+				android:layout_margin="10dp">
 				<ImageView
 					android:id="@+id/discoverer_product_photo"
 					android:layout_width="match_parent"
@@ -95,7 +97,7 @@
 		        android:layout_marginTop="20dp"
 		        android:layout_marginBottom="0dp"
 		        android:layout_below="@+id/discoverer_framelayout"
-		        android:text="Return to wall" 
+		        android:text="continue" 
 		        android:background="@drawable/midorys"
 		        android:padding="10dp"
 		        android:textColor="#FFFF"/>

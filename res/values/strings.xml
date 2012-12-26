@@ -64,7 +64,12 @@
     <string name="title_activity_feedback">Feedback</string>
     <string name="title_activity_tip_camera">Tip_camera</string>
     <string name="title_activity_test">TestActivity</string>
+<<<<<<< HEAD
     
     <string name="ru_prompt">Choose</string>
+=======
+    <string name="title_activity_guide">GuidePartOne</string>
+    <string name="title_activity_post_snackin">PostSnackin</string>
+>>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
 
 </resources>
