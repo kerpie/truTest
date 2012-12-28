@@ -60,7 +60,8 @@
 			    	<ImageView 
 			        	android:layout_width="350dp"
 			        	android:layout_height="400dp"
-			        	android:src="@drawable/guide_two"/>    
+			        	android:src="@drawable/guide_two"
+			        	android:layout_gravity="center"/>    
 			        <LinearLayout 
 		        	    android:layout_width="wrap_content"
 		        	    android:layout_height="wrap_content"
@@ -97,7 +98,8 @@
 			    	<ImageView 
 			        	android:layout_width="350dp"
 			        	android:layout_height="400dp"
-			        	android:src="@drawable/guide_three"/>
+			        	android:src="@drawable/guide_three"
+			        	android:layout_gravity="center"/>
 			    	<LinearLayout 
 		        	    android:layout_width="wrap_content"
 		        	    android:layout_height="wrap_content"
@@ -134,7 +136,8 @@
 			    	<ImageView
 			        	android:layout_width="350dp"
 			        	android:layout_height="400dp"
-			        	android:src="@drawable/guide_four"/>    
+			        	android:src="@drawable/guide_four"
+			        	android:layout_gravity="center"/>    
 			        <LinearLayout 
 		        	    android:layout_width="wrap_content"
 		        	    android:layout_height="wrap_content"

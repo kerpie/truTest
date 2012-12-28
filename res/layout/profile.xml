@@ -96,11 +96,7 @@
                                 android:src="@drawable/pic_ambassadorm" />
 
                             <TextView
-<<<<<<< HEAD
-                                android:id="@+id/totalAmbassador"
-=======
-                                android:id="@+id/totalSnacks"
->>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
+                                android:id="@+id/totalAmbassador"                               
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -126,13 +122,8 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_discovererm" />
 
-<<<<<<< HEAD
                             <TextView
                                 android:id="@+id/totalDiscoverer"
-=======
-                           <TextView
-                                android:id="@+id/totalSnacks"
->>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -158,13 +149,8 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_smackm" />
 
-<<<<<<< HEAD
                             <TextView
                                 android:id="@+id/totalSnackImage"
-=======
-                           <TextView
-                                android:id="@+id/totalSnacks"
->>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -191,13 +177,8 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_badgesm" />
 
-<<<<<<< HEAD
-                            <TextView
-                                android:id="@+id/totalBadged"
-=======
                           <TextView
-                                android:id="@+id/totalSnacks"
->>>>>>> 0009ce81a009b797f5bb0461fc9bd012719b8cb5
+                                android:id="@+id/totalBadged"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
@@ -249,7 +230,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
                             android:padding="2dp"
-                            android:src="@drawable/product" />
+                            android:src="@drawable/product_empty" />
 
                         <ImageView
                             android:id="@+id/snack_Two"
@@ -259,7 +240,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
                             android:padding="2dp"
-                            android:src="@drawable/anon" />
+                            android:src="@drawable/product_empty" />
 
                         <ImageView
                             android:id="@+id/snackThree"
@@ -269,7 +250,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
                             android:padding="2dp"
-                            android:src="@drawable/product" />
+                            android:src="@drawable/product_empty" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -287,7 +268,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
                             android:padding="2dp"
-                            android:src="@drawable/anon" />
+                            android:src="@drawable/product_empty" />
 
                         <ImageView
                             android:id="@+id/snackFive"
@@ -297,7 +278,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
                             android:padding="2dp"
-                            android:src="@drawable/product" />
+                            android:src="@drawable/product_empty" />
 
                         <ImageView
                             android:id="@+id/snackSix"
@@ -307,7 +288,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
                             android:padding="2dp"
-                            android:src="@drawable/anon" />
+                            android:src="@drawable/product_empty" />
                     </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
@@ -316,7 +297,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ContentTwo"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="10dp"
+                android:id="@+id/Layout_buttons" >
 
                 <Button
                     android:id="@+id/logout_button"
@@ -351,17 +333,14 @@
                     android:clickable="true"
                     android:text="Send feedback"
                     android:textColor="#F00F" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </ScrollView>
-
-    <ImageView
-        android:id="@+id/footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-22dp"
-        android:gravity="bottom|center_horizontal"
-        android:src="@drawable/splashscreen_footer" />
-
+            </RelativeLayout>            
+                   <ImageView
+                     android:id="@+id/footer"
+                     android:layout_width="wrap_content"
+                     android:layout_height="match_parent"
+                     android:layout_below="@+id/Layout_buttons"
+                     android:src="@drawable/splashscreen_footer"
+                     android:layout_marginTop="5dp" />                     
+        </RelativeLayout>        
+    </ScrollView>   
 </RelativeLayout>

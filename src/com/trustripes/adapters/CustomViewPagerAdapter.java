@@ -20,6 +20,7 @@ import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
 
+import com.trustripes.principal.DetailSnackin;
 import com.trustripes.principal.NewUserRegistration;
 import com.trustripes.principal.R;
 
@@ -71,18 +72,12 @@ import android.widget.Toast;
 public class CustomViewPagerAdapter extends PagerAdapter {
 	
 	public ImageLoader imageLoader; 
-	String [] net ;
-	String pat;
 	String[] opciones = { "My Snacks-ins" };
 	Integer[] image = { R.drawable.icon_snack, R.drawable.icon_snackx };
 	String tipo;
-	// ImageSnacks
-	ImageView ImageSnack1 , ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,
-			ImageSnack6;
-	
+	ImageView ImageSnack1 , ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,ImageSnack6;	
 	TextView t1,t2,t3,t4;
-	Boolean Points;
-	
+	Boolean Points;	
 	String url;
 	View view;
 	SharedPreferences session = null;
@@ -95,23 +90,15 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	Context context;
 	JSONArray jsonArray = null, SnackjsonArray=null;
 	ProgressBar loadingImage = null;
-
 	Spinner SpinnerSnacks;
-
 	LoadWallActivity loadWallActivity;
-
 	String profileImagePath;
-
 	Activity parentActivity;
-
 	boolean firstTime = true;
-
 	private int visibleThreshold = 1;
 	private int previousTotal = 0;
 	private boolean loading = true;
-
-	private String id;
-
+	private String id;	
 	public CustomViewPagerAdapter(Activity a) {
 		parentActivity = a;
 	}
@@ -178,6 +165,16 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 						int arg2, long arg3) {
 					if (ConstantValues.getConnectionStatus(context)) {
 						// Do work to refresh the list here.
+				/*		Toast.makeText(
+								context,
+								"Click" +id,
+								Toast.LENGTH_SHORT).show();
+						Intent intentx = new Intent(context,
+								DetailSnackin.class);
+						
+						((Activity) view.getContext()).startActivityForResult(
+								intentx, 100);
+						*/
 						new LoadWallActivity().execute(false);
 					} else {
 						Toast.makeText(
@@ -214,8 +211,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 			ImageSnack3 = (ImageView) view.findViewById(R.id.snackThree);
 			ImageSnack4 = (ImageView) view.findViewById(R.id.snackFour);
 			ImageSnack5 = (ImageView) view.findViewById(R.id.snackFive);
-			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);	 
-			images = new ImageView[] {ImageSnack1 , ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,ImageSnack6};	 
+			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);	 				 
 			t1 = (TextView) view.findViewById(R.id.totalAmbassador);
 			t2 = (TextView) view.findViewById(R.id.totalDiscoverer);
 			t3 = (TextView) view.findViewById(R.id.totalSnackImage);
@@ -350,6 +346,24 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 						e.printStackTrace();
 					}
 				} else {
+					/*
+					photoURL = session.getString("user_photo_url", "");
+					photoURL = "0"+photoURL;
+					URL myFileUrl = null;
+					try {
+						myFileUrl = new URL(ConstantValues.URL + photoURL);
+						HttpURLConnection conn = (HttpURLConnection) myFileUrl
+								.openConnection();
+						conn.setDoInput(true);
+						conn.connect();
+						InputStream is = conn.getInputStream();
+						bitmap = BitmapFactory.decodeStream(is);
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}  */
+					
 
 				}
 
@@ -434,7 +448,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 			switch (pos) {
 			case 0:
-				Toast.makeText(context, "ENTRA0", Toast.LENGTH_LONG).show();
+				//Toast.makeText(context, "ENTRA0", Toast.LENGTH_LONG).show();
 				tipo = "1";
 				new LoadSnackActivity().execute();
 				new pointZone().execute();
@@ -455,11 +469,12 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	}
 
 	public class LoadSnackActivity extends AsyncTask<Boolean, Integer, Void> {
-		private String statusResponse = null;
-		private String responseMessage = null;
+		private String statusResponse = null;	
 		private StringBuilder stringBuilder = null;
 		private String idsnack = null, idproduct = null, iduser = null, pathPhoto = null;
-		//JSONArray jsonArray = null;
+		String s1,s2,s3,s4,s5,s6;
+		Vector <String> z = new Vector<String>();
+
 
 		@Override
 		protected Void doInBackground(Boolean... params) {
@@ -495,78 +510,46 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 						/* Sin error */
 						SnackjsonArray = new JSONArray(SnackjsonObject.getString("datos"));
 						
+						for (int i = 0; i <= 5; i++) {
+							JSONObject jsonObject = SnackjsonArray.getJSONObject(i);					
+							pathPhoto = jsonObject.getString("rutafoto");
+							String urls = ConstantValues.URL+"/ws/productphoto/"+pathPhoto;
+							 z.add(urls);
+							 int mox = 1;
+							 mox += 1;
+						}
 						
+						s1 = z.get(0) ;
+						s2 = z.get(1) ;
+						s3 = z.get(2) ;
+						s4 = z.get(3) ;
+						s5 = z.get(4) ;
+						s6 = z.get(5) ;		
+						
+
+																	
+						 LoadImageFromWebOperations(s1);
+						 LoadImageFromWebOperations2(s2);
+						 LoadImageFromWebOperations3(s3);
+						 LoadImageFromWebOperations4(s4);
+						 LoadImageFromWebOperations5(s5);
+						 LoadImageFromWebOperations6(s6);	
+						 			
 					} else {
 						// Hubo un error
 					}
 					reader.close();
 					inputStream.close();
+					
 				} else {
 					/* Check Other Status Code */
-				}
-
+				}			
 			} catch (Exception e) {			
 				e.printStackTrace();
 			}
 			return null;
 		}
-
 		
-		protected void onPostExecute(Void result) {	
-			
-			String direcciones [] = null;
-			String z[] = new String [10];
-			
-			
-			
-			
-			for (int i = 0; i <= SnackjsonArray.length(); i++) {
-				try {
-					JSONObject jsonObject = SnackjsonArray.getJSONObject(i);					
-					pathPhoto = jsonObject.getString("rutafoto");				
-					url = ConstantValues.URL+"/ws/productphoto/"+pathPhoto;					
-				//	Drawable drawable = LoadImageFromWebOperations(url);				
-				//	images[i].setImageDrawable(drawable);
-				//	ImageSnack2.setImageDrawable(drawable);						
-				//	LoadImagesSnack(url);	
-				//	net [i] = url;
-					z [i] = url;
-					pat = String.valueOf(z[i]);
-				//new LoadImages().execute();			 
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				new LoadImages().execute();
-			}
-		}
-		
-		private class LoadImages extends AsyncTask {
-			
-
-			@Override
-			protected Object doInBackground(Object... params) {
-				try {
-					//Drawable drawable = LoadImageFromWebOperations(url);
-					
-					
-					for (int i = 0; i <=images.length; i++) {
-						Drawable drawable = LoadImageFromWebOperations(pat);
-						images[i].setImageDrawable(drawable);	
-					}
-					
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				return null;
-			}
-			
-			protected void onPostExecute(Void result) {
-				System.err.println("");
-			}
-			
-		}
-		
-
 	}
 
 	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void> {
@@ -620,14 +603,21 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					while ((line = reader.readLine()) != null) {
 						stringBuilder.append(line);
 					}
-					if (firstTime)
+					if (firstTime){
 						jsonArray = new JSONArray(stringBuilder.toString());
+					int p = 2;
+					p += 1;
+					}
 					else {
 						tmpJsonArray = new JSONArray(stringBuilder.toString());
+						int x =1;
+						x += 1;
 
 						/* agregar nuevo json al antiguo */
 						for (int k = 0; k < tmpJsonArray.length(); k++) {
 							jsonArray.put(tmpJsonArray.get(k));
+							int y =1;
+							y += 1;
 						}
 					}
 					reader.close();
@@ -688,21 +678,107 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	}
 	
 	
-	  private Drawable LoadImageFromWebOperations(String pat){
+	  private Drawable LoadImageFromWebOperations(String draw){
 	         try
 	         {
-	             InputStream is = (InputStream) new URL(pat).getContent();
+	             InputStream is = (InputStream) new URL(draw).getContent();
 	             Drawable d = Drawable.createFromStream(is, "src name");
-	             return d;
+	             
+	             if(draw != null){
+	             ImageSnack1.setImageDrawable(d);
+	             }else 
+	             ImageSnack1.setImageResource(R.drawable.product_empty);
+	             return d;				
 	         }catch (Exception e) {
 	             System.out.println("Exc="+e);
 	             return null;
 	         }
 	     }	
 	  
-	  //Procces Asyc to PointsZone
+	  private Drawable LoadImageFromWebOperations2(String draw){
+	         try
+	         {
+	             InputStream is = (InputStream) new URL(draw).getContent();
+	             Drawable d = Drawable.createFromStream(is, "src name");
+	             if(draw != null){
+		             ImageSnack2.setImageDrawable(d);
+		             }else 
+		             ImageSnack2.setImageResource(R.drawable.product_empty);           
+	             return d;				
+	         }catch (Exception e) {
+	             System.out.println("Exc="+e);
+	             return null;
+	         }
+	     }	
+	  
+	  private Drawable LoadImageFromWebOperations3(String draw){
+	         try
+	         {
+	             InputStream is = (InputStream) new URL(draw).getContent();
+	             Drawable d = Drawable.createFromStream(is, "src name");
+	             if(draw != null){
+		             ImageSnack3.setImageDrawable(d);
+		             }else 
+		             ImageSnack3.setImageResource(R.drawable.product_empty);	           
+	             return d;				
+	         }catch (Exception e) {
+	             System.out.println("Exc="+e);
+	             return null;
+	         }
+	     }
+	  
+	  private Drawable LoadImageFromWebOperations4(String draw){
+	         try
+	         {
+	             InputStream is = (InputStream) new URL(draw).getContent();
+	             Drawable d = Drawable.createFromStream(is, "src name");
+	             if(draw != null){
+		             ImageSnack4.setImageDrawable(d);
+		             }else 
+		             ImageSnack4.setImageResource(R.drawable.product_empty);	           
+	             return d;				
+	         }catch (Exception e) {
+	             System.out.println("Exc="+e);
+	             return null;
+	         }
+	     }
+	  
+	  private Drawable LoadImageFromWebOperations5(String draw){
+	         try
+	         {
+	             InputStream is = (InputStream) new URL(draw).getContent();
+	             Drawable d = Drawable.createFromStream(is, "src name");
+	             if(draw != null){
+		             ImageSnack5.setImageDrawable(d);
+		             }else 
+		             ImageSnack5.setImageResource(R.drawable.product_empty);	           
+	             return d;				
+	         }catch (Exception e) {
+	             System.out.println("Exc="+e);
+	             return null;
+	         }
+	     }
+	  
+	  private Drawable LoadImageFromWebOperations6(String draw){
+	         try
+	         {
+	             InputStream is = (InputStream) new URL(draw).getContent();
+	             Drawable d = Drawable.createFromStream(is, "src name");
+	             if(draw != null){
+		             ImageSnack6.setImageDrawable(d);
+		             }else 
+		             ImageSnack6.setImageResource(R.drawable.product_empty);	           
+	             return d;				
+	         }catch (Exception e) {
+	             System.out.println("Exc="+e);
+	             return null;
+	         }
+	     }
 	  
 	  
+	  
+	  
+	  //Procces Asyc to PointsZone	  	 
 	  public class pointZone extends AsyncTask<Boolean, Integer, Void> {
 		  
 		  	private String statusResponse = null;

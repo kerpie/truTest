@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trustripes.principal"
     android:versionCode="11"
-    android:versionName="1.10" >
+    android:versionName="1.11" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -29,7 +29,6 @@
         <activity android:name=".SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -132,11 +131,10 @@
         <activity
             android:name=".PostSnackin"
             android:label="@string/title_activity_post_snackin" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DetailSnackin"
+            android:label="@string/title_activity_DetailSnackin" >
         </activity>
     </application>
 
