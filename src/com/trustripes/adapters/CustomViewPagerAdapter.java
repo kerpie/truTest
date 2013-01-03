@@ -19,6 +19,7 @@ import lazylist.LazyAdapter;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
+import com.trustripes.Constants.LifeGuard;
 
 import com.trustripes.principal.DetailSnackin;
 import com.trustripes.principal.NewUserRegistration;
@@ -99,7 +100,12 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	private int previousTotal = 0;
 	private boolean loading = true;
 	private String id;	
+<<<<<<< HEAD
 
+=======
+	private LifeGuard lifeGuards[] = new LifeGuard[6];
+	
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 	public CustomViewPagerAdapter(Activity a) {
 		parentActivity = a;
 		
@@ -309,9 +315,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	}
 
 	public class LoadProfileData extends AsyncTask<Void, Integer, Void> {
-
+		
 		int id;
-
 		String id_string;
 		String statusResponse = null;
 		String photoURL = null;
@@ -332,8 +337,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					URL myFileUrl = null;
 					try {
 						myFileUrl = new URL(ConstantValues.URL + photoURL);
-						HttpURLConnection conn = (HttpURLConnection) myFileUrl
-								.openConnection();
+						HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
 						conn.setDoInput(true);
 						conn.connect();
 						InputStream is = conn.getInputStream();
@@ -408,8 +412,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		}
 
 		@Override
-		public View getDropDownView(int position, View convertView,
-				ViewGroup parent) {
+		public View getDropDownView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			return getCustomView(position, convertView, parent);
 		}
@@ -471,8 +474,12 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		private String statusResponse = null;	
 		private StringBuilder stringBuilder = null;
 		private String idsnack = null, idproduct = null, iduser = null, pathPhoto = null;
-		String s1,s2,s3,s4,s5,s6;
 		Vector <String> z = new Vector<String>();
+<<<<<<< HEAD
+=======
+		ImageView imageArray[] = {ImageSnack1,ImageSnack2,ImageSnack3,ImageSnack4,ImageSnack5,ImageSnack6};
+
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 		@Override
 		protected Void doInBackground(Boolean... params) {
 			try {
@@ -501,13 +508,20 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					JSONObject SnackjsonObject = new JSONObject(stringBuilder.toString());
 					statusResponse = SnackjsonObject.getString("status");
 				
+<<<<<<< HEAD
 					if (Integer.parseInt(statusResponse)== 1) {						
 						/* Sin error */
 						SnackjsonArray = new JSONArray(SnackjsonObject.getString("datos"));						
+=======
+					if (Integer.parseInt(statusResponse)== 1) {
+						/* Sin error */
+						SnackjsonArray = new JSONArray(SnackjsonObject.getString("datos"));
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 						for (int i = 0; i <= 5; i++) {
 							JSONObject jsonObject = SnackjsonArray.getJSONObject(i);					
 							pathPhoto = jsonObject.getString("rutafoto");
 							String urls = ConstantValues.URL+"/ws/productphoto/"+pathPhoto;
+<<<<<<< HEAD
 							 z.add(urls);
 						}
 						
@@ -527,6 +541,19 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 						 
 						 
 						 			
+=======
+							LifeGuard tmpLG = new LifeGuard();
+							tmpLG.setPath(urls);
+							tmpLG.setImage(imageArray[i]);
+							lifeGuards[i] = tmpLG;
+						}			
+						
+						for(int i = 0; i<=5; i++){
+							SnackImageLoad imageLoader = new SnackImageLoad();
+							imageLoader.execute(lifeGuards[i]);
+						}
+													
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 					} else {
 						// Hubo un error
 					}
@@ -544,10 +571,15 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		
 		@Override
 		protected void onPostExecute(Void result) {
+<<<<<<< HEAD
 				
 			super.onPostExecute(result);
 		}
 		
+=======
+			super.onPostExecute(result);
+		}
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 	}
 
 	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void> {
@@ -654,8 +686,13 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 		public void onScrollStateChanged(AbsListView view, int scrollState) {
 		}
+<<<<<<< HEAD
 		public void onScroll(AbsListView view, int firstVisibleItem,
 				int visibleItemCount, int totalItemCount) {
+=======
+
+		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 			if (loading) {
 				if (totalItemCount > previousTotal) {
 					loading = false;
@@ -670,7 +707,37 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		}
 	}
 	
+	public class SnackImageLoad extends AsyncTask<LifeGuard, Integer, Void>{
+		String tmp;
+		ImageView image;
+		Drawable d;
+		
+		@Override
+		protected Void doInBackground(LifeGuard... params) {
+			tmp = params[0].getPath();
+			image = params[0].getImage();
+			
+			try{
+				  InputStream is = (InputStream) new URL(tmp).getContent();
+		          d = Drawable.createFromStream(is, "src name");
+			}catch (Exception e) {
+				  System.out.println("Exc="+e);
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			if(d != null)
+				image.setImageDrawable(d);
+			else
+				image.setImageResource(R.drawable.product_empty);
+		}
+		
+	}
 	
+<<<<<<< HEAD
 	  private Drawable LoadImageFromWebOperations(String draw){
 	         try
 	         {
@@ -771,6 +838,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	  
 	  
 	  //Procces Asyc to PointsZone	  	 
+=======
+	//Procces Asyc to PointsZone	  	 
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 	  public class pointZone extends AsyncTask<Boolean, Integer, Void> {
 		  
 		  	private String statusResponse = null;
@@ -781,8 +851,6 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		@Override
 		protected Void doInBackground(Boolean... params) {
 			try {
-
-
 				/* Prepare variables for remote data check */
 				HttpClient client = new DefaultHttpClient();
 				String postURL = ConstantValues.URL+ "/ws/ws-perfildetalleestadistica.php";

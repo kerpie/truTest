@@ -12,7 +12,8 @@
         <RelativeLayout
             android:id="@+id/Principal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            android:paddingBottom="20dp">
 
             <RelativeLayout
                 android:id="@+id/pseudo_actionBar"
@@ -223,7 +224,8 @@
                             android:layout_height="80dp"
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
-                            android:padding="2dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
 
                         <ImageView
@@ -233,7 +235,8 @@
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
-                            android:padding="2dp"
+                            android:scaleType="centerCrop"
+                            android:padding="5dp"
                             android:src="@drawable/product_empty" />
 
                         <ImageView
@@ -242,8 +245,9 @@
                             android:layout_height="80dp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
+                            android:scaleType="centerCrop"
                             android:background="@drawable/photo_background_cut"
-                            android:padding="2dp"
+                            android:padding="5dp"
                             android:src="@drawable/product_empty" />
                     </LinearLayout>
 
@@ -261,7 +265,8 @@
                             android:layout_height="80dp"
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
-                            android:padding="2dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
 
                         <ImageView
@@ -271,7 +276,8 @@
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
-                            android:padding="2dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
 
                         <ImageView
@@ -281,7 +287,8 @@
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/photo_background_cut"
-                            android:padding="2dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -326,6 +333,7 @@
                     android:clickable="true"
                     android:text="Send feedback"
                     android:textColor="#F00F" />
+<<<<<<< HEAD
 
                 <TextView
                     android:id="@+id/x"
@@ -346,4 +354,16 @@
         android:layout_marginBottom="-22dp"
         android:src="@drawable/splashscreen_footer" />
 
+=======
+            </RelativeLayout>                     
+        </RelativeLayout>        
+    </ScrollView>   
+    <ImageView
+		android:id="@+id/footer"
+		android:layout_width="1200dp"
+		android:layout_height="56dp"
+		android:layout_below="@+id/profile_scroll"
+		android:src="@drawable/splashscreen_footer"
+		android:layout_marginTop="-30dp" />
+>>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 </RelativeLayout>
