@@ -19,6 +19,7 @@ import lazylist.LazyAdapter;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
+import com.trustripes.Constants.LifeGuard;
 
 import com.trustripes.principal.DetailSnackin;
 import com.trustripes.principal.NewUserRegistration;
@@ -72,7 +73,7 @@ import android.widget.Toast;
 public class CustomViewPagerAdapter extends PagerAdapter {
 	
 	public ImageLoader imageLoader; 
-	String[] opciones = { "My Snacks-ins" };
+	String[] opciones = { "My Snack-ins" };
 	Integer[] image = { R.drawable.icon_snack, R.drawable.icon_snackx };
 	String tipo;
 	ImageView ImageSnack1 , ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,ImageSnack6;	
@@ -99,6 +100,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	private int previousTotal = 0;
 	private boolean loading = true;
 	private String id;	
+	private LifeGuard lifeGuards[] = new LifeGuard[6];
+	
 	public CustomViewPagerAdapter(Activity a) {
 		parentActivity = a;
 	}
@@ -311,9 +314,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	}
 
 	public class LoadProfileData extends AsyncTask<Void, Integer, Void> {
-
+		
 		int id;
-
 		String id_string;
 		String statusResponse = null;
 		String photoURL = null;
@@ -334,8 +336,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					URL myFileUrl = null;
 					try {
 						myFileUrl = new URL(ConstantValues.URL + photoURL);
-						HttpURLConnection conn = (HttpURLConnection) myFileUrl
-								.openConnection();
+						HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
 						conn.setDoInput(true);
 						conn.connect();
 						InputStream is = conn.getInputStream();
@@ -410,8 +411,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		}
 
 		@Override
-		public View getDropDownView(int position, View convertView,
-				ViewGroup parent) {
+		public View getDropDownView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			return getCustomView(position, convertView, parent);
 		}
@@ -472,9 +472,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		private String statusResponse = null;	
 		private StringBuilder stringBuilder = null;
 		private String idsnack = null, idproduct = null, iduser = null, pathPhoto = null;
-		String s1,s2,s3,s4,s5,s6;
 		Vector <String> z = new Vector<String>();
-
+		ImageView imageArray[] = {ImageSnack1,ImageSnack2,ImageSnack3,ImageSnack4,ImageSnack5,ImageSnack6};
 
 		@Override
 		protected Void doInBackground(Boolean... params) {
@@ -506,35 +505,23 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					statusResponse = SnackjsonObject.getString("status");
 				
 					if (Integer.parseInt(statusResponse)== 1) {
-						
 						/* Sin error */
 						SnackjsonArray = new JSONArray(SnackjsonObject.getString("datos"));
-						
 						for (int i = 0; i <= 5; i++) {
 							JSONObject jsonObject = SnackjsonArray.getJSONObject(i);					
 							pathPhoto = jsonObject.getString("rutafoto");
 							String urls = ConstantValues.URL+"/ws/productphoto/"+pathPhoto;
-							 z.add(urls);
-							 int mox = 1;
-							 mox += 1;
+							LifeGuard tmpLG = new LifeGuard();
+							tmpLG.setPath(urls);
+							tmpLG.setImage(imageArray[i]);
+							lifeGuards[i] = tmpLG;
+						}			
+						
+						for(int i = 0; i<=5; i++){
+							SnackImageLoad imageLoader = new SnackImageLoad();
+							imageLoader.execute(lifeGuards[i]);
 						}
-						
-						s1 = z.get(0) ;
-						s2 = z.get(1) ;
-						s3 = z.get(2) ;
-						s4 = z.get(3) ;
-						s5 = z.get(4) ;
-						s6 = z.get(5) ;		
-						
-
-																	
-						 LoadImageFromWebOperations(s1);
-						 LoadImageFromWebOperations2(s2);
-						 LoadImageFromWebOperations3(s3);
-						 LoadImageFromWebOperations4(s4);
-						 LoadImageFromWebOperations5(s5);
-						 LoadImageFromWebOperations6(s6);	
-						 			
+													
 					} else {
 						// Hubo un error
 					}
@@ -550,6 +537,10 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 			return null;
 		}
 		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+		}
 	}
 
 	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void> {
@@ -660,8 +651,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		public void onScrollStateChanged(AbsListView view, int scrollState) {
 		}
 
-		public void onScroll(AbsListView view, int firstVisibleItem,
-				int visibleItemCount, int totalItemCount) {
+		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 			if (loading) {
 				if (totalItemCount > previousTotal) {
 					loading = false;
@@ -677,108 +667,37 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		}
 	}
 	
+	public class SnackImageLoad extends AsyncTask<LifeGuard, Integer, Void>{
+		String tmp;
+		ImageView image;
+		Drawable d;
+		
+		@Override
+		protected Void doInBackground(LifeGuard... params) {
+			tmp = params[0].getPath();
+			image = params[0].getImage();
+			
+			try{
+				  InputStream is = (InputStream) new URL(tmp).getContent();
+		          d = Drawable.createFromStream(is, "src name");
+			}catch (Exception e) {
+				  System.out.println("Exc="+e);
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			if(d != null)
+				image.setImageDrawable(d);
+			else
+				image.setImageResource(R.drawable.product_empty);
+		}
+		
+	}
 	
-	  private Drawable LoadImageFromWebOperations(String draw){
-	         try
-	         {
-	             InputStream is = (InputStream) new URL(draw).getContent();
-	             Drawable d = Drawable.createFromStream(is, "src name");
-	             
-	             if(draw != null){
-	             ImageSnack1.setImageDrawable(d);
-	             }else 
-	             ImageSnack1.setImageResource(R.drawable.product_empty);
-	             return d;				
-	         }catch (Exception e) {
-	             System.out.println("Exc="+e);
-	             return null;
-	         }
-	     }	
-	  
-	  private Drawable LoadImageFromWebOperations2(String draw){
-	         try
-	         {
-	             InputStream is = (InputStream) new URL(draw).getContent();
-	             Drawable d = Drawable.createFromStream(is, "src name");
-	             if(draw != null){
-		             ImageSnack2.setImageDrawable(d);
-		             }else 
-		             ImageSnack2.setImageResource(R.drawable.product_empty);           
-	             return d;				
-	         }catch (Exception e) {
-	             System.out.println("Exc="+e);
-	             return null;
-	         }
-	     }	
-	  
-	  private Drawable LoadImageFromWebOperations3(String draw){
-	         try
-	         {
-	             InputStream is = (InputStream) new URL(draw).getContent();
-	             Drawable d = Drawable.createFromStream(is, "src name");
-	             if(draw != null){
-		             ImageSnack3.setImageDrawable(d);
-		             }else 
-		             ImageSnack3.setImageResource(R.drawable.product_empty);	           
-	             return d;				
-	         }catch (Exception e) {
-	             System.out.println("Exc="+e);
-	             return null;
-	         }
-	     }
-	  
-	  private Drawable LoadImageFromWebOperations4(String draw){
-	         try
-	         {
-	             InputStream is = (InputStream) new URL(draw).getContent();
-	             Drawable d = Drawable.createFromStream(is, "src name");
-	             if(draw != null){
-		             ImageSnack4.setImageDrawable(d);
-		             }else 
-		             ImageSnack4.setImageResource(R.drawable.product_empty);	           
-	             return d;				
-	         }catch (Exception e) {
-	             System.out.println("Exc="+e);
-	             return null;
-	         }
-	     }
-	  
-	  private Drawable LoadImageFromWebOperations5(String draw){
-	         try
-	         {
-	             InputStream is = (InputStream) new URL(draw).getContent();
-	             Drawable d = Drawable.createFromStream(is, "src name");
-	             if(draw != null){
-		             ImageSnack5.setImageDrawable(d);
-		             }else 
-		             ImageSnack5.setImageResource(R.drawable.product_empty);	           
-	             return d;				
-	         }catch (Exception e) {
-	             System.out.println("Exc="+e);
-	             return null;
-	         }
-	     }
-	  
-	  private Drawable LoadImageFromWebOperations6(String draw){
-	         try
-	         {
-	             InputStream is = (InputStream) new URL(draw).getContent();
-	             Drawable d = Drawable.createFromStream(is, "src name");
-	             if(draw != null){
-		             ImageSnack6.setImageDrawable(d);
-		             }else 
-		             ImageSnack6.setImageResource(R.drawable.product_empty);	           
-	             return d;				
-	         }catch (Exception e) {
-	             System.out.println("Exc="+e);
-	             return null;
-	         }
-	     }
-	  
-	  
-	  
-	  
-	  //Procces Asyc to PointsZone	  	 
+	//Procces Asyc to PointsZone	  	 
 	  public class pointZone extends AsyncTask<Boolean, Integer, Void> {
 		  
 		  	private String statusResponse = null;
@@ -789,8 +708,6 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		@Override
 		protected Void doInBackground(Boolean... params) {
 			try {
-
-
 				/* Prepare variables for remote data check */
 				HttpClient client = new DefaultHttpClient();
 				String postURL = ConstantValues.URL+ "/ws/ws-perfildetalleestadistica.php";
