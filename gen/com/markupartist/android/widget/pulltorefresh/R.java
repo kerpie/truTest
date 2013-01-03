@@ -135,7 +135,7 @@ public final class R {
         public static final int Content_images=0x7f0a0084;
         public static final int Layout_buttons=0x7f0a009c;
         public static final int Principal=0x7f0a007d;
-        public static final int Snack_name=0x7f0a00a6;
+        public static final int Snack_name=0x7f0a00a7;
         public static final int ambassador_content=0x7f0a005c;
         public static final int ambassador_imageView=0x7f0a005e;
         /**  Messages IDs 
@@ -145,7 +145,7 @@ public final class R {
         public static final int avatar_male=0x7f0a0041;
         public static final int backButton=0x7f0a000b;
         public static final int barcode_image_view=0x7f0a006d;
-        public static final int bottomPart=0x7f0a00ad;
+        public static final int bottomPart=0x7f0a00ae;
         public static final int box2=0x7f0a0012;
         public static final int button_next=0x7f0a0028;
         public static final int button_previous=0x7f0a0027;
@@ -179,12 +179,12 @@ public final class R {
         public static final int gender=0x7f0a0040;
         public static final int guide_views=0x7f0a0026;
         public static final int i_go_it=0x7f0a0069;
-        public static final int imageIcon=0x7f0a00a5;
+        public static final int imageIcon=0x7f0a00a6;
         public static final int imageTip=0x7f0a0067;
         public static final int inner_container=0x7f0a002a;
         public static final int launch_camera_button=0x7f0a007a;
         public static final int launch_product_query=0x7f0a0004;
-        public static final int leftPart=0x7f0a00ae;
+        public static final int leftPart=0x7f0a00af;
         public static final int loading_progress_bar=0x7f0a0047;
         public static final int login_button=0x7f0a002e;
         public static final int login_createUser_textView=0x7f0a0031;
@@ -200,7 +200,7 @@ public final class R {
         public static final int main_mainPart=0x7f0a0033;
         public static final int main_snackInButton=0x7f0a0034;
         public static final int main_textView=0x7f0a000c;
-        public static final int menu_settings=0x7f0a00b1;
+        public static final int menu_settings=0x7f0a00b2;
         public static final int meta_text_view=0x7f0a0075;
         public static final int meta_text_view_label=0x7f0a0074;
         public static final int new_inner_pre_snack_container=0x7f0a004a;
@@ -245,11 +245,11 @@ public final class R {
         public static final int profile_image_loader=0x7f0a0082;
         public static final int profile_scroll=0x7f0a007c;
         public static final int pseudo_actionBar=0x7f0a000a;
-        public static final int pull_to_refresh_header=0x7f0a00a0;
-        public static final int pull_to_refresh_image=0x7f0a00a2;
-        public static final int pull_to_refresh_progress=0x7f0a00a1;
-        public static final int pull_to_refresh_text=0x7f0a00a3;
-        public static final int pull_to_refresh_updated_at=0x7f0a00a4;
+        public static final int pull_to_refresh_header=0x7f0a00a1;
+        public static final int pull_to_refresh_image=0x7f0a00a3;
+        public static final int pull_to_refresh_progress=0x7f0a00a2;
+        public static final int pull_to_refresh_text=0x7f0a00a4;
+        public static final int pull_to_refresh_updated_at=0x7f0a00a5;
         public static final int quit=0x7f0a0005;
         public static final int ratingBar=0x7f0a004d;
         public static final int ratingBar_snackin_activity=0x7f0a0063;
@@ -268,7 +268,7 @@ public final class R {
         public static final int result_button_view=0x7f0a0078;
         public static final int result_view=0x7f0a006c;
         public static final int return_scan_result=0x7f0a0007;
-        public static final int rigthPart=0x7f0a00af;
+        public static final int rigthPart=0x7f0a00b0;
         public static final int search_book_contents_failed=0x7f0a0008;
         public static final int search_book_contents_succeeded=0x7f0a0009;
         public static final int snackFive=0x7f0a009a;
@@ -285,7 +285,7 @@ public final class R {
         public static final int snacks_views=0x7f0a0093;
         public static final int spinner_snacks=0x7f0a0092;
         public static final int splash_screen_footer=0x7f0a0049;
-        public static final int splash_screen_progressBar=0x7f0a00a7;
+        public static final int splash_screen_progressBar=0x7f0a00a8;
         public static final int status_view=0x7f0a0079;
         public static final int time_text_view=0x7f0a0073;
         public static final int time_text_view_label=0x7f0a0072;
@@ -297,17 +297,18 @@ public final class R {
         public static final int totalSnacks=0x7f0a0062;
         public static final int type_text_view=0x7f0a0071;
         public static final int type_text_view_label=0x7f0a0070;
-        public static final int upperPart=0x7f0a00a9;
+        public static final int upperPart=0x7f0a00aa;
         public static final int user_name=0x7f0a007e;
         public static final int username_editText=0x7f0a0038;
         public static final int viewfinder_view=0x7f0a006b;
         public static final int visible_pass_editText=0x7f0a003d;
-        public static final int wall_item_product_photo=0x7f0a00b0;
-        public static final int wall_item_product_text=0x7f0a00ac;
+        public static final int wall_item_product_photo=0x7f0a00b1;
+        public static final int wall_item_product_text=0x7f0a00ad;
         public static final int wall_item_profile_photo=0x7f0a0064;
-        public static final int wall_item_snack_text=0x7f0a00ab;
-        public static final int wall_item_username_text=0x7f0a00aa;
-        public static final int wall_list=0x7f0a00a8;
+        public static final int wall_item_snack_text=0x7f0a00ac;
+        public static final int wall_item_username_text=0x7f0a00ab;
+        public static final int wall_list=0x7f0a00a9;
+        public static final int x=0x7f0a00a0;
     }
     public static final class layout {
         public static final int activity_detail_snackin=0x7f030000;
