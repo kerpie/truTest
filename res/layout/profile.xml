@@ -333,7 +333,7 @@
                     android:clickable="true"
                     android:text="Send feedback"
                     android:textColor="#F00F" />
-<<<<<<< HEAD
+
 
                 <TextView
                     android:id="@+id/x"
@@ -353,17 +353,4 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-22dp"
         android:src="@drawable/splashscreen_footer" />
-
-=======
-            </RelativeLayout>                     
-        </RelativeLayout>        
-    </ScrollView>   
-    <ImageView
-		android:id="@+id/footer"
-		android:layout_width="1200dp"
-		android:layout_height="56dp"
-		android:layout_below="@+id/profile_scroll"
-		android:src="@drawable/splashscreen_footer"
-		android:layout_marginTop="-30dp" />
->>>>>>> da08b2e88c24e73ef1a95374691b4a8aad93dc8f
 </RelativeLayout>
