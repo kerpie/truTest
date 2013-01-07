@@ -64,6 +64,7 @@ public class DetailSnackin extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_detail_snackin);
 		productPhoto = (ImageView) findViewById(R.id.postSnack_product_image);
+<<<<<<< HEAD
 		productName = (TextView) findViewById(R.id.postSnack_product_name);
 		productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
 		productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
@@ -90,11 +91,27 @@ public class DetailSnackin extends Activity {
 		}
 
 		backButton.setOnClickListener(new View.OnClickListener() {
+=======
+        productName = (TextView) findViewById(R.id.postSnack_product_name);
+        productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
+        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
+        
+        ambassadorPhoto = (ImageView) findViewById(R.id.postSnackin_ambassador_image);
+        ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);
+        
+        discovererPhoto = (ImageView) findViewById(R.id.postSnackin_discoverer_image);
+        discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);
+        
+        backButton = (Button)findViewById(R.id.backButton);
+        
+    	backButton.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 856fd8a63bc83cb3ac9788322092f94a4d708762
 			public void onClick(View v) {
 				finish();
 			}
 		});
 	}
+<<<<<<< HEAD
 
 	public void decodeFile(String filePath, ImageView image) {
 		// Decode image size
@@ -118,5 +135,7 @@ public class DetailSnackin extends Activity {
 		}
 
 	}
+=======
+>>>>>>> 856fd8a63bc83cb3ac9788322092f94a4d708762
 
 }

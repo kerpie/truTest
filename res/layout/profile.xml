@@ -22,7 +22,6 @@
                 android:layout_alignTop="@+id/Principal"
                 android:background="@layout/bg_gradiente_green"
                 android:padding="2dp" >
-
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
@@ -33,7 +32,6 @@
                     android:textColor="#fff"
                     android:textStyle="bold" />
             </RelativeLayout>
-
             <LinearLayout
                 android:id="@+id/ContentOne"
                 android:layout_width="match_parent"
@@ -217,28 +215,23 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="5dp" >
-
                         <ImageView
                             android:id="@+id/snackOne"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_weight="1"
-                            android:background="@drawable/photo_background_cut"
-                            android:padding="5dp"
+                            android:background="@drawable/snack_background"
                             android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
-
                         <ImageView
                             android:id="@+id/snack_Two"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/photo_background_cut"
                             android:scaleType="centerCrop"
-                            android:padding="5dp"
+                            android:background="@drawable/snack_background"
                             android:src="@drawable/product_empty" />
-
                         <ImageView
                             android:id="@+id/snackThree"
                             android:layout_width="0dp"
@@ -246,11 +239,9 @@
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:scaleType="centerCrop"
-                            android:background="@drawable/photo_background_cut"
-                            android:padding="5dp"
+                            android:background="@drawable/snack_background"
                             android:src="@drawable/product_empty" />
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/snacks_Two"
                         android:layout_width="match_parent"
@@ -258,35 +249,32 @@
                         android:layout_below="@+id/snacks_Uno"
                         android:orientation="horizontal"
                         android:padding="5dp" >
-
                         <ImageView
                             android:id="@+id/snackFour"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_weight="1"
-                            android:background="@drawable/photo_background_cut"
+                            android:background="@drawable/snack_background"
                             android:padding="5dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
-
                         <ImageView
                             android:id="@+id/snackFive"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/photo_background_cut"
+                            android:background="@drawable/snack_background"
                             android:padding="5dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
-
                         <ImageView
                             android:id="@+id/snackSix"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/photo_background_cut"
+                            android:background="@drawable/snack_background"
                             android:padding="5dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/product_empty" />
@@ -333,6 +321,7 @@
                     android:clickable="true"
                     android:text="Send feedback"
                     android:textColor="#F00F" />
+<<<<<<< HEAD
 
 
                 <TextView
@@ -353,4 +342,15 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-22dp"
         android:src="@drawable/splashscreen_footer" />
+=======
+            </RelativeLayout>                     
+        </RelativeLayout>        
+    </ScrollView>
+    <ImageView
+		android:id="@+id/footer"
+		android:layout_width="1200dp"
+		android:layout_height="56dp"
+		android:layout_below="@+id/profile_scroll"
+		android:src="@drawable/splashscreen_footer"/>   
+>>>>>>> 856fd8a63bc83cb3ac9788322092f94a4d708762
 </RelativeLayout>

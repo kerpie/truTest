@@ -55,6 +55,7 @@ import android.support.v4.view.ViewPager;
 import android.text.InputFilter.LengthFilter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
@@ -127,8 +128,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		int resId = 0;
 		context = container.getContext();
-		session = container.getContext().getSharedPreferences(
-				ConstantValues.USER_DATA, 0);
+		session = container.getContext().getSharedPreferences(ConstantValues.USER_DATA, 0);
 		switch (position) {
 		case 0:
 			loadWallActivity = new LoadWallActivity();
@@ -139,65 +139,47 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 			wall_list.setOnScrollListener(new EndlessScroll());
 
-			((PullToRefreshListView) wall_list)
-					.setOnRefreshListener(new OnRefreshListener() {
-						public void onRefresh() {
-							if (ConstantValues.getConnectionStatus(context)) {
-								// Do work to refresh the list here.
-								if (loadWallActivity.getStatus() == AsyncTask.Status.RUNNING) {
-									Toast.makeText(context,
-											"It's already refreshing...",
-											Toast.LENGTH_SHORT).show();
-								} else {
-									if (loadWallActivity.getStatus() == AsyncTask.Status.FINISHED) {
-										loadWallActivity = new LoadWallActivity();
-									}
-									loadWallActivity.execute(true);
-								}
-							} else {
-								Toast.makeText(
-										context,
-										"Looks like you have no connection, please check it and try again",
-										Toast.LENGTH_SHORT).show();
-							}
-						}
-					});
-
-			wall_list.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
+			((PullToRefreshListView) wall_list).setOnRefreshListener(new OnRefreshListener() {
+				public void onRefresh() {
 					if (ConstantValues.getConnectionStatus(context)) {
-						// Do work to refresh the list here.
-				/*		Toast.makeText(
-								context,
-								"Click" +id,
-								Toast.LENGTH_SHORT).show();
-						Intent intentx = new Intent(context,
-								DetailSnackin.class);
-						
-						((Activity) view.getContext()).startActivityForResult(
-								intentx, 100);
-						*/
-						new LoadWallActivity().execute(false);
+						//Do work to refresh the list here.
+						if (loadWallActivity.getStatus() == AsyncTask.Status.RUNNING) {
+							Toast.makeText(context,	"It's already refreshing...", Toast.LENGTH_SHORT).show();
+						} else {
+							if (loadWallActivity.getStatus() == AsyncTask.Status.FINISHED) {
+								loadWallActivity = new LoadWallActivity();
+							}
+							loadWallActivity.execute(true);
+						}
 					} else {
-						Toast.makeText(
-								context,
-								"Looks like you have no connection, please check it and try again",
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText( context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
 					}
 				}
 			});
 
+			wall_list.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					if (ConstantValues.getConnectionStatus(context)) {
+						// Do work to refresh the list here.
+					 /* Toast.makeText( context, "Click" +id, Toast.LENGTH_SHORT).show();
+						Intent intentx = new Intent(context, DetailSnackin.class);
+						((Activity) view.getContext()).startActivityForResult(intentx, 100); */
+						new LoadWallActivity().execute(false);
+					} else {
+						Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+			
+			wall_list.setItemsCanFocus(true);
+			
 			adapter = new LazyAdapter();
 			new_inflater = inflater;
 
 			if (ConstantValues.getConnectionStatus(context)) {
 				new LoadWallActivity().execute(false);
 			} else {
-				Toast.makeText(
-						context,
-						"Looks like you have no connection, please check it and try again",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case 1:
@@ -294,8 +276,6 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		o2.inSampleSize = scale;
 		bitmap = BitmapFactory.decodeFile(filePath, o2);
 		profile_image.setImageBitmap(ConstantValues.makeItCircular(bitmap));
-
-		
 	}
 
 	@Override
@@ -378,11 +358,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		protected void onPostExecute(Void result) {
 			id = Integer.valueOf(id_string);
 			if (bitmap != null) {
-				profile_image.setImageBitmap(ConstantValues
-						.makeItCircular(bitmap));
+				profile_image.setImageBitmap(ConstantValues.makeItCircular(bitmap));
 				try {
-					profileImagePath = session.getString(
-							"user_external_image_path", "");
+					profileImagePath = session.getString("user_external_image_path", "");
 					File directory = new File(profileImagePath);
 					FileOutputStream outStream;
 					outStream = new FileOutputStream(directory);
@@ -429,7 +407,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			;
+			
 			View row = inflater.inflate(R.layout.row, parent, false);
 			TextView label = (TextView) row.findViewById(R.id.Snack_name);
 			label.setText(opciones[position]);
@@ -545,7 +523,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void> {
 
-		StringBuilder stringBuilder = null;
+		StringBuilder lwa_stringBuilder = null;
 		String statusResponse = null;
 		String id_string = null;
 		JSONArray tmpJsonArray = null;
@@ -575,8 +553,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					param.add(new BasicNameValuePair("total", "0"));
 					previousTotal = 0;
 				} else {
-					param.add(new BasicNameValuePair("total", String
-							.valueOf(jsonArray.length())));
+					param.add(new BasicNameValuePair("total", String.valueOf(jsonArray.length())));
 				}
 
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
@@ -587,18 +564,24 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				if (status.getStatusCode() == HttpStatus.SC_OK) {
 					HttpEntity entity = responsePOST.getEntity();
 					InputStream inputStream = entity.getContent();
-					BufferedReader reader = new BufferedReader(
-							new InputStreamReader(inputStream));
+					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 					String line = null;
-					stringBuilder = new StringBuilder();
+					lwa_stringBuilder = new StringBuilder();
 					while ((line = reader.readLine()) != null) {
-						stringBuilder.append(line);
+						lwa_stringBuilder.append(line);
 					}
 					if (firstTime){
+<<<<<<< HEAD
 						jsonArray = new JSONArray(stringBuilder.toString());
 					}
 					else {
 						tmpJsonArray = new JSONArray(stringBuilder.toString());
+=======
+						jsonArray = new JSONArray(lwa_stringBuilder.toString());
+					}
+					else {
+						tmpJsonArray = new JSONArray(lwa_stringBuilder.toString());
+>>>>>>> 856fd8a63bc83cb3ac9788322092f94a4d708762
 						/* agregar nuevo json al antiguo */
 						for (int k = 0; k < tmpJsonArray.length(); k++) {
 							jsonArray.put(tmpJsonArray.get(k));

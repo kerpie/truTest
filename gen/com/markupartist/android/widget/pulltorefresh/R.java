@@ -114,18 +114,19 @@ public final class R {
         public static final int rating_bar=0x7f02003d;
         public static final int rating_bar_mini=0x7f02003e;
         public static final int rectangulo=0x7f02003f;
-        public static final int snacked=0x7f020040;
-        public static final int splashscreen_bg=0x7f020041;
-        public static final int splashscreen_footer=0x7f020042;
-        public static final int splashscreen_logo=0x7f020043;
-        public static final int star_empty=0x7f020044;
-        public static final int star_empty_mini=0x7f020045;
-        public static final int star_full=0x7f020046;
-        public static final int star_full_mini=0x7f020047;
-        public static final int text_background_green=0x7f020048;
-        public static final int text_background_purple=0x7f020049;
-        public static final int text_background_red=0x7f02004a;
-        public static final int textoambassador=0x7f02004b;
+        public static final int snack_background=0x7f020040;
+        public static final int snacked=0x7f020041;
+        public static final int splashscreen_bg=0x7f020042;
+        public static final int splashscreen_footer=0x7f020043;
+        public static final int splashscreen_logo=0x7f020044;
+        public static final int star_empty=0x7f020045;
+        public static final int star_empty_mini=0x7f020046;
+        public static final int star_full=0x7f020047;
+        public static final int star_full_mini=0x7f020048;
+        public static final int text_background_green=0x7f020049;
+        public static final int text_background_purple=0x7f02004a;
+        public static final int text_background_red=0x7f02004b;
+        public static final int textoambassador=0x7f02004c;
     }
     public static final class id {
         public static final int Background_snackin=0x7f0a005a;
@@ -317,8 +318,8 @@ public final class R {
         public static final int activity_login=0x7f030003;
         public static final int activity_main=0x7f030004;
         public static final int activity_new_user_registration=0x7f030005;
-        public static final int activity_post_snackin=0x7f030006;
-        public static final int activity_pre_snackin=0x7f030007;
+        public static final int activity_pre_snackin=0x7f030006;
+        public static final int activity_product_description=0x7f030007;
         public static final int activity_register=0x7f030008;
         public static final int activity_snackin=0x7f030009;
         public static final int activity_tip_camera=0x7f03000a;

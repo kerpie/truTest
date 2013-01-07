@@ -193,8 +193,6 @@ public class PreSnackin extends Activity {
 		
 		image.setClickable(true);
 		
-		
-		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Pick image from");
 		LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
