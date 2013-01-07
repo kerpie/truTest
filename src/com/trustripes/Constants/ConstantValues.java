@@ -32,8 +32,6 @@ public class ConstantValues {
 	/* For Session Status */
 	public static final String USER_DATA = "UserDataPreferences";
 	
-
-
 	public static final int[] developmentIds = {1,2,3,5,6,7,8,28,42,46,73,75,76,78,79,80,83,84,85,88,89,90};
 
 	

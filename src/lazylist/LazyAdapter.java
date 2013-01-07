@@ -1,11 +1,15 @@
 package lazylist;
 
+import java.util.Random;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.trustripes.Constants.ConstantValues;
+import com.trustripes.principal.ProductDescription;
 import com.trustripes.principal.R;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -15,12 +19,15 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LazyAdapter extends BaseAdapter {
     
@@ -60,6 +67,7 @@ public class LazyAdapter extends BaseAdapter {
     
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
+        final int my_position = position;
         if(convertView==null)
             vi = inflater.inflate(R.layout.wall_item, null);
         
@@ -95,7 +103,7 @@ public class LazyAdapter extends BaseAdapter {
 	        	paint.setXfermode(null);
 	        	profilePhoto.setImageBitmap(result);  
 	        } 
-	        
+	                
 	        /* Uncomment when json gives real data */
 	        //snack_count.setText(jsonObject.getString("totalSnackin"));
 	        snack_count.setText("1");
@@ -106,13 +114,23 @@ public class LazyAdapter extends BaseAdapter {
 	        else
 	        	new_name = jsonObject.getString("username");
 	        username.setText(new_name + " snacked in " + jsonObject.getString("productname"));
-	        
+
 	        //product.setText(jsonObject.getString("productname"));
+	        final String idProduct = jsonObject.getString("idproduct");
 	        
-	        String idProduct = jsonObject.getString("idproduct");
 			String photo = jsonObject.getString("photo");
 			String tmp = ConstantValues.URL+"/ws/productphoto/"+idProduct+"/thumbnails/"+photo;
 	        imageLoader.DisplayImage(tmp, image, false);
+	        
+	        image.setClickable(true);
+	        image.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					Intent intent = new Intent(inflater.getContext(), ProductDescription.class);
+					intent.putExtra("PRODUCT_ID", idProduct);
+					inflater.getContext().startActivity(intent);
+				}
+			});
+	        
         }catch(Exception e){
         }
         return vi;

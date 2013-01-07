@@ -84,16 +84,16 @@
                     android:layout_height="150dp"
                     android:adjustViewBounds="true"
           			android:scaleType="centerCrop"
-                    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" 
-                    />
+                    android:contentDescription="@string/splashScreen_imgView_footer_contentDescription" />
 		        <TextView
 		            android:id="@+id/totalSnacks"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
+		            android:layout_width="30dp"
+		            android:layout_height="35dp"
 		            android:layout_gravity="top|right"
-		            android:padding="8dp"
+		            android:paddingTop="4dp"
+		            android:gravity="center_horizontal"
 		            android:text="20"
-		            android:background="#FFFF0000"
+		            android:background="@drawable/rectangulo"
 		            android:textColor="#FFFFFFFF"
 		            android:textSize="16dp"
 		            android:textStyle="bold" />

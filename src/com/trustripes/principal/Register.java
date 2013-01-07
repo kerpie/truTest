@@ -129,7 +129,7 @@ public class Register extends Activity {
 		if(savedInstanceState != null){
 			String savedPath = savedInstanceState.getString("ImagePath");
 			if(!(savedPath.isEmpty())){
-				decodeFile(savedPath);
+				decodeFile(savedPath, 200, 200);
 			}
 			else{
 				//Toast.makeText(Register.this, "Vacio", Toast.LENGTH_SHORT).show();
@@ -490,7 +490,7 @@ public class Register extends Activity {
 						}
 	
 						if (filePath != null) {
-							decodeFile(filePath);
+							decodeFile(filePath, 200, 200);
 							finalImagePath = filePath;
 						} else {
 							bitmap = null;
@@ -508,7 +508,7 @@ public class Register extends Activity {
 						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
 						bitmap = captureBmp;
 						finalImagePath = file.getAbsolutePath();	
-						decodeFile(finalImagePath);
+						decodeFile(finalImagePath,200,200);
 						lastfinalImagePath = finalImagePath;					
 						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
 					} catch (FileNotFoundException e) {
@@ -534,24 +534,43 @@ public class Register extends Activity {
 			return null;
 	}
 	
-	public void decodeFile(String filePath) {
-		// Decode image size
+	public void decodeFile(String filePath, int requiredHeight, int requiredWidth) {
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(filePath, o);
-
-		// Find the correct scale value. It should be the power of 2.
-//		int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		int scale = 4;
-
-		// Decode with inSampleSize
-		BitmapFactory.Options o2 = new BitmapFactory.Options();
-		o2.inSampleSize = scale;
-		bitmap = BitmapFactory.decodeFile(filePath, o2);
+		BitmapFactory.decodeFile(filePath,o);
+		int scale = 0;
+		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
+			if(o.outWidth > o.outHeight){
+				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
+			}else{
+				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
+			}
+		}
+		
+		o = new BitmapFactory.Options();
+		o.inSampleSize = scale;
+		o.inJustDecodeBounds = false;
+		bitmap = BitmapFactory.decodeFile(filePath, o);		
+		finalImagePath = filePath;		
 		photo.setImageBitmap(bitmap);
-		//TESTING RECYCLE
-		//bitmap.recycle();
-		//bitmap = null;
+		
+//		// Decode image size
+//		BitmapFactory.Options o = new BitmapFactory.Options();
+//		o.inJustDecodeBounds = true;
+//		BitmapFactory.decodeFile(filePath, o);
+//
+//		// Find the correct scale value. It should be the power of 2.
+////		int width_tmp = o.outWidth, height_tmp = o.outHeight;
+//		int scale = 4;
+//
+//		// Decode with inSampleSize
+//		BitmapFactory.Options o2 = new BitmapFactory.Options();
+//		o2.inSampleSize = scale;
+//		bitmap = BitmapFactory.decodeFile(filePath, o2);
+//		photo.setImageBitmap(bitmap);
+//		//TESTING RECYCLE
+//		//bitmap.recycle();
+//		//bitmap = null;
 	}
 
 	private File getTempFile(){

@@ -46,20 +46,6 @@ public class DetailSnackin extends Activity {
         discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);
         
         backButton = (Button)findViewById(R.id.backButton);
-       
-     /*   intent = getIntent();
-        imagePath = intent.getStringExtra("PRODUCT_PATH");
-        productId = intent.getStringExtra("PRODUCT_ID");        
-        stringProductName = intent.getStringExtra("PRODUCT_NAME");
-        ratingValue = intent.getStringExtra("PRODUCT_RANKING");
-        decodeFile(imagePath, productPhoto);
-        productName.setText(stringProductName);
-        
-        productRatingBar.setEnabled(false);
-        productRatingBar.setRating(Float.parseFloat(ratingValue));
-        
-        productCategoryName.setVisibility(View.GONE);
-        */
         
     	backButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -67,21 +53,5 @@ public class DetailSnackin extends Activity {
 			}
 		});
 	}
-	
-	
-    public void decodeFile(String filePath, ImageView image) {
- 		// Decode image size
- 		BitmapFactory.Options o = new BitmapFactory.Options();
- 		o.inJustDecodeBounds = true;
- 		BitmapFactory.decodeFile(filePath, o);
-
- 		int scale = 1;
-
- 		// Decode with inSampleSize
- 		BitmapFactory.Options o2 = new BitmapFactory.Options();
- 		o2.inSampleSize = scale;
- 		bitmap = BitmapFactory.decodeFile(filePath, o2);
- 		image.setImageBitmap(bitmap);
- 	}
 
 }
