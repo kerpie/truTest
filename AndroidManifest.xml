@@ -133,7 +133,7 @@
             android:label="@string/title_activity_post_snackin" >
         </activity>
         <activity
-            android:name=".DetailSnackin"
+            android:name=".PostSnackin"
             android:label="@string/title_activity_DetailSnackin" >
         </activity>
     </application>

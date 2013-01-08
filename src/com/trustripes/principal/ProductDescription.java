@@ -1,10 +1,15 @@
 package com.trustripes.principal;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +30,13 @@ import org.json.JSONObject;
 
 import com.trustripes.Constants.ConstantValues;
 import com.trustripes.Constants.LifeGuard;
+import com.trustripes.adapters.ItemAdapter;
 import com.trustripes.adapters.CustomViewPagerAdapter.SnackImageLoad;
+import com.trustripes.interfaces.ItemType;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,6 +45,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,12 +57,7 @@ public class ProductDescription extends Activity {
 	TextView productName;
 	TextView productCategoryName;
 	RatingBar productRatingBar;
-	
-	ImageView ambassadorPhoto;
-	TextView ambassadorName;
-	
-	ImageView discovererPhoto;
-	TextView discovererName;
+	ListView listData;
 	
 	String imagePath;
 	String productId;
@@ -62,6 +66,8 @@ public class ProductDescription extends Activity {
 	Intent intent;
 	
 	Bitmap bitmap;
+	
+	ArrayList<ItemType> list = new ArrayList<ItemType>();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,15 +78,10 @@ public class ProductDescription extends Activity {
         productName = (TextView) findViewById(R.id.postSnack_product_name);
         productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
         productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
+        listData = (ListView) findViewById(R.id.pd_data_listview);      
         
-        ambassadorPhoto = (ImageView) findViewById(R.id.postSnackin_ambassador_image);
-        ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);
-        
-        discovererPhoto = (ImageView) findViewById(R.id.postSnackin_discoverer_image);
-        discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);
-       
         intent = getIntent();
-        String productId = intent.getStringExtra("PRODUCT_ID");
+        productId = intent.getStringExtra("PRODUCT_ID");
                 
         productCategoryName.setVisibility(View.GONE);
         new ProductDetail().execute(productId);
@@ -96,14 +97,12 @@ public class ProductDescription extends Activity {
     	StringBuilder stringBuilder;
     	String statusResponse;
     	JSONObject SnackjsonObject;
-    	boolean gotInformation;
+    	boolean gotInformation = false;
     	
     	@Override
     	protected Void doInBackground(String... params) {
     		try {
-
     			String id = params[0];
-    			
 				/* Prepare variables for remote data check */
 				HttpClient client = new DefaultHttpClient();
 				String postURL = ConstantValues.URL+ "/ws/ws-productodetalle.php";
@@ -126,7 +125,7 @@ public class ProductDescription extends Activity {
 						stringBuilder.append(line);
 					}
 					SnackjsonObject = new JSONObject(stringBuilder.toString());
-					statusResponse = SnackjsonObject.getString("status=");
+					statusResponse = SnackjsonObject.getString("status");
 					if (Integer.parseInt(statusResponse)== 1) {
 						gotInformation = true;					
 					} else {
@@ -148,28 +147,81 @@ public class ProductDescription extends Activity {
     	protected void onPostExecute(Void result) {
     		super.onPostExecute(result);
     		if(gotInformation){
-    			try {
-    				discovererName.setText(SnackjsonObject.getString("descubridor"));
-    				String tmpAmbassadorName = SnackjsonObject.getString("embajador");
-    				if(tmpAmbassadorName == "false"){
-    					
-    					RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ambassadorName.getLayoutParams();
-    					params.setMargins(30, 10, 30, 10); //substitute parameters for left, top, right, bottom
-    					ambassadorName.setLayoutParams(params);
-    					ambassadorName.setText("This product doesn't have an ambassador yet. you can become "+ SnackjsonObject.getString("producto=") +"'s ambassador!");
-    					ambassadorPhoto.setVisibility(View.GONE);
-    				}
-    				else{
-    					ambassadorName.setText("Good Luck Kerry");
-    				}
-				} catch (JSONException e) {
-					Toast.makeText(getApplicationContext(), "We can't show information about this product at this time. Please, try again later", Toast.LENGTH_SHORT).show();
-	    			finish();
-				}
+    			try{
+	    			LifeGuard lg = new LifeGuard();
+	    			lg.setPath(SnackjsonObject.getString("fotoproducto"));
+	    			lg.setImage(productPhoto);
+	    			
+	    			new GetImage().execute(lg);
+	    			
+	    			productName.setText(SnackjsonObject.getString("producto"));
+	    			productRatingBar.setRating(Float.parseFloat(SnackjsonObject.getString("promedio")));
+	    			
+	    			if(Integer.parseInt(SnackjsonObject.getString("statusEmbajador")) == 1){
+	    				list.add(new HeaderItem("Embajador"));
+		    			list.add(new RegularItem(ConstantValues.URL + SnackjsonObject.getString("fotoembajador"), SnackjsonObject.getString("embajadorDisplay"), SnackjsonObject.getString("embajador") ));
+	    			}
+	    			else{
+	    				list.add(new MessageItem("Este producto no tiene embajador. \nTu puedes convertirte en el primero haciendo mas snackins"));
+	    			}
+	    			
+	    			list.add(new HeaderItem("Descubridor"));
+	    			list.add(new RegularItem(ConstantValues.URL + SnackjsonObject.getString("fotodescubridor"), SnackjsonObject.getString("descubridorDisplay"), SnackjsonObject.getString("descubridor")));
+	    			
+	    			list.add(new HeaderItem("Comentarios"));
+	    			
+	    			if(Integer.parseInt(SnackjsonObject.getString("statusComentarios")) == 1){
+	    				JSONArray array = new JSONArray(SnackjsonObject.getString("datosComentarios"));
+	    				for(int it = 0; it < array.length(); it++){
+	    					JSONObject obj = array.getJSONObject(it);
+	    					list.add(new RegularItem(ConstantValues.URL+"/public/user/"+obj.getString("user_id")+"newProfileImage.jpg", obj.getString("displayname") + obj.getString("username"), obj.getString("COMMENT")));
+	    				}
+	    			}
+	    			else{
+	    				list.add(new MessageItem("No existen comentarios para este producto"));
+	    			}
+	    			
+	    			ItemAdapter adapter = new ItemAdapter(getApplicationContext(), list);
+	    			listData.setAdapter(adapter);
+	    			
+    			}catch(JSONException e){}
     		}else{
     			Toast.makeText(getApplicationContext(), "We can't show information about this product at this time. Please, try again later", Toast.LENGTH_SHORT).show();
     			finish();
     		}
     	}
     }
+    
+    public class GetImage extends AsyncTask<LifeGuard, Void, Void>{
+    	
+    	LifeGuard lg;
+    	Bitmap bitmap;
+    	
+    	@Override
+    	protected Void doInBackground(LifeGuard... params) {
+    		
+    		lg = params[0];
+    		
+    		URL myFileUrl =null; 
+			try {  
+				myFileUrl= new URL(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+lg.getPath());
+				HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
+				conn.setDoInput(true);
+				conn.connect();
+				InputStream is = conn.getInputStream();
+				bitmap = BitmapFactory.decodeStream(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		
+    		return null;
+    	}
+    	
+    	@Override
+    	protected void onPostExecute(Void result) {
+    		super.onPostExecute(result);
+    		
+    		lg.getImage().setImageBitmap(bitmap);
+    	}
+    }    
 }

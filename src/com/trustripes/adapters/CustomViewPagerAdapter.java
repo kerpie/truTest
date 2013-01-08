@@ -21,7 +21,7 @@ import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.trustripes.Constants.ConstantValues;
 import com.trustripes.Constants.LifeGuard;
 
-import com.trustripes.principal.DetailSnackin;
+import com.trustripes.principal.PostSnackin;
 import com.trustripes.principal.NewUserRegistration;
 import com.trustripes.principal.R;
 

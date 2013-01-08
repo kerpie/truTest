@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class DetailSnackin extends Activity {
+public class PostSnackin extends Activity {
 	Button backButton;
 	ImageView productPhoto;
 	TextView productName;
@@ -32,7 +32,7 @@ public class DetailSnackin extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_detail_snackin);
+		setContentView(R.layout.activity_post_snackin);
 		
 		productPhoto = (ImageView) findViewById(R.id.postSnack_product_image);
         productName = (TextView) findViewById(R.id.postSnack_product_name);
