@@ -37,7 +37,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class DetailSnackin extends Activity {
+public class PostSnackin extends Activity {
 	Button backButton;
 	ImageView productPhoto;
 	TextView productName;
@@ -53,65 +53,27 @@ public class DetailSnackin extends Activity {
 	String ratingValue;
 	Intent intent;
 	Bitmap bitmap;
-	ArrayList<String> listr = new ArrayList<String>();
-	String jsonArray;
-	String idproductos;
-	Vector<String> vecPro = new Vector<String>();
-	String posi = null;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_detail_snackin);
-		productPhoto = (ImageView) findViewById(R.id.postSnack_product_image);
-<<<<<<< HEAD
-		productName = (TextView) findViewById(R.id.postSnack_product_name);
-		productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
-		productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
-		ambassadorPhoto = (ImageView) findViewById(R.id.postSnackin_ambassador_image);
-		ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);
-		discovererPhoto = (ImageView) findViewById(R.id.postSnackin_discoverer_image);
-		discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);
-		backButton = (Button) findViewById(R.id.backButton);
-		new LoadDetailSnackin().execute();
-		intent = getIntent();
-		jsonArray = intent.getStringExtra("jsonArray");
-		posi = intent.getStringExtra("va");
-		int y = 2;
-		y += 1;
-		try {
-			JSONArray array = new JSONArray(jsonArray);
-			for (int i = 0; i < array.length(); i++) {
-				JSONObject ip = array.getJSONObject(i);
-				idproductos = ip.getString("idproduct");
-				vecPro.add(idproductos);				
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		backButton.setOnClickListener(new View.OnClickListener() {
-=======
+		setContentView(R.layout.activity_post_snackin);
         productName = (TextView) findViewById(R.id.postSnack_product_name);
         productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
-        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
-        
+        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);        
         ambassadorPhoto = (ImageView) findViewById(R.id.postSnackin_ambassador_image);
-        ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);
-        
+        ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);        
         discovererPhoto = (ImageView) findViewById(R.id.postSnackin_discoverer_image);
-        discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);
-        
+        discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);       
         backButton = (Button)findViewById(R.id.backButton);
         
     	backButton.setOnClickListener(new View.OnClickListener() {
->>>>>>> 856fd8a63bc83cb3ac9788322092f94a4d708762
 			public void onClick(View v) {
 				finish();
 			}
 		});
 	}
-<<<<<<< HEAD
+
 
 	public void decodeFile(String filePath, ImageView image) {
 		// Decode image size
@@ -135,7 +97,6 @@ public class DetailSnackin extends Activity {
 		}
 
 	}
-=======
->>>>>>> 856fd8a63bc83cb3ac9788322092f94a4d708762
+
 
 }

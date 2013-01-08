@@ -36,6 +36,7 @@ import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -60,7 +61,7 @@ public class ProductDescription extends Activity {
 	String stringProductName;
 	String ratingValue;
 	Intent intent;
-	
+	Button backButton;
 	Bitmap bitmap;
 	
     @Override
@@ -71,20 +72,31 @@ public class ProductDescription extends Activity {
         productPhoto = (ImageView) findViewById(R.id.postSnack_product_image);
         productName = (TextView) findViewById(R.id.postSnack_product_name);
         productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
-        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
-        
+        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);     
         ambassadorPhoto = (ImageView) findViewById(R.id.postSnackin_ambassador_image);
-        ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);
-        
+        ambassadorName = (TextView) findViewById(R.id.postSnackin_ambassador_name);     
         discovererPhoto = (ImageView) findViewById(R.id.postSnackin_discoverer_image);
         discovererName = (TextView) findViewById(R.id.postSnackin_discoverer_name);
+        backButton = (Button)findViewById(R.id.backButton);
+        
+        productRatingBar.setEnabled(false);
+        
+    	backButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				finish();
+			}
+		});
        
         intent = getIntent();
-        String productId = intent.getStringExtra("PRODUCT_ID");
-                
+        String productId = intent.getStringExtra("PRODUCT_ID");                
         productCategoryName.setVisibility(View.GONE);
         new ProductDetail().execute(productId);
+        
+        
+        
     }
+    
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,7 +138,7 @@ public class ProductDescription extends Activity {
 						stringBuilder.append(line);
 					}
 					SnackjsonObject = new JSONObject(stringBuilder.toString());
-					statusResponse = SnackjsonObject.getString("status=");
+					statusResponse = SnackjsonObject.getString("status");
 					if (Integer.parseInt(statusResponse)== 1) {
 						gotInformation = true;					
 					} else {
@@ -156,11 +168,11 @@ public class ProductDescription extends Activity {
     					RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ambassadorName.getLayoutParams();
     					params.setMargins(30, 10, 30, 10); //substitute parameters for left, top, right, bottom
     					ambassadorName.setLayoutParams(params);
-    					ambassadorName.setText("This product doesn't have an ambassador yet. you can become "+ SnackjsonObject.getString("producto=") +"'s ambassador!");
+    					ambassadorName.setText("This product doesn't have an ambassador yet. you can become "+ SnackjsonObject.getString("producto") +"'s ambassador!");
     					ambassadorPhoto.setVisibility(View.GONE);
     				}
     				else{
-    					ambassadorName.setText("Good Luck Kerry");
+    					ambassadorName.setText(tmpAmbassadorName);
     				}
 				} catch (JSONException e) {
 					Toast.makeText(getApplicationContext(), "We can't show information about this product at this time. Please, try again later", Toast.LENGTH_SHORT).show();
