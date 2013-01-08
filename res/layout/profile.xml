@@ -12,8 +12,8 @@
         <RelativeLayout
             android:id="@+id/Principal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:paddingBottom="20dp">
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp" >
 
             <RelativeLayout
                 android:id="@+id/pseudo_actionBar"
@@ -22,6 +22,7 @@
                 android:layout_alignTop="@+id/Principal"
                 android:background="@layout/bg_gradiente_green"
                 android:padding="2dp" >
+
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
@@ -32,14 +33,14 @@
                     android:textColor="#fff"
                     android:textStyle="bold" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/ContentOne"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/pseudo_actionBar"
-                android:layout_centerHorizontal="true"
-                 >
-
+                android:layout_centerHorizontal="true" >
+
                 <FrameLayout
                     android:id="@+id/profile_image_box"
                     android:layout_width="0dp"
@@ -48,12 +49,11 @@
 
                     <ImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="120dp"
+                        android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
-                        android:padding="3dp"
-                         />
+                        android:padding="3dp" />
 
                     <ProgressBar
                         android:id="@+id/profile_image_loader"
@@ -70,23 +70,19 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_toRightOf="@+id/profile_image_box"
                     android:layout_weight="2"
-                    android:gravity="center_vertical"
-                     >
+                    android:gravity="center_vertical" >
 
                     <RelativeLayout
                         android:id="@+id/Content_images"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        
-                         >
+                        android:layout_centerInParent="true" >
 
                         <FrameLayout
                             android:id="@+id/father_ambassador"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="5dp"
-                             >
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/pic_ambassador"
@@ -95,14 +91,14 @@
                                 android:src="@drawable/pic_ambassadorm" />
 
                             <TextView
-                                android:id="@+id/totalAmbassador"                               
+                                android:id="@+id/totalAmbassador"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="top|right"
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="14dp"
                                 android:background="@drawable/rectangulo"
-                                android:gravity="center"                               
+                                android:gravity="center"
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -112,8 +108,8 @@
                             android:id="@+id/father_discoverer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/father_ambassador" 
-                            android:padding="5dp">
+                            android:layout_toRightOf="@+id/father_ambassador"
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/pic_discovererm"
@@ -139,8 +135,8 @@
                             android:id="@+id/father_snack"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/father_ambassador" 
-                            android:padding="5dp">
+                            android:layout_below="@+id/father_ambassador"
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/pic_smackm"
@@ -156,7 +152,7 @@
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="12dp"
                                 android:background="@drawable/rectangulo"
-                                android:gravity="center"                    
+                                android:gravity="center"
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -167,8 +163,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/father_discoverer"
-                            android:layout_toRightOf="@+id/father_snack" 
-                            android:padding="5dp">
+                            android:layout_toRightOf="@+id/father_snack"
+                            android:padding="5dp" >
 
                             <ImageView
                                 android:id="@+id/pic_badgesm"
@@ -176,7 +172,7 @@
                                 android:layout_height="70dp"
                                 android:src="@drawable/pic_badgesm" />
 
-                          <TextView
+                            <TextView
                                 android:id="@+id/totalBadged"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
@@ -184,7 +180,7 @@
                                 android:layout_marginRight="3dp"
                                 android:layout_marginTop="12dp"
                                 android:background="@drawable/rectangulo"
-                                android:gravity="center"                               
+                                android:gravity="center"
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
@@ -210,90 +206,190 @@
 
                 <RelativeLayout
                     android:id="@+id/snacks_views"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_snacks"
                     android:layout_centerHorizontal="true" >
 
                     <LinearLayout
-                        android:id="@+id/snacks_Uno"
+                        android:id="@+id/LinearOne"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="5dp" >
-                        <ImageView
-                            android:id="@+id/snackOne"
+                        android:layout_centerHorizontal="true" >
+
+                        <FrameLayout
+                            android:id="@+id/frame_box1"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/snack_background"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
-                        <ImageView
-                            android:id="@+id/snack_Two"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snackOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackOne_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frame_box2"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:background="@drawable/snack_background"
-                            android:src="@drawable/product_empty" />
-                        <ImageView
-                            android:id="@+id/snackThree"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box1"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snack_Two"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackTwo_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frame_box3"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:background="@drawable/snack_background"
-                            android:src="@drawable/product_empty" />
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box2"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snackThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackThree_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:id="@+id/snacks_Two"
+                        android:id="@+id/LinearTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/snacks_Uno"
-                        android:orientation="horizontal"
-                        android:padding="5dp" >
-                        <ImageView
-                            android:id="@+id/snackFour"
+                        android:layout_below="@+id/LinearOne"
+                        android:layout_centerHorizontal="true" >
+
+                        <FrameLayout
+                            android:id="@+id/frame_box4"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/snack_background"
-                            android:padding="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
-                        <ImageView
-                            android:id="@+id/snackFive"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/frame_box1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snackFour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackFour_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frame_box5"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/frame_box2"
                             android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/snack_background"
-                            android:padding="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
-                        <ImageView
-                            android:id="@+id/snackSix"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box4"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snackFive"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackFive_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frame_box6"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/frame_box3"
                             android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/snack_background"
-                            android:padding="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box5"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snackSix"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackSix_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
                     </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/Layout_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ContentTwo"
-                android:layout_marginTop="10dp"
-                android:id="@+id/Layout_buttons" >
+                android:layout_marginTop="10dp" >
 
                 <Button
                     android:id="@+id/logout_button"
@@ -323,18 +419,21 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/edit_profile_button"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="50dp"
                     android:layout_marginTop="20dp"
                     android:clickable="true"
                     android:text="Send feedback"
                     android:textColor="#F00F" />
-            </RelativeLayout>                     
-        </RelativeLayout>        
+            </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
+    <!--
     <ImageView
-		android:id="@+id/footer"
-		android:layout_width="1200dp"
-		android:layout_height="56dp"
-		android:layout_below="@+id/profile_scroll"
-		android:src="@drawable/splashscreen_footer"/>   
+        android:id="@+id/footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-15dp"
+        android:src="@drawable/splashscreen_footer" 
+        android:layout_below="@+id/profile_scroll"/>
+    -->
+
 </RelativeLayout>

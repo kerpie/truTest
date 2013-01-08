@@ -79,6 +79,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	String tipo;
 	ImageView ImageSnack1 , ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,ImageSnack6;	
 	TextView t1,t2,t3,t4;
+	ProgressBar loadingImageSnack = null ,loadingImageSnack2 = null,loadingImageSnack3 = null,loadingImageSnack4 = null,loadingImageSnack5 = null,loadingImageSnack6= null;
 	Boolean Points;	
 	String url;
 	View view;
@@ -196,7 +197,13 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 			ImageSnack3 = (ImageView) view.findViewById(R.id.snackThree);
 			ImageSnack4 = (ImageView) view.findViewById(R.id.snackFour);
 			ImageSnack5 = (ImageView) view.findViewById(R.id.snackFive);
-			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);	 				 
+			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);	
+			loadingImageSnack = (ProgressBar) view.findViewById(R.id.snackOne_image_loader);
+			loadingImageSnack2 = (ProgressBar) view.findViewById(R.id.snackTwo_image_loader);
+			loadingImageSnack3 = (ProgressBar) view.findViewById(R.id.snackThree_image_loader);
+			loadingImageSnack4 = (ProgressBar) view.findViewById(R.id.snackFour_image_loader);
+			loadingImageSnack5 = (ProgressBar) view.findViewById(R.id.snackFive_image_loader);
+			loadingImageSnack6 = (ProgressBar) view.findViewById(R.id.snackSix_image_loader);
 			t1 = (TextView) view.findViewById(R.id.totalAmbassador);
 			t2 = (TextView) view.findViewById(R.id.totalDiscoverer);
 			t3 = (TextView) view.findViewById(R.id.totalSnackImage);
@@ -310,44 +317,20 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 		@Override
 		protected Void doInBackground(Void... params) {
+			String photo=null;
 			try {
-				photoURL = session.getString("user_photo_url", "");
-				if (photoURL.length() >= 10) {
-					URL myFileUrl = null;
-					try {
+				photoURL = session.getString("user_photo_url", "");				
+				photoURL = ConstantValues.PhotoUrl(photoURL);
+				
+				if (photoURL.length() >= 10) {					
+					URL myFileUrl = null;					
 						myFileUrl = new URL(ConstantValues.URL + photoURL);
 						HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
 						conn.setDoInput(true);
 						conn.connect();
 						InputStream is = conn.getInputStream();
-						bitmap = BitmapFactory.decodeStream(is);
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else {
-					/*
-					photoURL = session.getString("user_photo_url", "");
-					photoURL = "0"+photoURL;
-					URL myFileUrl = null;
-					try {
-						myFileUrl = new URL(ConstantValues.URL + photoURL);
-						HttpURLConnection conn = (HttpURLConnection) myFileUrl
-								.openConnection();
-						conn.setDoInput(true);
-						conn.connect();
-						InputStream is = conn.getInputStream();
-						bitmap = BitmapFactory.decodeStream(is);
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}  */
-					
-
-				}
-
+						bitmap = BitmapFactory.decodeStream(is);				
+				} 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -454,6 +437,18 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		ImageView imageArray[] = {ImageSnack1,ImageSnack2,ImageSnack3,ImageSnack4,ImageSnack5,ImageSnack6};
 
 		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			loadingImageSnack.setVisibility(View.VISIBLE);
+			loadingImageSnack2.setVisibility(View.VISIBLE);
+			loadingImageSnack3.setVisibility(View.VISIBLE);
+			loadingImageSnack4.setVisibility(View.VISIBLE);
+			loadingImageSnack5.setVisibility(View.VISIBLE);
+			loadingImageSnack6.setVisibility(View.VISIBLE);
+		}
+		
+		@Override
 		protected Void doInBackground(Boolean... params) {
 			try {
 
@@ -516,9 +511,19 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
 		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);	
+		}
+		
+	
+		
+		
 	}
 
 	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void> {
@@ -571,6 +576,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 						lwa_stringBuilder.append(line);
 					}
 					if (firstTime){
+
 						jsonArray = new JSONArray(lwa_stringBuilder.toString());
 					}
 					else {
@@ -662,6 +668,13 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				image.setImageDrawable(d);
 			else
 				image.setImageResource(R.drawable.product_empty);
+			
+			loadingImageSnack.setVisibility(View.GONE);
+			loadingImageSnack2.setVisibility(View.GONE);
+			loadingImageSnack3.setVisibility(View.GONE);
+			loadingImageSnack4.setVisibility(View.GONE);
+			loadingImageSnack5.setVisibility(View.GONE);
+			loadingImageSnack6.setVisibility(View.GONE);
 		}
 		
 	}

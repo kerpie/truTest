@@ -44,6 +44,7 @@ import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -64,7 +65,7 @@ public class ProductDescription extends Activity {
 	String stringProductName;
 	String ratingValue;
 	Intent intent;
-	
+	Button backButton;
 	Bitmap bitmap;
 	
 	ArrayList<ItemType> list = new ArrayList<ItemType>();
@@ -77,15 +78,26 @@ public class ProductDescription extends Activity {
         productPhoto = (ImageView) findViewById(R.id.postSnack_product_image);
         productName = (TextView) findViewById(R.id.postSnack_product_name);
         productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
-        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);
-        listData = (ListView) findViewById(R.id.pd_data_listview);      
+        productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);     
+        backButton = (Button)findViewById(R.id.backButton);
         
+        listData = (ListView) findViewById(R.id.pd_data_listview);
+        
+        productRatingBar.setEnabled(false);
+        
+    	backButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				finish();
+			}
+		});
+       
         intent = getIntent();
-        productId = intent.getStringExtra("PRODUCT_ID");
-                
+        productId = intent.getStringExtra("PRODUCT_ID");                
         productCategoryName.setVisibility(View.GONE);
         new ProductDetail().execute(productId);
     }
+    
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,6 +120,7 @@ public class ProductDescription extends Activity {
 				String postURL = ConstantValues.URL+ "/ws/ws-productodetalle.php";
 				HttpPost post = new HttpPost(postURL);
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
+
 				param.add(new BasicNameValuePair("idproduct", id));
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
 				post.setEntity(ent);
@@ -157,16 +170,16 @@ public class ProductDescription extends Activity {
 	    			productName.setText(SnackjsonObject.getString("producto"));
 	    			productRatingBar.setRating(Float.parseFloat(SnackjsonObject.getString("promedio")));
 	    			
+	    			list.add(new HeaderItem("Embajador"));
 	    			if(Integer.parseInt(SnackjsonObject.getString("statusEmbajador")) == 1){
-	    				list.add(new HeaderItem("Embajador"));
-		    			list.add(new RegularItem(ConstantValues.URL + SnackjsonObject.getString("fotoembajador"), SnackjsonObject.getString("embajadorDisplay"), SnackjsonObject.getString("embajador") ));
+		    			list.add(new RegularItem(ConstantValues.URL +  ConstantValues.PhotoUrl(SnackjsonObject.getString("fotoembajador")), SnackjsonObject.getString("embajadorDisplay"), SnackjsonObject.getString("embajador") ));
 	    			}
 	    			else{
-	    				list.add(new MessageItem("Este producto no tiene embajador. \nTu puedes convertirte en el primero haciendo mas snackins"));
+	    				list.add(new MessageItem("This product doesn't have an ambassador yet. you can become "+ SnackjsonObject.getString("producto") +"'s ambassador!"));
 	    			}
 	    			
 	    			list.add(new HeaderItem("Descubridor"));
-	    			list.add(new RegularItem(ConstantValues.URL + SnackjsonObject.getString("fotodescubridor"), SnackjsonObject.getString("descubridorDisplay"), SnackjsonObject.getString("descubridor")));
+	    			list.add(new RegularItem(ConstantValues.URL + ConstantValues.PhotoUrl(SnackjsonObject.getString("fotodescubridor")), SnackjsonObject.getString("descubridorDisplay"), SnackjsonObject.getString("descubridor")));
 	    			
 	    			list.add(new HeaderItem("Comentarios"));
 	    			
@@ -174,7 +187,7 @@ public class ProductDescription extends Activity {
 	    				JSONArray array = new JSONArray(SnackjsonObject.getString("datosComentarios"));
 	    				for(int it = 0; it < array.length(); it++){
 	    					JSONObject obj = array.getJSONObject(it);
-	    					list.add(new RegularItem(ConstantValues.URL+"/public/user/"+obj.getString("user_id")+"newProfileImage.jpg", obj.getString("displayname") + obj.getString("username"), obj.getString("COMMENT")));
+	    					list.add(new RegularItem(ConstantValues.URL+ConstantValues.PhotoUrl("/public/user/"+obj.getString("user_id")+"/newProfileImage.jpg"), obj.getString("displayname") + obj.getString("username"), obj.getString("COMMENT")));
 	    				}
 	    			}
 	    			else{

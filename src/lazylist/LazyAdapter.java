@@ -76,7 +76,7 @@ public class LazyAdapter extends BaseAdapter {
         ImageView image=(ImageView)vi.findViewById(R.id.wall_item_product_photo);
         TextView snack_count = (TextView) vi.findViewById(R.id.totalSnacks);
         ImageView profilePhoto = (ImageView) vi.findViewById(R.id.wall_item_profile_photo);
-        
+
         try{
 	        JSONObject jsonObject = (JSONObject) jsonArray.get(position);
 	        String url, new_user_id;
@@ -135,4 +135,6 @@ public class LazyAdapter extends BaseAdapter {
         }
         return vi;
     }
+    
+    
 }
