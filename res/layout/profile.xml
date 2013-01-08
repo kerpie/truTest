@@ -206,156 +206,181 @@
 
                 <RelativeLayout
                     android:id="@+id/snacks_views"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_snacks"
                     android:layout_centerHorizontal="true" >
 
-                    <FrameLayout
-                        android:id="@+id/frame_box1"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/LinearOne"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" >
+                        android:layout_centerHorizontal="true" >
 
-                        <ImageView
-                            android:id="@+id/snackOne"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/snack_background"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
+                        <FrameLayout
+                            android:id="@+id/frame_box1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1" >
 
-                        <ProgressBar
-                            android:id="@+id/snackOne_image_loader"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone" />
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/snackOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
 
-                    <FrameLayout
-                        android:id="@+id/frame_box2"
-                        android:layout_width="wrap_content"
+                            <ProgressBar
+                                android:id="@+id/snackOne_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frame_box2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box1"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snack_Two"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackTwo_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frame_box3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box2"
+                            android:layout_weight="1" >
+
+                            <ImageView
+                                android:id="@+id/snackThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
+
+                            <ProgressBar
+                                android:id="@+id/snackThree_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearTwo"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/frame_box1" >
+                        android:layout_below="@+id/LinearOne"
+                        android:layout_centerHorizontal="true" >
 
-                        <ImageView
-                            android:id="@+id/snack_Two"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/snack_background"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
+                        <FrameLayout
+                            android:id="@+id/frame_box4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/frame_box1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1" >
 
-                        <ProgressBar
-                            android:id="@+id/snackTwo_image_loader"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone" />
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/snackFour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
 
-                    <FrameLayout
-                        android:id="@+id/frame_box3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/frame_box2" >
+                            <ProgressBar
+                                android:id="@+id/snackFour_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
 
-                        <ImageView
-                            android:id="@+id/snackThree"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/snack_background"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
+                        <FrameLayout
+                            android:id="@+id/frame_box5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/frame_box2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box4"
+                            android:layout_weight="1" >
 
-                        <ProgressBar
-                            android:id="@+id/snackThree_image_loader"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone" />
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/snackFive"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
 
-                    <FrameLayout
-                        android:id="@+id/frame_box4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/frame_box1"
-                        android:layout_marginTop="10dp" >
+                            <ProgressBar
+                                android:id="@+id/snackFive_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
 
-                        <ImageView
-                            android:id="@+id/snackFour"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/snack_background"
-                            android:padding="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
+                        <FrameLayout
+                            android:id="@+id/frame_box6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/frame_box3"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/frame_box5"
+                            android:layout_weight="1" >
 
-                        <ProgressBar
-                            android:id="@+id/snackFour_image_loader"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone" />
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/snackSix"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:background="@drawable/snack_background"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_empty" />
 
-                    <FrameLayout
-                        android:id="@+id/frame_box5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/frame_box2"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/frame_box4" >
-
-                        <ImageView
-                            android:id="@+id/snackFive"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/snack_background"
-                            android:padding="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
-
-                        <ProgressBar
-                            android:id="@+id/snackFive_image_loader"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/frame_box6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/frame_box3"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/frame_box5" >
-
-                        <ImageView
-                            android:id="@+id/snackSix"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/snack_background"
-                            android:padding="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/product_empty" />
-
-                        <ProgressBar
-                            android:id="@+id/snackSix_image_loader"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone" />
-                    </FrameLayout>
+                            <ProgressBar
+                                android:id="@+id/snackSix_image_loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -408,7 +433,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-15dp"
         android:src="@drawable/splashscreen_footer" 
-        android:layout_below="@+id/profile_scroll"/>
+        android:layout_below="@+id/profile_scroll"/>
     -->
 
 </RelativeLayout>
