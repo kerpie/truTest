@@ -24,12 +24,12 @@ public class Snackin extends Activity {
 	TextView snackText,productName;
 	ImageView img, productImage, profilePhoto;
 	Button backButton;
-	Button returnWall;
+	Button toPostSnackin;
 	RelativeLayout relativeContainer , background;
 	RatingBar ratingBar = null;
 	
 	Intent t;
-	String status, statusString, imagePath, productId;
+	String status, statusString, imagePath, productId, snackinId;
 	String profileImagePath, stringProductName;
 	
 	Bitmap bitmap;
@@ -58,8 +58,10 @@ public class Snackin extends Activity {
         productId = t.getStringExtra("PRODUCT_ID");
         imagePath = t.getStringExtra("productPath");
         stringProductName = t.getStringExtra("PRODUCT_NAME");
+        snackinId = t.getStringExtra("SNACKIN_ID");
+        
         backButton = (Button) findViewById(R.id.backButton);
-        returnWall = (Button) findViewById(R.id.button_return_wall);
+        toPostSnackin = (Button) findViewById(R.id.button_return_wall);
         img = (ImageView) findViewById(R.id.ambassador_imageView);
         productImage = (ImageView) findViewById(R.id.product_photo);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar_snackin_activity);
@@ -81,14 +83,15 @@ public class Snackin extends Activity {
         ratingBar.setEnabled(false);
         ratingBar.setRating(Float.parseFloat(ratingValue));
         
-        returnWall.setOnClickListener(new View.OnClickListener() {
+        toPostSnackin.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
-//	            	Intent intent = new Intent(Snackin.this, PostSnackin.class);
-//	            	intent.putExtra("PRODUCT_PATH", imagePath);
-//	            	intent.putExtra("PRODUCT_ID", productId);
-//	            	intent.putExtra("PRODUCT_NAME", stringProductName);
-//	            	intent.putExtra("PRODUCT_RANKING", ratingValue);
-//	            	startActivity(intent);
+	            	Intent intent = new Intent(Snackin.this, PostSnackin.class);
+	            	intent.putExtra("PRODUCT_PATH", imagePath);
+	            	intent.putExtra("PRODUCT_ID", productId);
+	            	intent.putExtra("PRODUCT_NAME", stringProductName);
+	            	intent.putExtra("PRODUCT_RANKING", ratingValue);
+	            	intent.putExtra("SNACKIN_ID", snackinId);
+	            	startActivity(intent);
 	            	finish();               
 	            }
 	    });

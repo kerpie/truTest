@@ -637,6 +637,7 @@ public class PreSnackin extends Activity {
 				intent.putExtra("AMBASSADOR_STATUS", ambassadorStatus);
 				intent.putExtra("productPath", finalImagePath);
 				intent.putExtra("RATING", averagePoints);
+				intent.putExtra("SNACKIN_ID", snackinId);
 				startActivity(intent);
 				finish();
 			}
