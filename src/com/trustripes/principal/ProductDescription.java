@@ -97,8 +97,6 @@ public class ProductDescription extends Activity {
         new ProductDetail().execute(productId);
     }
     
-    
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_post_snackin, menu);
@@ -122,6 +120,7 @@ public class ProductDescription extends Activity {
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
 
 				param.add(new BasicNameValuePair("idproduct", id));
+				
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
 				post.setEntity(ent);
 				HttpResponse responsePOST = client.execute(post);
