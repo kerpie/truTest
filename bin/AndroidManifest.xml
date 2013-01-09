@@ -137,5 +137,4 @@
             android:label="@string/title_activity_DetailSnackin" >
         </activity>
     </application>
-
 </manifest>

@@ -1,72 +1,91 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    <RelativeLayout 
+    android:layout_height="match_parent"
+    android:background="@drawable/splashscreen_bg" >
+
+    <RelativeLayout
+        android:id="@+id/pseudo_actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pseudo_actionBar"
         android:background="@layout/bg_gradient"
-        android:padding="5dp">
-        <Button 
-     		android:id="@+id/backButton"
-	      	android:layout_alignParentLeft="true"
-	      	android:background="@drawable/back_arrow"
-	      	android:layout_centerVertical="true"
-	      	android:layout_width="23dp"
-	      	android:layout_height="23dp"/>
-		<TextView
-			android:id="@+id/main_textView"
-			android:layout_width="100dp"
-	        android:layout_height="23dp"
-			android:layout_centerVertical="true"
-			android:layout_toRightOf="@+id/backButton"
-			android:background="@drawable/logo"
-			android:padding="25dp" />
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/main_textView"
+            android:layout_width="100dp"
+            android:layout_height="23dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/backButton"
+            android:background="@drawable/logo"
+            android:padding="25dp" />
     </RelativeLayout>
-	<RelativeLayout 
-	    android:id="@+id/postSnack_up"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@layout/post_snack_product_container_bg"
-	    android:layout_below="@+id/pseudo_actionBar"
-	    android:padding="10dp">
-	    <ImageView 
-	        android:id="@+id/postSnack_product_image"
-	        android:layout_width="150dp"
-	        android:layout_height="150dp"
-	        android:src="@drawable/ambassador"
-	        android:background="@drawable/pre_snack_bg"
-	        android:padding="10dp"/>
-	    <TextView 
-	        android:id="@+id/postSnack_product_name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Hola Producto!"
-	        android:layout_marginTop="20dp"
-	        android:layout_toRightOf="@+id/postSnack_product_image"
-	        android:padding="5dp"/>
-	    <TextView 
-	        android:id="@+id/postSnack_product_category_name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Hola Categoria!"
-	        android:layout_toRightOf="@+id/postSnack_product_image"
-	        android:layout_below="@+id/postSnack_product_name"
-	        android:padding="3dp"
-	        android:visibility="gone"/>
-	    <RatingBar 
-	        android:id="@+id/postSnack_ratingbar"
-	        android:layout_width="150dp"
-	        android:layout_height="30dp"
-	        android:layout_below="@+id/postSnack_product_category_name"
-	        android:layout_toRightOf="@+id/postSnack_product_image"
-	        android:numStars="5"
-	        android:progressDrawable="@drawable/rating_bar_mini"/>
-	</RelativeLayout>
-	<ListView 
-	    android:id="@+id/pd_data_listview"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/postSnack_up"/>
+
+    <RelativeLayout
+        android:id="@+id/postSnack_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pseudo_actionBar"
+        android:background="@layout/post_snack_product_container_bg"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/postSnack_product_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/pre_snack_bg"
+            android:src="@drawable/ambassador" 
+            />
+
+        <TextView
+            android:id="@+id/postSnack_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/postSnack_product_image"
+            android:padding="5dp"
+            android:text="Hi!" />
+
+        <TextView
+            android:id="@+id/postSnack_product_category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/postSnack_product_name"
+            android:layout_toRightOf="@+id/postSnack_product_image"
+            android:padding="3dp"
+            android:text="Hola Categoria!"
+            android:visibility="gone" />
+
+        <RatingBar
+            android:id="@+id/postSnack_ratingbar"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/postSnack_product_category_name"
+            android:layout_toRightOf="@+id/postSnack_product_image"
+            android:numStars="5"
+            android:progressDrawable="@drawable/rating_bar_mini" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/pd_data_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postSnack_up" />
+    
+    <ImageView 
+        android:id="@+id/splash_screen_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/splashscreen_footer"
+        android:layout_marginBottom="-22dp"/>
+
 </RelativeLayout>

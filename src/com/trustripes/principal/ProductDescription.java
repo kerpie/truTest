@@ -169,7 +169,7 @@ public class ProductDescription extends Activity {
 	    			productName.setText(SnackjsonObject.getString("producto"));
 	    			productRatingBar.setRating(Float.parseFloat(SnackjsonObject.getString("promedio")));
 	    			
-	    			list.add(new HeaderItem("Embajador"));
+	    			list.add(new HeaderItem("Ambassador"));
 	    			if(Integer.parseInt(SnackjsonObject.getString("statusEmbajador")) == 1){
 		    			list.add(new RegularItem(ConstantValues.URL +  ConstantValues.PhotoUrl(SnackjsonObject.getString("fotoembajador")), SnackjsonObject.getString("embajadorDisplay"), SnackjsonObject.getString("embajador") ));
 	    			}
@@ -177,16 +177,16 @@ public class ProductDescription extends Activity {
 	    				list.add(new MessageItem("This product doesn't have an ambassador yet. you can become "+ SnackjsonObject.getString("producto") +"'s ambassador!"));
 	    			}
 	    			
-	    			list.add(new HeaderItem("Descubridor"));
+	    			list.add(new HeaderItem("Discoverer"));
 	    			list.add(new RegularItem(ConstantValues.URL + ConstantValues.PhotoUrl(SnackjsonObject.getString("fotodescubridor")), SnackjsonObject.getString("descubridorDisplay"), SnackjsonObject.getString("descubridor")));
 	    			
-	    			list.add(new HeaderItem("Comentarios"));
+	    			list.add(new HeaderItem("Comments"));
 	    			
 	    			if(Integer.parseInt(SnackjsonObject.getString("statusComentarios")) == 1){
 	    				JSONArray array = new JSONArray(SnackjsonObject.getString("datosComentarios"));
 	    				for(int it = 0; it < array.length(); it++){
 	    					JSONObject obj = array.getJSONObject(it);
-	    					list.add(new RegularItem(ConstantValues.URL+ConstantValues.PhotoUrl("/public/user/"+obj.getString("user_id")+"/newProfileImage.jpg"), obj.getString("displayname") + obj.getString("username"), obj.getString("COMMENT")));
+	    					list.add(new RegularItem(ConstantValues.URL+ConstantValues.PhotoUrl("/public/user/"+obj.getString("user_id")+"/newProfileImage.jpg"), obj.getString("displayname") + " ("+ obj.getString("username")+")", obj.getString("COMMENT")));
 	    				}
 	    			}
 	    			else{
