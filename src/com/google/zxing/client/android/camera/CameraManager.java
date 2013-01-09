@@ -97,7 +97,7 @@ public final class CameraManager {
         requestedFramingRectHeight = 0;
       }
     }
-    configManager.setDesiredCameraParameters(theCamera);
+    configManager.setDesiredCameraParameters(theCamera, initialized);
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     reverseImage = prefs.getBoolean(PreferencesActivity.KEY_REVERSE_IMAGE, false);
