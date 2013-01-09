@@ -199,7 +199,7 @@
                 <Spinner
                     android:id="@+id/spinner_snacks"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/btn_dropdown"
                     android:drawSelectorOnTop="true"
                     android:prompt="@string/ru_prompt" />
@@ -396,12 +396,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/midorys"
                     android:padding="10dp"
                     android:text="Log out"
-                    android:textColor="#FFFF"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" />
+                    android:textColor="#FFFF" />
 
                 <Button
                     android:id="@+id/edit_profile_button"
@@ -409,13 +409,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logout_button"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/midorys"
                     android:padding="10dp"
                     android:text="Edit profile"
-                    android:textColor="#FFFF"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" />
+                    android:textColor="#FFFF" />
 
                 <TextView
                     android:id="@+id/feedback"
@@ -430,13 +430,13 @@
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
-    
-  <ImageView 
+
+    <ImageView
         android:id="@+id/splash_screen_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/splashscreen_footer"
-        android:layout_marginBottom="-22dp"/>
+        android:layout_marginBottom="-22dp"
+        android:src="@drawable/splashscreen_footer" />
 
 </RelativeLayout>
