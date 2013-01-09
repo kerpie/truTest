@@ -399,7 +399,9 @@
                     android:background="@drawable/midorys"
                     android:padding="10dp"
                     android:text="Log out"
-                    android:textColor="#FFFF" />
+                    android:textColor="#FFFF"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
 
                 <Button
                     android:id="@+id/edit_profile_button"
@@ -411,7 +413,9 @@
                     android:background="@drawable/midorys"
                     android:padding="10dp"
                     android:text="Edit profile"
-                    android:textColor="#FFFF" />
+                    android:textColor="#FFFF"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
 
                 <TextView
                     android:id="@+id/feedback"
@@ -426,14 +430,13 @@
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
-    <!--
-    <ImageView
-        android:id="@+id/footer"
-        android:layout_width="wrap_content"
+    
+  <ImageView 
+        android:id="@+id/splash_screen_footer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-15dp"
-        android:src="@drawable/splashscreen_footer" 
-        android:layout_below="@+id/profile_scroll"/>
-    -->
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/splashscreen_footer"
+        android:layout_marginBottom="-22dp"/>
 
 </RelativeLayout>
