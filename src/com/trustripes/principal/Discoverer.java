@@ -75,7 +75,9 @@ public class Discoverer extends Activity {
 
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
-//				-
+//				Intent intent = new Intent(getApplicationContext(), PostSnackin.class);
+//				intent.putExtra("IS_ANOTHER_PHOTO", true);
+//				intent.putExtra("PRODUCT_PATH", path);
             	finish();
 			}
 		});

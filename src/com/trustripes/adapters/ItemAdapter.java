@@ -6,11 +6,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import lazylist.ImageLoader;
+
 import com.trustripes.Constants.ConstantValues;
 import com.trustripes.Constants.LifeGuard;
 import com.trustripes.interfaces.ItemType;
 import com.trustripes.principal.HeaderItem;
 import com.trustripes.principal.MessageItem;
+import com.trustripes.principal.PointItem;
 import com.trustripes.principal.R;
 import com.trustripes.principal.RegularItem;
 
@@ -27,6 +30,8 @@ import android.widget.TextView;
 
 public class ItemAdapter extends ArrayAdapter<ItemType> {
 
+	ImageLoader imageLoader;
+	
 	private Context context;
 	private LayoutInflater li;
 	private ArrayList<ItemType> items;
@@ -35,6 +40,7 @@ public class ItemAdapter extends ArrayAdapter<ItemType> {
 		super(context, 0, itemList);
 		items = itemList;
 		this.context = context;
+		imageLoader = new ImageLoader(context,4);
 		li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
@@ -63,6 +69,15 @@ public class ItemAdapter extends ArrayAdapter<ItemType> {
 					TextView messageTV = (TextView) v.findViewById(R.id.mi_message);					
 					messageTV.setText(mi.getMessage());
 				}
+				else if(item.isPoint()){
+					PointItem pi = (PointItem) item;
+					v = li.inflate(R.layout.points_item, null);
+					TextView description = (TextView) v.findViewById(R.id.pi_pointDescription);
+					TextView point = (TextView) v.findViewById(R.id.pi_realPoint);
+					
+					description.setText(pi.getPointDescription());
+					point.setText(pi.getRealPoint());
+				}
 				else{
 					RegularItem ri = (RegularItem) item;
 					v = li.inflate(R.layout.regular_item, null);
@@ -74,11 +89,13 @@ public class ItemAdapter extends ArrayAdapter<ItemType> {
 					fullName.setText(ri.getFullName());
 					userName.setText(ri.getUserName());
 					
-					LifeGuard lg = new LifeGuard();
-					lg.setImage(iv);
-					lg.setPath(ri.getFullPath());
+					imageLoader.DisplayImage(ri.getFullPath(), iv, true, false);
 					
-					new LoadImage().execute(lg);
+//					LifeGuard lg = new LifeGuard();
+//					lg.setImage(iv);
+//					lg.setPath(ri.getFullPath());
+//					
+//					new LoadImage().execute(lg);
 				}
 			}
 		}

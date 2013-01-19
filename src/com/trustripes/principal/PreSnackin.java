@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import lazylist.ImageLoader;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -86,8 +88,11 @@ public class PreSnackin extends Activity {
 	
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
+	String imgpath;
 	String profileImagePath;
 	String ratingValue;
+	
+	ImageLoader imageLoader;
 	
 	SendSnackIn sendSnackin;
 	
@@ -100,8 +105,6 @@ public class PreSnackin extends Activity {
 	boolean loadedImage;
 	boolean isAnotherPhoto=false;
 	
-	LoadPhoto loadPhoto;
-	
 	SharedPreferences session;
 	
 	private SharedPreferences developmentSession = null;
@@ -113,7 +116,7 @@ public class PreSnackin extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_pre_snackin);
-
+		
 		/* Instantiation of UI widgets */
 		snackAgainButton = (Button) findViewById(R.id.presnack_button_again);
 		realSnackInButton=(Button)findViewById(R.id.presnack_button_Snack);
@@ -144,22 +147,26 @@ public class PreSnackin extends Activity {
 			}
 		});
 		
-		loadPhoto = new LoadPhoto();
+//		loadPhoto = new LoadPhoto();
 		
-		if(savedInstanceState != null){
-			boolean imageWasLoaded = savedInstanceState.getBoolean("loadingStatus");
-			if(imageWasLoaded){
-				String path = savedInstanceState.getString("ImagePath");
-				if(!path.isEmpty()){
-					decodeFile(path, 200, 200);
-				}
-			}else{
-				loadPhoto.execute();
-			}
-		}
-		else{
-			loadPhoto.execute();
-		}
+//		if(savedInstanceState != null){
+//			boolean imageWasLoaded = savedInstanceState.getBoolean("loadingStatus");
+//			if(imageWasLoaded){
+//				String path = savedInstanceState.getString("ImagePath");
+//				if(!path.isEmpty()){
+//					decodeFile(path, 200, 200);
+//				}
+//			}else{
+//				imageLoader.DisplayImage(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto, image, false);
+//				//loadPhoto.execute();
+//			}
+//		}
+//		else{
+//			imageLoader.DisplayImage(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto, image, false);
+//			//loadPhoto.execute();
+//		}
+		
+		
 		
 		userId = session.getString("user_id", "No user");
 		
@@ -190,9 +197,7 @@ public class PreSnackin extends Activity {
 				}
 			}
 		});
-		
-		image.setClickable(true);
-		
+			
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Pick image from");
 		LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
@@ -220,12 +225,33 @@ public class PreSnackin extends Activity {
 			}
 		});
 		
-		image.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				choosePictureDialog.show();
+//		image.setClickable(true);
+//		image.setOnClickListener(new OnClickListener() {
+//			
+//			public void onClick(View v) {
+//				choosePictureDialog.show();
+//			}
+//		});
+		
+		imageLoader = new ImageLoader(getApplicationContext(),16);
+		
+		if(savedInstanceState != null){
+			String tmp = savedInstanceState.getString("path");
+			String[] tmpArray = tmp.split("/");
+			if(tmpArray.length != 8){
+				decodeFile(tmp, 100, 100);
 			}
-		});
+			else{
+				finalImagePath = ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto;
+				imageLoader.DisplayImage(finalImagePath, image, false, false);
+			}
+		}
+		else{
+			finalImagePath = ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto;
+			imageLoader.DisplayImage(finalImagePath, image, false, false);
+		}
+				
+		imgpath = ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto;
 		
 		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
         id = developmentSession.getString("user_id", "-1");
@@ -250,7 +276,7 @@ public class PreSnackin extends Activity {
 		  final File path = new File( Environment.getExternalStorageDirectory(),"TruStripes");
 		  if(!path.exists())
 		    path.mkdir();
-		  return new File(path, "image.tmp");
+		  return new File(path, "image.jpg");
 	}
 	
 	public void decodeFile(String filePath, int requiredHeight, int requiredWidth) {
@@ -258,18 +284,18 @@ public class PreSnackin extends Activity {
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath,o);
-		int scale = 0;
-		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
-			if(o.outWidth > o.outHeight){
-				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
-			}else{
-				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
-			}
-		}
-		
+		int scale = 8;
+//		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
+//			if(o.outWidth > o.outHeight){
+//				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
+//			}else{
+//				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
+//			}
+//		}
 		o = new BitmapFactory.Options();
 		o.inSampleSize = scale;
 		o.inJustDecodeBounds = false;
+		o.inPurgeable = true;
 		bitmap = BitmapFactory.decodeFile(filePath, o);		
 		finalImagePath = filePath;		
 		image.setImageBitmap(bitmap);
@@ -299,7 +325,7 @@ public class PreSnackin extends Activity {
 						}
 	
 						if (filePath != null) {
-							decodeFile(filePath, 200, 200);
+							decodeFile(filePath, 20, 20);
 							finalImagePath = filePath;
 						} else {
 							bitmap = null;
@@ -313,17 +339,16 @@ public class PreSnackin extends Activity {
 			case CAMERA_RESULT:
 				if (resultCode == Activity.RESULT_OK) {
 					final File file = getTempFile();
-					try {
-						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
-						bitmap = captureBmp;
-						finalImagePath = file.getAbsolutePath();	
-						decodeFile(finalImagePath, 200, 200);				
+					finalImagePath = file.getAbsolutePath();
+//					try {
+						//imageLoader.DisplayImage(file.getAbsolutePath(), image, false, true);
+						decodeFile(file.getAbsolutePath(), 50, 50);
 						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}					
+//					} catch (FileNotFoundException e) {
+//						e.printStackTrace();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}					
 				}
 				break;
 		}
@@ -337,8 +362,14 @@ public class PreSnackin extends Activity {
 		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
     		EasyTracker.getInstance().activityStart(this);
     	}
+		
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("path", finalImagePath);
+	}
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -356,70 +387,9 @@ public class PreSnackin extends Activity {
 	}
 	
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putString("ImagePath", finalImagePath);
-		if(loadPhoto.getStatus() == Status.FINISHED || loadPhoto.getStatus() == Status.PENDING){
-			loadedImage = true;
-		}
-		else{
-			loadPhoto.cancel(false);
-			if(loadPhoto.isCancelled()){
-				loadedImage = false;
-			}
-		}
-		
-		outState.putBoolean("loadingStatus", loadedImage);
-	}
-	
-	@Override
 	public void onBackPressed() {
 		finish();
 	}
-	
-	public class LoadPhoto extends AsyncTask<Void, Integer, Void>{
-		@Override
-		protected Void doInBackground(Void... params) {
-			if(productPhoto.length() >= 10){
-				URL myFileUrl =null; 
-				try {  
-					myFileUrl= new URL(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto);
-					HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
-					conn.setDoInput(true);
-					conn.connect();
-					InputStream is = conn.getInputStream();
-					bitmap = BitmapFactory.decodeStream(is);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			return null;
-		}
-		
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			finalImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/image_preview.jpg";
-			File directory = new File(finalImagePath);
-			FileOutputStream outStream;
-		    try {
-
-		        outStream = new FileOutputStream(directory);
-		        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, outStream); 
-		        /* 100 to keep full quality of the image */
-
-		        outStream.flush();
-		        outStream.close();
-		    } catch (FileNotFoundException e) {
-		        e.printStackTrace();
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-
-			decodeFile(finalImagePath, 100, 100);
-		}
-	}
-	
 	
 	public class SendSnackIn extends AsyncTask<Void, Integer, Void>{
 		
@@ -434,7 +404,7 @@ public class PreSnackin extends Activity {
     	@Override
     	protected void onPreExecute() {
     		super.onPreExecute();
-    		dialog = ProgressDialog.show(PreSnackin.this, "Uploading","Please wait...", true);
+    		dialog = ProgressDialog.show(PreSnackin.this, "Processing","Please wait...", true);
     	}
     	
 		@Override
@@ -493,7 +463,7 @@ public class PreSnackin extends Activity {
 		            post = new HttpPost(postURL);    
 		    		MultipartEntity entity = new MultipartEntity();
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					bitmap.compress(CompressFormat.JPEG, 30, bos);
+					bitmap.compress(CompressFormat.JPEG, 50, bos);
 					byte[] data = bos.toByteArray();
 					entity.addPart("uploadedfile", new ByteArrayBody(data, "myImage.jpg"));
 					entity.addPart("idproduct", new StringBody(productId));
@@ -638,6 +608,7 @@ public class PreSnackin extends Activity {
 				intent.putExtra("productPath", finalImagePath);
 				intent.putExtra("RATING", averagePoints);
 				intent.putExtra("SNACKIN_ID", snackinId);
+				intent.putExtra("IS_ANOTHER_PHOTO", isAnotherPhoto);
 				startActivity(intent);
 				finish();
 			}

@@ -27,79 +27,63 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class ImageLoader {
     
-    MemoryCache memoryCache=new MemoryCache();
+    MemoryCache memoryCache;
     FileCache fileCache;
     private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     ExecutorService executorService; 
     Context context;
     boolean isProfile;
     
-    public ImageLoader(Context context){
+    public ImageLoader(Context context, int memory){
     	this.context = context;
     	fileCache=new FileCache(context);
+    	memoryCache = new MemoryCache(memory);
         executorService=Executors.newFixedThreadPool(5);
     }
         
-    public ImageLoader() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public void DisplayImage(String url, ImageView imageView, boolean profile){
+    public ImageLoader() {}
+    
+	public void DisplayImage(String url, ImageView imageView, boolean profile, boolean inSD){
     	isProfile = profile;
-        imageViews.put(imageView, url);
-        Bitmap bitmap=memoryCache.get(url);
-        if(bitmap!=null){
+    	imageViews.put(imageView, url);
+        Bitmap bitmap = memoryCache.get(url);
+        if(bitmap != null){
         	if(isProfile)
         		bitmap = makeItCircular(bitmap);
-            imageView.setImageBitmap(bitmap);
+       		imageView.setImageBitmap(bitmap);
         }
-        else
-        {
-            queuePhoto(url, imageView);
-            if(!isProfile)
-            	imageView.setImageResource(R.drawable.loading);
+        else{
+            queuePhoto(url, imageView, inSD);
+           	imageView.setImageResource(R.drawable.loading);
         }
     }
-    
-    public Bitmap makeItCircular(Bitmap bitmap){
-    	Bitmap source = bitmap;
-        Bitmap result = Bitmap.createBitmap(source.getWidth(),source.getHeight(), Config.ARGB_8888);
-        Canvas canvas = new Canvas(result);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        RectF rect = new RectF(0,0,source.getWidth(), source.getHeight()); 
-        float radius = 500.0f;
-        paint.setColor(Color.BLUE);
-        canvas.drawRoundRect(rect, radius, radius, paint);
-        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-        canvas.drawBitmap(source, 0, 0, paint);
-        paint.setXfermode(null);
-        return result;
-    }
-    
-    private void queuePhoto(String url, ImageView imageView)
-    {
-        PhotoToLoad p=new PhotoToLoad(url, imageView);
+       
+    private void queuePhoto(String url, ImageView imageView, boolean inSD){
+        PhotoToLoad p = new PhotoToLoad(url, imageView, inSD);
         executorService.submit(new PhotosLoader(p));
     }
-    
-    public Bitmap getBitmap(String url) 
-    {
+   
+    public Bitmap getBitmap(PhotoToLoad ptl) {
     	
-        File f=fileCache.getFile(url);
-        
+    	if(ptl.isInsideAnotherDirectory){
+    		return decodeFile(new File(ptl.url), 4);
+    	}
+        File f = fileCache.getFile(ptl.url);
+                
         //from SD cache
-        Bitmap b = decodeFile(f);
+        Bitmap b = decodeFile(f,1);
         if(b!=null)
             return b;
         
         //from web
         try {
             Bitmap bitmap=null;
-            URL imageUrl = new URL(url);
+            URL imageUrl = new URL(ptl.url);
             HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
             conn.setConnectTimeout(30000);
             conn.setReadTimeout(30000);
@@ -108,28 +92,28 @@ public class ImageLoader {
             OutputStream os = new FileOutputStream(f);
             Utils.CopyStream(is, os);
             os.close();
-            bitmap = decodeFile(f);
+            bitmap = decodeFile(f,1);
             if(isProfile){
             	bitmap = makeItCircular(bitmap);
             }
             return bitmap;
         } catch (Throwable ex){
            ex.printStackTrace();
-           if(ex instanceof OutOfMemoryError)
+           if(ex instanceof OutOfMemoryError){
                memoryCache.clear();
+               Log.i("ImageLoader", "Memoria liberada");
+           }
            return null;
         }
     }
   
-    
     //decodes image and scales it to reduce memory consumption
-    private Bitmap decodeFile(File f){
+    private Bitmap decodeFile(File f, int scale){
         try {
             //decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(new FileInputStream(f),null,o);           
-            int scale=4;            
+            BitmapFactory.decodeStream(new FileInputStream(f),null,o);                      
             //decode with inSampleSize
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize=scale;
@@ -140,13 +124,14 @@ public class ImageLoader {
     }
     
     //Task for the queue
-    private class PhotoToLoad
-    {
+    private class PhotoToLoad{
         public String url;
         public ImageView imageView;
-        public PhotoToLoad(String u, ImageView i){
+        public boolean isInsideAnotherDirectory;
+        public PhotoToLoad(String u, ImageView i, boolean iiad){
             url=u; 
             imageView=i;
+            isInsideAnotherDirectory = iiad;
         }
     }
     
@@ -159,31 +144,36 @@ public class ImageLoader {
         public void run(){
             if(imageViewReused(photoToLoad))
                 return;
-            Bitmap bmp=getBitmap(photoToLoad.url);
+            Bitmap bmp = getBitmap(photoToLoad);
+            if(photoToLoad.isInsideAnotherDirectory)
+            	memoryCache.clear();
             memoryCache.put(photoToLoad.url, bmp);
             if(imageViewReused(photoToLoad))
                 return;
             BitmapDisplayer bd=new BitmapDisplayer(bmp, photoToLoad);
-            Activity a=(Activity)photoToLoad.imageView.getContext();
+            Activity a = (Activity) photoToLoad.imageView.getContext();
             a.runOnUiThread(bd);
         }
     }
     
     boolean imageViewReused(PhotoToLoad photoToLoad){
-        String tag=imageViews.get(photoToLoad.imageView);
-        if(tag==null || !tag.equals(photoToLoad.url))
+        String tag = imageViews.get(photoToLoad.imageView);
+        if(tag == null || !tag.equals(photoToLoad.url))
             return true;
         return false;
     }
     
     //Used to display bitmap in the UI thread
-    class BitmapDisplayer implements Runnable
-    {
+    class BitmapDisplayer implements Runnable{
         Bitmap bitmap;
         PhotoToLoad photoToLoad;
-        public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
-        public void run()
-        {
+        
+        public BitmapDisplayer(Bitmap b, PhotoToLoad p){
+        	bitmap=b;
+        	photoToLoad=p;
+        }
+        
+        public void run(){
             if(imageViewReused(photoToLoad))
                 return;
             if(bitmap!=null)
@@ -198,4 +188,18 @@ public class ImageLoader {
         fileCache.clear();
     }
 
+    public Bitmap makeItCircular(Bitmap bitmap){
+    	Bitmap source = bitmap;
+        Bitmap result = Bitmap.createBitmap(source.getWidth(),source.getHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        RectF rect = new RectF(0,0,source.getWidth(), source.getHeight()); 
+        float radius = 500.0f;
+        paint.setColor(Color.BLUE);
+        canvas.drawRoundRect(rect, radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(source, 0, 0, paint);
+        paint.setXfermode(null);
+        return result;
+    }
 }

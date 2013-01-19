@@ -42,8 +42,8 @@
 			    android:background="@drawable/pre_snack_bg"
 			    android:orientation="vertical"
 			    android:layout_marginLeft="20dp"
-			        android:layout_marginRight="20dp">
-	   		    <TextView
+			    android:layout_marginRight="20dp">
+			    <TextView
 			        android:id="@+id/presnack_textview_tittle"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
@@ -57,8 +57,7 @@
 	   		        <ImageView
 				        android:id="@+id/presnack_imageview_add"
 				        android:layout_width="match_parent"
-		                android:layout_height="match_parent"
-		      			android:adjustViewBounds="true"
+		                android:layout_height="300dp"
 		      			android:scaleType="centerCrop"
 		                android:contentDescription="@string/splashScreen_imgView_footer_contentDescription"
 				        android:layout_gravity="center"
@@ -69,7 +68,8 @@
 	   		            android:layout_height="50dp"
 	   		            android:layout_marginRight="5dp"
 	   		            android:layout_gravity="bottom|right"
-	   		            android:src="@drawable/icon_fotos" />
+	   		            android:src="@drawable/icon_fotos" 
+	   		            android:visibility="gone"/>
 	   		    </FrameLayout>
 				<RatingBar
 				    android:id="@+id/ratingBar"

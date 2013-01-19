@@ -318,7 +318,7 @@ public class NewUserRegistration extends Activity{
 		  final File path = new File( Environment.getExternalStorageDirectory(),"TruStripes");
 		  if(!path.exists())
 		    path.mkdir();
-		  return new File(path, "newProfileImage_.tmp");
+		  return new File(path, "newProfileImage_.jpg");
 	}
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -359,16 +359,7 @@ public class NewUserRegistration extends Activity{
 				if (resultCode == Activity.RESULT_OK) {
 					final File file = getTempFile();
 					source = file.getAbsolutePath();
-					try {
-						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
-						bitmap = captureBmp;
-						newProfilePhoto.setImageBitmap(bitmap);							
-						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					decodeFile(source);
 				}
 				break;
 		}

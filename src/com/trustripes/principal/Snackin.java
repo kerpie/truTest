@@ -1,5 +1,7 @@
 package com.trustripes.principal;
 
+import lazylist.ImageLoader;
+
 import com.google.analytics.tracking.android.EasyTracker;
 import com.trustripes.Constants.ConstantValues;
 
@@ -25,7 +27,7 @@ public class Snackin extends Activity {
 	ImageView img, productImage, profilePhoto;
 	Button backButton;
 	Button toPostSnackin;
-	RelativeLayout relativeContainer , background;
+	RelativeLayout relativeContainer, background;
 	RatingBar ratingBar = null;
 	
 	Intent t;
@@ -39,6 +41,9 @@ public class Snackin extends Activity {
 	int realId;
 	
 	String ratingValue = null;
+	ImageLoader imageLoader;
+	
+	boolean isAnotherPhoto;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,7 @@ public class Snackin extends Activity {
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_snackin);
-        
+                
         snackText = (TextView) findViewById(R.id.snackin_text);
         productName = (TextView) findViewById(R.id.snackin_product_name);
         t = getIntent();
@@ -59,6 +64,7 @@ public class Snackin extends Activity {
         imagePath = t.getStringExtra("productPath");
         stringProductName = t.getStringExtra("PRODUCT_NAME");
         snackinId = t.getStringExtra("SNACKIN_ID");
+        isAnotherPhoto = t.getBooleanExtra("IS_ANOTHER_PHOTO",false);
         
         backButton = (Button) findViewById(R.id.backButton);
         toPostSnackin = (Button) findViewById(R.id.button_return_wall);
@@ -76,9 +82,7 @@ public class Snackin extends Activity {
 		});
         
         profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(realId)+".jpg";
-        
-        decodeFile(profileImagePath, true);
-        
+               
         ratingValue = t.getStringExtra("RATING");
         ratingBar.setEnabled(false);
         ratingBar.setRating(Float.parseFloat(ratingValue));
@@ -91,13 +95,37 @@ public class Snackin extends Activity {
 	            	intent.putExtra("PRODUCT_NAME", stringProductName);
 	            	intent.putExtra("PRODUCT_RANKING", ratingValue);
 	            	intent.putExtra("SNACKIN_ID", snackinId);
+	            	intent.putExtra("IS_ANOTHER_PHOTO", isAnotherPhoto);
 	            	startActivity(intent);
 	            	finish();               
 	            }
 	    });
-                
     }
        
+	public void decodeFile(String filePath, int requiredHeight, int requiredWidth, boolean isProfile) {
+		// Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath,o);
+		int scale = 0;
+		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
+			if(o.outWidth > o.outHeight){
+				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
+			}else{
+				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
+			}
+		}
+		
+		o = new BitmapFactory.Options();
+		o.inSampleSize = scale;
+		o.inJustDecodeBounds = false;
+		bitmap = BitmapFactory.decodeFile(filePath, o);		
+		if(isProfile)
+			profilePhoto.setImageBitmap(bitmap);
+		else
+			productImage.setImageBitmap(bitmap);
+	}
+    
     public void decodeFile(String filePath, boolean isProfile) {
 		// Decode image size
 		BitmapFactory.Options o = new BitmapFactory.Options();
@@ -130,7 +158,7 @@ public class Snackin extends Activity {
     		case 1:
     			statusString = "Te has convertido en Embajadador";
     			relativeContainer.setVisibility(View.VISIBLE);
-    			background.setBackgroundResource(R.drawable.backambassador);
+    			//background.setBackgroundResource(R.drawable.backambassador);
     			break;
     		case 2:
     			statusString = "Sigues siendo embajador";
@@ -138,7 +166,14 @@ public class Snackin extends Activity {
     			break;
         }
     	
-    	decodeFile(imagePath, false);
+    	if(isAnotherPhoto)
+    		decodeFile(imagePath, 100,100, false);
+    	else{
+    		imageLoader = new ImageLoader(getApplicationContext(), 16);
+    		imageLoader.DisplayImage(imagePath, productImage, false, false);
+    	}
+    	decodeFile(profileImagePath, 100,100,true);
+    	
     	productName.setText("Snacked in a "+t.getStringExtra("PRODUCT_NAME"));
     	snackText.setText("Barcode: "+t.getStringExtra("BARCODE"));
     }

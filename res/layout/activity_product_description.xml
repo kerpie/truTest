@@ -36,21 +36,27 @@
         android:layout_below="@+id/pseudo_actionBar"
         android:background="@layout/post_snack_product_container_bg"
         android:padding="10dp" >
-
-        <ImageView
-            android:id="@+id/postSnack_product_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/pre_snack_bg"
-            android:src="@drawable/ambassador" 
-            />
+		
+        <LinearLayout 
+            android:id="@+id/ps_imageContainer" 
+		    android:background="@drawable/snack_background"
+		    android:layout_width="150dp"
+	        android:layout_height="150dp">
+            <ImageView
+	            android:id="@+id/postSnack_product_image"
+	            android:layout_width="150dp"
+	            android:layout_height="150dp"
+	            android:scaleType="centerCrop"
+	            android:background="@drawable/pre_snack_bg"
+	            android:src="@drawable/ambassador" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/postSnack_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/postSnack_product_image"
+            android:layout_toRightOf="@+id/ps_imageContainer"
             android:padding="5dp"
             android:text="Hi!" />
 
@@ -59,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/postSnack_product_name"
-            android:layout_toRightOf="@+id/postSnack_product_image"
+            android:layout_toRightOf="@+id/ps_imageContainer"
             android:padding="3dp"
             android:text="Hola Categoria!"
             android:visibility="gone" />
@@ -69,16 +75,26 @@
             android:layout_width="150dp"
             android:layout_height="30dp"
             android:layout_below="@+id/postSnack_product_category_name"
-            android:layout_toRightOf="@+id/postSnack_product_image"
+            android:layout_toRightOf="@+id/ps_imageContainer"
             android:numStars="5"
             android:progressDrawable="@drawable/rating_bar_mini" />
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/pd_data_listview"
+	
+    <FrameLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/postSnack_up" />
+	    android:layout_height="match_parent"
+        android:layout_below="@+id/postSnack_up">
+        <ListView
+	        android:id="@+id/pd_data_listview"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/>
+        <ProgressBar
+            android:id="@+id/pd_data_loader"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone" />
+    </FrameLayout>
     
     <ImageView 
         android:id="@+id/splash_screen_footer"
