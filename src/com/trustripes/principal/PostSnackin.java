@@ -83,6 +83,7 @@ public class PostSnackin extends Activity {
         snackinId = intent.getStringExtra("SNACKIN_ID");
         
         productName.setText(stringProductName);
+        productRatingBar.setEnabled(false);
         productRatingBar.setRating(Float.parseFloat(ratingValue));
         decodeFile(imagePath);
         

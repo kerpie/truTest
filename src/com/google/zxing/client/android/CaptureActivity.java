@@ -525,7 +525,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
 		try{
 			long newBarcode = Long.parseLong(rawResult.toString());
-			obtainedBarcode = rawResult.toString();
+			obtainedBarcode = rawResult.toString();			
 			if(ConstantValues.getConnectionStatus(getApplicationContext())){
 				new Snackin().execute();
 			}

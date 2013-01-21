@@ -347,7 +347,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					File directory = new File(profileImagePath);
 					FileOutputStream outStream;
 					outStream = new FileOutputStream(directory);
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+					bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
 					/* 100 to keep full quality of the image */
 					outStream.flush();
 					outStream.close();

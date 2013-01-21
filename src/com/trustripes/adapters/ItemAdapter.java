@@ -120,6 +120,7 @@ public class ItemAdapter extends ArrayAdapter<ItemType> {
 			super.onPostExecute(result);
 			if(!path.isEmpty())
 				iv.setImageBitmap(bitmap);
+			//iv.setImageBitmap(ConstantValues.makeItCircular(bitmap));
 			else
 				iv.setVisibility(View.GONE);
 		}

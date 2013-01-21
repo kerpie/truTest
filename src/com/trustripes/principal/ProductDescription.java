@@ -190,7 +190,7 @@ public class ProductDescription extends Activity {
 	    				}
 	    			}
 	    			else{
-	    				list.add(new MessageItem("No existen comentarios para este producto"));
+	    				list.add(new MessageItem("There aren't comments for this product"));
 	    			}
 	    			
 	    			ItemAdapter adapter = new ItemAdapter(getApplicationContext(), list);

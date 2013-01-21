@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
+import lazylist.ImageLoader;
+import lazylist.Loader;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -73,7 +76,7 @@ public class Register extends Activity {
 	private TextView textCode;
 	private Button btn_again, btn_register, backButton;
 	private EditText registerName;
-	private ImageView photo;
+	private ImageView photo, tempPhoto;
 	private ProgressDialog dialog;
 	private Spinner spinner;
 	
@@ -88,6 +91,8 @@ public class Register extends Activity {
 	private Bitmap bitmap = null;
 	private String countryCode;
 	private boolean uploading = false;
+	ImageLoader imageLoader;
+	Loader loader;
 	
 	HashMap<String, String> myCountryMap;
 	Registerback registerBack;
@@ -180,10 +185,13 @@ public class Register extends Activity {
 		
 		cameraButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				/*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 				cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempFile()));
 				startActivityForResult(cameraIntent, CAMERA_RESULT);
-				choosePictureDialog.dismiss();	
+				choosePictureDialog.dismiss();*/
+				
+				Intent camera_intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+	            startActivityForResult(camera_intent, CAMERA_RESULT);
 			}
 		});
 	
@@ -205,6 +213,7 @@ public class Register extends Activity {
         id = developmentSession.getString("user_id", "-1");
         realId = Integer.parseInt(id);
 	}
+	
 	
 	private void populateCountries() {
 		myCountryMap.put("Pick the country of manufacturing", "");
@@ -468,6 +477,7 @@ public class Register extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 			case GALLERY_RESULT:
 				if (resultCode == Activity.RESULT_OK) {
@@ -504,16 +514,13 @@ public class Register extends Activity {
 			case CAMERA_RESULT:
 				if (resultCode == Activity.RESULT_OK) {
 					final File file = getTempFile();
+					Bitmap z= null;
+					ImageView im= null;
 					try {
-						Bitmap captureBmp = Media.getBitmap(getContentResolver(), Uri.fromFile(file) );
-						bitmap = captureBmp;
-						finalImagePath = file.getAbsolutePath();	
-						decodeFile(finalImagePath,200,200);
-						lastfinalImagePath = finalImagePath;					
-						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+						lastfinalImagePath = finalImagePath;
+						loader = new Loader(getApplicationContext());
+						loader.DisplayImage(lastfinalImagePath, photo);		  
+					} catch (Exception e) {
 						e.printStackTrace();
 					}					
 				}
@@ -664,7 +671,7 @@ public class Register extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(Register.this, "Uploading","Please wait...", true);
+		//	dialog = ProgressDialog.show(Register.this, "Uploading","Please wait...", true);
 		}
 		
 		@Override

@@ -17,6 +17,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class ConstantValues {
+	public static final Boolean Scan = true ;
+	public static final String codeUnRegister = "7750041586911";
+	
 	/* Everything here are variables available for every class in the app */
 
 	/* Root URL for connection */
@@ -105,5 +108,7 @@ public class ConstantValues {
 		}
 		return URL;
 	}
+	
+
 
 }
