@@ -11,14 +11,13 @@ import android.util.Log;
 public class MemoryCache {
 
     private static final String TAG = "MemoryCache";
-    private Map<String, Bitmap> cache=Collections.synchronizedMap(
-            new LinkedHashMap<String, Bitmap>(10,1.5f,true));//Last argument true for LRU ordering
+    private Map<String, Bitmap> cache=Collections.synchronizedMap(new LinkedHashMap<String, Bitmap>(10,1.5f,true));//Last argument true for LRU ordering
     private long size=0;//current allocated size
     private long limit=1000000;//max memory in bytes
 
-    public MemoryCache(){
-        //use 25% of available heap size
-        setLimit(Runtime.getRuntime().maxMemory()/4);
+    public MemoryCache(int quantityOfMemory){
+        //use 1/8 of available heap size
+        setLimit(Runtime.getRuntime().maxMemory()/quantityOfMemory);
     }
     
     public void setLimit(long new_limit){
@@ -41,7 +40,7 @@ public class MemoryCache {
     public void put(String id, Bitmap bitmap){
         try{
             if(cache.containsKey(id))
-                size-=getSizeInBytes(cache.get(id));
+                size -= getSizeInBytes(cache.get(id));
             cache.put(id, bitmap);
             size+=getSizeInBytes(bitmap);
             checkSize();
@@ -56,7 +55,7 @@ public class MemoryCache {
             Iterator<Entry<String, Bitmap>> iter=cache.entrySet().iterator();//least recently accessed item will be the first one iterated  
             while(iter.hasNext()){
                 Entry<String, Bitmap> entry=iter.next();
-                size-=getSizeInBytes(entry.getValue());
+                size -= getSizeInBytes(entry.getValue());
                 iter.remove();
                 if(size<=limit)
                     break;

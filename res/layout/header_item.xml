@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@layout/bg_gradient"
+    android:background="@layout/small_gradient"
     android:padding="3dp" >
 	<TextView 
 	    android:id="@+id/hi_section_name"

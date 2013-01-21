@@ -1,7 +1,5 @@
 package lazylist;
 
-import java.util.Random;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -19,7 +17,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LazyAdapter extends BaseAdapter {
     
@@ -44,13 +40,13 @@ public class LazyAdapter extends BaseAdapter {
     public void instantiateValues(LayoutInflater a, JSONArray array){
     	jsonArray = array;
         inflater = a;
-        imageLoader=new ImageLoader(inflater.getContext());
+        imageLoader=new ImageLoader(inflater.getContext(), 8);
     }
     
     public LazyAdapter(LayoutInflater a, JSONArray array) {
         jsonArray = array;
         inflater = a;
-        imageLoader=new ImageLoader(inflater.getContext());
+        imageLoader=new ImageLoader(inflater.getContext(), 8);
     }
 
     public int getCount() {
@@ -80,6 +76,7 @@ public class LazyAdapter extends BaseAdapter {
         try{
 	        JSONObject jsonObject = (JSONObject) jsonArray.get(position);
 	        String url, new_user_id;
+	        final String productName;
 	        
 	        new_user_id = jsonObject.getString("user_id");
 	        if(!(new_user_id.length()>1)){
@@ -87,7 +84,7 @@ public class LazyAdapter extends BaseAdapter {
 	        }     	
 	        if(!jsonObject.getString("photoUser").equalsIgnoreCase("null")){
 	        	url = ConstantValues.URL + "/public/user/"+ new_user_id +"/" + jsonObject.getString("photoUser");
-	        	imageLoader.DisplayImage(url, profilePhoto, true);
+	        	imageLoader.DisplayImage(url, profilePhoto, true, false);
 	        }
 	        else{
 	        	Bitmap source = BitmapFactory.decodeResource(inflater.getContext().getResources(), R.drawable.default_avatar);
@@ -113,20 +110,24 @@ public class LazyAdapter extends BaseAdapter {
 	        	new_name = jsonObject.getString("username").substring(0,15);
 	        else
 	        	new_name = jsonObject.getString("username");
-	        username.setText(new_name + " snacked in " + jsonObject.getString("productname"));
+	        
+	        productName = jsonObject.getString("productname");
+	        username.setText(new_name + " snacked in " + productName);
 
 	        //product.setText(jsonObject.getString("productname"));
 	        final String idProduct = jsonObject.getString("idproduct");
 	        
 			String photo = jsonObject.getString("photo");
-			String tmp = ConstantValues.URL+"/ws/productphoto/"+idProduct+"/thumbnails/"+photo;
-	        imageLoader.DisplayImage(tmp, image, false);
+			final String tmp = ConstantValues.URL+"/ws/productphoto/"+idProduct+"/thumbnails/"+photo;
+	        imageLoader.DisplayImage(tmp, image, false, false);
 	        
 	        image.setClickable(true);
 	        image.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					Intent intent = new Intent(inflater.getContext(), ProductDescription.class);
 					intent.putExtra("PRODUCT_ID", idProduct);
+					intent.putExtra("IMAGE_PATH", tmp);
+					intent.putExtra("PRODUCT_NAME", productName);
 					inflater.getContext().startActivity(intent);
 				}
 			});

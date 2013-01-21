@@ -514,6 +514,7 @@ public class Register extends Activity {
 			case CAMERA_RESULT:
 				if (resultCode == Activity.RESULT_OK) {
 					final File file = getTempFile();
+<<<<<<< HEAD
 					Bitmap z= null;
 					ImageView im= null;
 					try {
@@ -523,6 +524,19 @@ public class Register extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}					
+=======
+					//try {
+						//Media.getBitmap(getContentResolver(), Uri.fromFile(file));
+					lastfinalImagePath = file.getAbsolutePath();	
+					decodeFile(file.getAbsolutePath(),50,50);
+											
+						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
+//					} catch (FileNotFoundException e) {
+//						e.printStackTrace();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}					
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 				}
 				break;
 		}
@@ -542,42 +556,25 @@ public class Register extends Activity {
 	}
 	
 	public void decodeFile(String filePath, int requiredHeight, int requiredWidth) {
-		BitmapFactory.Options o = new BitmapFactory.Options();
-		o.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(filePath,o);
-		int scale = 0;
-		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
-			if(o.outWidth > o.outHeight){
-				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
-			}else{
-				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
-			}
-		}
-		
+		BitmapFactory.Options o;
+//		o.inJustDecodeBounds = true;
+//		BitmapFactory.decodeFile(filePath,o);
+		int scale = 8;
+//		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
+//			if(o.outWidth > o.outHeight){
+//				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
+//			}else{
+//				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
+//			}
+//		}
+//		
 		o = new BitmapFactory.Options();
 		o.inSampleSize = scale;
 		o.inJustDecodeBounds = false;
+		o.inPurgeable = true;
 		bitmap = BitmapFactory.decodeFile(filePath, o);		
 		finalImagePath = filePath;		
 		photo.setImageBitmap(bitmap);
-		
-//		// Decode image size
-//		BitmapFactory.Options o = new BitmapFactory.Options();
-//		o.inJustDecodeBounds = true;
-//		BitmapFactory.decodeFile(filePath, o);
-//
-//		// Find the correct scale value. It should be the power of 2.
-////		int width_tmp = o.outWidth, height_tmp = o.outHeight;
-//		int scale = 4;
-//
-//		// Decode with inSampleSize
-//		BitmapFactory.Options o2 = new BitmapFactory.Options();
-//		o2.inSampleSize = scale;
-//		bitmap = BitmapFactory.decodeFile(filePath, o2);
-//		photo.setImageBitmap(bitmap);
-//		//TESTING RECYCLE
-//		//bitmap.recycle();
-//		//bitmap = null;
 	}
 
 	private File getTempFile(){
@@ -585,7 +582,7 @@ public class Register extends Activity {
 		  final File path = new File( Environment.getExternalStorageDirectory(),"TruStripes");
 		  if(!path.exists())
 		    path.mkdir();
-		  return new File(path, "image.tmp");
+		  return new File(path, "image.jpg");
 	}
 	
 	@Override
@@ -685,7 +682,7 @@ public class Register extends Activity {
 				
 				MultipartEntity entity = new MultipartEntity();
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 30, bos);
+				bitmap.compress(CompressFormat.JPEG, 100, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("productname", new StringBody(productName));
 				entity.addPart("uploadedfile", new ByteArrayBody(data, "myImage.jpg"));

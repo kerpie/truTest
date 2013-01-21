@@ -13,6 +13,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import lazylist.ImageLoader;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -47,6 +49,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -59,6 +62,7 @@ public class ProductDescription extends Activity {
 	TextView productCategoryName;
 	RatingBar productRatingBar;
 	ListView listData;
+	ProgressBar progressBar;
 	
 	String imagePath;
 	String productId;
@@ -67,6 +71,8 @@ public class ProductDescription extends Activity {
 	Intent intent;
 	Button backButton;
 	Bitmap bitmap;
+	
+	ImageLoader imageLoader;
 	
 	ArrayList<ItemType> list = new ArrayList<ItemType>();
 	
@@ -80,7 +86,7 @@ public class ProductDescription extends Activity {
         productCategoryName = (TextView) findViewById(R.id.postSnack_product_category_name);
         productRatingBar = (RatingBar) findViewById(R.id.postSnack_ratingbar);     
         backButton = (Button)findViewById(R.id.backButton);
-        
+        progressBar = (ProgressBar) findViewById(R.id.pd_data_loader);
         listData = (ListView) findViewById(R.id.pd_data_listview);
         
         productRatingBar.setEnabled(false);
@@ -90,10 +96,18 @@ public class ProductDescription extends Activity {
 				finish();
 			}
 		});
-       
+      
+    	imageLoader = new ImageLoader(getApplicationContext(), 32);
+    	
         intent = getIntent();
-        productId = intent.getStringExtra("PRODUCT_ID");                
+        productId = intent.getStringExtra("PRODUCT_ID");
+        imagePath = intent.getStringExtra("IMAGE_PATH");
+        stringProductName = intent.getStringExtra("PRODUCT_NAME");
+        
         productCategoryName.setVisibility(View.GONE);
+        
+        productName.setText(stringProductName);
+        imageLoader.DisplayImage(imagePath, productPhoto, false, false);
         new ProductDetail().execute(productId);
     }
     
@@ -108,6 +122,12 @@ public class ProductDescription extends Activity {
     	String statusResponse;
     	JSONObject SnackjsonObject;
     	boolean gotInformation = false;
+    	
+    	@Override
+    	protected void onPreExecute() {
+    		super.onPreExecute();
+    		progressBar.setVisibility(View.VISIBLE);
+    	}
     	
     	@Override
     	protected Void doInBackground(String... params) {
@@ -160,15 +180,17 @@ public class ProductDescription extends Activity {
     		super.onPostExecute(result);
     		if(gotInformation){
     			try{
-	    			LifeGuard lg = new LifeGuard();
-	    			lg.setPath(SnackjsonObject.getString("fotoproducto"));
-	    			lg.setImage(productPhoto);
+//	    			LifeGuard lg = new LifeGuard();
+//	    			lg.setPath(SnackjsonObject.getString("fotoproducto"));
+//	    			lg.setImage(productPhoto);
 	    			
-	    			new GetImage().execute(lg);
+	    			//new GetImage().execute(lg);
 	    			
-	    			productName.setText(SnackjsonObject.getString("producto"));
-	    			productRatingBar.setRating(Float.parseFloat(SnackjsonObject.getString("promedio")));
-	    			
+    				if(SnackjsonObject.getString("promedio") != "null")
+    					productRatingBar.setRating(Float.parseFloat(SnackjsonObject.getString("promedio")));
+    				else 
+    					productRatingBar.setRating(0);
+    				
 	    			list.add(new HeaderItem("Ambassador"));
 	    			if(Integer.parseInt(SnackjsonObject.getString("statusEmbajador")) == 1){
 		    			list.add(new RegularItem(ConstantValues.URL +  ConstantValues.PhotoUrl(SnackjsonObject.getString("fotoembajador")), SnackjsonObject.getString("embajadorDisplay"), SnackjsonObject.getString("embajador") ));
@@ -201,6 +223,7 @@ public class ProductDescription extends Activity {
     			Toast.makeText(getApplicationContext(), "We can't show information about this product at this time. Please, try again later", Toast.LENGTH_SHORT).show();
     			finish();
     		}
+    		progressBar.setVisibility(View.GONE);
     	}
     }
     

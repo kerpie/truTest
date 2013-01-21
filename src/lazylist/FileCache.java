@@ -16,7 +16,7 @@ public class FileCache {
             dire = new File(cacheDir, "Cache");    	
         }
         else
-            dire=context.getCacheDir();
+            dire = context.getCacheDir();
         if(!dire.exists())
             dire.mkdirs();
     }

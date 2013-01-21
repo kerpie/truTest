@@ -17,7 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lazylist.ImageLoader;
+<<<<<<< HEAD
 import lazylist.Loader;
+=======
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -96,9 +99,16 @@ public class PreSnackin extends Activity {
 
 	String obtainedCode, productId, userId, productName, productPhoto;
 	String finalImagePath;
+	String imgpath;
 	String profileImagePath;
 	String ratingValue;
+<<<<<<< HEAD
 
+=======
+	
+	ImageLoader imageLoader;
+	
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 	SendSnackIn sendSnackin;
 
 	boolean snackStatus;
@@ -108,10 +118,15 @@ public class PreSnackin extends Activity {
 	boolean ratingBarValueChanged;
 
 	boolean loadedImage;
+<<<<<<< HEAD
 	boolean isAnotherPhoto = false;
 
 	LoadPhoto loadPhoto;
 
+=======
+	boolean isAnotherPhoto=false;
+	
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 	SharedPreferences session;
 
 	private SharedPreferences developmentSession = null;
@@ -123,10 +138,14 @@ public class PreSnackin extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_pre_snackin);
+<<<<<<< HEAD
 		imageLoader = new ImageLoader(getApplicationContext());
 		// name = Environment.getExternalStorageDirectory() + "/Snack.jpg";
 		name = Environment.getExternalStorageDirectory() + "TruStripes"
 				+ "image.tmp";
+=======
+		
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 		/* Instantiation of UI widgets */
 		snackAgainButton = (Button) findViewById(R.id.presnack_button_again);
 		realSnackInButton = (Button) findViewById(R.id.presnack_button_Snack);
@@ -157,6 +176,7 @@ public class PreSnackin extends Activity {
 				ratingValue = String.valueOf(rating);
 			}
 		});
+<<<<<<< HEAD
 
 		/*
 		 * loadPhoto = new LoadPhoto();
@@ -170,6 +190,30 @@ public class PreSnackin extends Activity {
 		imageLoader.DisplayImage(ConstantValues.URL + "/ws/productphoto/"
 				+ productId + "/thumbnails/" + productPhoto, image, false);
 
+=======
+		
+//		loadPhoto = new LoadPhoto();
+		
+//		if(savedInstanceState != null){
+//			boolean imageWasLoaded = savedInstanceState.getBoolean("loadingStatus");
+//			if(imageWasLoaded){
+//				String path = savedInstanceState.getString("ImagePath");
+//				if(!path.isEmpty()){
+//					decodeFile(path, 200, 200);
+//				}
+//			}else{
+//				imageLoader.DisplayImage(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto, image, false);
+//				//loadPhoto.execute();
+//			}
+//		}
+//		else{
+//			imageLoader.DisplayImage(ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto, image, false);
+//			//loadPhoto.execute();
+//		}
+		
+		
+		
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 		userId = session.getString("user_id", "No user");
 
 		/* Instantiation and button event association */
@@ -202,9 +246,13 @@ public class PreSnackin extends Activity {
 				}
 			}
 		});
+<<<<<<< HEAD
 
 		image.setClickable(true);
 
+=======
+			
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Pick image from");
 		LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
@@ -236,6 +284,7 @@ public class PreSnackin extends Activity {
 				choosePictureDialog.dismiss();
 			}
 		});
+<<<<<<< HEAD
 
 		image.setOnClickListener(new OnClickListener() {
 
@@ -248,6 +297,40 @@ public class PreSnackin extends Activity {
 				MODE_PRIVATE);
 		id = developmentSession.getString("user_id", "-1");
 		realId = Integer.parseInt(id);
+=======
+		
+//		image.setClickable(true);
+//		image.setOnClickListener(new OnClickListener() {
+//			
+//			public void onClick(View v) {
+//				choosePictureDialog.show();
+//			}
+//		});
+		
+		imageLoader = new ImageLoader(getApplicationContext(),16);
+		
+		if(savedInstanceState != null){
+			String tmp = savedInstanceState.getString("path");
+			String[] tmpArray = tmp.split("/");
+			if(tmpArray.length != 8){
+				decodeFile(tmp, 100, 100);
+			}
+			else{
+				finalImagePath = ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto;
+				imageLoader.DisplayImage(finalImagePath, image, false, false);
+			}
+		}
+		else{
+			finalImagePath = ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto;
+			imageLoader.DisplayImage(finalImagePath, image, false, false);
+		}
+				
+		imgpath = ConstantValues.URL+"/ws/productphoto/"+ productId +"/thumbnails/"+productPhoto;
+		
+		developmentSession = getSharedPreferences(ConstantValues.USER_DATA, MODE_PRIVATE);
+        id = developmentSession.getString("user_id", "-1");
+        realId = Integer.parseInt(id);
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 	}
 
 	public String getPath(Uri uri) {
@@ -263,6 +346,7 @@ public class PreSnackin extends Activity {
 		} else
 			return null;
 	}
+<<<<<<< HEAD
 
 	private File getTempFile() {
 		// it will return /sdcard/image.tmp
@@ -271,6 +355,15 @@ public class PreSnackin extends Activity {
 		if (!path.exists())
 			path.mkdir();
 		return new File(path, "image.tmp");
+=======
+	
+	private File getTempFile(){
+		  //it will return /sdcard/image.tmp
+		  final File path = new File( Environment.getExternalStorageDirectory(),"TruStripes");
+		  if(!path.exists())
+		    path.mkdir();
+		  return new File(path, "image.jpg");
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 	}
 
 	public void decodeFile(String filePath, int requiredHeight,
@@ -278,6 +371,7 @@ public class PreSnackin extends Activity {
 		// Decode image size
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
+<<<<<<< HEAD
 		BitmapFactory.decodeFile(filePath, o);
 		int scale = 0;
 		if (o.outHeight > requiredHeight || o.outWidth > requiredWidth) {
@@ -295,6 +389,23 @@ public class PreSnackin extends Activity {
 		o.inJustDecodeBounds = false;
 		bitmap = BitmapFactory.decodeFile(filePath, o);
 		finalImagePath = filePath;
+=======
+		BitmapFactory.decodeFile(filePath,o);
+		int scale = 8;
+//		if( o.outHeight > requiredHeight || o.outWidth > requiredWidth ){
+//			if(o.outWidth > o.outHeight){
+//				scale = Math.round(Math.round((float)o.outHeight/(float)o.outWidth));
+//			}else{
+//				scale = Math.round(Math.round((float)o.outWidth/(float)o.outHeight));
+//			}
+//		}
+		o = new BitmapFactory.Options();
+		o.inSampleSize = scale;
+		o.inJustDecodeBounds = false;
+		o.inPurgeable = true;
+		bitmap = BitmapFactory.decodeFile(filePath, o);		
+		finalImagePath = filePath;		
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 		image.setImageBitmap(bitmap);
 	}
 
@@ -302,6 +413,7 @@ public class PreSnackin extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		isAnotherPhoto = true;
 		switch (requestCode) {
+<<<<<<< HEAD
 		case GALLERY_RESULT:
 			if (resultCode == Activity.RESULT_OK) {
 				Uri selectedImageUri = data.getData();
@@ -327,12 +439,43 @@ public class PreSnackin extends Activity {
 						finalImagePath = filePath;
 					} else {
 						bitmap = null;
+=======
+			case GALLERY_RESULT:
+				if (resultCode == Activity.RESULT_OK) {
+					Uri selectedImageUri = data.getData();
+					String filePath = null;
+					try {
+						// OI FILE Manager
+						String filemanagerstring = selectedImageUri.getPath();
+	
+						// MEDIA GALLERY
+						String selectedImagePath = getPath(selectedImageUri);
+						if (selectedImagePath != null) {
+							filePath = selectedImagePath;
+						} else if (filemanagerstring != null) {
+							filePath = filemanagerstring;
+						} else {
+							Toast.makeText(getApplicationContext(), "Unknown path",Toast.LENGTH_LONG).show();
+							Log.e("Bitmap", "Unknown path");
+						}
+	
+						if (filePath != null) {
+							decodeFile(filePath, 20, 20);
+							finalImagePath = filePath;
+						} else {
+							bitmap = null;
+						}
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(), "Internal error",Toast.LENGTH_LONG).show();
+						Log.e(e.getClass().getName(), e.getMessage(), e);
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 					}
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(), "Internal error",
 							Toast.LENGTH_LONG).show();
 					Log.e(e.getClass().getName(), e.getMessage(), e);
 				}
+<<<<<<< HEAD
 			}
 			break;
 		case CAMERA_RESULT:
@@ -352,6 +495,22 @@ public class PreSnackin extends Activity {
 					// To Gallery, etc)
 				} catch (Exception e) {
 					e.printStackTrace();
+=======
+				break;
+			case CAMERA_RESULT:
+				if (resultCode == Activity.RESULT_OK) {
+					final File file = getTempFile();
+					finalImagePath = file.getAbsolutePath();
+//					try {
+						//imageLoader.DisplayImage(file.getAbsolutePath(), image, false, true);
+						decodeFile(file.getAbsolutePath(), 50, 50);
+						// do whatever you want with the bitmap (Resize, Rename, Add To Gallery, etc)
+//					} catch (FileNotFoundException e) {
+//						e.printStackTrace();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}					
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 				}
 			}
 
@@ -364,12 +523,24 @@ public class PreSnackin extends Activity {
 		super.onStart();
 
 		/* Implementation of Google Analytics for Android */
+<<<<<<< HEAD
 		if (ConstantValues.URL == "http://www.trustripes.com"
 				&& !ConstantValues.isInDevelopmentTeam(realId)) {
 			EasyTracker.getInstance().activityStart(this);
 		}
+=======
+		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    		EasyTracker.getInstance().activityStart(this);
+    	}
+		
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("path", finalImagePath);
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
+	}
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -388,6 +559,7 @@ public class PreSnackin extends Activity {
 	}
 
 	@Override
+<<<<<<< HEAD
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		/*
@@ -470,6 +642,28 @@ public class PreSnackin extends Activity {
 					"Please wait...", true);
 		}
 
+=======
+	public void onBackPressed() {
+		finish();
+	}
+	
+	public class SendSnackIn extends AsyncTask<Void, Integer, Void>{
+		
+    	private String statusResponse = null;
+    	private String responseMessage = null;
+    	private String snackCount = null;
+    	private String ambassadorStatus = null;
+    	private StringBuilder stringBuilder = null;
+    	private String snackinId = null;    	
+    	private String averagePoints = "0";
+		
+    	@Override
+    	protected void onPreExecute() {
+    		super.onPreExecute();
+    		dialog = ProgressDialog.show(PreSnackin.this, "Processing","Please wait...", true);
+    	}
+    	
+>>>>>>> 3c0ce4485a5efcfe344291b9dfeb898172f82fc3
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
@@ -528,7 +722,7 @@ public class PreSnackin extends Activity {
 					post = new HttpPost(postURL);
 					MultipartEntity entity = new MultipartEntity();
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					bitmap.compress(CompressFormat.JPEG, 30, bos);
+					bitmap.compress(CompressFormat.JPEG, 50, bos);
 					byte[] data = bos.toByteArray();
 					entity.addPart("uploadedfile", new ByteArrayBody(data,
 							"myImage.jpg"));
@@ -676,6 +870,7 @@ public class PreSnackin extends Activity {
 				intent.putExtra("productPath", finalImagePath);
 				intent.putExtra("RATING", averagePoints);
 				intent.putExtra("SNACKIN_ID", snackinId);
+				intent.putExtra("IS_ANOTHER_PHOTO", isAnotherPhoto);
 				startActivity(intent);
 				finish();
 			} else {

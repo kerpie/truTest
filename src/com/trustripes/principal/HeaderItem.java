@@ -27,6 +27,10 @@ public class HeaderItem implements ItemType{
 	public boolean isMessage() {
 		return false;
 	}
-	
+
+	@Override
+	public boolean isPoint() {
+		return false;
+	}
 	
 }

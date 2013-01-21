@@ -223,16 +223,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="10dp"
-                            android:layout_weight="1" >
-
+                            android:layout_weight="1" 
+                            android:background="@drawable/pre_snack_bg">
                             <ImageView
                                 android:id="@+id/snackOne"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
-                                android:background="@drawable/snack_background"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/product_empty" />
-
                             <ProgressBar
                                 android:id="@+id/snackOne_image_loader"
                                 android:layout_width="50dp"
@@ -240,7 +238,6 @@
                                 android:layout_gravity="center"
                                 android:visibility="gone" />
                         </FrameLayout>
-
                         <FrameLayout
                             android:id="@+id/frame_box2"
                             android:layout_width="0dp"
@@ -248,16 +245,14 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/frame_box1"
-                            android:layout_weight="1" >
-
+                            android:layout_weight="1" 
+                            android:background="@drawable/pre_snack_bg">
                             <ImageView
                                 android:id="@+id/snack_Two"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
-                                android:background="@drawable/snack_background"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/product_empty" />
-
                             <ProgressBar
                                 android:id="@+id/snackTwo_image_loader"
                                 android:layout_width="50dp"
@@ -265,7 +260,6 @@
                                 android:layout_gravity="center"
                                 android:visibility="gone" />
                         </FrameLayout>
-
                         <FrameLayout
                             android:id="@+id/frame_box3"
                             android:layout_width="0dp"
@@ -274,16 +268,14 @@
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/frame_box2"
-                            android:layout_weight="1" >
-
+                            android:layout_weight="1" 
+                            android:background="@drawable/pre_snack_bg">
                             <ImageView
                                 android:id="@+id/snackThree"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
-                                android:background="@drawable/snack_background"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/product_empty" />
-
                             <ProgressBar
                                 android:id="@+id/snackThree_image_loader"
                                 android:layout_width="50dp"
@@ -292,14 +284,12 @@
                                 android:visibility="gone" />
                         </FrameLayout>
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/LinearTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/LinearOne"
                         android:layout_centerHorizontal="true" >
-
                         <FrameLayout
                             android:id="@+id/frame_box4"
                             android:layout_width="0dp"
@@ -307,17 +297,14 @@
                             android:layout_below="@+id/frame_box1"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="10dp"
+                            android:background="@drawable/pre_snack_bg"
                             android:layout_weight="1" >
-
                             <ImageView
                                 android:id="@+id/snackFour"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
-                                android:background="@drawable/snack_background"
-                                android:padding="5dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/product_empty" />
-
                             <ProgressBar
                                 android:id="@+id/snackFour_image_loader"
                                 android:layout_width="50dp"
@@ -325,7 +312,6 @@
                                 android:layout_gravity="center"
                                 android:visibility="gone" />
                         </FrameLayout>
-
                         <FrameLayout
                             android:id="@+id/frame_box5"
                             android:layout_width="0dp"
@@ -334,17 +320,14 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/frame_box4"
+                            android:background="@drawable/pre_snack_bg"
                             android:layout_weight="1" >
-
                             <ImageView
                                 android:id="@+id/snackFive"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
-                                android:background="@drawable/snack_background"
-                                android:padding="5dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/product_empty" />
-
                             <ProgressBar
                                 android:id="@+id/snackFive_image_loader"
                                 android:layout_width="50dp"
@@ -352,7 +335,6 @@
                                 android:layout_gravity="center"
                                 android:visibility="gone" />
                         </FrameLayout>
-
                         <FrameLayout
                             android:id="@+id/frame_box6"
                             android:layout_width="0dp"
@@ -362,17 +344,14 @@
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="10dp"
                             android:layout_toRightOf="@+id/frame_box5"
+                            android:background="@drawable/pre_snack_bg"
                             android:layout_weight="1" >
-
                             <ImageView
                                 android:id="@+id/snackSix"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
-                                android:background="@drawable/snack_background"
-                                android:padding="5dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/product_empty" />
-
                             <ProgressBar
                                 android:id="@+id/snackSix_image_loader"
                                 android:layout_width="50dp"

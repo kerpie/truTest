@@ -25,8 +25,12 @@ public class MessageItem implements ItemType{
 
 	@Override
 	public boolean isMessage() {
-		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public boolean isPoint() {
+		return false;
 	}
 
 }
