@@ -98,10 +98,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-
 		/* Implementation of Google Analytics for Android */
-		if (ConstantValues.URL == "http://www.trustripes.com"
-				&& !ConstantValues.isInDevelopmentTeam(realId)) {
+		if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
 			EasyTracker.getInstance().activityStart(this);
 		}
 	}
@@ -111,8 +109,7 @@ public class MainActivity extends Activity {
 		super.onStop();
 
 		/* Implementation of Google Analytics for Android */
-		if (ConstantValues.URL == "http://www.trustripes.com"
-				&& !ConstantValues.isInDevelopmentTeam(realId)) {
+		if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
 			EasyTracker.getInstance().activityStop(this);
 		}
 	}

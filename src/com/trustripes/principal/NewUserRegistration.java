@@ -169,11 +169,12 @@ public class NewUserRegistration extends Activity{
         progressBar.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         
+        
         /* Add listeners to check if the fields have valid data */
-        username.addTextChangedListener(new checkUsername(username, errorMessage));
-        mail.addTextChangedListener(new checkMail(mail, errorMessage));
-        full_name.addTextChangedListener(new checkFullName(full_name, errorMessage));
-        pass.addTextChangedListener(new checkPass(pass, errorMessage));
+        username.addTextChangedListener(new checkUsername(username, errorMessage, getApplicationContext()));
+        mail.addTextChangedListener(new checkMail(mail, errorMessage,getApplicationContext()));
+        full_name.addTextChangedListener(new checkFullName(full_name, errorMessage,getApplicationContext()));
+        pass.addTextChangedListener(new checkPass(pass, errorMessage,getBaseContext()));
 
         /* Loading the default avatar from the image resource */
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_avatar);
@@ -219,7 +220,7 @@ public class NewUserRegistration extends Activity{
         updateUser = new SendUpdateUser();
         
         /* Only visible if updating information */
-        visiblePass.addTextChangedListener(new checkPass(visiblePass, errorMessage));
+        visiblePass.addTextChangedListener(new checkPass(visiblePass, errorMessage,getApplicationContext()));
                       
         /* Listener to show the password entered in the field */
         passCheck.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
@@ -421,7 +422,7 @@ public class NewUserRegistration extends Activity{
     	super.onStart();   	
     	
     	/* Implementation of Google Analytics for Android */
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStart(this);
     	}
     	
@@ -476,7 +477,7 @@ public class NewUserRegistration extends Activity{
     	super.onStop();
     	
     	/* Implementation of Google Analytics for Android */
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStop(this);
     	}
     }

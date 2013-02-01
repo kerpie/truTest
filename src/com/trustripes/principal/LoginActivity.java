@@ -49,6 +49,7 @@ import com.facebook.android.FacebookError;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.Facebook.DialogListener;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.trustripes.Constants.ConstantValues;
 
 public class LoginActivity extends Activity {
@@ -120,9 +121,10 @@ public class LoginActivity extends Activity {
     	super.onStart();
     	
     	/* Implementation of Google Analytics for Android */
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
-    		EasyTracker.getInstance().activityStart(this);
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
+    		EasyTracker.getInstance().activityStart(this);    		
     	}
+    
     }
     
     @Override
@@ -130,7 +132,7 @@ public class LoginActivity extends Activity {
     	super.onStop();
     	
     	/* Implementation of Google Analytics for Android */
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStop(this);
     	}
     }

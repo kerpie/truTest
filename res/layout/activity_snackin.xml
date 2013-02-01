@@ -124,7 +124,9 @@
 				        android:layout_alignParentLeft="true"
 				        android:progressDrawable="@drawable/rating_bar_mini"       
 				        android:stepSize="1"   
-				        android:layout_below="@+id/product_photo"                  />
+				        android:layout_below="@+id/product_photo"
+				        
+				                          />
 					</RelativeLayout>
 					
                        <ImageView

@@ -1,148 +1,164 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashscreen_bg">
-    <RelativeLayout 
+    android:background="@drawable/splashscreen_bg" >
+
+    <RelativeLayout
+        android:id="@+id/pseudo_actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pseudo_actionBar"
         android:background="@layout/bg_gradient"
-        android:padding="5dp">
-        <Button 
-     		android:id="@+id/backButton"
-	      	android:layout_alignParentLeft="true"
-	      	android:background="@drawable/back_arrow"
-	      	android:layout_centerVertical="true"
-	      	android:layout_width="35dp"
-	      	android:layout_height="35dp"/>
-		<TextView
-			android:id="@+id/main_textView"
-			android:layout_width="130dp"
-			android:layout_height="30dp"
-			android:layout_centerVertical="true"
-			android:layout_toRightOf="@+id/backButton"
-			android:background="@drawable/logo"
-			android:padding="25dp" />
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/main_textView"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/backButton"
+            android:background="@drawable/logo"
+            android:padding="25dp" />
     </RelativeLayout>
-	<ScrollView 
-	    android:id="@+id/register_product_scrollView"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent" 
-	    android:layout_below="@+id/pseudo_actionBar"
-	    >
-	    <RelativeLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingBottom="20dp">
-	        <TextView
-	            android:id="@+id/register_textview_tittle"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="15dp"
-	            android:layout_marginBottom="5dp"
-	            android:text="Be the first to create this product and become its Discoverer."
-	            android:textColor="#F000"
-	            android:textStyle="bold" 
-	            android:padding="10dp"
-	            android:gravity="center"
-	            android:layout_centerHorizontal="true"/>
-	        <FrameLayout
-	            android:id="@+id/register_product_frame_layout" 
-	            android:layout_width="130dp"
-	            android:layout_height="130dp"
-	            android:layout_below="@+id/register_textview_tittle"
-	            android:layout_centerHorizontal="true"
-	            android:layout_margin="5dp"
-	            >
-	            <ImageView
-	            android:id="@+id/register_imageview_add"
-	            android:layout_width="130dp"
-	            android:layout_height="130dp"
-	            android:src="@drawable/camera_icon" 
-	            android:padding="10dp"
-	            />
-	            <ImageView 
-	                android:layout_width="40dp"
-	                android:layout_height="40dp"
-	                android:layout_gravity="bottom|right"
-	                android:src="@drawable/purple_plus_icon"/>
-	        </FrameLayout>
-	        <TextView
-	            android:id="@+id/register_textview_code"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/register_product_frame_layout"
-	            android:layout_centerHorizontal="true"
-	            android:layout_margin="5dp"
-	            android:text="Code"
-	            android:textColor="#F000"
-	            android:textStyle="bold" />
-	        <EditText
-	            android:id="@+id/register_edittext_name"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/register_textview_code"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="10dp"
-	            android:layout_marginBottom="5dp"
-	            android:layout_marginLeft="8dp"
-	            android:layout_marginRight="8dp"
-	            android:gravity="center"
-	            android:background="#FFFF"
-	            android:hint="Product name"
-	            android:lines="1" 
-	        	android:padding="10dp" 
-	        	android:textSize="15dp"/>
-	        <Spinner 
-	            android:id="@+id/register_spinner_country"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/register_edittext_name"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="5dp"
-	            android:layout_marginBottom="5dp"
-	            android:layout_marginLeft="8dp"
-	            android:layout_marginRight="8dp"
-	            android:gravity="center"
-	            android:lines="1"
-	            android:entries="@array/country_arrays"
-	            android:prompt="@string/country_prompt"
-	            android:background="#FFFF" />
-	        <LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:layout_below="@+id/register_spinner_country"
-	            android:layout_centerHorizontal="true"
-	            android:orientation="vertical"
-	            android:padding="10dp" 
-	            android:layout_marginTop="10dp"
-	            android:layout_marginRight="10dp"
-	            android:layout_marginLeft="10dp"
-	            android:layout_marginBottom="20dp">
-	            <Button
-	                android:id="@+id/register_button_register"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:text="Create"
-	                android:background="@drawable/midorys"
-	                android:layout_margin="5dp"
-	                android:textColor="#FFFFFFFF"/>
-	            <Button
-	                android:id="@+id/register_button_again"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:text="Snack again" 
-	                android:background="@drawable/midorys"
-	                android:layout_margin="5dp"
-	                android:textColor="#FFFFFFFF"/>
-	        </LinearLayout>
-	    </RelativeLayout>
-	</ScrollView>
-	<ImageView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_marginBottom="-22dp"
-	    android:contentDescription="@string/mainActivity_imgView_logo_contentDescription"
-	    android:src="@drawable/splashscreen_footer" />
+
+    <ScrollView
+        android:id="@+id/register_product_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pseudo_actionBar" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp" >
+
+            <TextView
+                android:id="@+id/register_textview_tittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Be the first to create this product and become its Discoverer."
+                android:textColor="#F000"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/register_product_frame_layout"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_below="@+id/register_textview_tittle"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp" >
+
+                <ImageView
+                    android:id="@+id/register_imageview_add"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_food" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom|right"
+                    android:src="@drawable/purple_plus_icon" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/register_textview_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/register_product_frame_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:text="Code"
+                android:textColor="#F000"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/register_edittext_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/register_textview_code"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFF"
+                android:gravity="center"
+                android:hint="Product name"
+                android:lines="1"
+                android:padding="10dp"
+                android:textSize="15dp" />
+
+            <Spinner
+                android:id="@+id/register_spinner_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/register_edittext_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="5dp"
+                android:background="#FFFF"
+                android:entries="@array/country_arrays"
+                android:gravity="center"
+                android:lines="1"
+                android:prompt="@string/country_prompt"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/register_spinner_country"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <Button
+                    android:id="@+id/register_button_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/midorys"
+                    android:text="Create"
+                    android:textColor="#FFFFFFFF" />
+
+                <TextView
+                    android:id="@+id/register_button_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:text="Snack again"
+                    android:textColor="#00f" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-22dp"
+        android:contentDescription="@string/mainActivity_imgView_logo_contentDescription"
+        android:src="@drawable/splashscreen_footer" />
+
 </RelativeLayout>

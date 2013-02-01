@@ -31,6 +31,7 @@ public class Discoverer extends Activity {
 	String profile_path;
 	int id;
 	Bitmap bitmap;
+	long cat = 2;
 
 	private SharedPreferences developmentSession = null;
 	String myId;
@@ -64,8 +65,9 @@ public class Discoverer extends Activity {
 		super.onStart();
 		
 		/* Implementation of Google Analytics for Android */
-		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+		if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStart(this);
+    		EasyTracker.getTracker().trackEvent("ContDiscoverer", "Discoverer","Post_Snackin", cat);
     	}
 		
 		name = t.getStringExtra("Product_name");
@@ -94,7 +96,7 @@ public class Discoverer extends Activity {
 		super.onStop();
 		
 		/* Implementation of Google Analytics for Android */
-		if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+		if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStop(this);
     	}
 	}

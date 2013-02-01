@@ -3,28 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_90" >
+
     <ImageView
-		android:id="@+id/imageTip"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-	    android:src="@drawable/how_to_scan" />
-     <CheckBox
+        android:id="@+id/imageTip"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_above="@+id/checkBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:clickable="true"
+        android:src="@drawable/how_to_scan" />
+
+    <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't show again"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-		android:textColor="#000"/>
+        android:layout_alignParentLeft="true"
+        android:text="Don&apos;t show again"
+        android:textColor="#000" />
+
     <Button
         android:id="@+id/i_go_it"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="Next"
-        android:background="@drawable/midorys"
-        android:textColor="#fff"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="7dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="7dp" />
+        android:background="@drawable/midorys"
+        android:text="Next"
+        android:textColor="#fff" />
+
 </RelativeLayout>

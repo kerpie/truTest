@@ -112,7 +112,7 @@ public class LazyAdapter extends BaseAdapter {
 	        	new_name = jsonObject.getString("username");
 	        
 	        productName = jsonObject.getString("productname");
-	        username.setText(new_name + " snacked in " + productName);
+	        username.setText(" "+new_name + "\n Snacked in " + productName);
 
 	        //product.setText(jsonObject.getString("productname"));
 	        final String idProduct = jsonObject.getString("idproduct");

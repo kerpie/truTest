@@ -16,10 +16,11 @@ public final class R {
     public static final class attr {
     }
     public static final class bool {
-        /** Enable Activity tracking
+        /**  Enable Activity tracking 
          */
         public static final int ga_autoActivityTracking=0x7f070000;
-        /** Enable automatic exception tracking
+        public static final int ga_debug=0x7f070002;
+        /**  Enable automatic exception tracking 
          */
         public static final int ga_reportUncaughtExceptions=0x7f070001;
     }
@@ -72,63 +73,72 @@ public final class R {
         public static final int droids=0x7f020013;
         public static final int facebook_icon=0x7f020014;
         public static final int fe2morado=0x7f020015;
-        public static final int foto_redondo=0x7f020016;
-        public static final int go=0x7f020017;
-        public static final int guide_four=0x7f020018;
-        public static final int guide_one=0x7f020019;
-        public static final int guide_three=0x7f02001a;
-        public static final int guide_two=0x7f02001b;
-        public static final int how_to_scan=0x7f02001c;
-        public static final int ic_action_search=0x7f02001d;
-        public static final int ic_launcher=0x7f02001e;
-        public static final int ic_pulltorefresh_arrow=0x7f02001f;
-        public static final int icon=0x7f020020;
-        public static final int icon_fotos=0x7f020021;
-        public static final int icon_snack=0x7f020022;
-        public static final int icon_snackx=0x7f020023;
-        public static final int image_for_empty_url=0x7f020024;
-        public static final int in=0x7f020025;
-        public static final int incon=0x7f020026;
-        public static final int leon=0x7f020027;
-        public static final int loading=0x7f020028;
-        public static final int login_button=0x7f020029;
-        public static final int login_logo_small=0x7f02002a;
-        public static final int logo=0x7f02002b;
-        public static final int logout_button=0x7f02002c;
-        public static final int midorys=0x7f02002d;
-        public static final int normal=0x7f02002e;
-        public static final int out=0x7f02002f;
-        public static final int photo_background=0x7f020030;
-        public static final int photo_background_cut=0x7f020031;
-        public static final int pic_ambassadorm=0x7f020032;
-        public static final int pic_badgesm=0x7f020033;
-        public static final int pic_discovererm=0x7f020034;
-        public static final int pic_smackm=0x7f020035;
-        public static final int pre_scan_image_view=0x7f020036;
-        public static final int pre_snack_bg=0x7f020037;
-        public static final int press_next=0x7f020038;
-        public static final int pressed=0x7f020039;
-        public static final int product=0x7f02003a;
-        public static final int product_empty=0x7f02003b;
-        public static final int pull_to_refresh_header_background=0x7f02003c;
-        public static final int purple_plus_icon=0x7f02003d;
-        public static final int rating_bar=0x7f02003e;
-        public static final int rating_bar_mini=0x7f02003f;
-        public static final int rectangulo=0x7f020040;
-        public static final int snack_background=0x7f020041;
-        public static final int snacked=0x7f020042;
-        public static final int splashscreen_bg=0x7f020043;
-        public static final int splashscreen_footer=0x7f020044;
-        public static final int splashscreen_logo=0x7f020045;
-        public static final int star_empty=0x7f020046;
-        public static final int star_empty_mini=0x7f020047;
-        public static final int star_full=0x7f020048;
-        public static final int star_full_mini=0x7f020049;
-        public static final int stub_image=0x7f02004a;
-        public static final int text_background_green=0x7f02004b;
-        public static final int text_background_purple=0x7f02004c;
-        public static final int text_background_red=0x7f02004d;
-        public static final int textoambassador=0x7f02004e;
+        public static final int fondo_categoria=0x7f020016;
+        public static final int fondo_categoria2=0x7f020017;
+        public static final int foto_redondo=0x7f020018;
+        public static final int go=0x7f020019;
+        public static final int guide_four=0x7f02001a;
+        public static final int guide_one=0x7f02001b;
+        public static final int guide_three=0x7f02001c;
+        public static final int guide_two=0x7f02001d;
+        public static final int how_to_scan=0x7f02001e;
+        public static final int ic_action_search=0x7f02001f;
+        public static final int ic_launcher=0x7f020020;
+        public static final int ic_pulltorefresh_arrow=0x7f020021;
+        public static final int icon=0x7f020022;
+        public static final int icon_food=0x7f020023;
+        public static final int icon_fotos=0x7f020024;
+        public static final int icon_snack=0x7f020025;
+        public static final int icon_snackx=0x7f020026;
+        public static final int image_for_empty_url=0x7f020027;
+        public static final int imagen_categoria=0x7f020028;
+        public static final int in=0x7f020029;
+        public static final int incon=0x7f02002a;
+        public static final int leon=0x7f02002b;
+        public static final int loading=0x7f02002c;
+        public static final int login_button=0x7f02002d;
+        public static final int login_logo_small=0x7f02002e;
+        public static final int logo=0x7f02002f;
+        public static final int logout_button=0x7f020030;
+        public static final int midorys=0x7f020031;
+        public static final int normal=0x7f020032;
+        public static final int out=0x7f020033;
+        public static final int photo_background=0x7f020034;
+        public static final int photo_background_cut=0x7f020035;
+        public static final int pic_ambassadorm=0x7f020036;
+        public static final int pic_badgesm=0x7f020037;
+        public static final int pic_discovererm=0x7f020038;
+        public static final int pic_smackm=0x7f020039;
+        public static final int pre_scan_image_view=0x7f02003a;
+        public static final int pre_snack_bg=0x7f02003b;
+        public static final int press_next=0x7f02003c;
+        public static final int pressed=0x7f02003d;
+        public static final int product=0x7f02003e;
+        public static final int product_empty=0x7f02003f;
+        public static final int pull_to_refresh_header_background=0x7f020040;
+        public static final int purple_plus_icon=0x7f020041;
+        public static final int rating_bar=0x7f020042;
+        public static final int rating_bar_mini=0x7f020043;
+        public static final int rectangulo=0x7f020044;
+        public static final int snack_background=0x7f020045;
+        public static final int snacked=0x7f020046;
+        public static final int splashscreen_bg=0x7f020047;
+        public static final int splashscreen_footer=0x7f020048;
+        public static final int splashscreen_logo=0x7f020049;
+        public static final int star_empty=0x7f02004a;
+        public static final int star_empty_mini=0x7f02004b;
+        public static final int star_empty_small=0x7f02004c;
+        public static final int star_full=0x7f02004d;
+        public static final int star_full_mini=0x7f02004e;
+        public static final int star_full_small=0x7f02004f;
+        public static final int star_half=0x7f020050;
+        public static final int star_half_mini=0x7f020051;
+        public static final int star_half_small=0x7f020052;
+        public static final int stub_image=0x7f020053;
+        public static final int text_background_green=0x7f020054;
+        public static final int text_background_purple=0x7f020055;
+        public static final int text_background_red=0x7f020056;
+        public static final int textoambassador=0x7f020057;
     }
     public static final class id {
         public static final int Background_snackin=0x7f0a0052;
@@ -136,6 +146,7 @@ public final class R {
         public static final int ContentOne=0x7f0a007b;
         public static final int ContentTwo=0x7f0a008d;
         public static final int Content_images=0x7f0a0080;
+        public static final int Image_Category=0x7f0a00bb;
         public static final int Layout_buttons=0x7f0a00a4;
         public static final int LinearOne=0x7f0a0090;
         public static final int LinearTwo=0x7f0a009a;
@@ -150,7 +161,7 @@ public final class R {
         public static final int avatar_male=0x7f0a002f;
         public static final int backButton=0x7f0a000b;
         public static final int barcode_image_view=0x7f0a0065;
-        public static final int bottomPart=0x7f0a00b8;
+        public static final int bottomPart=0x7f0a00b7;
         public static final int button_next=0x7f0a0016;
         public static final int button_previous=0x7f0a0015;
         public static final int button_return_wall=0x7f0a005e;
@@ -195,7 +206,7 @@ public final class R {
         public static final int inner_container=0x7f0a0018;
         public static final int launch_camera_button=0x7f0a0074;
         public static final int launch_product_query=0x7f0a0004;
-        public static final int leftPart=0x7f0a00b9;
+        public static final int leftPart=0x7f0a00b8;
         public static final int loading_progress_bar=0x7f0a0035;
         public static final int login_button=0x7f0a001c;
         public static final int login_createUser_textView=0x7f0a001f;
@@ -278,7 +289,7 @@ public final class R {
         public static final int ri_user_full_name=0x7f0a00ae;
         public static final int ri_user_image=0x7f0a00ad;
         public static final int ri_user_nick_name=0x7f0a00af;
-        public static final int rigthPart=0x7f0a00ba;
+        public static final int rigthPart=0x7f0a00b9;
         public static final int search_book_contents_failed=0x7f0a0008;
         public static final int search_book_contents_succeeded=0x7f0a0009;
         public static final int snackFive=0x7f0a009f;
@@ -293,6 +304,7 @@ public final class R {
         public static final int snackThree_image_loader=0x7f0a0099;
         public static final int snackTwo_image_loader=0x7f0a0096;
         public static final int snack_Two=0x7f0a0095;
+        public static final int snack_date=0x7f0a00b6;
         public static final int snackin_content=0x7f0a0057;
         public static final int snackin_product_name=0x7f0a0058;
         public static final int snackin_text=0x7f0a005d;
@@ -316,10 +328,8 @@ public final class R {
         public static final int username_editText=0x7f0a0026;
         public static final int viewfinder_view=0x7f0a0063;
         public static final int visible_pass_editText=0x7f0a002b;
-        public static final int wall_item_product_photo=0x7f0a00bb;
-        public static final int wall_item_product_text=0x7f0a00b7;
+        public static final int wall_item_product_photo=0x7f0a00ba;
         public static final int wall_item_profile_photo=0x7f0a005c;
-        public static final int wall_item_snack_text=0x7f0a00b6;
         public static final int wall_item_username_text=0x7f0a00b5;
         public static final int wall_list=0x7f0a00b3;
     }
@@ -335,23 +345,24 @@ public final class R {
         public static final int activity_register=0x7f030008;
         public static final int activity_snackin=0x7f030009;
         public static final int activity_tip_camera=0x7f03000a;
-        public static final int bg_gradient=0x7f03000b;
-        public static final int bg_gradiente_green=0x7f03000c;
-        public static final int capture=0x7f03000d;
-        public static final int header_item=0x7f03000e;
-        public static final int message_item=0x7f03000f;
-        public static final int pick_photo=0x7f030010;
-        public static final int points_item=0x7f030011;
-        public static final int post_snack_product_container_bg=0x7f030012;
-        public static final int post_snack_product_title_bg=0x7f030013;
-        public static final int profile=0x7f030014;
-        public static final int pull_to_refresh_header=0x7f030015;
-        public static final int regular_item=0x7f030016;
-        public static final int row=0x7f030017;
-        public static final int small_gradient=0x7f030018;
-        public static final int splash_activity=0x7f030019;
-        public static final int wall_activity=0x7f03001a;
-        public static final int wall_item=0x7f03001b;
+        public static final int background_text_wall=0x7f03000b;
+        public static final int bg_gradient=0x7f03000c;
+        public static final int bg_gradiente_green=0x7f03000d;
+        public static final int capture=0x7f03000e;
+        public static final int header_item=0x7f03000f;
+        public static final int message_item=0x7f030010;
+        public static final int pick_photo=0x7f030011;
+        public static final int points_item=0x7f030012;
+        public static final int post_snack_product_container_bg=0x7f030013;
+        public static final int post_snack_product_title_bg=0x7f030014;
+        public static final int profile=0x7f030015;
+        public static final int pull_to_refresh_header=0x7f030016;
+        public static final int regular_item=0x7f030017;
+        public static final int row=0x7f030018;
+        public static final int small_gradient=0x7f030019;
+        public static final int splash_activity=0x7f03001a;
+        public static final int wall_activity=0x7f03001b;
+        public static final int wall_item=0x7f03001c;
     }
     public static final class menu {
         public static final int activity_discoverer=0x7f0c0000;
@@ -382,7 +393,7 @@ public final class R {
         public static final int country_prompt=0x7f060006;
         public static final int feedback_prompt=0x7f060007;
         public static final int fill_fields_to_login=0x7f060042;
-        /** Replace placeholder ID with your tracking ID
+        /**  tracking ID DEV 
          */
         public static final int ga_trackingId=0x7f060005;
         public static final int hello_world=0x7f060008;

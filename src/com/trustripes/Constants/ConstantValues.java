@@ -17,13 +17,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class ConstantValues {
-	public static final Boolean Scan = true ;
+	public static final Boolean Scan = true;
 	public static final String codeUnRegister = "7750041586911";
 	
 	/* Everything here are variables available for every class in the app */
 
 	/* Root URL for connection */
-	public static final String URL = "http://dev.trustripes.com";
+		public static final String URL = "http://dev.trustripes.com";
 
 	/* Quality Assurance */
 	// public static final String URL = "http://qas.trustripes.com";
@@ -35,7 +35,7 @@ public class ConstantValues {
 	public static final String USER_DATA = "UserDataPreferences";
 
 	public static final int[] developmentIds = { 1, 2, 3, 5, 6, 7, 8, 28, 42,
-			46, 73, 75, 76, 78, 79, 80, 83, 84, 85, 88, 89, 90, 91 };
+			46, 73, 75, 76, 78, 79, 80, 82, 83, 84, 85, 86 ,87, 88, 89, 90, 91, 97, 99, 100 };
 
 	public static boolean isInDevelopmentTeam(int key) {
 		for (int i = 0; i < 4; i++) {
@@ -79,8 +79,7 @@ public class ConstantValues {
 
 	public static Bitmap makeItCircular(Bitmap bitmap) {
 		Bitmap source = bitmap;
-		Bitmap result = Bitmap.createBitmap(source.getWidth(),
-				source.getHeight(), Config.ARGB_8888);
+		Bitmap result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Config.ARGB_8888);
 		Canvas canvas = new Canvas(result);
 		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		RectF rect = new RectF(0, 0, source.getWidth(), source.getHeight());

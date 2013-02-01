@@ -5,12 +5,14 @@ import java.util.regex.Pattern;
 
 import com.trustripes.principal.R;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class checkMail implements TextWatcher{
 	
@@ -21,11 +23,13 @@ public class checkMail implements TextWatcher{
 	Matcher mailMatch;
 	final String MAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	public static boolean returnValue;
+	Context context;
 	
-	public checkMail(EditText root, TextView errorMessage){
+	public checkMail(EditText root, TextView errorMessage, Context context){
 		mail = root;
 		mailPattern = Pattern.compile(MAIL_PATTERN);
 		message = errorMessage;
+		this.context = context;
 	}
 
 	public void afterTextChanged(Editable s) {
@@ -50,8 +54,10 @@ public class checkMail implements TextWatcher{
 		else{
 			mail.setBackgroundResource(R.drawable.text_background_red);
 			message.setVisibility(View.VISIBLE);
-			message.setText(R.string.new_user_mail_check_symbol);
+			Toast.makeText(context, R.string.new_user_mail_check_symbol,
+					Toast.LENGTH_SHORT).show();
 			returnValue = false;
+			
 		}
 	}
 }

@@ -249,7 +249,7 @@ public class PostSnackin extends Activity {
 	    			if(Integer.parseInt(snackResponse.getString("statusEmbajador")) == 1)
 	    				items.add(new RegularItem(ConstantValues.URL + ConstantValues.PhotoUrl(snackResponse.getString("fotoembajador")),snackResponse.getString("embajadorDisplay"),snackResponse.getString("embajador")));
 	    			else
-	    				items.add(new MessageItem("This product doesn't have an ambassador yet. you can become "+ stringProductName +"'s ambassador!"));
+	    				items.add(new MessageItem("This product doesn't have an ambassador yet. You can become "+ stringProductName +"'s ambassador!"));
 	    				
 	    			items.add(new HeaderItem("Comments"));
 	    			if(Integer.parseInt(snackResponse.getString("statusComentarios")) == 1){

@@ -5,11 +5,13 @@ import java.util.regex.Pattern;
 
 import com.trustripes.principal.R;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class checkFullName implements TextWatcher{
 	
@@ -18,13 +20,15 @@ public class checkFullName implements TextWatcher{
 	final String FULL_NAME_PATTERN = "[a-zA-z[αινσϊ]*]+";
 	Pattern fullNamePattern;
 	Matcher fullNameMatch;
+	Context context;
 		
 	public static boolean returnValue;
 	
-	public checkFullName(EditText root, TextView errorMessage){
+	public checkFullName(EditText root, TextView errorMessage, Context context){
 		fullName = root;
 		message = errorMessage;
 		fullNamePattern = Pattern.compile(FULL_NAME_PATTERN);
+		this.context = context;
 	}
 
 	public void afterTextChanged(Editable s) {
@@ -49,7 +53,8 @@ public class checkFullName implements TextWatcher{
 			else{
 				fullName.setBackgroundResource(R.drawable.text_background_red);
 				message.setVisibility(View.VISIBLE);
-				message.setText(R.string.no_number_in_name);
+				Toast.makeText(context, R.string.no_number_in_name,
+						Toast.LENGTH_SHORT).show();
 				returnValue = false;
 			}
 		}

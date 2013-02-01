@@ -53,6 +53,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.InputFilter.LengthFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,15 +73,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CustomViewPagerAdapter extends PagerAdapter {
-	
-	public ImageLoader imageLoader; 
+
+	public ImageLoader imageLoader;
 	String[] opciones = { "My Snack-ins" };
 	Integer[] image = { R.drawable.icon_snack, R.drawable.icon_snackx };
 	String tipo;
-	ImageView ImageSnack1 , ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,ImageSnack6;	
-	TextView t1,t2,t3,t4;
-	ProgressBar loadingImageSnack = null ,loadingImageSnack2 = null,loadingImageSnack3 = null,loadingImageSnack4 = null,loadingImageSnack5 = null,loadingImageSnack6= null;
-	Boolean Points;	
+	ImageView ImageSnack1, ImageSnack2, ImageSnack3, ImageSnack4, ImageSnack5,
+			ImageSnack6;
+	TextView t1, t2, t3, t4;
+	ProgressBar loadingImageSnack = null, loadingImageSnack2 = null,
+			loadingImageSnack3 = null, loadingImageSnack4 = null,
+			loadingImageSnack5 = null, loadingImageSnack6 = null;
+	Boolean Points;
 	String url;
 	View view;
 	SharedPreferences session = null;
@@ -91,7 +95,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	LayoutInflater new_inflater;
 	Button logOutButton, editProfileButton;
 	Context context;
-	JSONArray jsonArray = null, SnackjsonArray=null;
+	JSONArray jsonArray = null, SnackjsonArray = null;
 	ProgressBar loadingImage = null;
 	Spinner SpinnerSnacks;
 	LoadWallActivity loadWallActivity;
@@ -101,9 +105,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	private int visibleThreshold = 1;
 	private int previousTotal = 0;
 	private boolean loading = true;
-	private String id;	
-	private LifeGuard lifeGuards[] = new LifeGuard[6];
-	
+	private String id;
+
 	public CustomViewPagerAdapter(Activity a) {
 		parentActivity = a;
 	}
@@ -116,7 +119,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 	public final String[] Titles = { "Wall Activity", "Profile" };
 
-	public ImageView [] images;
+	public ImageView[] images;
 
 	@Override
 	public CharSequence getPageTitle(int position) {
@@ -129,7 +132,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		int resId = 0;
 		context = container.getContext();
-		session = container.getContext().getSharedPreferences(ConstantValues.USER_DATA, 0);
+		session = container.getContext().getSharedPreferences(
+				ConstantValues.USER_DATA, 0);
 		switch (position) {
 		case 0:
 			loadWallActivity = new LoadWallActivity();
@@ -140,47 +144,64 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 			wall_list.setOnScrollListener(new EndlessScroll());
 
-			((PullToRefreshListView) wall_list).setOnRefreshListener(new OnRefreshListener() {
-				public void onRefresh() {
-					if (ConstantValues.getConnectionStatus(context)) {
-						//Do work to refresh the list here.
-						if (loadWallActivity.getStatus() == AsyncTask.Status.RUNNING) {
-							Toast.makeText(context,	"It's already refreshing...", Toast.LENGTH_SHORT).show();
-						} else {
-							if (loadWallActivity.getStatus() == AsyncTask.Status.FINISHED) {
-								loadWallActivity = new LoadWallActivity();
+			((PullToRefreshListView) wall_list)
+					.setOnRefreshListener(new OnRefreshListener() {
+						public void onRefresh() {
+							if (ConstantValues.getConnectionStatus(context)) {
+								// Do work to refresh the list here.
+								if (loadWallActivity.getStatus() == AsyncTask.Status.RUNNING) {
+									Toast.makeText(context,
+											"It's already refreshing...",
+											Toast.LENGTH_SHORT).show();
+								} else {
+									if (loadWallActivity.getStatus() == AsyncTask.Status.FINISHED) {
+										loadWallActivity = new LoadWallActivity();
+									}
+									loadWallActivity.execute(true);
+								}
+							} else {
+								Toast.makeText(
+										context,
+										"Looks like you have no connection, please check it and try again",
+										Toast.LENGTH_SHORT).show();
 							}
-							loadWallActivity.execute(true);
 						}
+					});
+
+			wall_list.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					if (ConstantValues.getConnectionStatus(context)) {
+						// Do work to refresh the list here.
+						/*
+						 * Toast.makeText( context, "Click" +id,
+						 * Toast.LENGTH_SHORT).show(); Intent intentx = new
+						 * Intent(context, DetailSnackin.class); ((Activity)
+						 * view.getContext()).startActivityForResult(intentx,
+						 * 100);
+						 */
+						new LoadWallActivity().execute(false);
 					} else {
-						Toast.makeText( context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+						Toast.makeText(
+								context,
+								"Looks like you have no connection, please check it and try again",
+								Toast.LENGTH_SHORT).show();
 					}
 				}
 			});
 
-			wall_list.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					if (ConstantValues.getConnectionStatus(context)) {
-						// Do work to refresh the list here.
-					 /* Toast.makeText( context, "Click" +id, Toast.LENGTH_SHORT).show();
-						Intent intentx = new Intent(context, DetailSnackin.class);
-						((Activity) view.getContext()).startActivityForResult(intentx, 100); */
-						new LoadWallActivity().execute(false);
-					} else {
-						Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
-					}
-				}
-			});
-			
 			wall_list.setItemsCanFocus(true);
-			
+
 			adapter = new LazyAdapter();
 			new_inflater = inflater;
 
 			if (ConstantValues.getConnectionStatus(context)) {
 				new LoadWallActivity().execute(false);
 			} else {
-				Toast.makeText(context, "Looks like you have no connection, please check it and try again", Toast.LENGTH_SHORT).show();
+				Toast.makeText(
+						context,
+						"Looks like you have no connection, please check it and try again",
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case 1:
@@ -197,20 +218,29 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 			ImageSnack3 = (ImageView) view.findViewById(R.id.snackThree);
 			ImageSnack4 = (ImageView) view.findViewById(R.id.snackFour);
 			ImageSnack5 = (ImageView) view.findViewById(R.id.snackFive);
-			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);	
-			loadingImageSnack = (ProgressBar) view.findViewById(R.id.snackOne_image_loader);
-			loadingImageSnack2 = (ProgressBar) view.findViewById(R.id.snackTwo_image_loader);
-			loadingImageSnack3 = (ProgressBar) view.findViewById(R.id.snackThree_image_loader);
-			loadingImageSnack4 = (ProgressBar) view.findViewById(R.id.snackFour_image_loader);
-			loadingImageSnack5 = (ProgressBar) view.findViewById(R.id.snackFive_image_loader);
-			loadingImageSnack6 = (ProgressBar) view.findViewById(R.id.snackSix_image_loader);
+			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);
+			loadingImageSnack = (ProgressBar) view
+					.findViewById(R.id.snackOne_image_loader);
+			loadingImageSnack2 = (ProgressBar) view
+					.findViewById(R.id.snackTwo_image_loader);
+			loadingImageSnack3 = (ProgressBar) view
+					.findViewById(R.id.snackThree_image_loader);
+			loadingImageSnack4 = (ProgressBar) view
+					.findViewById(R.id.snackFour_image_loader);
+			loadingImageSnack5 = (ProgressBar) view
+					.findViewById(R.id.snackFive_image_loader);
+			loadingImageSnack6 = (ProgressBar) view
+					.findViewById(R.id.snackSix_image_loader);
 			t1 = (TextView) view.findViewById(R.id.totalAmbassador);
 			t2 = (TextView) view.findViewById(R.id.totalDiscoverer);
 			t3 = (TextView) view.findViewById(R.id.totalSnackImage);
 			t4 = (TextView) view.findViewById(R.id.totalBadged);
-			loadingImage = (ProgressBar) view.findViewById(R.id.profile_image_loader);
-			Spinner mySpinner = (Spinner) view.findViewById(R.id.spinner_snacks);
-			mySpinner.setAdapter(new MyCustomAdapter(context, R.layout.row,opciones, image));
+			loadingImage = (ProgressBar) view
+					.findViewById(R.id.profile_image_loader);
+			Spinner mySpinner = (Spinner) view
+					.findViewById(R.id.spinner_snacks);
+			mySpinner.setAdapter(new MyCustomAdapter(context, R.layout.row,
+					opciones, image));
 			mySpinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
 			id = session.getString("user_id", "-2");
 			logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -301,7 +331,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	}
 
 	public class LoadProfileData extends AsyncTask<Void, Integer, Void> {
-		
+
 		int id;
 		String id_string;
 		String statusResponse = null;
@@ -317,20 +347,21 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			String photo=null;
+			String photo = null;
 			try {
-				photoURL = session.getString("user_photo_url", "");				
+				photoURL = session.getString("user_photo_url", "");
 				photoURL = ConstantValues.PhotoUrl(photoURL);
-				
-				if (photoURL.length() >= 10) {					
-					URL myFileUrl = null;					
-						myFileUrl = new URL(ConstantValues.URL + photoURL);
-						HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
-						conn.setDoInput(true);
-						conn.connect();
-						InputStream is = conn.getInputStream();
-						bitmap = BitmapFactory.decodeStream(is);				
-				} 
+
+				if (photoURL.length() >= 10) {
+					URL myFileUrl = null;
+					myFileUrl = new URL(ConstantValues.URL + photoURL);
+					HttpURLConnection conn = (HttpURLConnection) myFileUrl
+							.openConnection();
+					conn.setDoInput(true);
+					conn.connect();
+					InputStream is = conn.getInputStream();
+					bitmap = BitmapFactory.decodeStream(is);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -341,9 +372,11 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		protected void onPostExecute(Void result) {
 			id = Integer.valueOf(id_string);
 			if (bitmap != null) {
-				profile_image.setImageBitmap(ConstantValues.makeItCircular(bitmap));
+				profile_image.setImageBitmap(ConstantValues
+						.makeItCircular(bitmap));
 				try {
-					profileImagePath = session.getString("user_external_image_path", "");
+					profileImagePath = session.getString(
+							"user_external_image_path", "");
 					File directory = new File(profileImagePath);
 					FileOutputStream outStream;
 					outStream = new FileOutputStream(directory);
@@ -372,7 +405,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		}
 
 		@Override
-		public View getDropDownView(int position, View convertView, ViewGroup parent) {
+		public View getDropDownView(int position, View convertView,
+				ViewGroup parent) {
 			// TODO Auto-generated method stub
 			return getCustomView(position, convertView, parent);
 		}
@@ -390,7 +424,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			
+
 			View row = inflater.inflate(R.layout.row, parent, false);
 			TextView label = (TextView) row.findViewById(R.id.Snack_name);
 			label.setText(opciones[position]);
@@ -409,15 +443,15 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 			switch (pos) {
 			case 0:
-				//Toast.makeText(context, "ENTRA0", Toast.LENGTH_LONG).show();
+				// Toast.makeText(context, "ENTRA0", Toast.LENGTH_LONG).show();
 				tipo = "1";
 				new LoadSnackActivity().execute();
 				new pointZone().execute();
 				break;
 			case 1:
 				Toast.makeText(context, "ENTRA1", Toast.LENGTH_LONG).show();
-		//		tipo = "1";
-		//		new LoadSnackActivity().execute();
+				// tipo = "1";
+				// new LoadSnackActivity().execute();
 			default:
 				break;
 			}
@@ -430,11 +464,16 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 	}
 
 	public class LoadSnackActivity extends AsyncTask<Boolean, Integer, Void> {
-		private String statusResponse = null;	
+		private String statusResponse = null;
 		private StringBuilder stringBuilder = null;
-		private String idsnack = null, idproduct = null, iduser = null, pathPhoto = null;
-		Vector <String> z = new Vector<String>();
-		ImageView imageArray[] = {ImageSnack1,ImageSnack2,ImageSnack3,ImageSnack4,ImageSnack5,ImageSnack6};
+		private String idsnack = null, idproduct = null, iduser = null,
+				pathPhoto = null;
+		Vector<String> z = new Vector<String>();
+		ImageView imageArray[] = { ImageSnack1, ImageSnack2, ImageSnack3,
+				ImageSnack4, ImageSnack5, ImageSnack6 };
+		ProgressBar progressArray[] = { loadingImageSnack, loadingImageSnack2,
+				loadingImageSnack3, loadingImageSnack4, loadingImageSnack5,
+				loadingImageSnack6 };
 
 		@Override
 		protected void onPreExecute() {
@@ -447,14 +486,16 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 			loadingImageSnack5.setVisibility(View.VISIBLE);
 			loadingImageSnack6.setVisibility(View.VISIBLE);
 		}
-		
+
 		@Override
 		protected Void doInBackground(Boolean... params) {
+
 			try {
 
 				/* Prepare variables for remote data check */
 				HttpClient client = new DefaultHttpClient();
-				String postURL = ConstantValues.URL+ "/ws/ws-perfildetalle.php";
+				String postURL = ConstantValues.URL
+						+ "/ws/ws-perfildetalle.php";
 				HttpPost post = new HttpPost(postURL);
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
 				param.add(new BasicNameValuePair("iduser", id));
@@ -468,62 +509,78 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				if (status.getStatusCode() == HttpStatus.SC_OK) {
 					HttpEntity new_entity = responsePOST.getEntity();
 					InputStream inputStream = new_entity.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(inputStream));
 					String line = null;
 					stringBuilder = new StringBuilder();
 					while ((line = reader.readLine()) != null) {
-					stringBuilder.append(line);
+						stringBuilder.append(line);
 					}
-					JSONObject SnackjsonObject = new JSONObject(stringBuilder.toString());
+					JSONObject SnackjsonObject = new JSONObject(
+							stringBuilder.toString());
 					statusResponse = SnackjsonObject.getString("status");
-				
-					if (Integer.parseInt(statusResponse)== 1) {
+
+					if (Integer.parseInt(statusResponse) == 1) {
 						/* Sin error */
-						SnackjsonArray = new JSONArray(SnackjsonObject.getString("datos"));
-						for (int i = 0; i <= 5; i++) {
-							JSONObject jsonObject = SnackjsonArray.getJSONObject(i);					
+						SnackjsonArray = new JSONArray(
+								SnackjsonObject.getString("datos"));
+						for (int i = 0; i < SnackjsonArray.length(); i++) {
+							JSONObject jsonObject = SnackjsonArray
+									.getJSONObject(i);
 							pathPhoto = jsonObject.getString("rutafoto");
-							String urls = ConstantValues.URL+"/ws/productphoto/"+pathPhoto;
+							String urls = ConstantValues.URL
+									+ "/ws/productphoto/" + pathPhoto;
 							LifeGuard tmpLG = new LifeGuard();
 							tmpLG.setPath(urls);
 							tmpLG.setImage(imageArray[i]);
-							lifeGuards[i] = tmpLG;
-						}			
-						
-						for(int i = 0; i<=5; i++){
+							tmpLG.setProgress(progressArray[i]);
 							SnackImageLoad imageLoader = new SnackImageLoad();
-							imageLoader.execute(lifeGuards[i]);
+							imageLoader.execute(tmpLG);
 						}
-													
+
 					} else {
 						// Hubo un error
 					}
 					reader.close();
 					inputStream.close();
-					
+
 				} else {
 					/* Check Other Status Code */
-				}			
-			} catch (Exception e) {			
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			// TODO Auto-generated method stub
 			super.onProgressUpdate(values);
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);	
+			super.onPostExecute(result);
+
+			try {
+				for (int i = SnackjsonArray.length(); i < 6; i++) {
+					progressArray[i].setVisibility(View.GONE);
+				}
+
+			} catch (Exception e) {
+				Log.i("Visible", e.toString());
+				loadingImageSnack.setVisibility(View.GONE);
+				loadingImageSnack2.setVisibility(View.GONE);
+				loadingImageSnack3.setVisibility(View.GONE);
+				loadingImageSnack4.setVisibility(View.GONE);
+				loadingImageSnack5.setVisibility(View.GONE);
+				loadingImageSnack6.setVisibility(View.GONE);
+
+			}
+
 		}
-		
-	
-		
-		
+
 	}
 
 	public class LoadWallActivity extends AsyncTask<Boolean, Integer, Void> {
@@ -558,7 +615,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					param.add(new BasicNameValuePair("total", "0"));
 					previousTotal = 0;
 				} else {
-					param.add(new BasicNameValuePair("total", String.valueOf(jsonArray.length())));
+					param.add(new BasicNameValuePair("total", String
+							.valueOf(jsonArray.length())));
 				}
 
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(param);
@@ -569,18 +627,19 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				if (status.getStatusCode() == HttpStatus.SC_OK) {
 					HttpEntity entity = responsePOST.getEntity();
 					InputStream inputStream = entity.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(inputStream));
 					String line = null;
 					lwa_stringBuilder = new StringBuilder();
 					while ((line = reader.readLine()) != null) {
 						lwa_stringBuilder.append(line);
 					}
-					if (firstTime){
+					if (firstTime) {
 
 						jsonArray = new JSONArray(lwa_stringBuilder.toString());
-					}
-					else {
-						tmpJsonArray = new JSONArray(lwa_stringBuilder.toString());
+					} else {
+						tmpJsonArray = new JSONArray(
+								lwa_stringBuilder.toString());
 						/* agregar nuevo json al antiguo */
 						for (int k = 0; k < tmpJsonArray.length(); k++) {
 							jsonArray.put(tmpJsonArray.get(k));
@@ -626,7 +685,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		public void onScrollStateChanged(AbsListView view, int scrollState) {
 		}
 
-		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		public void onScroll(AbsListView view, int firstVisibleItem,
+				int visibleItemCount, int totalItemCount) {
 			if (loading) {
 				if (totalItemCount > previousTotal) {
 					loading = false;
@@ -641,58 +701,53 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
 		}
 	}
-	
-	public class SnackImageLoad extends AsyncTask<LifeGuard, Integer, Void>{
+
+	public class SnackImageLoad extends AsyncTask<LifeGuard, Integer, Void> {
 		String tmp;
 		ImageView image;
-		Drawable d;
-		
+		Drawable d = null;
+		ProgressBar progressBar;
+
 		@Override
 		protected Void doInBackground(LifeGuard... params) {
 			tmp = params[0].getPath();
 			image = params[0].getImage();
-			
-			try{
-				  InputStream is = (InputStream) new URL(tmp).getContent();
-		          d = Drawable.createFromStream(is, "src name");
-			}catch (Exception e) {
-				  System.out.println("Exc="+e);
+			progressBar = params[0].getProgress();
+
+			try {
+				InputStream is = (InputStream) new URL(tmp).getContent();
+				d = Drawable.createFromStream(is, "src name");
+			} catch (Exception e) {
+				System.out.println("Exc=" + e);
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			if(d != null)
+			if (d != null) {
 				image.setImageDrawable(d);
-			else
-				image.setImageResource(R.drawable.product_empty);
-			
-			loadingImageSnack.setVisibility(View.GONE);
-			loadingImageSnack2.setVisibility(View.GONE);
-			loadingImageSnack3.setVisibility(View.GONE);
-			loadingImageSnack4.setVisibility(View.GONE);
-			loadingImageSnack5.setVisibility(View.GONE);
-			loadingImageSnack6.setVisibility(View.GONE);
+			}
+			progressBar.setVisibility(View.GONE);
 		}
-		
 	}
-	
-	//Procces Asyc to PointsZone	  	 
-	  public class pointZone extends AsyncTask<Boolean, Integer, Void> {
-		  
-		  	private String statusResponse = null;
-			private String responseMessage = null;
-			private StringBuilder stringBuilder = null;	
-			private String iconAmbassador , iconDiscoverer, iconSnacks, iconBadges;
+
+	// Procces Asyc to PointsZone
+	public class pointZone extends AsyncTask<Boolean, Integer, Void> {
+
+		private String statusResponse = null;
+		private String responseMessage = null;
+		private StringBuilder stringBuilder = null;
+		private String iconAmbassador, iconDiscoverer, iconSnacks, iconBadges;
 
 		@Override
 		protected Void doInBackground(Boolean... params) {
 			try {
 				/* Prepare variables for remote data check */
 				HttpClient client = new DefaultHttpClient();
-				String postURL = ConstantValues.URL+ "/ws/ws-perfildetalleestadistica.php";
+				String postURL = ConstantValues.URL
+						+ "/ws/ws-perfildetalleestadistica.php";
 				HttpPost post = new HttpPost(postURL);
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
 				param.add(new BasicNameValuePair("iduser", id));
@@ -705,22 +760,24 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				if (status.getStatusCode() == HttpStatus.SC_OK) {
 					HttpEntity new_entity = responsePOST.getEntity();
 					InputStream inputStream = new_entity.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(inputStream));
 					String line = null;
 					stringBuilder = new StringBuilder();
 					while ((line = reader.readLine()) != null) {
-					stringBuilder.append(line);
+						stringBuilder.append(line);
 					}
-					JSONObject SnackjsonObject = new JSONObject(stringBuilder.toString());
+					JSONObject SnackjsonObject = new JSONObject(
+							stringBuilder.toString());
 					statusResponse = SnackjsonObject.getString("status");
 					iconAmbassador = SnackjsonObject.getString("embajador");
 					iconDiscoverer = SnackjsonObject.getString("descubridor");
 					iconSnacks = SnackjsonObject.getString("snackin");
 					iconBadges = SnackjsonObject.getString("badges");
-				
-					if (Integer.parseInt(statusResponse)== 1) {
-						
-						Points= true;
+
+					if (Integer.parseInt(statusResponse) == 1) {
+
+						Points = true;
 					} else {
 						// Hubo un error
 					}
@@ -728,28 +785,25 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					inputStream.close();
 				} else {
 					/* Check Other Status Code */
-				}										
+				}
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
-		
+
 			if (Points = true) {
 				t1.setText(iconAmbassador);
 				t2.setText(iconDiscoverer);
 				t3.setText(iconSnacks);
 				t4.setText(iconBadges);
-				
-			} else {
-				
+
 			}
-		super.onPostExecute(result);
+			super.onPostExecute(result);
 		}
-		  
-	  }
-	  
+
+	}
 }

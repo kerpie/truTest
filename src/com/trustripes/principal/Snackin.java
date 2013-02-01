@@ -3,6 +3,8 @@ package com.trustripes.principal;
 import lazylist.ImageLoader;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.TrackedActivity;
+import com.google.analytics.tracking.android.Tracker;
 import com.trustripes.Constants.ConstantValues;
 
 import android.os.Bundle;
@@ -21,7 +23,7 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class Snackin extends Activity {
+public class Snackin extends TrackedActivity {
 
 	TextView snackText,productName;
 	ImageView img, productImage, profilePhoto;
@@ -40,11 +42,13 @@ public class Snackin extends Activity {
 	String id;
 	int realId;
 	
+	
 	String ratingValue = null;
 	ImageLoader imageLoader;
 	
 	boolean isAnotherPhoto;
-	
+	long cat =1;
+	long cate = 3;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,10 @@ public class Snackin extends Activity {
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_snackin);
+        
+        
+        EasyTracker.getInstance().setContext(getApplicationContext());
+       	
                 
         snackText = (TextView) findViewById(R.id.snackin_text);
         productName = (TextView) findViewById(R.id.snackin_product_name);
@@ -147,8 +155,9 @@ public class Snackin extends Activity {
     @Override
     public void onStart(){
     	super.onStart();
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStart(this);
+    		EasyTracker.getTracker().trackEvent("ContSnackin", "Click_Continue","Post_Snackin", cat);
     	}
     	switch(Integer.parseInt(status)){
     		case 0:
@@ -158,6 +167,7 @@ public class Snackin extends Activity {
     		case 1:
     			statusString = "Te has convertido en Embajadador";
     			relativeContainer.setVisibility(View.VISIBLE);
+    			EasyTracker.getTracker().trackEvent("ContAmbassador", "Ambassador","Post_Snackin", cate);
     			//background.setBackgroundResource(R.drawable.backambassador);
     			break;
     		case 2:
@@ -181,7 +191,7 @@ public class Snackin extends Activity {
     @Override
     protected void onStop() {
     	super.onStop();
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStop(this);
     	}
     }

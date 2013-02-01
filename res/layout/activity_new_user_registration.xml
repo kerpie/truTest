@@ -1,185 +1,211 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/splashscreen_bg">
-	<ScrollView 
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
-	    <RelativeLayout
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="20dp"
-	        android:paddingLeft="20dp"
-	        android:paddingRight="20dp"
-	        android:paddingBottom="35dp">
-	        <ImageView 
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/login_logo_small"
-	            android:layout_centerHorizontal="true"
-	            android:id="@+id/logo" />
-	        <EditText 
-	            android:id="@+id/username_editText"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" 
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="10dp"
-	            android:layout_below="@+id/logo"
-	            android:hint="Username"
-	            android:padding="10dp"
-	            android:lines="1" 
-	            android:background="#3FFF"/>
-           	<EditText
-           	    android:id="@+id/full_name_editText"
-           	    android:layout_width="match_parent"
-           	    android:layout_height="wrap_content"
-           	    android:layout_centerHorizontal="true"
-           	    android:layout_marginTop="10dp"
-           	    android:layout_below="@+id/username_editText"
-           	    android:hint="Full name"
-           	    android:inputType="textPersonName"
-           	    android:lines="1"
-           	    android:padding="10dp" 
-           	    android:background="#3FFF"/>
-           	<TextView 
-           	    android:id="@+id/new_password_advice"
-           	    android:layout_width="wrap_content"
-           	    android:layout_height="wrap_content"
-           	    android:layout_centerHorizontal="true"
-           	    android:layout_below="@+id/full_name_editText"
-           	    android:text="Leave new password empty to keep the current one"
-           	    android:textColor="#FF00"
-           	    android:padding="5dp"
-           	    android:gravity="center"/>
-           	<LinearLayout 
-           	    android:layout_marginTop="10dp"
-           	    android:layout_below="@+id/new_password_advice"
-           	    android:layout_width="match_parent"
-		        android:layout_height="wrap_content" 
-		        android:layout_centerHorizontal="true"
-		        android:id="@+id/pass_linear_layout">
-	           	<EditText
-		            android:id="@+id/pass_editText"
-		            android:layout_height="wrap_content"
-		            android:layout_width="0dp"
-		            android:layout_weight="2"
-		            android:hint="Password"
-		            android:padding="10dp"
-		            android:lines="1" 
-		            android:inputType="textPassword"
-		            android:background="#3FFF"/>
-	           	<EditText
-		            android:id="@+id/visible_pass_editText"
-		            android:layout_height="wrap_content"
-		            android:layout_width="0dp"
-		            android:layout_weight="2"
-		            android:hint="Password"
-		            android:padding="10dp"
-		            android:lines="1"
-		            android:visibility="gone" 
-		            android:background="#3FFF"/>
-	           	<CheckBox
-	           	    android:id="@+id/pass_check"
-	           	    android:layout_width="wrap_content"
-	           	    android:layout_height="wrap_content" />
-           	</LinearLayout>
-           	<EditText
-	            android:id="@+id/mail_editText"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" 
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="10dp"
-	            android:layout_below="@+id/pass_linear_layout"
-	            android:hint="Mail"
-	            android:padding="10dp"
-	            android:lines="1" 
-	            android:background="#3FFF"
-	            android:inputType="textEmailAddress"/>
-           	<RadioGroup
-			    android:id="@+id/gender"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_below="@+id/mail_editText"
-			    android:orientation="horizontal"
-			    android:layout_centerHorizontal="true">
-			    <RadioButton
-			        android:id="@+id/avatar_male"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"			        
-			        android:text="Male"/>
-			    <RadioButton
-			        android:id="@+id/avatar_female"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="Female"/>
-			</RadioGroup>
-			<FrameLayout 
-			    android:id="@+id/new_user_avatar_frame_layout" 
-	            android:layout_width="130dp"
-	            android:layout_height="130dp"
-	            android:layout_below="@+id/gender"
-	            android:layout_centerHorizontal="true"
-	            android:layout_margin="3dp">
-			    <ImageView
-		            android:id="@+id/register_user_photo"
-		            android:layout_width="130dp"
-		            android:layout_height="130dp"	           
-		            android:src="@drawable/default_avatar" 
-		            android:padding="5dp"/>
-			    <ImageView 
-	                android:layout_width="40dp"
-	                android:layout_height="40dp"
-	                android:layout_gravity="bottom|right"
-	                android:src="@drawable/purple_plus_icon"/>
-			</FrameLayout>
-			<EditText
-	            android:id="@+id/original_pass_editText"
-	            android:layout_height="wrap_content"
-	            android:layout_width="match_parent"
-	            android:layout_below="@+id/new_user_avatar_frame_layout"
-	            android:hint="Actual Password"
-	            android:padding="10dp"
-	            android:lines="1" 
-	            android:inputType="textPassword"
-	            android:background="#3FFF"
-	            />
-			
-			<Button
-		        android:id="@+id/register_user_button"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/original_pass_editText"
-		        android:layout_centerHorizontal="true"
-		        android:layout_marginTop="14dp"
-		        android:text="Register new user" 
-		        android:background="@drawable/midorys"
-		        android:textColor="#FFFF"
-		        android:padding="5dp"/>
-			<ProgressBar 
-			    android:id="@+id/loading_progress_bar"
-			    android:layout_width="20dp"
-			    android:layout_height="20dp"
-			    android:layout_margin="5dp"
-			    android:layout_below="@+id/register_user_button"
-			    android:layout_centerHorizontal="true"/>
-			<TextView 
-			    android:id="@+id/error_message"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_margin="7dp"
-			    android:layout_centerHorizontal="true"
-			    android:layout_below="@+id/loading_progress_bar"
-			    android:textColor="#FFFF0000"/>
-		</RelativeLayout>
-	</ScrollView>
-	<ImageView 
+    android:layout_height="match_parent"
+    android:background="@drawable/splashscreen_bg" >
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="35dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp" >
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/login_logo_small" />
+
+            <EditText
+                android:id="@+id/username_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="#3FFF"
+                android:hint="Username"
+                android:lines="1"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/full_name_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username_editText"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="#3FFF"
+                android:hint="Full name"
+                android:inputType="textPersonName"
+                android:lines="1"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/new_password_advice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/full_name_editText"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Leave new password empty to keep the current one"
+                android:textColor="#FF00" />
+
+            <LinearLayout
+                android:id="@+id/pass_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/new_password_advice"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" >
+
+                <EditText
+                    android:id="@+id/pass_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#3FFF"
+                    android:hint="Current password"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/visible_pass_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#3FFF"
+                    android:hint="Password"
+                    android:lines="1"
+                    android:padding="10dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/pass_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show password"
+                android:layout_below="@+id/pass_linear_layout"
+                android:layout_centerHorizontal="true"
+                android:textColor="#808080"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/mail_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pass_check"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="#3FFF"
+                android:hint="Mail"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:padding="10dp" />
+
+            <RadioGroup
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mail_editText"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/avatar_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male" />
+
+                <RadioButton
+                    android:id="@+id/avatar_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female" />
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@+id/new_user_avatar_frame_layout"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_below="@+id/gender"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="3dp" >
+
+                <ImageView
+                    android:id="@+id/register_user_photo"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:padding="5dp"
+                    android:src="@drawable/default_avatar" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom|right"
+                    android:src="@drawable/purple_plus_icon" />
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/original_pass_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/new_user_avatar_frame_layout"
+                android:background="#3FFF"
+                android:hint="Current password"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/register_user_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/original_pass_editText"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/midorys"
+                android:padding="5dp"
+                android:text="Register new user"
+                android:textColor="#FFFF" />
+
+            <ProgressBar
+                android:id="@+id/loading_progress_bar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/register_user_button"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp" />
+
+            <TextView
+                android:id="@+id/error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/loading_progress_bar"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="7dp"
+                android:textColor="#FFFF0000" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageView
         android:id="@+id/splash_screen_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/splashscreen_footer"
-        android:layout_marginBottom="-22dp"/>	
+        android:layout_marginBottom="-22dp"
+        android:src="@drawable/splashscreen_footer" />
+
 </RelativeLayout>

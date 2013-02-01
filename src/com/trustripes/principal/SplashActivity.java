@@ -44,7 +44,7 @@ public class SplashActivity extends Activity {
     	super.onStart();    	
     	
     	/* Implementation of Google Analytics for Android */
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStart(this);
     	}
     }
@@ -54,7 +54,7 @@ public class SplashActivity extends Activity {
     	super.onStop();
     	
     	/* Implementation of Google Analytics for Android */
-    	if(ConstantValues.URL == "http://www.trustripes.com" && !ConstantValues.isInDevelopmentTeam(realId)){
+    	if( !(ConstantValues.URL == "http://www.trustripes.com" && ConstantValues.isInDevelopmentTeam(realId))){
     		EasyTracker.getInstance().activityStop(this);
     	}
     }

@@ -44,11 +44,10 @@
 	        android:layout_height="150dp">
             <ImageView
 	            android:id="@+id/postSnack_product_image"
-	            android:layout_width="150dp"
-	            android:layout_height="150dp"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
 	            android:scaleType="centerCrop"
-	            android:background="@drawable/pre_snack_bg"
-	            android:src="@drawable/ambassador" />
+	            android:src="@drawable/icon_food" />
         </LinearLayout>
 
         <TextView
