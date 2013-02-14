@@ -35,6 +35,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -94,7 +95,15 @@ public class PostSnackin extends Activity {
         isAnotherPhoto = intent.getBooleanExtra("IS_ANOTHER_PHOTO", isAnotherPhoto);
         
         productName.setText(stringProductName);
-        productRatingBar.setEnabled(false);
+        
+        productRatingBar.setOnTouchListener(new View.OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				return true;
+			}
+		});
+        
         productRatingBar.setRating(Float.parseFloat(ratingValue));
                
         backButton = (Button)findViewById(R.id.backButton);
@@ -245,6 +254,10 @@ public class PostSnackin extends Activity {
 	    			}
 	    		}
 	    		if(gotInformation){
+	    			
+	    			productCategoryName.setText(snackResponse.getString("categoriaProducto"));
+	    			productCategoryName.setVisibility(View.VISIBLE);
+	    			
 	    			items.add(new HeaderItem("Ambassador"));
 	    			if(Integer.parseInt(snackResponse.getString("statusEmbajador")) == 1)
 	    				items.add(new RegularItem(ConstantValues.URL + ConstantValues.PhotoUrl(snackResponse.getString("fotoembajador")),snackResponse.getString("embajadorDisplay"),snackResponse.getString("embajador")));

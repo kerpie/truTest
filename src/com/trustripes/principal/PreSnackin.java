@@ -534,6 +534,7 @@ public class PreSnackin extends TrackedActivity {
 	    			JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 	    			statusResponse = jsonObject.getString("status");
 	    			averagePoints = jsonObject.getString("promedio");
+	    			Log.i("POINTS", averagePoints);
 	    			if(Integer.parseInt(statusResponse) == 1){
 	    				/* Rating value register ok */
 	    				ratingStatus= true;

@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -92,7 +93,14 @@ public class Snackin extends TrackedActivity {
         profileImagePath = Environment.getExternalStorageDirectory()+"/TruStripes/"+ConstantValues.codeName(realId)+".jpg";
                
         ratingValue = t.getStringExtra("RATING");
-        ratingBar.setEnabled(false);
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				return true;
+			}
+		});
+        
         ratingBar.setRating(Float.parseFloat(ratingValue));
         
         toPostSnackin.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +176,7 @@ public class Snackin extends TrackedActivity {
     			statusString = "Te has convertido en Embajadador";
     			relativeContainer.setVisibility(View.VISIBLE);
     			EasyTracker.getTracker().trackEvent("ContAmbassador", "Ambassador","Post_Snackin", cate);
-    			//background.setBackgroundResource(R.drawable.backambassador);
+    			background.setBackgroundResource(R.drawable.backambassador);
     			break;
     		case 2:
     			statusString = "Sigues siendo embajador";

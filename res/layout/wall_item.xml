@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="7dp"
-            android:text="Hola "
             android:textColor="#FFF"
             android:textSize="14dp" />
 
@@ -29,7 +28,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="-17dp"
             android:padding="7dp"
-            android:text=" "
+            android:text=" Hola "
             android:textColor="#aaa" />
     </LinearLayout>
 
@@ -57,6 +56,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="0dp"
+                android:background="@drawable/fondo_perfil"
                 android:padding="5dp" />
 
             <TextView
@@ -81,6 +81,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/leftPart"
+            android:paddingBottom="20dp"
             android:background="@drawable/photo_background" >
 
             <FrameLayout
@@ -125,21 +126,20 @@
             android:numStars="5"
             android:padding="10dp"
             android:progressDrawable="@drawable/rating_bar"
-            android:stepSize="1"
-            android:visibility="gone" />
+            android:stepSize="1" />
 
         <ImageView
             android:id="@+id/Image_Category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_above="@+id/ratingBar"
             android:layout_alignRight="@+id/rigthPart"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/fondo_categoria2"
-            android:padding="10dp"
+            android:padding="5dp"
             android:src="@drawable/imagen_categoria"
-            android:visibility="gone" />
+             />
     </RelativeLayout>
 
 </RelativeLayout>

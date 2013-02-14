@@ -1,5 +1,10 @@
 package lazylist;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,12 +22,15 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class LazyAdapter extends BaseAdapter {
@@ -69,12 +77,15 @@ public class LazyAdapter extends BaseAdapter {
         
         TextView username = (TextView)vi.findViewById(R.id.wall_item_username_text);
         //TextView product = (TextView) vi.findViewById(R.id.wall_item_product_text);
+        TextView date = (TextView) vi.findViewById(R.id.snack_date);
         ImageView image=(ImageView)vi.findViewById(R.id.wall_item_product_photo);
         TextView snack_count = (TextView) vi.findViewById(R.id.totalSnacks);
         ImageView profilePhoto = (ImageView) vi.findViewById(R.id.wall_item_profile_photo);
-
+        RatingBar ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar);
+        
         try{
 	        JSONObject jsonObject = (JSONObject) jsonArray.get(position);
+	        Log.i("JSONObject", jsonObject.toString());
 	        String url, new_user_id;
 	        final String productName;
 	        
@@ -113,9 +124,20 @@ public class LazyAdapter extends BaseAdapter {
 	        
 	        productName = jsonObject.getString("productname");
 	        username.setText(" "+new_name + "\n Snacked in " + productName);
-
+	        
+	        ratingBar.setRating(5);
+	        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+				
+				@Override
+				public boolean onTouch(View arg0, MotionEvent arg1) {
+					return true;
+				}
+			});
+	        
 	        //product.setText(jsonObject.getString("productname"));
 	        final String idProduct = jsonObject.getString("idproduct");
+	        
+	        date.setText(returnPrettyDate(jsonObject.getString("datecreate")));
 	        
 			String photo = jsonObject.getString("photo");
 			final String tmp = ConstantValues.URL+"/ws/productphoto/"+idProduct+"/thumbnails/"+photo;
@@ -137,5 +159,19 @@ public class LazyAdapter extends BaseAdapter {
         return vi;
     }
     
+    public String returnPrettyDate(String stringDate){
+    	Date date;
+    	DateFormat format = new SimpleDateFormat("yyyy-MM-dd h:m:s");
+		
+		try {
+			 date = format.parse(stringDate);
+			format = new SimpleDateFormat("E, yy-MM-dd hh:m:s a");
+	    	return (format.format(date)).toString();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+    }
     
 }

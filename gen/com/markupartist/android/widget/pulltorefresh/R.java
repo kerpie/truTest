@@ -9,46 +9,205 @@ package com.markupartist.android.widget.pulltorefresh;
 
 public final class R {
     public static final class array {
-        public static final int country_arrays=0x7f080001;
-        public static final int country_codes=0x7f080000;
-        public static final int feedback_options=0x7f080002;
+        public static final int country_arrays=0x7f0c0001;
+        public static final int country_codes=0x7f0c0000;
+        public static final int feedback_options=0x7f0c0002;
     }
     public static final class attr {
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int confirm_logout=0x7f01000c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int done_button_background=0x7f010006;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int done_button_text=0x7f010004;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int extra_fields=0x7f010001;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int fetch_user_info=0x7f01000d;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int is_cropped=0x7f010011;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int login_text=0x7f01000e;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int logout_text=0x7f01000f;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int multi_select=0x7f010007;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>small</code></td><td>-2</td><td> Keep in sync with constants in ProfilePictureView </td></tr>
+<tr><td><code>normal</code></td><td>-3</td><td></td></tr>
+<tr><td><code>large</code></td><td>-4</td><td></td></tr>
+</table>
+         */
+        public static final int preset_size=0x7f010010;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int radius_in_meters=0x7f010008;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int results_limit=0x7f010009;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int search_text=0x7f01000a;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int show_pictures=0x7f010000;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int show_search_box=0x7f01000b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int show_title_bar=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int title_bar_background=0x7f010005;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int title_text=0x7f010003;
     }
     public static final class bool {
         /**  Enable Activity tracking 
          */
-        public static final int ga_autoActivityTracking=0x7f070000;
-        public static final int ga_debug=0x7f070002;
+        public static final int ga_autoActivityTracking=0x7f0b0000;
+        public static final int ga_debug=0x7f0b0002;
         /**  Enable automatic exception tracking 
          */
-        public static final int ga_reportUncaughtExceptions=0x7f070001;
+        public static final int ga_reportUncaughtExceptions=0x7f0b0001;
     }
     public static final class color {
-        public static final int contents_text=0x7f090000;
-        public static final int encode_view=0x7f090001;
-        public static final int help_button_view=0x7f090002;
-        public static final int help_view=0x7f090003;
-        public static final int normal=0x7f090017;
-        public static final int pagertabstrip=0x7f090016;
-        public static final int possible_result_points=0x7f090004;
-        public static final int result_image_border=0x7f090005;
-        public static final int result_minor_text=0x7f090006;
-        public static final int result_points=0x7f090007;
-        public static final int result_text=0x7f090008;
-        public static final int result_view=0x7f090009;
-        public static final int sbc_header_text=0x7f09000a;
-        public static final int sbc_header_view=0x7f09000b;
-        public static final int sbc_layout_view=0x7f09000d;
-        public static final int sbc_list_item=0x7f09000c;
-        public static final int sbc_page_number_text=0x7f09000e;
-        public static final int sbc_snippet_text=0x7f09000f;
-        public static final int share_text=0x7f090010;
-        public static final int status_text=0x7f090011;
-        public static final int transparent=0x7f090012;
-        public static final int viewfinder_frame=0x7f090013;
-        public static final int viewfinder_laser=0x7f090014;
-        public static final int viewfinder_mask=0x7f090015;
+        public static final int com_facebook_blue=0x7f080000;
+        public static final int com_facebook_loginview_text_color=0x7f080004;
+        public static final int com_facebook_usersettingsfragment_connected_shadow_color=0x7f080002;
+        public static final int com_facebook_usersettingsfragment_connected_text_color=0x7f080001;
+        public static final int com_facebook_usersettingsfragment_not_connected_text_color=0x7f080003;
+        public static final int contents_text=0x7f080005;
+        public static final int encode_view=0x7f080006;
+        public static final int help_button_view=0x7f080007;
+        public static final int help_view=0x7f080008;
+        public static final int normal=0x7f08001c;
+        public static final int pagertabstrip=0x7f08001b;
+        public static final int possible_result_points=0x7f080009;
+        public static final int result_image_border=0x7f08000a;
+        public static final int result_minor_text=0x7f08000b;
+        public static final int result_points=0x7f08000c;
+        public static final int result_text=0x7f08000d;
+        public static final int result_view=0x7f08000e;
+        public static final int sbc_header_text=0x7f08000f;
+        public static final int sbc_header_view=0x7f080010;
+        public static final int sbc_layout_view=0x7f080012;
+        public static final int sbc_list_item=0x7f080011;
+        public static final int sbc_page_number_text=0x7f080013;
+        public static final int sbc_snippet_text=0x7f080014;
+        public static final int share_text=0x7f080015;
+        public static final int status_text=0x7f080016;
+        public static final int transparent=0x7f080017;
+        public static final int viewfinder_frame=0x7f080018;
+        public static final int viewfinder_laser=0x7f080019;
+        public static final int viewfinder_mask=0x7f08001a;
+    }
+    public static final class dimen {
+        public static final int com_facebook_loginview_height=0x7f090007;
+        public static final int com_facebook_loginview_padding_bottom=0x7f090005;
+        public static final int com_facebook_loginview_padding_left=0x7f090002;
+        public static final int com_facebook_loginview_padding_right=0x7f090003;
+        public static final int com_facebook_loginview_padding_top=0x7f090004;
+        public static final int com_facebook_loginview_text_size=0x7f090008;
+        public static final int com_facebook_loginview_width=0x7f090006;
+        public static final int com_facebook_profilepictureview_preset_size_large=0x7f09000b;
+        public static final int com_facebook_profilepictureview_preset_size_normal=0x7f09000a;
+        public static final int com_facebook_profilepictureview_preset_size_small=0x7f090009;
+        public static final int com_facebook_usersettingsfragment_profile_picture_height=0x7f090001;
+        public static final int com_facebook_usersettingsfragment_profile_picture_width=0x7f090000;
     }
     public static final class drawable {
         public static final int _snacked=0x7f020000;
@@ -66,272 +225,324 @@ public final class R {
         public static final int btn_dropdown_normal=0x7f02000c;
         public static final int btn_dropdown_pressed=0x7f02000d;
         public static final int camera_icon=0x7f02000e;
-        public static final int close=0x7f02000f;
-        public static final int congratulationsf2=0x7f020010;
-        public static final int default_avatar=0x7f020011;
-        public static final int discoverer=0x7f020012;
-        public static final int droids=0x7f020013;
-        public static final int facebook_icon=0x7f020014;
-        public static final int fe2morado=0x7f020015;
-        public static final int fondo_categoria=0x7f020016;
-        public static final int fondo_categoria2=0x7f020017;
-        public static final int foto_redondo=0x7f020018;
-        public static final int go=0x7f020019;
-        public static final int guide_four=0x7f02001a;
-        public static final int guide_one=0x7f02001b;
-        public static final int guide_three=0x7f02001c;
-        public static final int guide_two=0x7f02001d;
-        public static final int how_to_scan=0x7f02001e;
-        public static final int ic_action_search=0x7f02001f;
-        public static final int ic_launcher=0x7f020020;
-        public static final int ic_pulltorefresh_arrow=0x7f020021;
-        public static final int icon=0x7f020022;
-        public static final int icon_food=0x7f020023;
-        public static final int icon_fotos=0x7f020024;
-        public static final int icon_snack=0x7f020025;
-        public static final int icon_snackx=0x7f020026;
-        public static final int image_for_empty_url=0x7f020027;
-        public static final int imagen_categoria=0x7f020028;
-        public static final int in=0x7f020029;
-        public static final int incon=0x7f02002a;
-        public static final int leon=0x7f02002b;
-        public static final int loading=0x7f02002c;
-        public static final int login_button=0x7f02002d;
-        public static final int login_logo_small=0x7f02002e;
-        public static final int logo=0x7f02002f;
-        public static final int logout_button=0x7f020030;
-        public static final int midorys=0x7f020031;
-        public static final int normal=0x7f020032;
-        public static final int out=0x7f020033;
-        public static final int photo_background=0x7f020034;
-        public static final int photo_background_cut=0x7f020035;
-        public static final int pic_ambassadorm=0x7f020036;
-        public static final int pic_badgesm=0x7f020037;
-        public static final int pic_discovererm=0x7f020038;
-        public static final int pic_smackm=0x7f020039;
-        public static final int pre_scan_image_view=0x7f02003a;
-        public static final int pre_snack_bg=0x7f02003b;
-        public static final int press_next=0x7f02003c;
-        public static final int pressed=0x7f02003d;
-        public static final int product=0x7f02003e;
-        public static final int product_empty=0x7f02003f;
-        public static final int pull_to_refresh_header_background=0x7f020040;
-        public static final int purple_plus_icon=0x7f020041;
-        public static final int rating_bar=0x7f020042;
-        public static final int rating_bar_mini=0x7f020043;
-        public static final int rectangulo=0x7f020044;
-        public static final int snack_background=0x7f020045;
-        public static final int snacked=0x7f020046;
-        public static final int splashscreen_bg=0x7f020047;
-        public static final int splashscreen_footer=0x7f020048;
-        public static final int splashscreen_logo=0x7f020049;
-        public static final int star_empty=0x7f02004a;
-        public static final int star_empty_mini=0x7f02004b;
-        public static final int star_empty_small=0x7f02004c;
-        public static final int star_full=0x7f02004d;
-        public static final int star_full_mini=0x7f02004e;
-        public static final int star_full_small=0x7f02004f;
-        public static final int star_half=0x7f020050;
-        public static final int star_half_mini=0x7f020051;
-        public static final int star_half_small=0x7f020052;
-        public static final int stub_image=0x7f020053;
-        public static final int text_background_green=0x7f020054;
-        public static final int text_background_purple=0x7f020055;
-        public static final int text_background_red=0x7f020056;
-        public static final int textoambassador=0x7f020057;
+        public static final int com_facebook_button_check=0x7f02000f;
+        public static final int com_facebook_button_check_off=0x7f020010;
+        public static final int com_facebook_button_check_on=0x7f020011;
+        public static final int com_facebook_button_grey_focused=0x7f020012;
+        public static final int com_facebook_button_grey_normal=0x7f020013;
+        public static final int com_facebook_button_grey_pressed=0x7f020014;
+        public static final int com_facebook_close=0x7f020015;
+        public static final int com_facebook_icon=0x7f020016;
+        public static final int com_facebook_list_divider=0x7f020017;
+        public static final int com_facebook_list_section_header_background=0x7f020018;
+        public static final int com_facebook_loginbutton_blue=0x7f020019;
+        public static final int com_facebook_loginbutton_blue_focused=0x7f02001a;
+        public static final int com_facebook_loginbutton_blue_normal=0x7f02001b;
+        public static final int com_facebook_loginbutton_blue_pressed=0x7f02001c;
+        public static final int com_facebook_loginbutton_silver=0x7f02001d;
+        public static final int com_facebook_logo=0x7f02001e;
+        public static final int com_facebook_picker_item_background=0x7f02001f;
+        public static final int com_facebook_picker_list_focused=0x7f020020;
+        public static final int com_facebook_picker_list_longpressed=0x7f020021;
+        public static final int com_facebook_picker_list_pressed=0x7f020022;
+        public static final int com_facebook_picker_list_selector=0x7f020023;
+        public static final int com_facebook_picker_list_selector_background_transition=0x7f020024;
+        public static final int com_facebook_picker_list_selector_disabled=0x7f020025;
+        public static final int com_facebook_picker_top_button=0x7f020026;
+        public static final int com_facebook_place_default_icon=0x7f020027;
+        public static final int com_facebook_profile_default_icon=0x7f020028;
+        public static final int com_facebook_profile_picture_blank_portrait=0x7f020029;
+        public static final int com_facebook_profile_picture_blank_square=0x7f02002a;
+        public static final int com_facebook_top_background=0x7f02002b;
+        public static final int com_facebook_top_button=0x7f02002c;
+        public static final int com_facebook_usersettingsfragment_background_gradient=0x7f02002d;
+        public static final int congratulationsf2=0x7f02002e;
+        public static final int default_avatar=0x7f02002f;
+        public static final int discoverer=0x7f020030;
+        public static final int droids=0x7f020031;
+        public static final int fe2morado=0x7f020032;
+        public static final int fondo_categoria=0x7f020033;
+        public static final int fondo_categoria2=0x7f020034;
+        public static final int fondo_perfil=0x7f020035;
+        public static final int foto_redondo=0x7f020036;
+        public static final int go=0x7f020037;
+        public static final int guide_four=0x7f020038;
+        public static final int guide_one=0x7f020039;
+        public static final int guide_three=0x7f02003a;
+        public static final int guide_two=0x7f02003b;
+        public static final int how_to_scan=0x7f02003c;
+        public static final int ic_action_search=0x7f02003d;
+        public static final int ic_launcher=0x7f02003e;
+        public static final int ic_pulltorefresh_arrow=0x7f02003f;
+        public static final int icon=0x7f020040;
+        public static final int icon_food=0x7f020041;
+        public static final int icon_fotos=0x7f020042;
+        public static final int icon_snack=0x7f020043;
+        public static final int icon_snackx=0x7f020044;
+        public static final int image_for_empty_url=0x7f020045;
+        public static final int imagen_categoria=0x7f020046;
+        public static final int in=0x7f020047;
+        public static final int incon=0x7f020048;
+        public static final int leon=0x7f020049;
+        public static final int loading=0x7f02004a;
+        public static final int login_logo_small=0x7f02004b;
+        public static final int logo=0x7f02004c;
+        public static final int midorys=0x7f02004d;
+        public static final int normal=0x7f02004e;
+        public static final int out=0x7f02004f;
+        public static final int photo_background=0x7f020050;
+        public static final int photo_background_cut=0x7f020051;
+        public static final int pic_ambassadorm=0x7f020052;
+        public static final int pic_badgesm=0x7f020053;
+        public static final int pic_discovererm=0x7f020054;
+        public static final int pic_smackm=0x7f020055;
+        public static final int pre_scan_image_view=0x7f020056;
+        public static final int pre_snack_bg=0x7f020057;
+        public static final int press_next=0x7f020058;
+        public static final int pressed=0x7f020059;
+        public static final int product=0x7f02005a;
+        public static final int product_empty=0x7f02005b;
+        public static final int pull_to_refresh_header_background=0x7f02005c;
+        public static final int purple_plus_icon=0x7f02005d;
+        public static final int rating_bar=0x7f02005e;
+        public static final int rating_bar_mini=0x7f02005f;
+        public static final int rectangulo=0x7f020060;
+        public static final int snack_background=0x7f020061;
+        public static final int snacked=0x7f020062;
+        public static final int splashscreen_bg=0x7f020063;
+        public static final int splashscreen_footer=0x7f020064;
+        public static final int splashscreen_logo=0x7f020065;
+        public static final int star_empty=0x7f020066;
+        public static final int star_empty_mini=0x7f020067;
+        public static final int star_empty_small=0x7f020068;
+        public static final int star_full=0x7f020069;
+        public static final int star_full_mini=0x7f02006a;
+        public static final int star_full_small=0x7f02006b;
+        public static final int star_half=0x7f02006c;
+        public static final int star_half_mini=0x7f02006d;
+        public static final int star_half_small=0x7f02006e;
+        public static final int stub_image=0x7f02006f;
+        public static final int text_background_green=0x7f020070;
+        public static final int text_background_purple=0x7f020071;
+        public static final int text_background_red=0x7f020072;
+        public static final int textoambassador=0x7f020073;
     }
     public static final class id {
-        public static final int Background_snackin=0x7f0a0052;
-        public static final int ContentBadged=0x7f0a007f;
-        public static final int ContentOne=0x7f0a007b;
-        public static final int ContentTwo=0x7f0a008d;
-        public static final int Content_images=0x7f0a0080;
-        public static final int Image_Category=0x7f0a00bb;
-        public static final int Layout_buttons=0x7f0a00a4;
-        public static final int LinearOne=0x7f0a0090;
-        public static final int LinearTwo=0x7f0a009a;
-        public static final int Principal=0x7f0a0079;
-        public static final int Snack_name=0x7f0a00b1;
-        public static final int ambassador_content=0x7f0a0054;
-        public static final int ambassador_imageView=0x7f0a0056;
+        public static final int Background_snackin=0x7f060055;
+        public static final int ContentBadged=0x7f060097;
+        public static final int ContentOne=0x7f060093;
+        public static final int ContentTwo=0x7f0600a5;
+        public static final int Content_images=0x7f060098;
+        public static final int Image_Category=0x7f0600d3;
+        public static final int Layout_buttons=0x7f0600bc;
+        public static final int LinearOne=0x7f0600a8;
+        public static final int LinearTwo=0x7f0600b2;
+        public static final int Principal=0x7f060091;
+        public static final int Snack_name=0x7f0600c9;
+        public static final int ambassador_content=0x7f060057;
+        public static final int ambassador_imageView=0x7f060059;
         /**  Messages IDs 
          */
-        public static final int auto_focus=0x7f0a0000;
-        public static final int avatar_female=0x7f0a0030;
-        public static final int avatar_male=0x7f0a002f;
-        public static final int backButton=0x7f0a000b;
-        public static final int barcode_image_view=0x7f0a0065;
-        public static final int bottomPart=0x7f0a00b7;
-        public static final int button_next=0x7f0a0016;
-        public static final int button_previous=0x7f0a0015;
-        public static final int button_return_wall=0x7f0a005e;
-        public static final int checkBox=0x7f0a0060;
-        public static final int choose_from_gallery_button=0x7f0a0075;
-        public static final int contents_supplement_text_view=0x7f0a006f;
-        public static final int contents_text_view=0x7f0a006e;
-        public static final int decode=0x7f0a0001;
-        public static final int decode_failed=0x7f0a0002;
-        public static final int decode_succeeded=0x7f0a0003;
-        public static final int discoverer_button_returnWall=0x7f0a0013;
-        public static final int discoverer_framelayout=0x7f0a0010;
-        public static final int discoverer_imageview_discoverer=0x7f0a000f;
-        public static final int discoverer_imageview_tittle=0x7f0a000d;
-        public static final int discoverer_product_photo=0x7f0a0011;
-        public static final int discoverer_textview_msj=0x7f0a000e;
-        public static final int discoverer_wall_item_profile_photo=0x7f0a0012;
-        public static final int edit_profile_button=0x7f0a00a6;
-        public static final int error_message=0x7f0a0036;
-        public static final int father_ambassador=0x7f0a0081;
-        public static final int father_badged=0x7f0a008a;
-        public static final int father_content=0x7f0a0053;
-        public static final int father_discoverer=0x7f0a0084;
-        public static final int father_snack=0x7f0a0087;
-        public static final int feedback=0x7f0a00a7;
-        public static final int footer=0x7f0a0020;
-        public static final int format_text_view=0x7f0a0067;
-        public static final int format_text_view_label=0x7f0a0066;
-        public static final int frame_box1=0x7f0a0091;
-        public static final int frame_box2=0x7f0a0094;
-        public static final int frame_box3=0x7f0a0097;
-        public static final int frame_box4=0x7f0a009b;
-        public static final int frame_box5=0x7f0a009e;
-        public static final int frame_box6=0x7f0a00a1;
-        public static final int full_name_editText=0x7f0a0027;
-        public static final int gender=0x7f0a002e;
-        public static final int guide_views=0x7f0a0014;
-        public static final int hi_section_name=0x7f0a0072;
-        public static final int i_go_it=0x7f0a0061;
-        public static final int imageIcon=0x7f0a00b0;
-        public static final int imageTip=0x7f0a005f;
-        public static final int inner_container=0x7f0a0018;
-        public static final int launch_camera_button=0x7f0a0074;
-        public static final int launch_product_query=0x7f0a0004;
-        public static final int leftPart=0x7f0a00b8;
-        public static final int loading_progress_bar=0x7f0a0035;
-        public static final int login_button=0x7f0a001c;
-        public static final int login_createUser_textView=0x7f0a001f;
-        public static final int login_error_message=0x7f0a001e;
-        public static final int login_password=0x7f0a001b;
-        public static final int login_progressBar=0x7f0a001d;
-        public static final int login_scrollView=0x7f0a0017;
-        public static final int login_username=0x7f0a001a;
-        public static final int logo=0x7f0a0025;
-        public static final int logout_button=0x7f0a00a5;
-        public static final int mail_editText=0x7f0a002d;
-        public static final int mainActivity_logo=0x7f0a0019;
-        public static final int main_mainPart=0x7f0a0021;
-        public static final int main_snackInButton=0x7f0a0022;
-        public static final int main_textView=0x7f0a000c;
-        public static final int menu_settings=0x7f0a00bc;
-        public static final int meta_text_view=0x7f0a006d;
-        public static final int meta_text_view_label=0x7f0a006c;
-        public static final int mi_message=0x7f0a0073;
-        public static final int new_inner_pre_snack_container=0x7f0a0040;
-        public static final int new_password_advice=0x7f0a0028;
-        public static final int new_user_avatar_frame_layout=0x7f0a0031;
-        public static final int original_pass_editText=0x7f0a0033;
-        public static final int pager=0x7f0a0023;
-        public static final int pager_title_strip=0x7f0a0024;
-        public static final int pass_check=0x7f0a002c;
-        public static final int pass_editText=0x7f0a002a;
-        public static final int pass_linear_layout=0x7f0a0029;
-        public static final int pd_data_listview=0x7f0a0047;
-        public static final int pd_data_loader=0x7f0a0048;
-        public static final int pi_pointDescription=0x7f0a0076;
-        public static final int pi_realPoint=0x7f0a0077;
-        public static final int pic_ambassador=0x7f0a0082;
-        public static final int pic_badgesm=0x7f0a008b;
-        public static final int pic_discovererm=0x7f0a0085;
-        public static final int pic_smackm=0x7f0a0088;
-        public static final int postSnack_product_category_name=0x7f0a003c;
-        public static final int postSnack_product_image=0x7f0a003a;
-        public static final int postSnack_product_name=0x7f0a003b;
-        public static final int postSnack_ratingbar=0x7f0a003d;
-        public static final int postSnack_up=0x7f0a0038;
-        public static final int presnack_button_Snack=0x7f0a0045;
-        public static final int presnack_button_again=0x7f0a0046;
-        public static final int presnack_edittext_comment=0x7f0a0044;
-        public static final int presnack_imageview_add=0x7f0a0042;
-        public static final int presnack_textview_tittle=0x7f0a0041;
-        public static final int preview_view=0x7f0a0062;
-        public static final int product_photo=0x7f0a0059;
-        public static final int profile_image=0x7f0a007d;
-        public static final int profile_image_box=0x7f0a007c;
-        public static final int profile_image_loader=0x7f0a007e;
-        public static final int profile_scroll=0x7f0a0078;
-        public static final int ps_data_loader=0x7f0a003f;
-        public static final int ps_imageContainer=0x7f0a0039;
-        public static final int ps_listview=0x7f0a003e;
-        public static final int pseudo_actionBar=0x7f0a000a;
-        public static final int pull_to_refresh_header=0x7f0a00a8;
-        public static final int pull_to_refresh_image=0x7f0a00aa;
-        public static final int pull_to_refresh_progress=0x7f0a00a9;
-        public static final int pull_to_refresh_text=0x7f0a00ab;
-        public static final int pull_to_refresh_updated_at=0x7f0a00ac;
-        public static final int quit=0x7f0a0005;
-        public static final int ratingBar=0x7f0a0043;
-        public static final int ratingBar_snackin_activity=0x7f0a005b;
-        public static final int register_button_again=0x7f0a0051;
-        public static final int register_button_register=0x7f0a0050;
-        public static final int register_edittext_name=0x7f0a004e;
-        public static final int register_imageview_add=0x7f0a004c;
-        public static final int register_product_frame_layout=0x7f0a004b;
-        public static final int register_product_scrollView=0x7f0a0049;
-        public static final int register_spinner_country=0x7f0a004f;
-        public static final int register_textview_code=0x7f0a004d;
-        public static final int register_textview_tittle=0x7f0a004a;
-        public static final int register_user_button=0x7f0a0034;
-        public static final int register_user_photo=0x7f0a0032;
-        public static final int restart_preview=0x7f0a0006;
-        public static final int result_button_view=0x7f0a0070;
-        public static final int result_view=0x7f0a0064;
-        public static final int return_scan_result=0x7f0a0007;
-        public static final int ri_user_full_name=0x7f0a00ae;
-        public static final int ri_user_image=0x7f0a00ad;
-        public static final int ri_user_nick_name=0x7f0a00af;
-        public static final int rigthPart=0x7f0a00b9;
-        public static final int search_book_contents_failed=0x7f0a0008;
-        public static final int search_book_contents_succeeded=0x7f0a0009;
-        public static final int snackFive=0x7f0a009f;
-        public static final int snackFive_image_loader=0x7f0a00a0;
-        public static final int snackFour=0x7f0a009c;
-        public static final int snackFour_image_loader=0x7f0a009d;
-        public static final int snackOne=0x7f0a0092;
-        public static final int snackOne_image_loader=0x7f0a0093;
-        public static final int snackSix=0x7f0a00a2;
-        public static final int snackSix_image_loader=0x7f0a00a3;
-        public static final int snackThree=0x7f0a0098;
-        public static final int snackThree_image_loader=0x7f0a0099;
-        public static final int snackTwo_image_loader=0x7f0a0096;
-        public static final int snack_Two=0x7f0a0095;
-        public static final int snack_date=0x7f0a00b6;
-        public static final int snackin_content=0x7f0a0057;
-        public static final int snackin_product_name=0x7f0a0058;
-        public static final int snackin_text=0x7f0a005d;
-        public static final int snacks_views=0x7f0a008f;
-        public static final int spinner_snacks=0x7f0a008e;
-        public static final int splash_screen_footer=0x7f0a0037;
-        public static final int splash_screen_progressBar=0x7f0a00b2;
-        public static final int status_view=0x7f0a0071;
-        public static final int time_text_view=0x7f0a006b;
-        public static final int time_text_view_label=0x7f0a006a;
-        public static final int tittle_text=0x7f0a0055;
-        public static final int totalAmbassador=0x7f0a0083;
-        public static final int totalBadged=0x7f0a008c;
-        public static final int totalDiscoverer=0x7f0a0086;
-        public static final int totalSnackImage=0x7f0a0089;
-        public static final int totalSnacks=0x7f0a005a;
-        public static final int type_text_view=0x7f0a0069;
-        public static final int type_text_view_label=0x7f0a0068;
-        public static final int upperPart=0x7f0a00b4;
-        public static final int user_name=0x7f0a007a;
-        public static final int username_editText=0x7f0a0026;
-        public static final int viewfinder_view=0x7f0a0063;
-        public static final int visible_pass_editText=0x7f0a002b;
-        public static final int wall_item_product_photo=0x7f0a00ba;
-        public static final int wall_item_profile_photo=0x7f0a005c;
-        public static final int wall_item_username_text=0x7f0a00b5;
-        public static final int wall_list=0x7f0a00b3;
+        public static final int auto_focus=0x7f060003;
+        public static final int avatar_female=0x7f060033;
+        public static final int avatar_male=0x7f060032;
+        public static final int backButton=0x7f06000e;
+        public static final int barcode_image_view=0x7f060068;
+        public static final int bottomPart=0x7f0600cf;
+        public static final int button_next=0x7f060019;
+        public static final int button_previous=0x7f060018;
+        public static final int button_return_wall=0x7f060061;
+        public static final int checkBox=0x7f060063;
+        public static final int choose_from_gallery_button=0x7f06008d;
+        public static final int com_facebook_login_activity_progress_bar=0x7f060077;
+        public static final int com_facebook_picker_activity_circle=0x7f060076;
+        public static final int com_facebook_picker_checkbox=0x7f060079;
+        public static final int com_facebook_picker_checkbox_stub=0x7f06007d;
+        public static final int com_facebook_picker_divider=0x7f060081;
+        public static final int com_facebook_picker_done_button=0x7f060080;
+        public static final int com_facebook_picker_image=0x7f06007a;
+        public static final int com_facebook_picker_list_section_header=0x7f06007e;
+        public static final int com_facebook_picker_list_view=0x7f060075;
+        public static final int com_facebook_picker_profile_pic_stub=0x7f06007b;
+        public static final int com_facebook_picker_row_activity_circle=0x7f060078;
+        public static final int com_facebook_picker_title=0x7f06007c;
+        public static final int com_facebook_picker_title_bar=0x7f060083;
+        public static final int com_facebook_picker_title_bar_stub=0x7f060082;
+        public static final int com_facebook_picker_top_bar=0x7f06007f;
+        public static final int com_facebook_placepickerfragment_search_box_stub=0x7f060084;
+        public static final int com_facebook_usersettingsfragment_login_button=0x7f060089;
+        public static final int com_facebook_usersettingsfragment_logo_image=0x7f060087;
+        public static final int com_facebook_usersettingsfragment_profile_name=0x7f060088;
+        public static final int contents_supplement_text_view=0x7f060072;
+        public static final int contents_text_view=0x7f060071;
+        public static final int decode=0x7f060004;
+        public static final int decode_failed=0x7f060005;
+        public static final int decode_succeeded=0x7f060006;
+        public static final int discoverer_button_returnWall=0x7f060016;
+        public static final int discoverer_framelayout=0x7f060013;
+        public static final int discoverer_imageview_discoverer=0x7f060012;
+        public static final int discoverer_imageview_tittle=0x7f060010;
+        public static final int discoverer_product_photo=0x7f060014;
+        public static final int discoverer_textview_msj=0x7f060011;
+        public static final int discoverer_wall_item_profile_photo=0x7f060015;
+        public static final int edit_profile_button=0x7f0600be;
+        public static final int error_message=0x7f060039;
+        public static final int father_ambassador=0x7f060099;
+        public static final int father_badged=0x7f0600a2;
+        public static final int father_content=0x7f060056;
+        public static final int father_discoverer=0x7f06009c;
+        public static final int father_snack=0x7f06009f;
+        public static final int feedback=0x7f0600bf;
+        public static final int footer=0x7f060023;
+        public static final int format_text_view=0x7f06006a;
+        public static final int format_text_view_label=0x7f060069;
+        public static final int frame_box1=0x7f0600a9;
+        public static final int frame_box2=0x7f0600ac;
+        public static final int frame_box3=0x7f0600af;
+        public static final int frame_box4=0x7f0600b3;
+        public static final int frame_box5=0x7f0600b6;
+        public static final int frame_box6=0x7f0600b9;
+        public static final int full_name_editText=0x7f06002a;
+        public static final int gender=0x7f060031;
+        public static final int guide_views=0x7f060017;
+        public static final int hi_section_name=0x7f06008a;
+        public static final int i_go_it=0x7f060064;
+        public static final int imageIcon=0x7f0600c8;
+        public static final int imageTip=0x7f060062;
+        public static final int inner_container=0x7f06001b;
+        public static final int large=0x7f060002;
+        public static final int launch_camera_button=0x7f06008c;
+        public static final int launch_product_query=0x7f060007;
+        public static final int leftPart=0x7f0600d0;
+        public static final int loading_progress_bar=0x7f060038;
+        public static final int login_button=0x7f06001f;
+        public static final int login_createUser_textView=0x7f060022;
+        public static final int login_error_message=0x7f060021;
+        public static final int login_password=0x7f06001e;
+        public static final int login_progressBar=0x7f060020;
+        public static final int login_scrollView=0x7f06001a;
+        public static final int login_username=0x7f06001d;
+        public static final int logo=0x7f060028;
+        public static final int logout_button=0x7f0600bd;
+        public static final int mail_editText=0x7f060030;
+        public static final int mainActivity_logo=0x7f06001c;
+        public static final int main_mainPart=0x7f060024;
+        public static final int main_snackInButton=0x7f060025;
+        public static final int main_textView=0x7f06000f;
+        public static final int menu_settings=0x7f0600d4;
+        public static final int meta_text_view=0x7f060070;
+        public static final int meta_text_view_label=0x7f06006f;
+        public static final int mi_message=0x7f06008b;
+        public static final int new_inner_pre_snack_container=0x7f060043;
+        public static final int new_password_advice=0x7f06002b;
+        public static final int new_user_avatar_frame_layout=0x7f060034;
+        public static final int normal=0x7f060001;
+        public static final int original_pass_editText=0x7f060036;
+        public static final int pager=0x7f060026;
+        public static final int pager_title_strip=0x7f060027;
+        public static final int pass_check=0x7f06002f;
+        public static final int pass_editText=0x7f06002d;
+        public static final int pass_linear_layout=0x7f06002c;
+        public static final int pd_data_listview=0x7f06004a;
+        public static final int pd_data_loader=0x7f06004b;
+        public static final int pi_pointDescription=0x7f06008e;
+        public static final int pi_realPoint=0x7f06008f;
+        public static final int pic_ambassador=0x7f06009a;
+        public static final int pic_badgesm=0x7f0600a3;
+        public static final int pic_discovererm=0x7f06009d;
+        public static final int pic_smackm=0x7f0600a0;
+        public static final int picker_subtitle=0x7f060086;
+        public static final int postSnack_product_category_name=0x7f06003f;
+        public static final int postSnack_product_image=0x7f06003d;
+        public static final int postSnack_product_name=0x7f06003e;
+        public static final int postSnack_ratingbar=0x7f060040;
+        public static final int postSnack_up=0x7f06003b;
+        public static final int presnack_button_Snack=0x7f060048;
+        public static final int presnack_button_again=0x7f060049;
+        public static final int presnack_edittext_comment=0x7f060047;
+        public static final int presnack_imageview_add=0x7f060045;
+        public static final int presnack_textview_tittle=0x7f060044;
+        public static final int preview_view=0x7f060065;
+        public static final int product_photo=0x7f06005c;
+        public static final int profile_image=0x7f060095;
+        public static final int profile_image_box=0x7f060094;
+        public static final int profile_image_loader=0x7f060096;
+        public static final int profile_scroll=0x7f060090;
+        public static final int ps_data_loader=0x7f060042;
+        public static final int ps_imageContainer=0x7f06003c;
+        public static final int ps_listview=0x7f060041;
+        public static final int pseudo_actionBar=0x7f06000d;
+        public static final int pull_to_refresh_header=0x7f0600c0;
+        public static final int pull_to_refresh_image=0x7f0600c2;
+        public static final int pull_to_refresh_progress=0x7f0600c1;
+        public static final int pull_to_refresh_text=0x7f0600c3;
+        public static final int pull_to_refresh_updated_at=0x7f0600c4;
+        public static final int quit=0x7f060008;
+        public static final int ratingBar=0x7f060046;
+        public static final int ratingBar_snackin_activity=0x7f06005e;
+        public static final int register_button_again=0x7f060054;
+        public static final int register_button_register=0x7f060053;
+        public static final int register_edittext_name=0x7f060051;
+        public static final int register_imageview_add=0x7f06004f;
+        public static final int register_product_frame_layout=0x7f06004e;
+        public static final int register_product_scrollView=0x7f06004c;
+        public static final int register_spinner_country=0x7f060052;
+        public static final int register_textview_code=0x7f060050;
+        public static final int register_textview_tittle=0x7f06004d;
+        public static final int register_user_button=0x7f060037;
+        public static final int register_user_photo=0x7f060035;
+        public static final int restart_preview=0x7f060009;
+        public static final int result_button_view=0x7f060073;
+        public static final int result_view=0x7f060067;
+        public static final int return_scan_result=0x7f06000a;
+        public static final int ri_user_full_name=0x7f0600c6;
+        public static final int ri_user_image=0x7f0600c5;
+        public static final int ri_user_nick_name=0x7f0600c7;
+        public static final int rigthPart=0x7f0600d1;
+        public static final int search_book_contents_failed=0x7f06000b;
+        public static final int search_book_contents_succeeded=0x7f06000c;
+        public static final int search_box=0x7f060085;
+        public static final int small=0x7f060000;
+        public static final int snackFive=0x7f0600b7;
+        public static final int snackFive_image_loader=0x7f0600b8;
+        public static final int snackFour=0x7f0600b4;
+        public static final int snackFour_image_loader=0x7f0600b5;
+        public static final int snackOne=0x7f0600aa;
+        public static final int snackOne_image_loader=0x7f0600ab;
+        public static final int snackSix=0x7f0600ba;
+        public static final int snackSix_image_loader=0x7f0600bb;
+        public static final int snackThree=0x7f0600b0;
+        public static final int snackThree_image_loader=0x7f0600b1;
+        public static final int snackTwo_image_loader=0x7f0600ae;
+        public static final int snack_Two=0x7f0600ad;
+        public static final int snack_date=0x7f0600ce;
+        public static final int snackin_content=0x7f06005a;
+        public static final int snackin_product_name=0x7f06005b;
+        public static final int snackin_text=0x7f060060;
+        public static final int snacks_views=0x7f0600a7;
+        public static final int spinner_snacks=0x7f0600a6;
+        public static final int splash_screen_footer=0x7f06003a;
+        public static final int splash_screen_progressBar=0x7f0600ca;
+        public static final int status_view=0x7f060074;
+        public static final int time_text_view=0x7f06006e;
+        public static final int time_text_view_label=0x7f06006d;
+        public static final int tittle_text=0x7f060058;
+        public static final int totalAmbassador=0x7f06009b;
+        public static final int totalBadged=0x7f0600a4;
+        public static final int totalDiscoverer=0x7f06009e;
+        public static final int totalSnackImage=0x7f0600a1;
+        public static final int totalSnacks=0x7f06005d;
+        public static final int type_text_view=0x7f06006c;
+        public static final int type_text_view_label=0x7f06006b;
+        public static final int upperPart=0x7f0600cc;
+        public static final int user_name=0x7f060092;
+        public static final int username_editText=0x7f060029;
+        public static final int viewfinder_view=0x7f060066;
+        public static final int visible_pass_editText=0x7f06002e;
+        public static final int wall_item_product_photo=0x7f0600d2;
+        public static final int wall_item_profile_photo=0x7f06005f;
+        public static final int wall_item_username_text=0x7f0600cd;
+        public static final int wall_list=0x7f0600cb;
     }
     public static final class layout {
         public static final int activity_discoverer=0x7f030000;
@@ -349,125 +560,508 @@ public final class R {
         public static final int bg_gradient=0x7f03000c;
         public static final int bg_gradiente_green=0x7f03000d;
         public static final int capture=0x7f03000e;
-        public static final int header_item=0x7f03000f;
-        public static final int message_item=0x7f030010;
-        public static final int pick_photo=0x7f030011;
-        public static final int points_item=0x7f030012;
-        public static final int post_snack_product_container_bg=0x7f030013;
-        public static final int post_snack_product_title_bg=0x7f030014;
-        public static final int profile=0x7f030015;
-        public static final int pull_to_refresh_header=0x7f030016;
-        public static final int regular_item=0x7f030017;
-        public static final int row=0x7f030018;
-        public static final int small_gradient=0x7f030019;
-        public static final int splash_activity=0x7f03001a;
-        public static final int wall_activity=0x7f03001b;
-        public static final int wall_item=0x7f03001c;
+        public static final int com_facebook_friendpickerfragment=0x7f03000f;
+        public static final int com_facebook_login_activity_layout=0x7f030010;
+        public static final int com_facebook_picker_activity_circle_row=0x7f030011;
+        public static final int com_facebook_picker_checkbox=0x7f030012;
+        public static final int com_facebook_picker_image=0x7f030013;
+        public static final int com_facebook_picker_list_row=0x7f030014;
+        public static final int com_facebook_picker_list_section_header=0x7f030015;
+        public static final int com_facebook_picker_search_box=0x7f030016;
+        public static final int com_facebook_picker_title_bar=0x7f030017;
+        public static final int com_facebook_picker_title_bar_stub=0x7f030018;
+        public static final int com_facebook_placepickerfragment=0x7f030019;
+        public static final int com_facebook_placepickerfragment_list_row=0x7f03001a;
+        public static final int com_facebook_usersettingsfragment=0x7f03001b;
+        public static final int custom_spinner_simple_row=0x7f03001c;
+        public static final int header_item=0x7f03001d;
+        public static final int message_item=0x7f03001e;
+        public static final int pick_photo=0x7f03001f;
+        public static final int points_item=0x7f030020;
+        public static final int post_snack_product_container_bg=0x7f030021;
+        public static final int post_snack_product_title_bg=0x7f030022;
+        public static final int profile=0x7f030023;
+        public static final int pull_to_refresh_header=0x7f030024;
+        public static final int regular_item=0x7f030025;
+        public static final int row=0x7f030026;
+        public static final int small_gradient=0x7f030027;
+        public static final int splash_activity=0x7f030028;
+        public static final int wall_activity=0x7f030029;
+        public static final int wall_item=0x7f03002a;
     }
     public static final class menu {
-        public static final int activity_discoverer=0x7f0c0000;
-        public static final int activity_feedback=0x7f0c0001;
-        public static final int activity_guide_part_one=0x7f0c0002;
-        public static final int activity_login=0x7f0c0003;
-        public static final int activity_main=0x7f0c0004;
-        public static final int activity_new_user_registration=0x7f0c0005;
-        public static final int activity_post_snackin=0x7f0c0006;
-        public static final int activity_pre_snackin=0x7f0c0007;
-        public static final int activity_register=0x7f0c0008;
-        public static final int activity_snackin=0x7f0c0009;
-        public static final int activity_test=0x7f0c000a;
-        public static final int activity_tip_camera=0x7f0c000b;
-        public static final int spinner=0x7f0c000c;
-        public static final int splash_activity=0x7f0c000d;
+        public static final int activity_discoverer=0x7f0d0000;
+        public static final int activity_feedback=0x7f0d0001;
+        public static final int activity_guide_part_one=0x7f0d0002;
+        public static final int activity_login=0x7f0d0003;
+        public static final int activity_main=0x7f0d0004;
+        public static final int activity_new_user_registration=0x7f0d0005;
+        public static final int activity_post_snackin=0x7f0d0006;
+        public static final int activity_pre_snackin=0x7f0d0007;
+        public static final int activity_register=0x7f0d0008;
+        public static final int activity_snackin=0x7f0d0009;
+        public static final int activity_test=0x7f0d000a;
+        public static final int activity_tip_camera=0x7f0d000b;
+        public static final int spinner=0x7f0d000c;
+        public static final int splash_activity=0x7f0d000d;
     }
     public static final class raw {
         public static final int beep=0x7f050000;
     }
     public static final class string {
-        public static final int app_name=0x7f060000;
-        public static final int button_back=0x7f060010;
-        public static final int button_cancel=0x7f060011;
-        public static final int button_ok=0x7f060012;
-        public static final int button_wifi=0x7f060013;
-        public static final int contents_text=0x7f060014;
-        public static final int country_prompt=0x7f060006;
-        public static final int feedback_prompt=0x7f060007;
-        public static final int fill_fields_to_login=0x7f060042;
+        public static final int app_name=0x7f070019;
+        public static final int button_back=0x7f070029;
+        public static final int button_cancel=0x7f07002a;
+        public static final int button_ok=0x7f07002b;
+        public static final int button_wifi=0x7f07002c;
+        public static final int com_facebook_choose_friends=0x7f07000f;
+        public static final int com_facebook_dialogloginactivity_ok_button=0x7f070000;
+        public static final int com_facebook_internet_permission_error_message=0x7f070013;
+        public static final int com_facebook_internet_permission_error_title=0x7f070012;
+        public static final int com_facebook_loading=0x7f070011;
+        public static final int com_facebook_loginview_cancel_action=0x7f070006;
+        public static final int com_facebook_loginview_log_in_button=0x7f070002;
+        public static final int com_facebook_loginview_log_out_action=0x7f070005;
+        public static final int com_facebook_loginview_log_out_button=0x7f070001;
+        public static final int com_facebook_loginview_logged_in_as=0x7f070003;
+        public static final int com_facebook_loginview_logged_in_using_facebook=0x7f070004;
+        public static final int com_facebook_logo_content_description=0x7f070007;
+        public static final int com_facebook_nearby=0x7f070010;
+        public static final int com_facebook_picker_done_button_text=0x7f07000e;
+        public static final int com_facebook_placepicker_subtitle_catetory_only_format=0x7f07000c;
+        public static final int com_facebook_placepicker_subtitle_format=0x7f07000b;
+        public static final int com_facebook_placepicker_subtitle_were_here_only_format=0x7f07000d;
+        public static final int com_facebook_requesterror_password_changed=0x7f070016;
+        public static final int com_facebook_requesterror_permissions=0x7f070018;
+        public static final int com_facebook_requesterror_reconnect=0x7f070017;
+        public static final int com_facebook_requesterror_relogin=0x7f070015;
+        public static final int com_facebook_requesterror_web_login=0x7f070014;
+        public static final int com_facebook_usersettingsfragment_log_in_button=0x7f070008;
+        public static final int com_facebook_usersettingsfragment_logged_in=0x7f070009;
+        public static final int com_facebook_usersettingsfragment_not_logged_in=0x7f07000a;
+        public static final int contents_text=0x7f07002d;
+        public static final int country_prompt=0x7f07001f;
+        public static final int feedback_prompt=0x7f070020;
+        public static final int fill_fields_to_login=0x7f07005b;
         /**  tracking ID DEV 
          */
-        public static final int ga_trackingId=0x7f060005;
-        public static final int hello_world=0x7f060008;
-        public static final int mainActivity_imgView_logo_contentDescription=0x7f06000d;
-        public static final int menu_encode_mecard=0x7f060015;
-        public static final int menu_encode_vcard=0x7f060016;
-        public static final int menu_settings=0x7f060017;
-        public static final int menu_share=0x7f060018;
-        public static final int msg_bulk_mode_scanned=0x7f060019;
-        public static final int msg_default_format=0x7f06001a;
-        public static final int msg_default_mms_subject=0x7f06001b;
-        public static final int msg_default_status=0x7f06001c;
-        public static final int new_user_mail_check_symbol=0x7f06003f;
-        public static final int new_user_username_check=0x7f06003d;
-        public static final int new_user_username_check_symbol=0x7f06003e;
-        public static final int no_number_in_name=0x7f060040;
-        public static final int password_too_short=0x7f060041;
-        public static final int preferences_actions_title=0x7f06001d;
-        public static final int preferences_bulk_mode_summary=0x7f06001e;
-        public static final int preferences_bulk_mode_title=0x7f06001f;
-        public static final int preferences_copy_to_clipboard_title=0x7f060020;
-        public static final int preferences_custom_product_search_summary=0x7f060021;
-        public static final int preferences_custom_product_search_title=0x7f060022;
-        public static final int preferences_decode_1D_title=0x7f060023;
-        public static final int preferences_decode_Data_Matrix_title=0x7f060024;
-        public static final int preferences_decode_QR_title=0x7f060025;
-        public static final int preferences_front_light_summary=0x7f060026;
-        public static final int preferences_front_light_title=0x7f060027;
-        public static final int preferences_general_title=0x7f060028;
-        public static final int preferences_name=0x7f060029;
-        public static final int preferences_play_beep_title=0x7f06002a;
-        public static final int preferences_remember_duplicates_summary=0x7f06002b;
-        public static final int preferences_remember_duplicates_title=0x7f06002c;
-        public static final int preferences_result_title=0x7f06002f;
-        public static final int preferences_reverse_image_summary=0x7f06002d;
-        public static final int preferences_reverse_image_title=0x7f06002e;
-        public static final int preferences_scanning_title=0x7f060030;
-        public static final int preferences_search_country=0x7f060031;
-        public static final int preferences_supplemental_summary=0x7f060032;
-        public static final int preferences_supplemental_title=0x7f060033;
-        public static final int preferences_vibrate_title=0x7f060034;
-        public static final int profile_textView=0x7f06000f;
-        public static final int pull_to_refresh_pull_label=0x7f060001;
-        public static final int pull_to_refresh_refreshing_label=0x7f060003;
-        public static final int pull_to_refresh_release_label=0x7f060002;
-        public static final int pull_to_refresh_tap_label=0x7f060004;
-        public static final int result_product=0x7f060035;
-        public static final int result_text=0x7f060036;
-        public static final int ru_prompt=0x7f060047;
-        public static final int splashScreen_imgView_footer_contentDescription=0x7f06000b;
-        public static final int splashScreen_imgView_logo_contentDescription=0x7f06000c;
-        public static final int title_activity_DetailSnackin=0x7f06004a;
-        public static final int title_activity_Discoverer=0x7f06003b;
-        public static final int title_activity_feedback=0x7f060044;
-        public static final int title_activity_guide=0x7f060048;
-        public static final int title_activity_login=0x7f06000e;
-        public static final int title_activity_main=0x7f060009;
-        public static final int title_activity_new_user_registration=0x7f06003c;
-        public static final int title_activity_post_snackin=0x7f060049;
-        public static final int title_activity_pre_snackin=0x7f060038;
-        public static final int title_activity_register=0x7f060039;
-        public static final int title_activity_snackin=0x7f06003a;
-        public static final int title_activity_splash=0x7f06000a;
-        public static final int title_activity_test=0x7f060046;
-        public static final int title_activity_tip_camera=0x7f060045;
-        public static final int title_ambassador=0x7f060043;
-        public static final int zxing_url=0x7f060037;
+        public static final int ga_trackingId=0x7f07001e;
+        public static final int hello_world=0x7f070021;
+        public static final int mainActivity_imgView_logo_contentDescription=0x7f070026;
+        public static final int menu_encode_mecard=0x7f07002e;
+        public static final int menu_encode_vcard=0x7f07002f;
+        public static final int menu_settings=0x7f070030;
+        public static final int menu_share=0x7f070031;
+        public static final int msg_bulk_mode_scanned=0x7f070032;
+        public static final int msg_default_format=0x7f070033;
+        public static final int msg_default_mms_subject=0x7f070034;
+        public static final int msg_default_status=0x7f070035;
+        public static final int new_user_mail_check_symbol=0x7f070058;
+        public static final int new_user_username_check=0x7f070056;
+        public static final int new_user_username_check_symbol=0x7f070057;
+        public static final int no_number_in_name=0x7f070059;
+        public static final int password_too_short=0x7f07005a;
+        public static final int preferences_actions_title=0x7f070036;
+        public static final int preferences_bulk_mode_summary=0x7f070037;
+        public static final int preferences_bulk_mode_title=0x7f070038;
+        public static final int preferences_copy_to_clipboard_title=0x7f070039;
+        public static final int preferences_custom_product_search_summary=0x7f07003a;
+        public static final int preferences_custom_product_search_title=0x7f07003b;
+        public static final int preferences_decode_1D_title=0x7f07003c;
+        public static final int preferences_decode_Data_Matrix_title=0x7f07003d;
+        public static final int preferences_decode_QR_title=0x7f07003e;
+        public static final int preferences_front_light_summary=0x7f07003f;
+        public static final int preferences_front_light_title=0x7f070040;
+        public static final int preferences_general_title=0x7f070041;
+        public static final int preferences_name=0x7f070042;
+        public static final int preferences_play_beep_title=0x7f070043;
+        public static final int preferences_remember_duplicates_summary=0x7f070044;
+        public static final int preferences_remember_duplicates_title=0x7f070045;
+        public static final int preferences_result_title=0x7f070048;
+        public static final int preferences_reverse_image_summary=0x7f070046;
+        public static final int preferences_reverse_image_title=0x7f070047;
+        public static final int preferences_scanning_title=0x7f070049;
+        public static final int preferences_search_country=0x7f07004a;
+        public static final int preferences_supplemental_summary=0x7f07004b;
+        public static final int preferences_supplemental_title=0x7f07004c;
+        public static final int preferences_vibrate_title=0x7f07004d;
+        public static final int profile_textView=0x7f070028;
+        public static final int pull_to_refresh_pull_label=0x7f07001a;
+        public static final int pull_to_refresh_refreshing_label=0x7f07001c;
+        public static final int pull_to_refresh_release_label=0x7f07001b;
+        public static final int pull_to_refresh_tap_label=0x7f07001d;
+        public static final int result_product=0x7f07004e;
+        public static final int result_text=0x7f07004f;
+        public static final int ru_prompt=0x7f070060;
+        public static final int splashScreen_imgView_footer_contentDescription=0x7f070024;
+        public static final int splashScreen_imgView_logo_contentDescription=0x7f070025;
+        public static final int title_activity_DetailSnackin=0x7f070063;
+        public static final int title_activity_Discoverer=0x7f070054;
+        public static final int title_activity_feedback=0x7f07005d;
+        public static final int title_activity_guide=0x7f070061;
+        public static final int title_activity_login=0x7f070027;
+        public static final int title_activity_main=0x7f070022;
+        public static final int title_activity_new_user_registration=0x7f070055;
+        public static final int title_activity_post_snackin=0x7f070062;
+        public static final int title_activity_pre_snackin=0x7f070051;
+        public static final int title_activity_register=0x7f070052;
+        public static final int title_activity_snackin=0x7f070053;
+        public static final int title_activity_splash=0x7f070023;
+        public static final int title_activity_test=0x7f07005f;
+        public static final int title_activity_tip_camera=0x7f07005e;
+        public static final int title_ambassador=0x7f07005c;
+        public static final int zxing_url=0x7f070050;
     }
     public static final class style {
-        public static final int AppTheme=0x7f0b0000;
-        public static final int SpinnerTextViewItem=0x7f0b0001;
-        public static final int myStyle=0x7f0b0002;
+        public static final int AppTheme=0x7f0a0002;
+        public static final int SpinnerTextViewItem=0x7f0a0003;
+        public static final int com_facebook_loginview_default_style=0x7f0a0000;
+        public static final int com_facebook_loginview_silver_style=0x7f0a0001;
+        public static final int myStyle=0x7f0a0004;
     }
     public static final class xml {
         public static final int preferences=0x7f040000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a com_facebook_friend_picker_fragment.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #com_facebook_friend_picker_fragment_multi_select com.trustripes.principal:multi_select}</code></td><td></td></tr>
+           </table>
+           @see #com_facebook_friend_picker_fragment_multi_select
+         */
+        public static final int[] com_facebook_friend_picker_fragment = {
+            0x7f010007
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#multi_select}
+          attribute's value can be found in the {@link #com_facebook_friend_picker_fragment} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:multi_select
+        */
+        public static final int com_facebook_friend_picker_fragment_multi_select = 0;
+        /** Attributes that can be used with a com_facebook_login_view.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #com_facebook_login_view_confirm_logout com.trustripes.principal:confirm_logout}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_login_view_fetch_user_info com.trustripes.principal:fetch_user_info}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_login_view_login_text com.trustripes.principal:login_text}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_login_view_logout_text com.trustripes.principal:logout_text}</code></td><td></td></tr>
+           </table>
+           @see #com_facebook_login_view_confirm_logout
+           @see #com_facebook_login_view_fetch_user_info
+           @see #com_facebook_login_view_login_text
+           @see #com_facebook_login_view_logout_text
+         */
+        public static final int[] com_facebook_login_view = {
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#confirm_logout}
+          attribute's value can be found in the {@link #com_facebook_login_view} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:confirm_logout
+        */
+        public static final int com_facebook_login_view_confirm_logout = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#fetch_user_info}
+          attribute's value can be found in the {@link #com_facebook_login_view} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:fetch_user_info
+        */
+        public static final int com_facebook_login_view_fetch_user_info = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#login_text}
+          attribute's value can be found in the {@link #com_facebook_login_view} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:login_text
+        */
+        public static final int com_facebook_login_view_login_text = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#logout_text}
+          attribute's value can be found in the {@link #com_facebook_login_view} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:logout_text
+        */
+        public static final int com_facebook_login_view_logout_text = 3;
+        /** Attributes that can be used with a com_facebook_picker_fragment.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_done_button_background com.trustripes.principal:done_button_background}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_done_button_text com.trustripes.principal:done_button_text}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_extra_fields com.trustripes.principal:extra_fields}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_show_pictures com.trustripes.principal:show_pictures}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_show_title_bar com.trustripes.principal:show_title_bar}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_title_bar_background com.trustripes.principal:title_bar_background}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_picker_fragment_title_text com.trustripes.principal:title_text}</code></td><td></td></tr>
+           </table>
+           @see #com_facebook_picker_fragment_done_button_background
+           @see #com_facebook_picker_fragment_done_button_text
+           @see #com_facebook_picker_fragment_extra_fields
+           @see #com_facebook_picker_fragment_show_pictures
+           @see #com_facebook_picker_fragment_show_title_bar
+           @see #com_facebook_picker_fragment_title_bar_background
+           @see #com_facebook_picker_fragment_title_text
+         */
+        public static final int[] com_facebook_picker_fragment = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#done_button_background}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:done_button_background
+        */
+        public static final int com_facebook_picker_fragment_done_button_background = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#done_button_text}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:done_button_text
+        */
+        public static final int com_facebook_picker_fragment_done_button_text = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#extra_fields}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:extra_fields
+        */
+        public static final int com_facebook_picker_fragment_extra_fields = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#show_pictures}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:show_pictures
+        */
+        public static final int com_facebook_picker_fragment_show_pictures = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#show_title_bar}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:show_title_bar
+        */
+        public static final int com_facebook_picker_fragment_show_title_bar = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#title_bar_background}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:title_bar_background
+        */
+        public static final int com_facebook_picker_fragment_title_bar_background = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#title_text}
+          attribute's value can be found in the {@link #com_facebook_picker_fragment} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:title_text
+        */
+        public static final int com_facebook_picker_fragment_title_text = 3;
+        /** Attributes that can be used with a com_facebook_place_picker_fragment.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #com_facebook_place_picker_fragment_radius_in_meters com.trustripes.principal:radius_in_meters}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_place_picker_fragment_results_limit com.trustripes.principal:results_limit}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_place_picker_fragment_search_text com.trustripes.principal:search_text}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_place_picker_fragment_show_search_box com.trustripes.principal:show_search_box}</code></td><td></td></tr>
+           </table>
+           @see #com_facebook_place_picker_fragment_radius_in_meters
+           @see #com_facebook_place_picker_fragment_results_limit
+           @see #com_facebook_place_picker_fragment_search_text
+           @see #com_facebook_place_picker_fragment_show_search_box
+         */
+        public static final int[] com_facebook_place_picker_fragment = {
+            0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#radius_in_meters}
+          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:radius_in_meters
+        */
+        public static final int com_facebook_place_picker_fragment_radius_in_meters = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#results_limit}
+          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:results_limit
+        */
+        public static final int com_facebook_place_picker_fragment_results_limit = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#search_text}
+          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:search_text
+        */
+        public static final int com_facebook_place_picker_fragment_search_text = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#show_search_box}
+          attribute's value can be found in the {@link #com_facebook_place_picker_fragment} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:show_search_box
+        */
+        public static final int com_facebook_place_picker_fragment_show_search_box = 3;
+        /** Attributes that can be used with a com_facebook_profile_picture_view.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #com_facebook_profile_picture_view_is_cropped com.trustripes.principal:is_cropped}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_facebook_profile_picture_view_preset_size com.trustripes.principal:preset_size}</code></td><td></td></tr>
+           </table>
+           @see #com_facebook_profile_picture_view_is_cropped
+           @see #com_facebook_profile_picture_view_preset_size
+         */
+        public static final int[] com_facebook_profile_picture_view = {
+            0x7f010010, 0x7f010011
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#is_cropped}
+          attribute's value can be found in the {@link #com_facebook_profile_picture_view} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:is_cropped
+        */
+        public static final int com_facebook_profile_picture_view_is_cropped = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trustripes.principal.R.attr#preset_size}
+          attribute's value can be found in the {@link #com_facebook_profile_picture_view} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>small</code></td><td>-2</td><td> Keep in sync with constants in ProfilePictureView </td></tr>
+<tr><td><code>normal</code></td><td>-3</td><td></td></tr>
+<tr><td><code>large</code></td><td>-4</td><td></td></tr>
+</table>
+          @attr name android:preset_size
+        */
+        public static final int com_facebook_profile_picture_view_preset_size = 0;
+    };
 }

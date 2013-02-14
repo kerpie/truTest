@@ -44,6 +44,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -89,7 +90,13 @@ public class ProductDescription extends Activity {
         progressBar = (ProgressBar) findViewById(R.id.pd_data_loader);
         listData = (ListView) findViewById(R.id.pd_data_listview);
         
-        productRatingBar.setEnabled(false);
+        productRatingBar.setOnTouchListener(new View.OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				return true;
+			}
+		});
         
     	backButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -185,6 +192,9 @@ public class ProductDescription extends Activity {
 //	    			lg.setImage(productPhoto);
 	    			
 	    			//new GetImage().execute(lg);
+    				
+    				productCategoryName.setText(SnackjsonObject.getString("categoriaProducto"));
+	    			productCategoryName.setVisibility(View.VISIBLE);
 	    			
     				if(SnackjsonObject.getString("promedio") != "null")
     					productRatingBar.setRating(Float.parseFloat(SnackjsonObject.getString("promedio")));

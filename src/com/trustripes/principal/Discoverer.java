@@ -42,7 +42,7 @@ public class Discoverer extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_discoverer);
-		nametv=(TextView)findViewById(R.id.discoverer_textview_msj);
+		nametv = (TextView)findViewById(R.id.discoverer_textview_msj);
 		btn_return = (Button) findViewById(R.id.discoverer_button_returnWall);
 		product = (ImageView) findViewById(R.id.discoverer_product_photo);
 		profile = (ImageView) findViewById(R.id.discoverer_wall_item_profile_photo);
@@ -77,9 +77,14 @@ public class Discoverer extends Activity {
 
 			public void onClick(View v) {
 				Log.d("MAIN", "Click EN btn_again");
-//				Intent intent = new Intent(getApplicationContext(), PostSnackin.class);
-//				intent.putExtra("IS_ANOTHER_PHOTO", true);
-//				intent.putExtra("PRODUCT_PATH", path);
+				/*Intent intent = new Intent(getApplicationContext(), PostSnackin.class);
+				intent.putExtra("IS_ANOTHER_PHOTO", true);
+				intent.putExtra("PRODUCT_PATH", path);
+				intent.putExtra("PRODUCT_ID", value);
+				intent.putExtra("PRODUCT_NAME", name);
+            	intent.putExtra("PRODUCT_RANKING", 0);
+            	intent.putExtra("SNACKIN_ID", snackinId);
+            	startActivity(intent);*/
             	finish();
 			}
 		});

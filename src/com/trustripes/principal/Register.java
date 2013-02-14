@@ -25,6 +25,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,6 +87,7 @@ public class Register extends Activity {
 	private String productName = "";
 	private String userSession = "";
 	private String code = "";
+	private String subCategories[];
 	private String lastfinalImagePath = "", finalImagePath = "";
 	private Bitmap bitmap = null;
 	private String countryCode = "US";
@@ -94,6 +96,7 @@ public class Register extends Activity {
 
 	HashMap<String, String> myCountryMap;
 	Registerback registerBack;
+	GetSubCategories getSubCategories;
 
 	private SharedPreferences developmentSession = null;
 	String id;
@@ -128,6 +131,7 @@ public class Register extends Activity {
 		}
 
 		registerBack = new Registerback();
+		getSubCategories = new GetSubCategories();
 
 		if (savedInstanceState != null) {
 			String savedPath = savedInstanceState.getString("ImagePath");
@@ -141,18 +145,28 @@ public class Register extends Activity {
 			code = savedInstanceState.getString("Barcode");
 			productName = savedInstanceState.getString("ProductName");
 			uploading = savedInstanceState.getBoolean("UploadingStatus");
+			subCategories = savedInstanceState.getStringArray("SubCategories");
+			if(subCategories != null){
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, subCategories);
+				spinner.setAdapter(adapter);
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			}
+			else{
+				getSubCategories.execute();
+			}
 		}
-
-		myCountryMap = new HashMap<String, String>();
+		else{
+			getSubCategories.execute();
+		}
+		
+		/*myCountryMap = new HashMap<String, String>();
 
 		populateCountries();
 
-		ArrayAdapter adapter = ArrayAdapter.createFromResource(this,
-				R.array.country_arrays,
-				android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.country_arrays, android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+		
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -162,7 +176,7 @@ public class Register extends Activity {
 			public void onNothingSelected(AdapterView<?> arg0) {
 
 			}
-		});
+		});*/
 
 		/* Get intent extra data */
 		Intent t = getIntent();
@@ -217,7 +231,7 @@ public class Register extends Activity {
 				choosePictureDialog.show();
 			}
 		});
-
+			
 		developmentSession = getSharedPreferences(ConstantValues.USER_DATA,
 				MODE_PRIVATE);
 		id = developmentSession.getString("user_id", "-1");
@@ -480,6 +494,14 @@ public class Register extends Activity {
 		outState.putString("Barcode", code);
 		outState.putString("ProductName", productName);
 		outState.putBoolean("UploadingStatus", uploading);
+		if(getSubCategories.getStatus() == Status.RUNNING){
+			getSubCategories.cancel(false);
+		}
+		else{
+			if(subCategories.length>=1){
+				outState.putStringArray("SubCategories", subCategories);
+			}
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -666,6 +688,73 @@ public class Register extends Activity {
 		return true;
 	}
 
+	public class GetSubCategories extends AsyncTask<Void, Integer, Void>{
+		
+		private StringBuilder stringBuilder;
+		private JSONArray jsonArray;
+		
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			
+			try {
+				HttpClient client = new DefaultHttpClient();
+				String getURL = ConstantValues.URL + "/ws/ws-listcategory.php";
+				HttpPost get = new HttpPost(getURL);
+			
+				HttpResponse responseGET = client.execute(get);
+				StatusLine status = responseGET.getStatusLine();
+				
+				if (status.getStatusCode() == HttpStatus.SC_OK) {
+					HttpEntity new_entity = responseGET.getEntity();
+					InputStream inputStream = new_entity.getContent();
+					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+					String line = null;
+					stringBuilder = new StringBuilder();
+					while ((line = reader.readLine()) != null) {
+						stringBuilder.append(line);
+					}
+
+					/* Converting obtained string into JSON object */
+					jsonArray = new JSONArray(stringBuilder.toString());
+					Log.i("Categories", jsonArray.toString());
+				}
+				
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			subCategories = new String[jsonArray.length()];
+			
+			for(int i=0; i<jsonArray.length(); i++){
+				JSONObject object;
+				try {
+					object = jsonArray.getJSONObject(i);
+					subCategories[i] = object.getString("namecategory");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spinner_simple_row, subCategories);
+			spinner.setAdapter(adapter);
+		}
+	}
+	
 	public class Registerback extends AsyncTask<Void, Integer, Void> {
 
 		/* Internal variables for the thread */
@@ -697,8 +786,7 @@ public class Register extends Activity {
 				bitmap.compress(CompressFormat.JPEG, 100, bos);
 				byte[] data = bos.toByteArray();
 				entity.addPart("productname", new StringBody(productName));
-				entity.addPart("uploadedfile", new ByteArrayBody(data,
-						"myImage.jpg"));
+				entity.addPart("uploadedfile", new ByteArrayBody(data,"myImage.jpg"));
 				entity.addPart("iduserdiscoverer", new StringBody(userSession));
 				entity.addPart("codeupean", new StringBody(code));
 				if (bitmap.getHeight() > bitmap.getWidth()) {
@@ -709,16 +797,14 @@ public class Register extends Activity {
 				entity.addPart("codepais", new StringBody(countryCode));
 				post.setEntity(entity);
 				if (!isCancelled()) {
-					HttpResponse responsePOST = client.execute(post,
-							localContext);
+					HttpResponse responsePOST = client.execute(post,localContext);
 					StatusLine status = responsePOST.getStatusLine();
 					/* Filter what kind of response was obtained */
 					/* Filtering http response 200 */
 					if (status.getStatusCode() == HttpStatus.SC_OK) {
 						HttpEntity new_entity = responsePOST.getEntity();
 						InputStream inputStream = new_entity.getContent();
-						BufferedReader reader = new BufferedReader(
-								new InputStreamReader(inputStream, "UTF-8"));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 						String line = null;
 						stringBuilder = new StringBuilder();
 						while ((line = reader.readLine()) != null) {
@@ -783,6 +869,8 @@ public class Register extends Activity {
 		}
 	}
 
+	
+	
 	@Override
 	public void onBackPressed() {
 		finish();

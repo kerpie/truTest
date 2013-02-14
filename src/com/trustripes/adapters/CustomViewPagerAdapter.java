@@ -219,28 +219,19 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 			ImageSnack4 = (ImageView) view.findViewById(R.id.snackFour);
 			ImageSnack5 = (ImageView) view.findViewById(R.id.snackFive);
 			ImageSnack6 = (ImageView) view.findViewById(R.id.snackSix);
-			loadingImageSnack = (ProgressBar) view
-					.findViewById(R.id.snackOne_image_loader);
-			loadingImageSnack2 = (ProgressBar) view
-					.findViewById(R.id.snackTwo_image_loader);
-			loadingImageSnack3 = (ProgressBar) view
-					.findViewById(R.id.snackThree_image_loader);
-			loadingImageSnack4 = (ProgressBar) view
-					.findViewById(R.id.snackFour_image_loader);
-			loadingImageSnack5 = (ProgressBar) view
-					.findViewById(R.id.snackFive_image_loader);
-			loadingImageSnack6 = (ProgressBar) view
-					.findViewById(R.id.snackSix_image_loader);
+			loadingImageSnack = (ProgressBar) view.findViewById(R.id.snackOne_image_loader);
+			loadingImageSnack2 = (ProgressBar) view.findViewById(R.id.snackTwo_image_loader);
+			loadingImageSnack3 = (ProgressBar) view.findViewById(R.id.snackThree_image_loader);
+			loadingImageSnack4 = (ProgressBar) view.findViewById(R.id.snackFour_image_loader);
+			loadingImageSnack5 = (ProgressBar) view.findViewById(R.id.snackFive_image_loader);
+			loadingImageSnack6 = (ProgressBar) view.findViewById(R.id.snackSix_image_loader);
 			t1 = (TextView) view.findViewById(R.id.totalAmbassador);
 			t2 = (TextView) view.findViewById(R.id.totalDiscoverer);
 			t3 = (TextView) view.findViewById(R.id.totalSnackImage);
 			t4 = (TextView) view.findViewById(R.id.totalBadged);
-			loadingImage = (ProgressBar) view
-					.findViewById(R.id.profile_image_loader);
-			Spinner mySpinner = (Spinner) view
-					.findViewById(R.id.spinner_snacks);
-			mySpinner.setAdapter(new MyCustomAdapter(context, R.layout.row,
-					opciones, image));
+			loadingImage = (ProgressBar) view.findViewById(R.id.profile_image_loader);
+			Spinner mySpinner = (Spinner) view.findViewById(R.id.spinner_snacks);
+			mySpinner.setAdapter(new MyCustomAdapter(context, R.layout.row, opciones, image));
 			mySpinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
 			id = session.getString("user_id", "-2");
 			logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -259,11 +250,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 					// i.putExtra("isEdit", true);
 					// context.startActivity(i);
 
-					Intent testIntent = new Intent(context,
-							NewUserRegistration.class);
+					Intent testIntent = new Intent(context, NewUserRegistration.class);
 					testIntent.putExtra("isEdit", true);
-					((Activity) view.getContext()).startActivityForResult(
-							testIntent, 100);
+					((Activity) view.getContext()).startActivityForResult(testIntent, 100);
 				}
 			});
 
@@ -276,11 +265,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				}
 			});
 
-			profile_text.setText(session.getString("user_name",
-					"No saved value"));
+			profile_text.setText(session.getString("user_full_name", "No saved value") + "("+session.getString("user_name","No saved Value")+")");
 
-			String imagePath = session
-					.getString("user_external_image_path", "");
+			String imagePath = session.getString("user_external_image_path", "");
 			File imageFile = new File(imagePath);
 
 			if (imageFile.exists())
@@ -355,8 +342,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 				if (photoURL.length() >= 10) {
 					URL myFileUrl = null;
 					myFileUrl = new URL(ConstantValues.URL + photoURL);
-					HttpURLConnection conn = (HttpURLConnection) myFileUrl
-							.openConnection();
+					HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
 					conn.setDoInput(true);
 					conn.connect();
 					InputStream is = conn.getInputStream();
@@ -372,11 +358,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 		protected void onPostExecute(Void result) {
 			id = Integer.valueOf(id_string);
 			if (bitmap != null) {
-				profile_image.setImageBitmap(ConstantValues
-						.makeItCircular(bitmap));
+				profile_image.setImageBitmap(ConstantValues.makeItCircular(bitmap));
 				try {
-					profileImagePath = session.getString(
-							"user_external_image_path", "");
+					profileImagePath = session.getString("user_external_image_path", "");
 					File directory = new File(profileImagePath);
 					FileOutputStream outStream;
 					outStream = new FileOutputStream(directory);
