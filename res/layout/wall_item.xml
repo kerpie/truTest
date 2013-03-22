@@ -56,8 +56,11 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/fondo_perfil"
                 android:padding="5dp" />
+            	<!--
+            		Mostrar para el fondo verde 
+            		android:background="@drawable/fondo_perfil" 
+            	-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -81,9 +84,11 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/leftPart"
-            android:paddingBottom="20dp"
             android:background="@drawable/photo_background" >
-
+			<!--
+				Agregar esta linea para mostrar el RatingBar 
+				android:paddingBottom="20dp" 
+			-->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -126,7 +131,8 @@
             android:numStars="5"
             android:padding="10dp"
             android:progressDrawable="@drawable/rating_bar"
-            android:stepSize="1" />
+            android:stepSize="1" 
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/Image_Category"
@@ -139,7 +145,7 @@
             android:background="@drawable/fondo_categoria2"
             android:padding="5dp"
             android:src="@drawable/imagen_categoria"
-             />
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>

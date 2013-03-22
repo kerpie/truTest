@@ -26,7 +26,7 @@ public class ConstantValues {
 	public static final String URL = "http://dev.trustripes.com";
 
 	/* Quality Assurance */
-	// public static final String URL = "http://qas.trustripes.com";
+	//public static final String URL = "http://qas.trustripes.com";
 
 	/* Production */
 	//public static final String URL = "http://www.trustripes.com";

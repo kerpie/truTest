@@ -152,11 +152,11 @@ public class Register extends Activity {
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			}
 			else{
-				getSubCategories.execute();
+				//getSubCategories.execute();
 			}
 		}
 		else{
-			getSubCategories.execute();
+			//getSubCategories.execute();
 		}
 		
 		/*myCountryMap = new HashMap<String, String>();
@@ -494,14 +494,14 @@ public class Register extends Activity {
 		outState.putString("Barcode", code);
 		outState.putString("ProductName", productName);
 		outState.putBoolean("UploadingStatus", uploading);
-		if(getSubCategories.getStatus() == Status.RUNNING){
-			getSubCategories.cancel(false);
-		}
-		else{
-			if(subCategories.length>=1){
-				outState.putStringArray("SubCategories", subCategories);
-			}
-		}
+//		if(getSubCategories.getStatus() == Status.RUNNING){
+//			getSubCategories.cancel(false);
+//		}
+//		else{
+//			if(subCategories.length>=1){
+//				outState.putStringArray("SubCategories", subCategories);
+//			}
+//		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -767,8 +767,7 @@ public class Register extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			// dialog = ProgressDialog.show(Register.this,
-			// "Uploading","Please wait...", true);
+				dialog = ProgressDialog.show(Register.this,"Uploading","Please wait...", true);
 		}
 
 		@Override
